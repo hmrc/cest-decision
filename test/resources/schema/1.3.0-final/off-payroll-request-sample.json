@@ -5,7 +5,7 @@
     "personalService": {
       "workerSentActualSubstitute": "yesClientAgreed",
       "workerPayActualSubstitute": "No",
-      "possibleSubstituteRejection": "Yes",
+      "possibleSubstituteRejection": "wouldReject",
       "possibleSubstituteWorkerPay": "Yes",
       "wouldWorkerPayHelper": "Yes"
     },

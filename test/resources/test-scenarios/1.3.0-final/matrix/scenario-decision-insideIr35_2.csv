@@ -1,6 +1,6 @@
 personalService     ,   workerSentActualSubstitute                ,
 personalService     ,   workerPayActualSubstitute                 ,
-personalService     ,   possibleSubstituteRejection               ,  Yes
+personalService     ,   possibleSubstituteRejection               ,  wouldReject
 personalService     ,   possibleSubstituteWorkerPay               ,  No
 personalService     ,   wouldWorkerPayHelper                      ,
 control             ,   engagerMovingWorker                       ,  canMoveWorkerWithPermission
