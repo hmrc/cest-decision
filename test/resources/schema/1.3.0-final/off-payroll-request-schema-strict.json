@@ -38,7 +38,11 @@
               "$ref": "#/definitions/binaryAnswer"
             },
             "possibleSubstituteRejection": {
-              "$ref": "#/definitions/binaryAnswer"
+              "type": "string",
+              "enum": [
+                "wouldNotReject",
+                "wouldReject"
+              ]
             },
             "possibleSubstituteWorkerPay": {
               "$ref": "#/definitions/binaryAnswer"

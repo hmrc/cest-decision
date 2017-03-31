@@ -1,6 +1,6 @@
 personalService,   workerSentActualSubstitute     ,   noSubstitutionHappened
 personalService,   workerPayActualSubstitute      ,
-personalService,   possibleSubstituteRejection    ,     Yes
-personalService,   possibleSubstituteWorkerPay    ,     Yes
-personalService,   wouldWorkerPayHelper          ,
+personalService,   possibleSubstituteRejection    ,   wouldNotReject
+personalService,   possibleSubstituteWorkerPay    ,   Yes
+personalService,   wouldWorkerPayHelper           ,
 OUTOFIR35
