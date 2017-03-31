@@ -34,6 +34,9 @@ class FinancialRiskCSVSpec extends UnitSpec with WithFakeApplication with Decisi
   val FINANCIAL_RISK_SCENARIO_0_v120 = s"/test-scenarios/${Versions.VERSION120_FINAL}/financial-risk/scenario_0.csv"
   val FINANCIAL_RISK_SCENARIOS_v120 = s"/test-scenarios/${Versions.VERSION120_FINAL}/financial-risk/scenarios.csv"
 
+  val FINANCIAL_RISK_SCENARIO_0_v130 = s"/test-scenarios/${Versions.VERSION130_FINAL}/financial-risk/scenario_0.csv"
+  val FINANCIAL_RISK_SCENARIOS_v130 = s"/test-scenarios/${Versions.VERSION130_FINAL}/financial-risk/scenarios.csv"
+
   "POST /decide" should {
     s"return 200 and expected decision for financial risk scenario 0 for version ${Versions.VERSION110_FINAL}" in {
       createRequestSendVerifyDecision(FINANCIAL_RISK_SCENARIO_0_v110, Versions.VERSION110_FINAL)
@@ -54,6 +57,13 @@ class FinancialRiskCSVSpec extends UnitSpec with WithFakeApplication with Decisi
     }
     s"return 200 and expected decision for financial risk scenarios for version ${Versions.VERSION120_FINAL}" in {
       createMultipleRequestsSendVerifyDecision(FINANCIAL_RISK_SCENARIOS_v120, Versions.VERSION120_FINAL)
+    }
+
+    s"return 200 and expected decision for financial risk scenario 0 for version ${Versions.VERSION130_FINAL}" in {
+      createRequestSendVerifyDecision(FINANCIAL_RISK_SCENARIO_0_v130, Versions.VERSION130_FINAL)
+    }
+    s"return 200 and expected decision for financial risk scenarios for version ${Versions.VERSION130_FINAL}" in {
+      createMultipleRequestsSendVerifyDecision(FINANCIAL_RISK_SCENARIOS_v130, Versions.VERSION130_FINAL)
     }
   }
 }
