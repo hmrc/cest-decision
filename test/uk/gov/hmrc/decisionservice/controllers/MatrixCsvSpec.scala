@@ -16,10 +16,13 @@
 
 package uk.gov.hmrc.decisionservice.controllers
 
+import com.kenshoo.play.metrics.PlayModule
 import uk.gov.hmrc.decisionservice.Versions
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 class MatrixCsvSpec extends UnitSpec with WithFakeApplication with DecisionControllerFinalCsvSpec {
+
+  override def bindModules = Seq(new PlayModule)
 
   val TEST_CASE_INSIDE_IR35_VERSION110_FINAL = s"/test-scenarios/${Versions.VERSION110_FINAL}/matrix/scenario-decision-insideIr35.csv"
   val TEST_CASE_INSIDE_IR35_VERSION110_FINAL_2 = s"/test-scenarios/${Versions.VERSION110_FINAL}/matrix/scenario-decision-insideIr35_2.csv"

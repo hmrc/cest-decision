@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.decisionservice.controllers
 
+import com.kenshoo.play.metrics.PlayModule
 import uk.gov.hmrc.decisionservice.Versions
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
@@ -23,6 +24,7 @@ import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
   * Created by work on 22/12/2016.
   */
 class PartAndParcelCsvSpec extends UnitSpec with WithFakeApplication with DecisionControllerClusterCsvSpec {
+  override def bindModules = Seq(new PlayModule)
   val clusterName = "partAndParcel"
 
   val PART_AND_PARCEL_SCENARIOS_v110 = s"/test-scenarios/${Versions.VERSION110_FINAL}/part-and-parcel/scenarios.csv"

@@ -19,6 +19,7 @@ package uk.gov.hmrc.decisionservice.controllers
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import cats.data.Validated
+import com.kenshoo.play.metrics.PlayModule
 import play.api.http.Status
 import play.api.libs.json.Json._
 import play.api.libs.json.{JsObject, JsString, JsValue, Json}
@@ -33,6 +34,7 @@ import uk.gov.hmrc.decisionservice.services._
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 class DecisionControllerSpec extends UnitSpec with WithFakeApplication {
+  override def bindModules = Seq(new PlayModule)
   implicit val system = ActorSystem()
   implicit val materializer = ActorMaterializer()
 
