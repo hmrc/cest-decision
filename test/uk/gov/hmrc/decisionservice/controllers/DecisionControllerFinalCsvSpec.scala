@@ -18,6 +18,7 @@ package uk.gov.hmrc.decisionservice.controllers
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
+import com.kenshoo.play.metrics.PlayModule
 import play.api.http.Status
 import play.api.libs.json.{JsValue, Json}
 import play.api.test.{FakeRequest, Helpers}
@@ -27,6 +28,7 @@ import uk.gov.hmrc.decisionservice.util.{JsonRequestValidatorFactory, JsonRespon
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 trait DecisionControllerCsvSpec extends UnitSpec with WithFakeApplication {
+  override def bindModules = Seq(new PlayModule)
   implicit val system = ActorSystem()
   implicit val materializer = ActorMaterializer()
   val decisionController = DecisionController

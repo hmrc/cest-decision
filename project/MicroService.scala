@@ -14,6 +14,8 @@ trait MicroService {
   import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
   import uk.gov.hmrc.versioning.SbtGitVersioning
   import play.sbt.routes.RoutesKeys.routesGenerator
+  import sbt.Tests.{Group, SubProcess}
+  import play.routes.compiler.StaticRoutesGenerator
 
   val appName: String
 
