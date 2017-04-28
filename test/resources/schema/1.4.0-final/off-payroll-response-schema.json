@@ -9,7 +9,6 @@
         "HIGH",
         "MEDIUM",
         "LOW",
-        "CONTINUE",
         "NotValidUseCase",
         "OUTOFIR35",
         "INIR35"
