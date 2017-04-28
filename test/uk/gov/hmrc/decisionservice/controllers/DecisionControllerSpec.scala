@@ -55,7 +55,8 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication {
       Versions.VERSION110_FINAL -> DecisionServiceTestInstance110final,
       Versions.VERSION111_FINAL -> DecisionServiceTestInstance111final,
       Versions.VERSION120_FINAL -> DecisionServiceTestInstance120final,
-      Versions.VERSION130_FINAL -> DecisionServiceTestInstance130final
+      Versions.VERSION130_FINAL -> DecisionServiceTestInstance130final,
+      Versions.VERSION140_FINAL -> DecisionServiceTestInstance140final
     )
   }
 
@@ -64,7 +65,8 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication {
       Versions.VERSION110_FINAL -> ErrorGeneratingDecisionService,
       Versions.VERSION111_FINAL -> ErrorGeneratingDecisionService,
       Versions.VERSION120_FINAL -> ErrorGeneratingDecisionService,
-      Versions.VERSION130_FINAL -> ErrorGeneratingDecisionService
+      Versions.VERSION130_FINAL -> ErrorGeneratingDecisionService,
+      Versions.VERSION140_FINAL -> ErrorGeneratingDecisionService
     )
   }
 
@@ -77,7 +79,8 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication {
     Map(Versions.VERSION110_FINAL -> iVersion3,
         Versions.VERSION111_FINAL -> iVersion3,
         Versions.VERSION120_FINAL -> iVersion3,
-        Versions.VERSION130_FINAL -> iVersion3).getOrElse(version, Map())
+        Versions.VERSION130_FINAL -> iVersion3,
+        Versions.VERSION140_FINAL -> iVersion3).getOrElse(version, Map())
   }
 
   "POST /decide" should {
@@ -93,6 +96,9 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication {
     }
     s"return 200 and correct response when request is correct for version ${Versions.VERSION130_FINAL}" in {
       runPostExpected200(Versions.VERSION130_FINAL)
+    }
+    s"return 200 and correct response when request is correct for version ${Versions.VERSION140_FINAL}" in {
+      runPostExpected200(Versions.VERSION140_FINAL)
     }
     "return 400 and error response when request does not conform to schema" in {
       val decisionController = DecisionTestController
@@ -113,6 +119,9 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication {
     }
     s"return 400 and error response when there is error in decision service for version ${Versions.VERSION130_FINAL}" in {
       runPostExpected400(Versions.VERSION130_FINAL, TEST_ERROR_CODE)
+    }
+    s"return 400 and error response when there is error in decision service for version ${Versions.VERSION140_FINAL}" in {
+      runPostExpected400(Versions.VERSION140_FINAL, TEST_ERROR_CODE)
     }
     "return 400 and error response when not supported version is passed in the request" in {
       runPostExpected400("NotSupportedVersion", INVALID_VERSION)

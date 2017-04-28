@@ -9,6 +9,7 @@
         "HIGH",
         "MEDIUM",
         "LOW",
+        "CONTINUE",
         "NotValidUseCase",
         "OUTOFIR35",
         "INIR35"
@@ -38,6 +39,21 @@
     "score": {
       "type": "object",
       "properties": {
+        "setup": {
+          "type": "string",
+          "enum": [
+            "CONTINUE",
+            "NotValidUseCase"
+          ]
+        },
+        "exit": {
+          "type": "string",
+          "enum": [
+            "CONTINUE",
+            "NotValidUseCase",
+            "INIR35"
+          ]
+        },
         "personalService": {
           "$ref": "#/definitions/weightedAnswer"
         },
@@ -53,6 +69,8 @@
       },
       "additionalProperties": false,
       "required": [
+        "setup",
+        "exit",
         "personalService",
         "control",
         "financialRisk",

@@ -36,7 +36,8 @@ object Score {
       Versions.VERSION110_FINAL -> List("control", "financialRisk", "partAndParcel", "personalService"),
       Versions.VERSION111_FINAL -> List("control", "financialRisk", "partAndParcel", "personalService"),
       Versions.VERSION120_FINAL -> List("control", "financialRisk", "partAndParcel", "personalService"),
-      Versions.VERSION130_FINAL -> List("control", "financialRisk", "partAndParcel", "personalService")
+      Versions.VERSION130_FINAL -> List("control", "financialRisk", "partAndParcel", "personalService"),
+      Versions.VERSION140_FINAL -> List("setup", "exit", "control", "financialRisk", "partAndParcel", "personalService")
     )
     versionToElements.getOrElse(version, List())
   }

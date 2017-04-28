@@ -239,7 +239,7 @@
       
       "additionalProperties": false,
       "required": [
-        "setuo",
+        "setup",
         "exit",
         "personalService",
         "control",
