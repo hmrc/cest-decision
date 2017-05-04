@@ -1,0 +1,6 @@
+control,   engagerMovingWorker          , 	canMoveWorkerWithPermission
+control,   workerDecidingHowWorkIsDone  ,   workerDecidesWithoutInput
+control,   whenWorkHasToBeDone          ,   scheduleDecidedForWorker
+control,   workerDecideWhere            ,   workerChooses
+MEDIUM
+

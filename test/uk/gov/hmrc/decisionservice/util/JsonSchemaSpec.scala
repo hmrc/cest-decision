@@ -25,7 +25,6 @@ import uk.gov.hmrc.play.test.UnitSpec
 import scala.util.Try
 
 class JsonSchemaSpec extends UnitSpec {
-  val TEST_CASE_PATH = "/schema/1.3.0-final/schema-checking-testcase.csv"
 
   " A Json Schema" should {
     s"validate correctly full example request json with the loose schema for version ${Versions.VERSION110_FINAL}" in {
@@ -52,6 +51,12 @@ class JsonSchemaSpec extends UnitSpec {
   }
 
   it should {
+    s"validate correctly full example request json with the loose schema for version ${Versions.VERSION140_FINAL}" in {
+      validateRequestWithSchema(Versions.VERSION140_FINAL)
+    }
+  }
+
+  it should {
     s"validate a request with the Strict Schema for version ${Versions.VERSION110_FINAL}" in {
       validateRequestWithStrictSchema(Versions.VERSION110_FINAL)
     }
@@ -71,7 +76,13 @@ class JsonSchemaSpec extends UnitSpec {
 
   it should {
     s"validate a request with the Strict Schema for version ${Versions.VERSION130_FINAL}" in {
-      validateRequestWithStrictSchema(Versions.VERSION120_FINAL)
+      validateRequestWithStrictSchema(Versions.VERSION130_FINAL)
+    }
+  }
+
+  it should {
+    s"validate a request with the Strict Schema for version ${Versions.VERSION140_FINAL}" in {
+      validateRequestWithStrictSchema(Versions.VERSION140_FINAL)
     }
   }
 
@@ -100,6 +111,12 @@ class JsonSchemaSpec extends UnitSpec {
   }
 
   it should {
+    s"validate a full response with the loose schema for version ${Versions.VERSION140_FINAL}" in {
+      validateResponseWithSchema(Versions.VERSION140_FINAL)
+    }
+  }
+
+  it should {
     s"validate a full response with the strict Schema for version ${Versions.VERSION110_FINAL}" in {
       validateResponseWithStrictSchema(Versions.VERSION110_FINAL)
     }
@@ -124,14 +141,39 @@ class JsonSchemaSpec extends UnitSpec {
   }
 
   it should {
+    s"validate a full response with the strict Schema for version ${Versions.VERSION140_FINAL}" in {
+      validateResponseWithStrictSchema(Versions.VERSION140_FINAL)
+    }
+  }
+
+  it should {
     s"validate request created from a flattened test case for version ${Versions.VERSION130_FINAL}" in {
-      val testCasesTry = RequestAndDecision.readFlattenedTransposed(TEST_CASE_PATH, Versions.VERSION130_FINAL)
+      val testCasesTry = RequestAndDecision.readFlattenedTransposed(
+        s"/schema/${Versions.VERSION130_FINAL}/schema-checking-testcase.csv", Versions.VERSION130_FINAL)
       testCasesTry.isSuccess shouldBe true
       val testCase = testCasesTry.get
       val request = testCase.request
       val requestJson = Json.toJson(request)
       val requestJsonString = Json.prettyPrint(requestJson)
       val maybeValidator = JsonRequestValidatorFactory(Versions.VERSION130_FINAL)
+      maybeValidator.isDefined shouldBe true
+      val validationResult = maybeValidator.get.validate(requestJsonString)
+      println(validationResult)
+      printValidationResult(validationResult)
+      validationResult.isRight shouldBe true
+    }
+  }
+
+  it should {
+    s"validate request created from a flattened test case for version ${Versions.VERSION140_FINAL}" in {
+      val testCasesTry = RequestAndDecision.readFlattenedTransposed(
+        s"/schema/${Versions.VERSION140_FINAL}/schema-checking-testcase.csv", Versions.VERSION140_FINAL)
+      testCasesTry.isSuccess shouldBe true
+      val testCase = testCasesTry.get
+      val request = testCase.request
+      val requestJson = Json.toJson(request)
+      val requestJsonString = Json.prettyPrint(requestJson)
+      val maybeValidator = JsonRequestValidatorFactory(Versions.VERSION140_FINAL)
       maybeValidator.isDefined shouldBe true
       val validationResult = maybeValidator.get.validate(requestJsonString)
       println(validationResult)

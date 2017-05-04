@@ -38,6 +38,10 @@ class PersonalServiceCsvSpec extends UnitSpec with WithFakeApplication with Deci
   val PERSONAL_SERVICE_SCENARIO_1_v130 = s"/test-scenarios/${Versions.VERSION130_FINAL}/personal-service/scenario-1.csv"
   val PERSONAL_SERVICE_SCENARIOS_v130 = s"/test-scenarios/${Versions.VERSION130_FINAL}/personal-service/scenarios.csv"
 
+  val PERSONAL_SERVICE_SCENARIO_0_v140 = s"/test-scenarios/${Versions.VERSION140_FINAL}/personal-service/scenario-0.csv"
+  val PERSONAL_SERVICE_SCENARIO_1_v140 = s"/test-scenarios/${Versions.VERSION140_FINAL}/personal-service/scenario-1.csv"
+  val PERSONAL_SERVICE_SCENARIOS_v140 = s"/test-scenarios/${Versions.VERSION140_FINAL}/personal-service/scenarios.csv"
+
   "POST /decide" should {
     s"return 200 and correct response with the expected decision for personal service scenario 0 for version ${Versions.VERSION110_FINAL}" in {
       createRequestSendVerifyDecision(PERSONAL_SERVICE_SCENARIO_0_v110, Versions.VERSION110_FINAL)
@@ -71,6 +75,16 @@ class PersonalServiceCsvSpec extends UnitSpec with WithFakeApplication with Deci
     }
     s"return 200 and correct response with the expected decision for personal service scenarios for version ${Versions.VERSION130_FINAL}" in {
       createMultipleRequestsSendVerifyDecision(PERSONAL_SERVICE_SCENARIOS_v130, Versions.VERSION130_FINAL)
+    }
+
+    s"return 200 and correct response with the expected decision for personal service scenario 0 for version ${Versions.VERSION140_FINAL}" in {
+      createRequestSendVerifyDecision(PERSONAL_SERVICE_SCENARIO_0_v140, Versions.VERSION140_FINAL)
+    }
+    s"return 200 and correct response with the expected decision for personal service scenario 1 for version ${Versions.VERSION140_FINAL}" in {
+      createRequestSendVerifyDecision(PERSONAL_SERVICE_SCENARIO_1_v140, Versions.VERSION140_FINAL)
+    }
+    s"return 200 and correct response with the expected decision for personal service scenarios for version ${Versions.VERSION140_FINAL}" in {
+      createMultipleRequestsSendVerifyDecision(PERSONAL_SERVICE_SCENARIOS_v140, Versions.VERSION140_FINAL)
     }
   }
 }

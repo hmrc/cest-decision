@@ -1,0 +1,25 @@
+setup               ,   endUserRole                               ,  personDoingWork
+setup               ,   hasContractStarted                        ,  No
+setup               ,   provideServices                           ,  limitedCompany
+exit                ,   officeHolder                              ,  Yes
+personalService     ,   workerSentActualSubstitute                ,
+personalService     ,   workerPayActualSubstitute                 ,
+personalService     ,   possibleSubstituteRejection               ,
+personalService     ,   possibleSubstituteWorkerPay               ,
+personalService     ,   wouldWorkerPayHelper                      ,
+control             ,   engagerMovingWorker                       ,
+control             ,   workerDecidingHowWorkIsDone               ,
+control             ,   whenWorkHasToBeDone                       ,
+control             ,   workerDecideWhere                         ,
+financialRisk       ,   workerProvidedMaterials                   ,
+financialRisk       ,   workerProvidedEquipment                   ,
+financialRisk       ,   workerUsedVehicle                         ,
+financialRisk       ,   workerHadOtherExpenses                    ,
+financialRisk       ,   expensesAreNotRelevantForRole             ,
+financialRisk       ,   workerMainIncome                          ,
+financialRisk       ,   paidForSubstandardWork                    ,
+partAndParcel       ,   workerReceivesBenefits                    ,
+partAndParcel       ,   workerAsLineManager                       ,
+partAndParcel       ,   contactWithEngagerCustomer                ,
+partAndParcel       ,   workerRepresentsEngagerBusiness           ,
+Inside IR35
