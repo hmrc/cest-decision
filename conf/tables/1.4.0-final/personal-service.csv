@@ -1,0 +1,14 @@
+workerSentActualSubstitute,workerPayActualSubstitute,possibleSubstituteRejection,possibleSubstituteWorkerPay,wouldWorkerPayHelper,,
+yesClientAgreed,YES,,,,OutOfIR35,TRUE
+noSubstitutionHappened,,wouldNotReject,YES,,OutOfIR35,TRUE
+yesClientAgreed,NO,,,YES,MEDIUM,FALSE
+yesClientAgreed,NO,,,NO,MEDIUM,FALSE
+noSubstitutionHappened,,wouldNotReject,NO,YES,MEDIUM,FALSE
+noSubstitutionHappened,,wouldNotReject,NO,NO,MEDIUM,FALSE
+noSubstitutionHappened,,wouldReject,,YES,MEDIUM,FALSE
+noSubstitutionHappened,,wouldReject,,NO,HIGH,FALSE
+notAgreedWithClient,,,,YES,MEDIUM,FALSE
+notAgreedWithClient,,,,NO,HIGH,FALSE
+,,wouldNotReject,YES,,OutOfIR35,TRUE
+,,wouldNotReject,NO,,MEDIUM,FALSE
+,,wouldReject,,,HIGH,FALSE

@@ -40,6 +40,12 @@ class MatrixCsvSpec extends UnitSpec with WithFakeApplication with DecisionContr
   val TEST_CASE_INSIDE_IR35_VERSION130_FINAL_2 = s"/test-scenarios/${Versions.VERSION130_FINAL}/matrix/scenario-decision-insideIr35_2.csv"
   val TEST_CASE_UNKNOWN_VERSION130_FINAL = s"/test-scenarios/${Versions.VERSION130_FINAL}/matrix/scenario-decision-unknown.csv"
 
+  val TEST_CASE_INSIDE_IR35_VERSION140_FINAL = s"/test-scenarios/${Versions.VERSION140_FINAL}/matrix/scenario-decision-insideIr35.csv"
+  val TEST_CASE_INSIDE_IR35_VERSION140_FINAL_2 = s"/test-scenarios/${Versions.VERSION140_FINAL}/matrix/scenario-decision-insideIr35_2.csv"
+  val TEST_CASE_INSIDE_IR35_VERSION140_FINAL_EXIT_CLUSTER =
+    s"/test-scenarios/${Versions.VERSION140_FINAL}/matrix/scenario-decision-insideIr35_exitFromExitCluster.csv"
+  val TEST_CASE_UNKNOWN_VERSION140_FINAL = s"/test-scenarios/${Versions.VERSION140_FINAL}/matrix/scenario-decision-unknown.csv"
+
   "POST /decide" should {
 
     s"return 200 and correct response with the inside IR35 decision for version ${Versions.VERSION110_FINAL}" in {
@@ -80,6 +86,19 @@ class MatrixCsvSpec extends UnitSpec with WithFakeApplication with DecisionContr
     }
     s"return 200 and correct response with the unknown decision for version ${Versions.VERSION130_FINAL}" in {
       createRequestSendVerifyDecision(TEST_CASE_UNKNOWN_VERSION130_FINAL, Versions.VERSION130_FINAL)
+    }
+
+    s"return 200 and correct response with the inside IR35 decision for version ${Versions.VERSION140_FINAL}" in {
+      createRequestSendVerifyDecision(TEST_CASE_INSIDE_IR35_VERSION140_FINAL, Versions.VERSION140_FINAL)
+    }
+    s"return 200 and correct response with the inside IR35 decision for version ${Versions.VERSION140_FINAL} - 2" in {
+      createRequestSendVerifyDecision(TEST_CASE_INSIDE_IR35_VERSION140_FINAL_2, Versions.VERSION140_FINAL)
+    }
+    s"return 200 and correct response with the inside IR35 decision for version ${Versions.VERSION140_FINAL} - exit from Exit Cluster" in {
+      createRequestSendVerifyDecision(TEST_CASE_INSIDE_IR35_VERSION140_FINAL_EXIT_CLUSTER, Versions.VERSION140_FINAL)
+    }
+    s"return 200 and correct response with the unknown decision for version ${Versions.VERSION140_FINAL}" in {
+      createRequestSendVerifyDecision(TEST_CASE_UNKNOWN_VERSION140_FINAL, Versions.VERSION140_FINAL)
     }
   }
 }
