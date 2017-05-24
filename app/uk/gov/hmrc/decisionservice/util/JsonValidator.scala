@@ -63,7 +63,8 @@ object JsonResponseStrictValidatorFactory {
     Versions.VERSION111_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION111_FINAL}/off-payroll-response-schema-strict.json"),
     Versions.VERSION120_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION120_FINAL}/off-payroll-response-schema-strict.json"),
     Versions.VERSION130_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION130_FINAL}/off-payroll-response-schema-strict.json"),
-    Versions.VERSION140_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION140_FINAL}/off-payroll-response-schema-strict.json")
+    Versions.VERSION140_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION140_FINAL}/off-payroll-response-schema-strict.json"),
+    Versions.VERSION150_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION150_FINAL}/off-payroll-response-schema-strict.json")
   )
   def apply(version:String):Option[JsonSchemaValidator] = jsonResponseValidators.get(version)
 }
@@ -74,7 +75,8 @@ object JsonRequestStrictValidatorFactory {
     Versions.VERSION111_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION111_FINAL}/off-payroll-request-schema-strict.json"),
     Versions.VERSION120_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION120_FINAL}/off-payroll-request-schema-strict.json"),
     Versions.VERSION130_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION130_FINAL}/off-payroll-request-schema-strict.json"),
-    Versions.VERSION140_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION140_FINAL}/off-payroll-request-schema-strict.json")
+    Versions.VERSION140_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION140_FINAL}/off-payroll-request-schema-strict.json"),
+    Versions.VERSION150_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION150_FINAL}/off-payroll-request-schema-strict.json")
   )
   def apply(version:String):Option[JsonSchemaValidator] = jsonRequestValidators.get(version)
 }
@@ -85,7 +87,8 @@ object JsonResponseValidatorFactory {
     Versions.VERSION111_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION111_FINAL}/off-payroll-response-schema.json"),
     Versions.VERSION120_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION120_FINAL}/off-payroll-response-schema.json"),
     Versions.VERSION130_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION130_FINAL}/off-payroll-response-schema.json"),
-    Versions.VERSION140_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION140_FINAL}/off-payroll-response-schema.json")
+    Versions.VERSION140_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION140_FINAL}/off-payroll-response-schema.json"),
+    Versions.VERSION150_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION150_FINAL}/off-payroll-response-schema.json")
   )
   def apply(version:String):Option[JsonSchemaValidator] = jsonResponseValidators.get(version)
 }
@@ -96,7 +99,8 @@ object JsonRequestValidatorFactory {
     Versions.VERSION111_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION111_FINAL}/off-payroll-request-schema.json"),
     Versions.VERSION120_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION120_FINAL}/off-payroll-request-schema.json"),
     Versions.VERSION130_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION130_FINAL}/off-payroll-request-schema.json"),
-    Versions.VERSION140_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION140_FINAL}/off-payroll-request-schema.json")
+    Versions.VERSION140_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION140_FINAL}/off-payroll-request-schema.json"),
+    Versions.VERSION150_FINAL -> JsonSchemaValidator(s"/schema/${Versions.VERSION150_FINAL}/off-payroll-request-schema.json")
   )
   def apply(version:String):Option[JsonSchemaValidator] = jsonRequestValidators.get(version)
 }

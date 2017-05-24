@@ -104,7 +104,8 @@ object DecisionController extends DecisionController {
     Versions.VERSION111_FINAL -> DecisionServiceInstance111Final,
     Versions.VERSION120_FINAL -> DecisionServiceInstance120Final,
     Versions.VERSION130_FINAL -> DecisionServiceInstance130Final,
-    Versions.VERSION140_FINAL -> DecisionServiceInstance140Final
+    Versions.VERSION140_FINAL -> DecisionServiceInstance140Final,
+    Versions.VERSION150_FINAL -> DecisionServiceInstance150Final
   )
 }
 

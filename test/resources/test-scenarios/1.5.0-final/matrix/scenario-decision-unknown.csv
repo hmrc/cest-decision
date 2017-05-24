@@ -1,0 +1,25 @@
+setup               ,   endUserRole                               ,  personDoingWork
+setup               ,   hasContractStarted                        ,  Yes
+setup               ,   provideServices                           ,  limitedCompany
+exit                ,   officeHolder                              ,  No
+personalService     ,   workerSentActualSubstitute                ,  yesClientAgreed
+personalService     ,   workerPayActualSubstitute                 ,  No
+personalService     ,   possibleSubstituteRejection               ,  wouldNotReject
+personalService     ,   possibleSubstituteWorkerPay               ,  Yes
+personalService     ,   wouldWorkerPayHelper                      ,  Yes
+control             ,   engagerMovingWorker                       ,  canMoveWorkerWithPermission
+control             ,   workerDecidingHowWorkIsDone               ,  workerDecidesWithoutInput
+control             ,   whenWorkHasToBeDone                       ,  scheduleDecidedForWorker
+control             ,   workerDecideWhere                         ,  workerChooses
+financialRisk       ,   workerProvidedMaterials                   ,  No
+financialRisk       ,   workerProvidedEquipment                   ,  No
+financialRisk       ,   workerUsedVehicle                         ,  No
+financialRisk       ,   workerHadOtherExpenses                    ,  No
+financialRisk       ,   expensesAreNotRelevantForRole             ,  Yes
+financialRisk       ,   workerMainIncome                          ,  incomeFixed
+financialRisk       ,   paidForSubstandardWork                    ,  asPartOfUsualRateInWorkingHours
+partAndParcel       ,   workerReceivesBenefits                    ,  No
+partAndParcel       ,   workerAsLineManager                       ,  No
+partAndParcel       ,   contactWithEngagerCustomer                ,  No
+partAndParcel       ,   workerRepresentsEngagerBusiness           ,
+Unknown
