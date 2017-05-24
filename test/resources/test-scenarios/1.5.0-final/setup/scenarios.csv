@@ -1,0 +1,4 @@
+setup,endUserRole            ,personDoingWork,personDoingWork,endClient,placingAgency,endClient,none,none,none
+setup,hasContractStarted     ,Yes,No,No,No,Yes,No,Yes,Yes
+setup,provideServices        ,limitedCompany,partnership,intermediary,soleTrader,partnership,intermediary,soleTrader,partnership
+,,CONTINUE,CONTINUE,CONTINUE,CONTINUE,CONTINUE,CONTINUE,CONTINUE,CONTINUE
