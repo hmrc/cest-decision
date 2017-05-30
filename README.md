@@ -28,7 +28,7 @@
 To run the application execute
 
 ```
-sbt ~run 9849
+sbt ~run 9849 
 
 ```
 
