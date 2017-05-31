@@ -16,11 +16,12 @@
 
 package uk.gov.hmrc.decisionservice.util
 
-import cats.data.Xor
+
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.Versions
 import uk.gov.hmrc.decisionservice.testutil.RequestAndDecision
 import uk.gov.hmrc.play.test.UnitSpec
+import cats.syntax.either._
 
 import scala.util.Try
 
@@ -196,12 +197,12 @@ class JsonSchemaSpec extends UnitSpec {
     tryJson.get
   }
 
-  private def printValidationResult(result: Xor[String, Unit]) = {
-    result.leftMap { report => {
-      info(report)
+  private def printValidationResult(result: Either[String, Unit]) = {
+    result.leftMap(report => {
+      info(report)})
     }
-    }
-  }
+
+
 
   def validateRequestWithSchema(version: String): Unit = validateRequestWithSchema(version, JsonRequestValidatorFactory(version))
 

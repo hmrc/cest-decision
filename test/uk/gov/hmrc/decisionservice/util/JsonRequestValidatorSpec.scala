@@ -18,6 +18,7 @@ package uk.gov.hmrc.decisionservice.util
 
 import uk.gov.hmrc.decisionservice.Versions
 import uk.gov.hmrc.play.test.UnitSpec
+import cats.syntax.either._
 
 
 class JsonRequestValidatorSpec extends UnitSpec {

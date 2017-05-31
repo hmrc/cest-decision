@@ -17,7 +17,7 @@
 package uk.gov.hmrc.decisionservice.ruleengine
 
 
-import cats.data.{Validated, Xor}
+import cats.data.Validated
 import play.api.Logger
 import uk.gov.hmrc.decisionservice.Validation
 import uk.gov.hmrc.decisionservice.model._
