@@ -16,11 +16,13 @@
 
 package uk.gov.hmrc.decisionservice.util
 
-import cats.data.Xor
+
 import com.github.fge.jackson.JsonLoader
 import com.github.fge.jsonschema.core.report.ProcessingReport
 import com.github.fge.jsonschema.main.JsonSchemaFactory
 import uk.gov.hmrc.decisionservice.Versions
+import cats.implicits._
+
 
 import scala.io.Source
 
@@ -35,7 +37,7 @@ trait JsonValidatorTrait {
     def unapply(processingReport:ProcessingReport):Option[String] = Some(reportAsString(processingReport))
   }
 
-  def validate(json : String) : Xor[String,Unit] = {
+  def validate(json : String) : Either[String,Unit] = {
     val jsonSchemaFactory: JsonSchemaFactory = JsonSchemaFactory.byDefault()
     val stream = getClass.getResourceAsStream(schemaPath)
     val content = Source.fromInputStream(stream).mkString
@@ -44,8 +46,8 @@ trait JsonValidatorTrait {
     val jsonNode = JsonLoader.fromString(json)
 
     schema.validate(jsonNode) match {
-      case SuccessfulReport() => Xor.right(())
-      case ProblemReport(s) => Xor.left(s)
+      case SuccessfulReport() => Either.right(())
+      case ProblemReport(s) => Either.left(s)
     }
   }
 

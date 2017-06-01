@@ -15,7 +15,7 @@
  */
 
 package uk.gov.hmrc.decisionservice
-import cats.data.{Validated, Xor}
+import cats.data.{Validated}
 import org.scalacheck.{Gen, Prop, Properties}
 import uk.gov.hmrc.decisionservice.model.rules.{>>>, CarryOver, SectionRuleSet}
 import uk.gov.hmrc.decisionservice.ruleengine.{FactMatcherInstance, RulesFileMetaData, RulesLoaderInstance}
