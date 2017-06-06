@@ -1,0 +1,5 @@
+endUserRole,hasContractStarted,provideServices,,
+personDoingWork,,,CONTINUE,FALSE
+endClient,,,CONTINUE,FALSE
+placingAgency,,,CONTINUE,FALSE
+none,,,CONTINUE,FALSE

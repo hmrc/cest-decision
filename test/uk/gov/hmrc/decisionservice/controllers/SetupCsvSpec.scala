@@ -28,6 +28,11 @@ class SetupCsvSpec extends UnitSpec with WithFakeApplication with DecisionContro
   val SETUP_SCENARIOS_VERSION140_SCENARIO_0 = s"/test-scenarios/${Versions.VERSION140_FINAL}/${clusterName}/scenario_0.csv"
   val SETUP_SCENARIOS_VERSION140_SCENARIO_NOT_VALID = s"/test-scenarios/${Versions.VERSION140_FINAL}/${clusterName}/scenario_NotValid.csv"
 
+
+  val SETUP_SCENARIOS_VERSION150_FINAL = s"/test-scenarios/${Versions.VERSION150_FINAL}/${clusterName}/scenarios.csv"
+  val SETUP_SCENARIOS_VERSION150_SCENARIO_0 = s"/test-scenarios/${Versions.VERSION150_FINAL}/${clusterName}/scenario_0.csv"
+  val SETUP_SCENARIOS_VERSION150_SCENARIO_NOT_VALID = s"/test-scenarios/${Versions.VERSION150_FINAL}/${clusterName}/scenario_NotValid.csv"
+
   "POST /decide" should {
 
     s"return 200 and correct response setup scenario 0 for version ${Versions.VERSION140_FINAL}" in {
@@ -38,6 +43,16 @@ class SetupCsvSpec extends UnitSpec with WithFakeApplication with DecisionContro
     }
     s"return 200 and correct response setup scenarios for version ${Versions.VERSION140_FINAL}" in {
       createMultipleRequestsSendVerifyDecision(SETUP_SCENARIOS_VERSION140_FINAL, Versions.VERSION140_FINAL)
+    }
+
+    s"return 200 and correct response setup scenario 0 for version ${Versions.VERSION150_FINAL}" in {
+      createRequestSendVerifyDecision(SETUP_SCENARIOS_VERSION150_SCENARIO_0, Versions.VERSION150_FINAL)
+    }
+    s"return 200 and correct response setup invalid scenario for version ${Versions.VERSION150_FINAL}" in {
+      createRequestSendVerifyDecision(SETUP_SCENARIOS_VERSION150_SCENARIO_NOT_VALID, Versions.VERSION150_FINAL)
+    }
+    s"return 200 and correct response setup scenarios for version ${Versions.VERSION150_FINAL}" in {
+      createMultipleRequestsSendVerifyDecision(SETUP_SCENARIOS_VERSION150_FINAL, Versions.VERSION150_FINAL)
     }
   }
 }

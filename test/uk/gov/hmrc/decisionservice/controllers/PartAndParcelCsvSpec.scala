@@ -42,6 +42,9 @@ class PartAndParcelCsvSpec extends UnitSpec with WithFakeApplication with Decisi
   val PART_AND_PARCEL_SCENARIOS_v140 = s"/test-scenarios/${Versions.VERSION140_FINAL}/part-and-parcel/scenarios.csv"
   val PART_AND_PARCEL_SCENARIO_0_v140 = s"/test-scenarios/${Versions.VERSION140_FINAL}/part-and-parcel/scenario_0.csv"
 
+  val PART_AND_PARCEL_SCENARIOS_v150 = s"/test-scenarios/${Versions.VERSION150_FINAL}/part-and-parcel/scenarios.csv"
+  val PART_AND_PARCEL_SCENARIO_0_v150 = s"/test-scenarios/${Versions.VERSION150_FINAL}/part-and-parcel/scenario_0.csv"
+
   "POST /decide" should {
     s"return 200 and expected decision for part and parcel scenario 0 for version ${Versions.VERSION110_FINAL}" in {
       createRequestSendVerifyDecision(PART_AND_PARCEL_SCENARIO_0_v110, Versions.VERSION110_FINAL)
@@ -76,6 +79,13 @@ class PartAndParcelCsvSpec extends UnitSpec with WithFakeApplication with Decisi
     }
     s"return 200 and expected decision for part and parcel scenarios for version ${Versions.VERSION140_FINAL}" in {
       createMultipleRequestsSendVerifyDecision(PART_AND_PARCEL_SCENARIOS_v140, Versions.VERSION140_FINAL)
+    }
+
+    s"return 200 and expected decision for part and parcel scenario 0 for version ${Versions.VERSION150_FINAL}" in {
+      createRequestSendVerifyDecision(PART_AND_PARCEL_SCENARIO_0_v150, Versions.VERSION150_FINAL)
+    }
+    s"return 200 and expected decision for part and parcel scenarios for version ${Versions.VERSION150_FINAL}" in {
+      createMultipleRequestsSendVerifyDecision(PART_AND_PARCEL_SCENARIOS_v150, Versions.VERSION150_FINAL)
     }
   }
 }

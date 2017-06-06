@@ -1,0 +1,4 @@
+setup,   endUserRole            , 	personDoingWork
+setup,   hasContractStarted     ,   Yes
+setup,   provideServices        ,   limitedCompany
+CONTINUE
