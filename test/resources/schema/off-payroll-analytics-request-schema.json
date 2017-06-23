@@ -1,7 +1,7 @@
 {
   "publicId": "https://raw.githubusercontent.com/hmrc/off-payroll-decision/master/test/resources/schema/off-payroll-analytics-request-schema.json",
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "description": "Analytics Request v0.1 (for Decision Request Version 1.5.0-final)",
+  "description": "Analytics Request 1.5.0-final (for Decision Request Version 1.5.0-final)",
   "type": "object",
   "definitions": {
     "binaryAnswer": {
@@ -15,7 +15,7 @@
   "properties": {
     "version": {
       "type": "string",
-      "pattern": "^[0-9]{1,2}[.][0-9]{1,2}$"
+      "pattern": "^[0-9]{1,2}[.][0-9]{1,2}[.][0-9]{1,2}-?[a-zA-Z-_]*$"
     },
     "compressedInterview": {
       "type": "string"

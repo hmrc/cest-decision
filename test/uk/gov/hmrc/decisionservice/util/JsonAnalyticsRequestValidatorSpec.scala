@@ -27,7 +27,7 @@ class JsonAnalyticsRequestValidatorSpec extends UnitSpec {
 
   val  valid = """
    |{
-   |  "version": "9.34",
+   |  "version": "1.5.0-final",
    |  "compressedInterview": "nisi elit cillum dolore",
    |  "route": "incididunt reprehenderit",
    |  "decision": "Excepteur de",
@@ -47,7 +47,7 @@ class JsonAnalyticsRequestValidatorSpec extends UnitSpec {
 
   val  invalidAnswerOption = """
    |{
-   |  "version": "9.34",
+   |  "version": "1.5.0-final",
    |  "compressedInterview": "nisi elit cillum dolore",
    |  "route": "incididunt reprehenderit",
    |  "decision": "Excepteur de",
@@ -64,7 +64,7 @@ class JsonAnalyticsRequestValidatorSpec extends UnitSpec {
 
   val  missingRequiredFields = """
    |{
-   |  "version": "1.5",
+   |  "version": "1.5.0-final",
    |  "compressedInterview": "laborum ullamco mollit laboris",
    |  "route": "cupidatat",
    |  "decision": "voluptate",
@@ -78,7 +78,7 @@ class JsonAnalyticsRequestValidatorSpec extends UnitSpec {
 
   val  invalidSection = """
   |{
-  |  "version": "78.6",
+  |  "version": "1.5.0-final",
   |  "compressedInterview": "minim",
   |  "route": "par",
   |  "decision": "officia sit",
