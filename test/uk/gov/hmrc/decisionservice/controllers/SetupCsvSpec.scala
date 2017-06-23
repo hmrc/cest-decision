@@ -17,42 +17,42 @@
 package uk.gov.hmrc.decisionservice.controllers
 
 import com.kenshoo.play.metrics.PlayModule
-import uk.gov.hmrc.decisionservice.Versions
+import uk.gov.hmrc.decisionservice.DecisionServiceVersions
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 class SetupCsvSpec extends UnitSpec with WithFakeApplication with DecisionControllerClusterCsvSpec {
   val clusterName = "setup"
   override def bindModules = Seq(new PlayModule)
 
-  val SETUP_SCENARIOS_VERSION140_FINAL = s"/test-scenarios/${Versions.VERSION140_FINAL}/${clusterName}/scenarios.csv"
-  val SETUP_SCENARIOS_VERSION140_SCENARIO_0 = s"/test-scenarios/${Versions.VERSION140_FINAL}/${clusterName}/scenario_0.csv"
-  val SETUP_SCENARIOS_VERSION140_SCENARIO_NOT_VALID = s"/test-scenarios/${Versions.VERSION140_FINAL}/${clusterName}/scenario_NotValid.csv"
+  val SETUP_SCENARIOS_VERSION140_FINAL = s"/test-scenarios/${DecisionServiceVersions.VERSION140_FINAL}/${clusterName}/scenarios.csv"
+  val SETUP_SCENARIOS_VERSION140_SCENARIO_0 = s"/test-scenarios/${DecisionServiceVersions.VERSION140_FINAL}/${clusterName}/scenario_0.csv"
+  val SETUP_SCENARIOS_VERSION140_SCENARIO_NOT_VALID = s"/test-scenarios/${DecisionServiceVersions.VERSION140_FINAL}/${clusterName}/scenario_NotValid.csv"
 
 
-  val SETUP_SCENARIOS_VERSION150_FINAL = s"/test-scenarios/${Versions.VERSION150_FINAL}/${clusterName}/scenarios.csv"
-  val SETUP_SCENARIOS_VERSION150_SCENARIO_0 = s"/test-scenarios/${Versions.VERSION150_FINAL}/${clusterName}/scenario_0.csv"
-  val SETUP_SCENARIOS_VERSION150_SCENARIO_NOT_VALID = s"/test-scenarios/${Versions.VERSION150_FINAL}/${clusterName}/scenario_NotValid.csv"
+  val SETUP_SCENARIOS_VERSION150_FINAL = s"/test-scenarios/${DecisionServiceVersions.VERSION150_FINAL}/${clusterName}/scenarios.csv"
+  val SETUP_SCENARIOS_VERSION150_SCENARIO_0 = s"/test-scenarios/${DecisionServiceVersions.VERSION150_FINAL}/${clusterName}/scenario_0.csv"
+  val SETUP_SCENARIOS_VERSION150_SCENARIO_NOT_VALID = s"/test-scenarios/${DecisionServiceVersions.VERSION150_FINAL}/${clusterName}/scenario_NotValid.csv"
 
   "POST /decide" should {
 
-    s"return 200 and correct response setup scenario 0 for version ${Versions.VERSION140_FINAL}" in {
-      createRequestSendVerifyDecision(SETUP_SCENARIOS_VERSION140_SCENARIO_0, Versions.VERSION140_FINAL)
+    s"return 200 and correct response setup scenario 0 for version ${DecisionServiceVersions.VERSION140_FINAL}" in {
+      createRequestSendVerifyDecision(SETUP_SCENARIOS_VERSION140_SCENARIO_0, DecisionServiceVersions.VERSION140_FINAL)
     }
-    s"return 200 and correct response setup invalid scenario for version ${Versions.VERSION140_FINAL}" in {
-      createRequestSendVerifyDecision(SETUP_SCENARIOS_VERSION140_SCENARIO_NOT_VALID, Versions.VERSION140_FINAL)
+    s"return 200 and correct response setup invalid scenario for version ${DecisionServiceVersions.VERSION140_FINAL}" in {
+      createRequestSendVerifyDecision(SETUP_SCENARIOS_VERSION140_SCENARIO_NOT_VALID, DecisionServiceVersions.VERSION140_FINAL)
     }
-    s"return 200 and correct response setup scenarios for version ${Versions.VERSION140_FINAL}" in {
-      createMultipleRequestsSendVerifyDecision(SETUP_SCENARIOS_VERSION140_FINAL, Versions.VERSION140_FINAL)
+    s"return 200 and correct response setup scenarios for version ${DecisionServiceVersions.VERSION140_FINAL}" in {
+      createMultipleRequestsSendVerifyDecision(SETUP_SCENARIOS_VERSION140_FINAL, DecisionServiceVersions.VERSION140_FINAL)
     }
 
-    s"return 200 and correct response setup scenario 0 for version ${Versions.VERSION150_FINAL}" in {
-      createRequestSendVerifyDecision(SETUP_SCENARIOS_VERSION150_SCENARIO_0, Versions.VERSION150_FINAL)
+    s"return 200 and correct response setup scenario 0 for version ${DecisionServiceVersions.VERSION150_FINAL}" in {
+      createRequestSendVerifyDecision(SETUP_SCENARIOS_VERSION150_SCENARIO_0, DecisionServiceVersions.VERSION150_FINAL)
     }
-    s"return 200 and correct response setup invalid scenario for version ${Versions.VERSION150_FINAL}" in {
-      createRequestSendVerifyDecision(SETUP_SCENARIOS_VERSION150_SCENARIO_NOT_VALID, Versions.VERSION150_FINAL)
+    s"return 200 and correct response setup invalid scenario for version ${DecisionServiceVersions.VERSION150_FINAL}" in {
+      createRequestSendVerifyDecision(SETUP_SCENARIOS_VERSION150_SCENARIO_NOT_VALID, DecisionServiceVersions.VERSION150_FINAL)
     }
-    s"return 200 and correct response setup scenarios for version ${Versions.VERSION150_FINAL}" in {
-      createMultipleRequestsSendVerifyDecision(SETUP_SCENARIOS_VERSION150_FINAL, Versions.VERSION150_FINAL)
+    s"return 200 and correct response setup scenarios for version ${DecisionServiceVersions.VERSION150_FINAL}" in {
+      createMultipleRequestsSendVerifyDecision(SETUP_SCENARIOS_VERSION150_FINAL, DecisionServiceVersions.VERSION150_FINAL)
     }
   }
 }

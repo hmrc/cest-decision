@@ -28,7 +28,9 @@ private object AppDependencies {
     "com.github.fge" % "json-schema-validator" % "2.2.6")
 
   val compile = Seq(
-
+    "org.reactivemongo" %% "play2-reactivemongo" % "0.12.0",
+    "org.reactivemongo" %% "reactivemongo-bson" % "0.12.0",
+    "org.reactivemongo" %% "reactivemongo-akkastream" % "0.12.0",
     ws,
     "uk.gov.hmrc" %% "microservice-bootstrap" % microserviceBootstrapVersion,
     "uk.gov.hmrc" %% "play-authorisation" % playAuthVersion,
@@ -52,7 +54,9 @@ private object AppDependencies {
         "org.scalatest" %% "scalatest" % scalaTestVersion % scope,
         "org.pegdown" % "pegdown" % pegdownVersion % scope,
         "com.typesafe.play" %% "play-test" % PlayVersion.current % scope,
-        "uk.gov.hmrc" %% "logback-json-logger" % logbackJsonLoggerVersion
+        "uk.gov.hmrc" %% "logback-json-logger" % logbackJsonLoggerVersion,
+        "org.eu.acolyte" % "play-reactive-mongo_2.11" % "1.0.43-j7p" % scope,
+        "org.mockito" % "mockito-core" % "1.9.0" % scope
       )
     }.test
   }

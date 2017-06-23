@@ -23,13 +23,17 @@ package object decisionservice {
 
   type Validation[T] = Validated[List[DecisionServiceError],T]
 
-  object Versions {
+  object DecisionServiceVersions {
     val VERSION110_FINAL = "1.1.0-final"
     val VERSION111_FINAL = "1.1.1-final"
     val VERSION120_FINAL = "1.2.0-final"
     val VERSION130_FINAL = "1.3.0-final"
     val VERSION140_FINAL = "1.4.0-final"
     val VERSION150_FINAL = "1.5.0-final"
+  }
+
+  object AnalyticsVersions {
+    val VERSION_01 = "0.1"
   }
 
 }

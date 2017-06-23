@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.decisionservice.testutilspec
 
-import uk.gov.hmrc.decisionservice.Versions
+import uk.gov.hmrc.decisionservice.DecisionServiceVersions
 import uk.gov.hmrc.decisionservice.testutil.RequestAndDecision
 import uk.gov.hmrc.play.test.UnitSpec
 
@@ -27,7 +27,7 @@ class RequestAndDecisionSpec extends UnitSpec {
 
   "test scenario reader" should {
     "read valid flattened test case file" in {
-      val testCasesTry = RequestAndDecision.readFlattened(FLATTENED_TEST_CASES, Versions.VERSION110_FINAL)
+      val testCasesTry = RequestAndDecision.readFlattened(FLATTENED_TEST_CASES, DecisionServiceVersions.VERSION110_FINAL)
       testCasesTry.isSuccess shouldBe true
       val testCases = testCasesTry.get
       testCases should have size 5
@@ -36,7 +36,7 @@ class RequestAndDecisionSpec extends UnitSpec {
       }
     }
     "read valid flattened transposed test case file" in {
-      val testCasesTry = RequestAndDecision.readFlattenedTransposed(FLATTENED_TEST_CASES_TRANSPOSED, Versions.VERSION110_FINAL)
+      val testCasesTry = RequestAndDecision.readFlattenedTransposed(FLATTENED_TEST_CASES_TRANSPOSED, DecisionServiceVersions.VERSION110_FINAL)
       testCasesTry.isSuccess shouldBe true
       val testCase = testCasesTry.get
       testCase.request.interview should have size 3
