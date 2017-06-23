@@ -2,4 +2,5 @@
 
 GET        /hello-world             uk.gov.hmrc.decisionservice.controllers.MicroserviceHelloWorld.hello
 POST       /decide                  uk.gov.hmrc.decisionservice.controllers.DecisionController.decide
+POST       /log                     @uk.gov.hmrc.decisionservice.controllers.AnalyticsController.logInterview
 

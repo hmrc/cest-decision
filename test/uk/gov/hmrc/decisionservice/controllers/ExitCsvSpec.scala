@@ -17,43 +17,43 @@
 package uk.gov.hmrc.decisionservice.controllers
 
 import com.kenshoo.play.metrics.PlayModule
-import uk.gov.hmrc.decisionservice.Versions
+import uk.gov.hmrc.decisionservice.DecisionServiceVersions
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 class ExitCsvSpec extends UnitSpec with WithFakeApplication with DecisionControllerClusterCsvSpec {
   val clusterName = "exit"
   override def bindModules = Seq(new PlayModule)
 
-  val EXIT_SCENARIOS_VERSION140_FINAL = s"/test-scenarios/${Versions.VERSION140_FINAL}/${clusterName}/scenarios.csv"
-  val EXIT_SCENARIOS_VERSION140_SCENARIO_0 = s"/test-scenarios/${Versions.VERSION140_FINAL}/${clusterName}/scenario_0.csv"
-  val EXIT_SCENARIOS_VERSION140_SCENARIO_1 = s"/test-scenarios/${Versions.VERSION140_FINAL}/${clusterName}/scenario_1.csv"
+  val EXIT_SCENARIOS_VERSION140_FINAL = s"/test-scenarios/${DecisionServiceVersions.VERSION140_FINAL}/${clusterName}/scenarios.csv"
+  val EXIT_SCENARIOS_VERSION140_SCENARIO_0 = s"/test-scenarios/${DecisionServiceVersions.VERSION140_FINAL}/${clusterName}/scenario_0.csv"
+  val EXIT_SCENARIOS_VERSION140_SCENARIO_1 = s"/test-scenarios/${DecisionServiceVersions.VERSION140_FINAL}/${clusterName}/scenario_1.csv"
 
-  val EXIT_SCENARIOS_VERSION150_FINAL = s"/test-scenarios/${Versions.VERSION150_FINAL}/${clusterName}/scenarios.csv"
-  val EXIT_SCENARIOS_VERSION150_SCENARIO_0 = s"/test-scenarios/${Versions.VERSION150_FINAL}/${clusterName}/scenario_0.csv"
-  val EXIT_SCENARIOS_VERSION150_SCENARIO_1 = s"/test-scenarios/${Versions.VERSION150_FINAL}/${clusterName}/scenario_1.csv"
+  val EXIT_SCENARIOS_VERSION150_FINAL = s"/test-scenarios/${DecisionServiceVersions.VERSION150_FINAL}/${clusterName}/scenarios.csv"
+  val EXIT_SCENARIOS_VERSION150_SCENARIO_0 = s"/test-scenarios/${DecisionServiceVersions.VERSION150_FINAL}/${clusterName}/scenario_0.csv"
+  val EXIT_SCENARIOS_VERSION150_SCENARIO_1 = s"/test-scenarios/${DecisionServiceVersions.VERSION150_FINAL}/${clusterName}/scenario_1.csv"
 
   "POST /decide" should {
 
-    s"return 200 and correct response exit scenario 0 for version ${Versions.VERSION140_FINAL}" in {
-      createRequestSendVerifyDecision(EXIT_SCENARIOS_VERSION140_SCENARIO_0, Versions.VERSION140_FINAL)
+    s"return 200 and correct response exit scenario 0 for version ${DecisionServiceVersions.VERSION140_FINAL}" in {
+      createRequestSendVerifyDecision(EXIT_SCENARIOS_VERSION140_SCENARIO_0, DecisionServiceVersions.VERSION140_FINAL)
     }
 
-    s"return 200 and correct response exit scenario 1 for version ${Versions.VERSION140_FINAL}" in {
-      createRequestSendVerifyDecision(EXIT_SCENARIOS_VERSION140_SCENARIO_1, Versions.VERSION140_FINAL)
+    s"return 200 and correct response exit scenario 1 for version ${DecisionServiceVersions.VERSION140_FINAL}" in {
+      createRequestSendVerifyDecision(EXIT_SCENARIOS_VERSION140_SCENARIO_1, DecisionServiceVersions.VERSION140_FINAL)
     }
-    s"return 200 and correct response exit scenarios for version ${Versions.VERSION140_FINAL}" in {
-      createMultipleRequestsSendVerifyDecision(EXIT_SCENARIOS_VERSION140_FINAL, Versions.VERSION140_FINAL)
-    }
-
-    s"return 200 and correct response exit scenario 0 for version ${Versions.VERSION150_FINAL}" in {
-      createRequestSendVerifyDecision(EXIT_SCENARIOS_VERSION150_SCENARIO_0, Versions.VERSION150_FINAL)
+    s"return 200 and correct response exit scenarios for version ${DecisionServiceVersions.VERSION140_FINAL}" in {
+      createMultipleRequestsSendVerifyDecision(EXIT_SCENARIOS_VERSION140_FINAL, DecisionServiceVersions.VERSION140_FINAL)
     }
 
-    s"return 200 and correct response exit scenario 1 for version ${Versions.VERSION150_FINAL}" in {
-      createRequestSendVerifyDecision(EXIT_SCENARIOS_VERSION150_SCENARIO_1, Versions.VERSION150_FINAL)
+    s"return 200 and correct response exit scenario 0 for version ${DecisionServiceVersions.VERSION150_FINAL}" in {
+      createRequestSendVerifyDecision(EXIT_SCENARIOS_VERSION150_SCENARIO_0, DecisionServiceVersions.VERSION150_FINAL)
     }
-    s"return 200 and correct response exit scenarios for version ${Versions.VERSION150_FINAL}" in {
-      createMultipleRequestsSendVerifyDecision(EXIT_SCENARIOS_VERSION150_FINAL, Versions.VERSION150_FINAL)
+
+    s"return 200 and correct response exit scenario 1 for version ${DecisionServiceVersions.VERSION150_FINAL}" in {
+      createRequestSendVerifyDecision(EXIT_SCENARIOS_VERSION150_SCENARIO_1, DecisionServiceVersions.VERSION150_FINAL)
+    }
+    s"return 200 and correct response exit scenarios for version ${DecisionServiceVersions.VERSION150_FINAL}" in {
+      createMultipleRequestsSendVerifyDecision(EXIT_SCENARIOS_VERSION150_FINAL, DecisionServiceVersions.VERSION150_FINAL)
     }
   }
 }
