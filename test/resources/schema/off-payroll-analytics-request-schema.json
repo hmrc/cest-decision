@@ -20,6 +20,10 @@
     "compressedInterview": {
       "type": "string"
     },
+    "completed": {
+      "type": "string",
+      "pattern": "^[0-9]{4}[-][0-9]{2}[-][0-9]{1,2} [0-9]{2}[:][0-9]{2}[:][0-9]{2}$"
+    },
     "route": {
       "type": "string"
     },
@@ -221,6 +225,7 @@
     "route",
     "decision",
     "setup",
+    "completed",
     "exit"
   ],
   "minProperties": 0,

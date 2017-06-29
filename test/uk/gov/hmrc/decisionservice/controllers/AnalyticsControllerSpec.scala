@@ -17,6 +17,7 @@
 package uk.gov.hmrc.decisionservice.controllers
 
 
+import org.joda.time.DateTime
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import play.api.http.Status
@@ -42,7 +43,7 @@ class AnalyticsControllerSpec extends UnitSpec with MockitoSugar with ScalaFutur
   private val exit = Exit("Yes")
   private val setup = Setup("personDoingWork","Yes","partnership")
   private val interview = Interview("0.1", "jghdfsu@#", "IR35", "OUT", Option("123"), setup, exit, Option.empty,
-    Option.empty, Option.empty, Option.empty)
+    Option.empty, Option.empty, Option.empty, new DateTime("2017-06-27 11:02:02"))
 
   val  missingRequiredFields = """
                                  |{

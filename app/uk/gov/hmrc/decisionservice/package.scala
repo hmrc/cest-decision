@@ -33,7 +33,7 @@ package object decisionservice {
   }
 
   object AnalyticsVersions {
-    val VERSION_01 = "0.1"
+    val VERSION150_FINAL = "1.5.0-final"
   }
 
 }

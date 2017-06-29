@@ -31,6 +31,7 @@ private object AppDependencies {
     "org.reactivemongo" %% "play2-reactivemongo" % "0.12.0",
     "org.reactivemongo" %% "reactivemongo-bson" % "0.12.0",
     "org.reactivemongo" %% "reactivemongo-akkastream" % "0.12.0",
+    "ai.x" %% "play-json-extensions" % "0.8.0",
     ws,
     "uk.gov.hmrc" %% "microservice-bootstrap" % microserviceBootstrapVersion,
     "uk.gov.hmrc" %% "play-authorisation" % playAuthVersion,
