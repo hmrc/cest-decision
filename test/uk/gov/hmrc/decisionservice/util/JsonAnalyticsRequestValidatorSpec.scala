@@ -23,7 +23,7 @@ import uk.gov.hmrc.play.test.UnitSpec
 
 class JsonAnalyticsRequestValidatorSpec extends UnitSpec {
 
-  val jsonRequestValidator = JsonAnalyticsRequestValidatorFactory(AnalyticsVersions.VERSION_01).get
+  val jsonRequestValidator = JsonAnalyticsRequestValidatorFactory(AnalyticsVersions.VERSION150_FINAL).get
 
   val  valid = """
    |{
@@ -31,6 +31,28 @@ class JsonAnalyticsRequestValidatorSpec extends UnitSpec {
    |  "compressedInterview": "nisi elit cillum dolore",
    |  "route": "incididunt reprehenderit",
    |  "decision": "Excepteur de",
+   |  "completed": "2017-06-27 11:02:02",
+   |  "setup": {
+   |    "endUserRole": "personDoingWork",
+   |    "hasContractStarted": "Yes",
+   |    "provideServices": "partnership"
+   |  },
+   |  "exit": {
+   |    "officeHolder": "Yes"
+   |  },
+   |  "partAndParcel": {
+   |    "workerRepresentsEngagerBusiness": "workAsBusiness"
+   |  }
+   |}
+   """.stripMargin
+
+  val  invalidDateFormat = """
+   |{
+   |  "version": "1.5.0-final",
+   |  "compressedInterview": "nisi elit cillum dolore",
+   |  "route": "incididunt reprehenderit",
+   |  "decision": "Excepteur de",
+   |  "completed": "27-06-2017 11:02:02",
    |  "setup": {
    |    "endUserRole": "personDoingWork",
    |    "hasContractStarted": "Yes",
@@ -51,6 +73,7 @@ class JsonAnalyticsRequestValidatorSpec extends UnitSpec {
    |  "compressedInterview": "nisi elit cillum dolore",
    |  "route": "incididunt reprehenderit",
    |  "decision": "Excepteur de",
+   |  "completed": "2017-06-27 11:02:02",
    |  "setup": {
    |    "endUserRole": "personDoingWork",
    |    "hasContractStarted": "Yes",
@@ -81,6 +104,7 @@ class JsonAnalyticsRequestValidatorSpec extends UnitSpec {
   |  "version": "1.5.0-final",
   |  "compressedInterview": "minim",
   |  "route": "par",
+  |  "completed": "2017-06-27 11:02:02",
   |  "decision": "officia sit",
   |  "setup": {
   |    "endUserRole": "placingAgency",
@@ -98,7 +122,6 @@ class JsonAnalyticsRequestValidatorSpec extends UnitSpec {
   |}
    """.stripMargin
 
-
   "json validator" should {
 
     "return true for valid json" in {
@@ -109,12 +132,16 @@ class JsonAnalyticsRequestValidatorSpec extends UnitSpec {
       verify(invalidAnswerOption, "NotSure")
     }
 
+    "return false for invalid date format" in {
+      verify(invalidDateFormat, "27-06-2017 11:02:02")
+    }
+
     "return false for invalid section" in {
       verify(invalidSection, "someOtherSection")
     }
 
     "return false for missing required fields" in {
-      verify(missingRequiredFields, "missing required properties", "exit")
+      verify(missingRequiredFields, "missing required properties", "exit", "completed")
     }
   }
 

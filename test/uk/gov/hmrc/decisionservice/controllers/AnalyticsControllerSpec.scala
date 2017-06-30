@@ -17,6 +17,7 @@
 package uk.gov.hmrc.decisionservice.controllers
 
 
+import org.joda.time.DateTime
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import play.api.http.Status
@@ -24,11 +25,13 @@ import play.api.libs.json.Json._
 import play.api.libs.json.JsValue
 import play.api.test.{FakeRequest, Helpers}
 import reactivemongo.api.commands.{DefaultWriteResult, WriteError}
-import uk.gov.hmrc.decisionservice.model.analytics.{Exit, Interview, Setup}
+import uk.gov.hmrc.decisionservice.model.analytics.{Exit, Interview, InterviewSearch, Setup}
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 import uk.gov.hmrc.play.test.UnitSpec
 import org.mockito.Matchers._
 import org.mockito.Mockito._
+import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
+import scala.concurrent.ExecutionContext.Implicits.global
 
 import scala.concurrent.Future
 
@@ -42,9 +45,11 @@ class AnalyticsControllerSpec extends UnitSpec with MockitoSugar with ScalaFutur
   private val exit = Exit("Yes")
   private val setup = Setup("personDoingWork","Yes","partnership")
   private val interview = Interview("0.1", "jghdfsu@#", "IR35", "OUT", Option("123"), setup, exit, Option.empty,
-    Option.empty, Option.empty, Option.empty)
+    Option.empty, Option.empty, Option.empty, new DateTime())
 
-  val  missingRequiredFields = """
+  private val interviewSearch = InterviewSearch("1.5.0-final", new DateTime(), new DateTime())
+
+  val  interviewWithMissingRequiredFields = """
                                  |{
                                  |  "version": "1.5",
                                  |  "compressedInterview": "laborum ullamco mollit laboris",
@@ -58,25 +63,45 @@ class AnalyticsControllerSpec extends UnitSpec with MockitoSugar with ScalaFutur
                                  |}
                                """.stripMargin
 
-  val request: FakeRequest[JsValue] = FakeRequest(Helpers.POST, "/log").withBody(toJson(interview))
-  val invalidJsonRequest: FakeRequest[JsValue] = FakeRequest(Helpers.POST, "/log").withBody(toJson(missingRequiredFields))
+  val  interviewSearchWithMissingRequiredFields = """
+        |{
+        |  "version": "1.5.0-final",
+        |  "start": "2017-06-27 11:00:00"
+        |}
+        """.stripMargin
+
+  val validLogInterviewRequest: FakeRequest[JsValue] = FakeRequest(Helpers.POST, "/log").withBody(toJson(interview))
+  val validLogInterviewSearchRequest: FakeRequest[JsValue] = FakeRequest(Helpers.POST, "/search").withBody(toJson(interviewSearch))
+  val invalidJsonLogInterviewRequest: FakeRequest[JsValue] = FakeRequest(Helpers.POST, "/log").withBody(toJson(interviewWithMissingRequiredFields))
+  val invalidJsonSearchInterviewRequest: FakeRequest[JsValue] = FakeRequest(Helpers.POST, "/search").withBody(toJson(interviewSearchWithMissingRequiredFields))
 
   "The AnalyticsController" should {
     "respond with 200 OK when an Interview is received" in {
       when(repository.save(any(classOf[Interview]))).thenReturn(Future.successful(okResult))
-      val result = analyticsController.logInterview(request)
+      val result = analyticsController.logInterview(validLogInterviewRequest)
       status(result) shouldBe Status.OK
     }
 
     "respond with 500 Internal Server Error when not able to save due to a DB error" in {
       when(repository.save(any(classOf[Interview]))).thenReturn(Future.successful(failResult))
-      val result = analyticsController.logInterview(request)
+      val result = analyticsController.logInterview(validLogInterviewRequest)
       status(result) shouldBe Status.INTERNAL_SERVER_ERROR
     }
 
     "respond with 400 Bad Request when json is not valid" in {
-      val result = analyticsController.logInterview(invalidJsonRequest)
+      val result = analyticsController.logInterview(invalidJsonSearchInterviewRequest)
       status(result) shouldBe Status.BAD_REQUEST
+    }
+
+    "respond with 400 Bad Request when json is not valid for interview search" in {
+      val result = analyticsController.searchInterview(invalidJsonSearchInterviewRequest)
+      status(result) shouldBe Status.BAD_REQUEST
+    }
+
+    "respond with 200 OK when json is valid for interview search" in {
+      when(repository.get(any(classOf[InterviewSearch]))).thenReturn(Future(List()))
+      val result = analyticsController.searchInterview(validLogInterviewSearchRequest)
+      status(result) shouldBe Status.OK
     }
 
   }

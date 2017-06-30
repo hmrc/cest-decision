@@ -16,12 +16,16 @@
 
 package uk.gov.hmrc.decisionservice.repository
 
+import java.util.Date
 import javax.inject.{Inject, Singleton}
 
+import org.joda.time.DateTime
+import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.commands.WriteResult
+import reactivemongo.bson.{BSONDateTime, BSONDocument, BSONHandler}
 import reactivemongo.play.json.collection.JSONCollection
-import uk.gov.hmrc.decisionservice.model.analytics.Interview
+import uk.gov.hmrc.decisionservice.model.analytics._
 import reactivemongo.play.json._
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -32,10 +36,30 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class InterviewRepository @Inject()(val mongo: ReactiveMongoApi)(implicit ec:ExecutionContext) {
 
+  implicit val sFormat = Json.format[Setup]
+  implicit val eFormat = Json.format[Exit]
+  implicit val psFormat = Json.format[PersonalService]
+  implicit val cFormat = Json.format[Control]
+  implicit val frFormat = Json.format[FinancialRisk]
+  implicit val ppFormat = Json.format[PartAndParcel]
+  implicit val iFormat = Json.format[Interview]
+
+  implicit val isFormat = Json.format[InterviewSearch]
+
   val repository: Future[JSONCollection] =
     mongo.database.map(_.collection[JSONCollection]("Off-Payroll-Interview"))
 
-  def save(i:Interview) : Future[WriteResult] =
-    repository.flatMap(_.insert(i))
+  def save(i:Interview) : Future[WriteResult] = repository.flatMap(_.insert(i))
+
+  def get(search: InterviewSearch): Future[List[Interview]] = {
+    val query = BSONDocument("completed" ->
+      BSONDocument("$gte" -> search.start.getMillis, "$lt" -> search.end.getMillis))
+    repository.flatMap(_.find(query).cursor[Interview].collect[List]())
+  }
+
+  implicit object BSONDateTimeHandler extends BSONHandler[BSONDateTime, DateTime] {
+    def read(time: BSONDateTime) = new DateTime(time.value)
+    def write(time: DateTime) = BSONDateTime(time.getMillis)
+  }
 
 }
