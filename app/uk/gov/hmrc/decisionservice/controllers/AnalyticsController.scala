@@ -28,7 +28,7 @@ import uk.gov.hmrc.play.microservice.controller.BaseController
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
-import uk.gov.hmrc.decisionservice.transformer.InterviewTransformer
+import uk.gov.hmrc.decisionservice.transformer.InterviewTransformer._
 
 /**
   * Created by work on 20/06/2017.
@@ -54,15 +54,8 @@ class AnalyticsController @Inject() (repository:InterviewRepository) extends Bas
       error    => Future.successful(BadRequest(JsError.toJson(error))),
       req      => {
         repository.get(req).map { interviews =>
-          if (interviews.isEmpty) {
-            val json = Json.toJson(AnalyticsResponse(List()))
+            val json = Json.toJson(AnalyticsResponse(toResponse(interviews)))
             Ok(json)
-          }
-          else {
-            val analyticsResponse = AnalyticsResponse(InterviewTransformer.toResponse(interviews))
-            val json = Json.toJson(analyticsResponse)
-            Ok(json)
-          }
         }
       }
     )

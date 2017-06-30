@@ -36,7 +36,6 @@ import scala.concurrent.{ExecutionContext, Future}
 @Singleton
 class InterviewRepository @Inject()(val mongo: ReactiveMongoApi)(implicit ec:ExecutionContext) {
 
-
   implicit val sFormat = Json.format[Setup]
   implicit val eFormat = Json.format[Exit]
   implicit val psFormat = Json.format[PersonalService]

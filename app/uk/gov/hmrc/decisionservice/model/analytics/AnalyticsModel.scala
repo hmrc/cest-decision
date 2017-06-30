@@ -18,7 +18,6 @@ package uk.gov.hmrc.decisionservice.model.analytics
 
 import ai.x.play.json.Jsonx
 import org.joda.time.DateTime
-import play.api.libs.functional.syntax.toFunctionalBuilderOps
 import play.api.libs.json._
 
 /**
