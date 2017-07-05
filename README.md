@@ -1,7 +1,7 @@
 # off-payroll-decision
 
 
-## Supported versions
+## Supported versions 
 | Version | Description |
 |:--------|:------------|
 |1.1.0-final|Public Beta version. [More...](./docs/api_1.1.0-final.md)|
@@ -28,7 +28,7 @@
 To run the application execute
 
 ```
-sbt ~run 9849
+sbt ~run 9849 
 
 ```
 

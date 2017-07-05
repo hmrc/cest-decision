@@ -23,7 +23,7 @@ import org.slf4j.MDC
 import play.api.Logger
 import play.api.libs.json.{JsError, JsSuccess, Json}
 import play.api.mvc.Action
-import uk.gov.hmrc.decisionservice.{Validation, Versions}
+import uk.gov.hmrc.decisionservice.{Validation, DecisionServiceVersions}
 import uk.gov.hmrc.decisionservice.model.VersionError
 import uk.gov.hmrc.decisionservice.model.api.ErrorCodes._
 import uk.gov.hmrc.decisionservice.model.api._
@@ -100,12 +100,12 @@ trait DecisionController extends BaseController {
 
 object DecisionController extends DecisionController {
   lazy val decisionServices = Map(
-    Versions.VERSION110_FINAL -> DecisionServiceInstance110Final,
-    Versions.VERSION111_FINAL -> DecisionServiceInstance111Final,
-    Versions.VERSION120_FINAL -> DecisionServiceInstance120Final,
-    Versions.VERSION130_FINAL -> DecisionServiceInstance130Final,
-    Versions.VERSION140_FINAL -> DecisionServiceInstance140Final,
-    Versions.VERSION150_FINAL -> DecisionServiceInstance150Final
+    DecisionServiceVersions.VERSION110_FINAL -> DecisionServiceInstance110Final,
+    DecisionServiceVersions.VERSION111_FINAL -> DecisionServiceInstance111Final,
+    DecisionServiceVersions.VERSION120_FINAL -> DecisionServiceInstance120Final,
+    DecisionServiceVersions.VERSION130_FINAL -> DecisionServiceInstance130Final,
+    DecisionServiceVersions.VERSION140_FINAL -> DecisionServiceInstance140Final,
+    DecisionServiceVersions.VERSION150_FINAL -> DecisionServiceInstance150Final
   )
 }
 

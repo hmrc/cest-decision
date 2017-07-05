@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.decisionservice.testutil
 
-import uk.gov.hmrc.decisionservice.Versions
+import uk.gov.hmrc.decisionservice.DecisionServiceVersions
 import uk.gov.hmrc.decisionservice.model.api.DecisionRequest
 
 import scala.util.Try
