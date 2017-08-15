@@ -21,12 +21,14 @@ import javax.inject.Inject
 import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc.Action
-import uk.gov.hmrc.decisionservice.model.analytics.Interview
+import uk.gov.hmrc.decisionservice.model.analytics.{AnalyticsResponse, Interview, InterviewSearch}
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 import uk.gov.hmrc.play.microservice.controller.BaseController
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
+import uk.gov.hmrc.decisionservice.transformer.InterviewTransformer._
 
 /**
   * Created by work on 20/06/2017.
@@ -34,12 +36,27 @@ import scala.concurrent.Future
 class AnalyticsController @Inject() (repository:InterviewRepository) extends BaseController {
 
   def logInterview  = Action.async(parse.json) { implicit request =>
-    Logger.debug(s"request: ${request.body.toString.replaceAll("\"", "")}")
+    Logger.debug(s"log request: ${request.body.toString.replaceAll("\"", "")}")
     request.body.validate[Interview].fold(
       error    => Future.successful(BadRequest(JsError.toJson(error))),
-      response => repository.save(response).map{
-        case result if result.ok        => Ok
-        case result                     => InternalServerError(result.writeErrors.mkString)
+      req      => {
+        repository.save(req).map {
+          case result if result.ok => Ok
+          case result => InternalServerError(result.writeErrors.mkString)
+        }
+      }
+    )
+  }
+
+  def searchInterview  = Action.async(parse.json) { implicit request =>
+    Logger.debug(s"search request: ${request.body.toString.replaceAll("\"", "")}")
+    request.body.validate[InterviewSearch].fold(
+      error    => Future.successful(BadRequest(JsError.toJson(error))),
+      req      => {
+        repository.get(req).map { interviews =>
+            val json = Json.toJson(AnalyticsResponse(toResponse(interviews)))
+            Ok(json)
+        }
       }
     )
   }

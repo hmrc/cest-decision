@@ -108,7 +108,14 @@ object JsonRequestValidatorFactory {
 
 object JsonAnalyticsRequestValidatorFactory{
   lazy val jsonRequestValidators = Map(
-    AnalyticsVersions.VERSION_01 -> JsonSchemaValidator(s"/schema/off-payroll-analytics-request-schema.json")
+    AnalyticsVersions.VERSION150_FINAL -> JsonSchemaValidator(s"/schema/off-payroll-analytics-request-schema.json")
+  )
+  def apply(version:String):Option[JsonSchemaValidator] = jsonRequestValidators.get(version)
+}
+
+object JsonAnalyticsSearchRequestValidatorFactory{
+  lazy val jsonRequestValidators = Map(
+    AnalyticsVersions.VERSION150_FINAL -> JsonSchemaValidator(s"/schema/off-payroll-analytics-search-request-schema.json")
   )
   def apply(version:String):Option[JsonSchemaValidator] = jsonRequestValidators.get(version)
 }
