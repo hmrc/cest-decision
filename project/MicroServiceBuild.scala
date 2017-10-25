@@ -12,6 +12,7 @@ private object AppDependencies {
   import play.sbt.PlayImport._
 
   private val microserviceBootstrapVersion = "5.15.0"
+//  private val microserviceBootstrapVersion = "6.9.0"
   private val playAuthVersion = "4.3.0"
   private val playHealthVersion = "2.1.0"
   private val logbackJsonLoggerVersion = "3.1.0"
@@ -57,7 +58,8 @@ private object AppDependencies {
         "com.typesafe.play" %% "play-test" % PlayVersion.current % scope,
         "uk.gov.hmrc" %% "logback-json-logger" % logbackJsonLoggerVersion,
         "org.eu.acolyte" % "play-reactive-mongo_2.11" % "1.0.43-j7p" % scope,
-        "org.mockito" % "mockito-core" % "1.9.0" % scope
+        "org.mockito" % "mockito-core" % "1.9.0" % scope,
+        "org.scalatestplus.play" %% "scalatestplus-play" % "2.0.0" % scope
       )
     }.test
   }

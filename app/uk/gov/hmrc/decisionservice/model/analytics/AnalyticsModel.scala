@@ -48,6 +48,8 @@ case class PartAndParcel(workerReceivesBenefits: Option[String], workerAsLineMan
 
 case class InterviewSearch(version: String, start: DateTime, end: DateTime)
 
+case class AnalyticsSearch(start: DateTime, end: DateTime, decision: String)
+
 case class InterviewSearchResponse(compressedInterview: String, route: String, decision: String, count: String, setupEndUserRole: String,
                      setupHasContractStarted: String, setupProvideServices: String,  exitOfficeHolder: String,
                      personalServiceWorkerSentActualSubstitute: String, personalServiceWorkerPayActualSubstitute: String,
