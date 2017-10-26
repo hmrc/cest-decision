@@ -48,6 +48,9 @@ class AnalyticsService @Inject() (repo: InterviewRepository,
       repo.count(AnalyticsSearch(currentMonth._1, currentMonth._2, OUTSIDE_IR35)).map { count =>
         Logger.warn(s"number of interviews during ${currentMonth._3} $OUTSIDE_IR35 is $count ")
       }
+      repo.count(AnalyticsSearch(currentMonth._1, currentMonth._2, UNKNOWN)).map { count =>
+        Logger.warn(s"number of interviews during ${currentMonth._3} $UNKNOWN is $count ")
+      }
     })
   }
 

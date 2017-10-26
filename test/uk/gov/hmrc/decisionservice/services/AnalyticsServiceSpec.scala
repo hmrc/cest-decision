@@ -32,6 +32,7 @@ class AnalyticsServiceSpec extends UnitSpec with MockitoSugar with OneAppPerSuit
   private val config = app.injector.instanceOf[Configuration]
   private val INSIDE_IR35 = "Inside IR35"
   private val OUTSIDE_IR35 = "Outside IR35"
+  private val UNKNOWN = "Unknown"
   private val CURRENT_DATE = DateTime.now()
 
   private val currentYear: Int = CURRENT_DATE.getYear
@@ -47,15 +48,19 @@ class AnalyticsServiceSpec extends UnitSpec with MockitoSugar with OneAppPerSuit
       val intRepo = mock[InterviewRepository]
       when(intRepo.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))) thenReturn Future.successful(2)
       when(intRepo.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))) thenReturn Future.successful(1)
+      when(intRepo.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, UNKNOWN))) thenReturn Future.successful(1)
       when(intRepo.count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), INSIDE_IR35))) thenReturn Future.successful(2)
       when(intRepo.count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), OUTSIDE_IR35))) thenReturn Future.successful(1)
+      when(intRepo.count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), UNKNOWN))) thenReturn Future.successful(1)
 
       new AnalyticsService(intRepo, config ++ Configuration("analytics.gatherAnalytics" -> "true", "analytics.reportingPeriod" -> 2))
 
       verify(intRepo, times(1)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))
       verify(intRepo, times(1)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))
+      verify(intRepo, times(1)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, UNKNOWN))
       verify(intRepo, times(1)).count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), INSIDE_IR35))
       verify(intRepo, times(1)).count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), OUTSIDE_IR35))
+      verify(intRepo, times(1)).count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), UNKNOWN))
     }
   }
 
