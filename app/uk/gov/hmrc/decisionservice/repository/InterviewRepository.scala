@@ -16,17 +16,17 @@
 
 package uk.gov.hmrc.decisionservice.repository
 
-import java.util.Date
 import javax.inject.{Inject, Singleton}
 
 import org.joda.time.DateTime
 import play.api.libs.json.Json
 import play.modules.reactivemongo.ReactiveMongoApi
 import reactivemongo.api.commands.WriteResult
+import reactivemongo.api.commands.bson.BSONCountCommand.{Count, CountResult}
 import reactivemongo.bson.{BSONDateTime, BSONDocument, BSONHandler}
+import reactivemongo.play.json._
 import reactivemongo.play.json.collection.JSONCollection
 import uk.gov.hmrc.decisionservice.model.analytics._
-import reactivemongo.play.json._
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -55,6 +55,12 @@ class InterviewRepository @Inject()(val mongo: ReactiveMongoApi)(implicit ec:Exe
     val query = BSONDocument("completed" ->
       BSONDocument("$gte" -> search.start.getMillis, "$lt" -> search.end.getMillis))
     repository.flatMap(_.find(query).cursor[Interview].collect[List]())
+  }
+
+  def count(search: AnalyticsSearch): Future[Int] = {
+    val query = Json.obj("decision" -> search.decision,  "completed" ->
+      Json.obj("$gte" -> search.start.getMillis, "$lt" -> search.end.getMillis))
+    repository.flatMap(_.count(Some(query)))
   }
 
   implicit object BSONDateTimeHandler extends BSONHandler[BSONDateTime, DateTime] {
