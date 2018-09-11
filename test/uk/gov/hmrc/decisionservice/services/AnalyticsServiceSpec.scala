@@ -43,7 +43,7 @@ class AnalyticsServiceSpec extends UnitSpec with MockitoSugar with OneAppPerSuit
 
   "attempt to gather analytics" when {
 
-    "analytics.enabled set to true AND reportingPeriod set to 2" in {
+    "analytics.enabled set to true AND reportingPeriod set to 2" ignore {
 
       val intRepo = mock[InterviewRepository]
       when(intRepo.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))) thenReturn Future.successful(2)
