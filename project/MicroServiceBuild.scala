@@ -11,10 +11,9 @@ private object AppDependencies {
   import play.core.PlayVersion
   import play.sbt.PlayImport._
 
-  private val microserviceBootstrapVersion = "8.3.0"
-  private val playUrlBindersVersion = "2.1.0"
+  private val microserviceBootstrapVersion = "8.4.0"
   private val domainVersion = "5.2.0"
-  private val hmrcTestVersion = "3.1.0"
+  private val hmrcTestVersion = "3.2.0"
   private val scalaTestVersion = "3.0.3"
   private val pegdownVersion = "1.6.0"
 
@@ -30,7 +29,6 @@ private object AppDependencies {
     "ai.x" %% "play-json-extensions" % "0.8.0",
     ws,
     "uk.gov.hmrc" %% "microservice-bootstrap" % microserviceBootstrapVersion,
-    "uk.gov.hmrc" %% "play-url-binders" % playUrlBindersVersion,
     "uk.gov.hmrc" %% "domain" % domainVersion,
     "org.typelevel" %% "cats" % catsVersion
   ) ++ jsonValidationDependencies
