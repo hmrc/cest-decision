@@ -17,7 +17,6 @@
 package uk.gov.hmrc.decisionservice.controllers
 
 import javax.inject.Inject
-
 import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc.Action
@@ -33,14 +32,14 @@ import uk.gov.hmrc.decisionservice.transformer.InterviewTransformer._
 /**
   * Created by work on 20/06/2017.
   */
-class AnalyticsController @Inject() (repository:InterviewRepository) extends BaseController {
+class AnalyticsController @Inject() (val repository: InterviewRepository) extends BaseController {
 
-  def logInterview  = Action.async(parse.json) { implicit request =>
+  def logInterview: Action[JsValue] = Action.async(parse.json) { implicit request =>
     Logger.debug(s"log request: ${request.body.toString.replaceAll("\"", "")}")
     request.body.validate[Interview].fold(
       error    => Future.successful(BadRequest(JsError.toJson(error))),
       req      => {
-        repository.save(req).map {
+        repository().save(req).map {
           case result if result.ok => Ok
           case result => InternalServerError(result.writeErrors.mkString)
         }
@@ -48,12 +47,12 @@ class AnalyticsController @Inject() (repository:InterviewRepository) extends Bas
     )
   }
 
-  def searchInterview  = Action.async(parse.json) { implicit request =>
+  def searchInterview: Action[JsValue] = Action.async(parse.json) { implicit request =>
     Logger.debug(s"search request: ${request.body.toString.replaceAll("\"", "")}")
     request.body.validate[InterviewSearch].fold(
       error    => Future.successful(BadRequest(JsError.toJson(error))),
       req      => {
-        repository.get(req).map { interviews =>
+        repository().get(req).map { interviews =>
             val json = Json.toJson(AnalyticsResponse(toResponse(interviews)))
             Ok(json)
         }

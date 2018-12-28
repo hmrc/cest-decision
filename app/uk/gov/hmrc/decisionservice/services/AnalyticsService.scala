@@ -17,15 +17,11 @@
 package uk.gov.hmrc.decisionservice.services
 
 import javax.inject.Inject
-
 import org.joda.time.DateTime
 import play.api.{Configuration, Logger}
 import uk.gov.hmrc.decisionservice.model.analytics.AnalyticsSearch
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
-
-import scala.concurrent.Await
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration._
 
 class AnalyticsService @Inject() (repo: InterviewRepository,
                                   configuration:Configuration) {
@@ -42,13 +38,13 @@ class AnalyticsService @Inject() (repo: InterviewRepository,
 
     months.foreach(mon => {
       val currentMonth = reportingDates(mon)
-      repo.count(AnalyticsSearch(currentMonth._1, currentMonth._2, INSIDE_IR35)).map { count =>
+      repo().count(AnalyticsSearch(currentMonth._1, currentMonth._2, INSIDE_IR35)).map { count =>
         Logger.warn(s"number of interviews during ${currentMonth._3} $INSIDE_IR35 is $count ")
       }
-      repo.count(AnalyticsSearch(currentMonth._1, currentMonth._2, OUTSIDE_IR35)).map { count =>
+      repo().count(AnalyticsSearch(currentMonth._1, currentMonth._2, OUTSIDE_IR35)).map { count =>
         Logger.warn(s"number of interviews during ${currentMonth._3} $OUTSIDE_IR35 is $count ")
       }
-      repo.count(AnalyticsSearch(currentMonth._1, currentMonth._2, UNKNOWN)).map { count =>
+      repo().count(AnalyticsSearch(currentMonth._1, currentMonth._2, UNKNOWN)).map { count =>
         Logger.warn(s"number of interviews during ${currentMonth._3} $UNKNOWN is $count ")
       }
     })

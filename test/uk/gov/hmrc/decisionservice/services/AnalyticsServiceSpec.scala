@@ -23,7 +23,7 @@ import org.scalatestplus.play.OneAppPerSuite
 import uk.gov.hmrc.play.test.UnitSpec
 import play.api.Configuration
 import uk.gov.hmrc.decisionservice.model.analytics.AnalyticsSearch
-import uk.gov.hmrc.decisionservice.repository.InterviewRepository
+import uk.gov.hmrc.decisionservice.repository.{InterviewRepository, ReactiveMongoRepository}
 
 import scala.concurrent.Future
 
@@ -46,21 +46,21 @@ class AnalyticsServiceSpec extends UnitSpec with MockitoSugar with OneAppPerSuit
     "analytics.enabled set to true AND reportingPeriod set to 2" ignore {
 
       val intRepo = mock[InterviewRepository]
-      when(intRepo.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))) thenReturn Future.successful(2)
-      when(intRepo.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))) thenReturn Future.successful(1)
-      when(intRepo.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, UNKNOWN))) thenReturn Future.successful(1)
-      when(intRepo.count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), INSIDE_IR35))) thenReturn Future.successful(2)
-      when(intRepo.count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), OUTSIDE_IR35))) thenReturn Future.successful(1)
-      when(intRepo.count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), UNKNOWN))) thenReturn Future.successful(1)
+      when(intRepo().count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))) thenReturn Future.successful(2)
+      when(intRepo().count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))) thenReturn Future.successful(1)
+      when(intRepo().count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, UNKNOWN))) thenReturn Future.successful(1)
+      when(intRepo().count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), INSIDE_IR35))) thenReturn Future.successful(2)
+      when(intRepo().count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), OUTSIDE_IR35))) thenReturn Future.successful(1)
+      when(intRepo().count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), UNKNOWN))) thenReturn Future.successful(1)
 
       new AnalyticsService(intRepo, config ++ Configuration("analytics.gatherAnalytics" -> "true", "analytics.reportingPeriod" -> 2))
 
-      verify(intRepo, times(1)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))
-      verify(intRepo, times(1)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))
-      verify(intRepo, times(1)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, UNKNOWN))
-      verify(intRepo, times(1)).count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), INSIDE_IR35))
-      verify(intRepo, times(1)).count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), OUTSIDE_IR35))
-      verify(intRepo, times(1)).count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), UNKNOWN))
+      verify(intRepo(), times(1)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))
+      verify(intRepo(), times(1)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))
+      verify(intRepo(), times(1)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, UNKNOWN))
+      verify(intRepo(), times(1)).count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), INSIDE_IR35))
+      verify(intRepo(), times(1)).count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), OUTSIDE_IR35))
+      verify(intRepo(), times(1)).count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), UNKNOWN))
     }
   }
 
@@ -68,14 +68,16 @@ class AnalyticsServiceSpec extends UnitSpec with MockitoSugar with OneAppPerSuit
 
     "analytics.enabled NOT set to true" in {
 
+      val testReactiveRepository: ReactiveMongoRepository = mock[ReactiveMongoRepository]
       val intRepo = mock[InterviewRepository]
-      when(intRepo.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))) thenReturn Future.successful(1)
-      when(intRepo.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))) thenReturn Future.successful(1)
+      when(intRepo.apply()).thenReturn(testReactiveRepository)
+      when(testReactiveRepository.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))) thenReturn Future.successful(1)
+      when(testReactiveRepository.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))) thenReturn Future.successful(1)
 
       new AnalyticsService(intRepo, config ++ Configuration("analytics.gatherAnalytics" -> false, "analytics.reportingPeriod" -> 1))
 
-      verify(intRepo, times(0)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))
-      verify(intRepo, times(0)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))
+      verify(intRepo(), times(0)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))
+      verify(intRepo(), times(0)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))
     }
   }
 
