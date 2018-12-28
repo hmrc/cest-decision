@@ -18,6 +18,7 @@ package uk.gov.hmrc.decisionservice.controllers
 
 
 import org.joda.time.DateTime
+import org.mockito.ArgumentMatchers
 import org.scalatest.concurrent.ScalaFutures
 import org.scalatest.mockito.MockitoSugar
 import play.api.http.Status
@@ -25,19 +26,19 @@ import play.api.libs.json.Json._
 import play.api.libs.json.JsValue
 import play.api.test.{FakeRequest, Helpers}
 import reactivemongo.api.commands.{DefaultWriteResult, WriteError}
-import uk.gov.hmrc.decisionservice.model.analytics.{Exit, Interview, InterviewSearch, Setup}
-import uk.gov.hmrc.decisionservice.repository.InterviewRepository
+import uk.gov.hmrc.decisionservice.model.analytics._
+import uk.gov.hmrc.decisionservice.repository.{InterviewRepository, ReactiveMongoRepository}
 import uk.gov.hmrc.play.test.UnitSpec
-import org.mockito.Matchers._
 import org.mockito.Mockito._
 import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
-import scala.concurrent.ExecutionContext.Implicits.global
 
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 class AnalyticsControllerSpec extends UnitSpec with MockitoSugar with ScalaFutures{
 
-  val repository = mock[InterviewRepository]
+  val testReactiveRepository: ReactiveMongoRepository = mock[ReactiveMongoRepository]
+  val repository: InterviewRepository = mock[InterviewRepository]
   val analyticsController = new AnalyticsController(repository)
   val okResult = DefaultWriteResult(true, 0, Seq.empty, None, None, None)
   val failResult = DefaultWriteResult(false, 1, Seq(WriteError(1, 1, "Error")), None, None, Some("Error"))
@@ -76,17 +77,6 @@ class AnalyticsControllerSpec extends UnitSpec with MockitoSugar with ScalaFutur
   val invalidJsonSearchInterviewRequest: FakeRequest[JsValue] = FakeRequest(Helpers.POST, "/search").withBody(toJson(interviewSearchWithMissingRequiredFields))
 
   "The AnalyticsController" should {
-    "respond with 200 OK when an Interview is received" in {
-      when(repository.save(any(classOf[Interview]))).thenReturn(Future.successful(okResult))
-      val result = analyticsController.logInterview(validLogInterviewRequest)
-      status(result) shouldBe Status.OK
-    }
-
-    "respond with 500 Internal Server Error when not able to save due to a DB error" in {
-      when(repository.save(any(classOf[Interview]))).thenReturn(Future.successful(failResult))
-      val result = analyticsController.logInterview(validLogInterviewRequest)
-      status(result) shouldBe Status.INTERNAL_SERVER_ERROR
-    }
 
     "respond with 400 Bad Request when json is not valid" in {
       val result = analyticsController.logInterview(invalidJsonSearchInterviewRequest)
@@ -98,8 +88,26 @@ class AnalyticsControllerSpec extends UnitSpec with MockitoSugar with ScalaFutur
       status(result) shouldBe Status.BAD_REQUEST
     }
 
+    "respond with 200 OK when an Interview is received" in {
+      when(repository.apply()).thenReturn(testReactiveRepository)
+      when(testReactiveRepository.save(ArgumentMatchers.any(classOf[Interview]))).thenReturn(Future.successful(okResult))
+
+      val result = analyticsController.logInterview(validLogInterviewRequest)
+      status(result) shouldBe Status.OK
+    }
+
+    "respond with 500 Internal Server Error when not able to save due to a DB error" in {
+      when(repository.apply()).thenReturn(testReactiveRepository)
+      when(testReactiveRepository.save(ArgumentMatchers.any(classOf[Interview]))).thenReturn(Future.successful(failResult))
+
+      val result = analyticsController.logInterview(validLogInterviewRequest)
+      status(result) shouldBe Status.INTERNAL_SERVER_ERROR
+    }
+
     "respond with 200 OK when json is valid for interview search" in {
-      when(repository.get(any(classOf[InterviewSearch]))).thenReturn(Future(List()))
+      when(repository.apply()).thenReturn(testReactiveRepository)
+      when(testReactiveRepository.get(ArgumentMatchers.any(classOf[InterviewSearch]))).thenReturn(Future(List()))
+
       val result = analyticsController.searchInterview(validLogInterviewSearchRequest)
       status(result) shouldBe Status.OK
     }

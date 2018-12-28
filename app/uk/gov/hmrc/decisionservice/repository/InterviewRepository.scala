@@ -17,24 +17,37 @@
 package uk.gov.hmrc.decisionservice.repository
 
 import javax.inject.{Inject, Singleton}
+import org.joda.time.{DateTime, DateTimeZone}
+import play.api.libs.json.{JsValue, Json}
+import play.modules.reactivemongo.MongoDbConnection
+import reactivemongo.api.DefaultDB
+import reactivemongo.bson._
+import uk.gov.hmrc.http.cache.client.CacheMap
 
-import org.joda.time.DateTime
-import play.api.libs.json.Json
-import play.modules.reactivemongo.ReactiveMongoApi
+import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.libs.json.Writes.StringWrites
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.api.commands.bson.BSONCountCommand.{Count, CountResult}
-import reactivemongo.bson.{BSONDateTime, BSONDocument, BSONHandler}
-import reactivemongo.play.json._
-import reactivemongo.play.json.collection.JSONCollection
+import reactivemongo.bson.BSONDocument
+import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.decisionservice.model.analytics._
+import uk.gov.hmrc.mongo.ReactiveRepository
 
 import scala.concurrent.{ExecutionContext, Future}
 
-/**
-  * Created by work on 20/06/2017.
-  */
-@Singleton
-class InterviewRepository @Inject()(val mongo: ReactiveMongoApi)(implicit ec:ExecutionContext) {
+case class DatedCacheMap(id: String,
+                         data: Map[String, JsValue],
+                         lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC)
+                        )
+
+object DatedCacheMap {
+
+  implicit val formats = Json.format[DatedCacheMap]
+
+  def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
+}
+
+class ReactiveMongoRepository(mongo: () => DefaultDB)
+  extends ReactiveRepository[DatedCacheMap, BSONObjectID]("Off-Payroll-Interview", mongo, DatedCacheMap.formats) {
 
   implicit val sFormat = Json.format[Setup]
   implicit val eFormat = Json.format[Exit]
@@ -46,26 +59,32 @@ class InterviewRepository @Inject()(val mongo: ReactiveMongoApi)(implicit ec:Exe
 
   implicit val isFormat = Json.format[InterviewSearch]
 
-  val repository: Future[JSONCollection] =
-    mongo.database.map(_.collection[JSONCollection]("Off-Payroll-Interview"))
-
-  def save(i:Interview) : Future[WriteResult] = repository.flatMap(_.insert(i))
+  def save(i:Interview) : Future[WriteResult] = collection.insert(i)
 
   def get(search: InterviewSearch): Future[List[Interview]] = {
     val query = BSONDocument("completed" ->
       BSONDocument("$gte" -> search.start.getMillis, "$lt" -> search.end.getMillis))
-    repository.flatMap(_.find(query).cursor[Interview].collect[List]())
+    collection.find(query).cursor[Interview].collect[List]()
   }
 
   def count(search: AnalyticsSearch): Future[Int] = {
     val query = Json.obj("decision" -> search.decision,  "completed" ->
       Json.obj("$gte" -> search.start.getMillis, "$lt" -> search.end.getMillis))
-    repository.flatMap(_.count(Some(query)))
+    collection.count(Some(query))
   }
 
   implicit object BSONDateTimeHandler extends BSONHandler[BSONDateTime, DateTime] {
     def read(time: BSONDateTime) = new DateTime(time.value)
     def write(time: DateTime) = BSONDateTime(time.getMillis)
   }
+}
 
+@Singleton
+class InterviewRepository @Inject()(implicit ec:ExecutionContext) {
+
+  class DbConnection extends MongoDbConnection
+
+  private lazy val interviewRepository = new ReactiveMongoRepository(new DbConnection().db)
+
+  def apply(): ReactiveMongoRepository = interviewRepository
 }
