@@ -18,6 +18,7 @@ package uk.gov.hmrc.decisionservice
 
 import com.typesafe.config.Config
 import net.ceedubs.ficus.Ficus._
+import play.api.Mode.Mode
 import play.api.{Application, Configuration, Play}
 import uk.gov.hmrc.play.auth.controllers.AuthParamsControllerConfig
 import uk.gov.hmrc.play.auth.microservice.filters.AuthorisationFilter
@@ -38,6 +39,8 @@ object AuthParamsControllerConfiguration extends AuthParamsControllerConfig {
 object MicroserviceAuditFilter extends AuditFilter with AppName with MicroserviceFilterSupport {
   override val auditConnector = MicroserviceAuditConnector
   override def controllerNeedsAuditing(controllerName: String) = ControllerConfiguration.paramsForController(controllerName).needsAuditing
+
+  override protected def appNameConfiguration: Configuration = Play.current.configuration
 }
 
 object MicroserviceLoggingFilter extends LoggingFilter with MicroserviceFilterSupport {
@@ -60,4 +63,8 @@ object MicroserviceGlobal extends DefaultMicroserviceGlobal with RunMode {
   override val microserviceAuditFilter = MicroserviceAuditFilter
 
   override val authFilter = Some(MicroserviceAuthFilter)
+
+  override protected def mode: Mode = Play.current.mode
+
+  override protected def runModeConfiguration: Configuration = Play.current.configuration
 }
