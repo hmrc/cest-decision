@@ -22,7 +22,7 @@ import play.api.libs.json._
 import play.api.mvc.Action
 import uk.gov.hmrc.decisionservice.model.analytics.{AnalyticsResponse, Interview, InterviewSearch}
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
-import uk.gov.hmrc.play.microservice.controller.BaseController
+import uk.gov.hmrc.play.bootstrap.controller.BaseController
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future

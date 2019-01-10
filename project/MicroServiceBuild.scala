@@ -11,7 +11,7 @@ private object AppDependencies {
   import play.core.PlayVersion
   import play.sbt.PlayImport._
 
-  private val microserviceBootstrapVersion = "10.0.0"
+  private val bootstrapPlayVersion = "4.6.0"
   private val domainVersion = "5.3.0"
   private val hmrcTestVersion = "3.3.0"
   private val scalaTestVersion = "3.0.3"
@@ -28,7 +28,7 @@ private object AppDependencies {
     "org.reactivemongo" %% "reactivemongo-akkastream" % "0.12.0",
     "ai.x" %% "play-json-extensions" % "0.8.0",
     ws,
-    "uk.gov.hmrc" %% "microservice-bootstrap" % microserviceBootstrapVersion,
+    "uk.gov.hmrc" %% "bootstrap-play-25" % bootstrapPlayVersion,
     "uk.gov.hmrc" %% "domain" % domainVersion,
     "org.typelevel" %% "cats" % catsVersion
   ) ++ jsonValidationDependencies
