@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 HM Revenue & Customs
+ * Copyright 2019 HM Revenue & Customs
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,10 @@
 
 package uk.gov.hmrc.decisionservice
 
+import akka.actor.ActorSystem
+import com.typesafe.config.Config
+import play.api.{Configuration, Play}
+import play.api.Mode.Mode
 import uk.gov.hmrc.play.config.{AppName, RunMode, ServicesConfig}
 import uk.gov.hmrc.http._
 import uk.gov.hmrc.http.hooks.HttpHooks
@@ -37,8 +41,24 @@ trait Hooks extends HttpHooks with HttpAuditing {
 }
 
 trait WSHttp extends HttpGet with WSGet with HttpPut with WSPut with HttpPost with WSPost with HttpDelete with WSDelete with Hooks with AppName
-object WSHttp extends WSHttp
+object WSHttp extends WSHttp {
+  override protected def appNameConfiguration: Configuration = Play.current.configuration
+
+  protected def actorSystem: ActorSystem = Play.current.actorSystem
+
+  override protected def configuration: Option[Config] = Some(Play.current.configuration.underlying)
+}
 
 object MicroserviceAuthConnector extends AuthConnector with ServicesConfig with WSHttp {
   override val authBaseUrl: String = baseUrl("auth")
+
+  override protected def appNameConfiguration: Configuration = Play.current.configuration
+
+  protected def actorSystem: ActorSystem = Play.current.actorSystem
+
+  protected def mode: Mode = Play.current.mode
+
+  protected def runModeConfiguration: Configuration = Play.current.configuration
+
+  override protected def configuration: Option[Config] = Some(Play.current.configuration.underlying)
 }
