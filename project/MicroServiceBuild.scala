@@ -11,9 +11,9 @@ private object AppDependencies {
   import play.core.PlayVersion
   import play.sbt.PlayImport._
 
-  private val bootstrapPlayVersion = "4.6.0"
+  private val bootstrapPlayVersion = "4.9.0"
   private val domainVersion = "5.3.0"
-  private val hmrcTestVersion = "3.3.0"
+  private val hmrcTestVersion = "3.5.0-play-25"
   private val scalaTestVersion = "3.0.3"
   private val pegdownVersion = "1.6.0"
 
@@ -23,8 +23,8 @@ private object AppDependencies {
     "com.github.fge" % "json-schema-validator" % "2.2.6")
 
   val compile = Seq(
-    "uk.gov.hmrc" %% "play-reactivemongo" % "6.2.0",
-    "uk.gov.hmrc" %% "http-caching-client" % "8.0.0",
+    "uk.gov.hmrc" %% "play-reactivemongo" % "6.4.0",
+    "uk.gov.hmrc" %% "http-caching-client" % "8.1.0",
     "org.reactivemongo" %% "reactivemongo-akkastream" % "0.12.0",
     "ai.x" %% "play-json-extensions" % "0.8.0",
     ws,
