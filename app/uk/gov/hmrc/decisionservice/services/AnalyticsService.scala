@@ -16,36 +16,37 @@
 
 package uk.gov.hmrc.decisionservice.services
 
-import javax.inject.Inject
+import javax.inject.{Inject, Singleton}
 import org.joda.time.DateTime
-import play.api.{Configuration, Logger}
+import play.api.Logger
+import uk.gov.hmrc.decisionservice.config.AppConfig
 import uk.gov.hmrc.decisionservice.model.analytics.AnalyticsSearch
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
+
 import scala.concurrent.ExecutionContext.Implicits.global
 
+@Singleton
 class AnalyticsService @Inject() (repo: InterviewRepository,
-                                  configuration:Configuration) {
+                                  configuration: AppConfig) {
 
   private val CURRENT_DATE = DateTime.now()
   private val INSIDE_IR35 = "Inside IR35"
   private val OUTSIDE_IR35 = "Outside IR35"
   private val UNKNOWN = "Unknown"
 
-  private val gatherAnalytics: Boolean = configuration.underlying.getBoolean("analytics.gatherAnalytics")
-
-  if (gatherAnalytics) {
-    val months = List.range(0, configuration.underlying.getInt("analytics.reportingPeriod"))
+  if (configuration.gatherAnalytics) {
+    val months = List.range(0, configuration.reportingPeriod)
 
     months.foreach(mon => {
       val currentMonth = reportingDates(mon)
       repo().count(AnalyticsSearch(currentMonth._1, currentMonth._2, INSIDE_IR35)).map { count =>
-        Logger.warn(s"number of interviews during ${currentMonth._3} $INSIDE_IR35 is $count ")
+        Logger.info(s"number of interviews during ${currentMonth._3} $INSIDE_IR35 is $count ")
       }
       repo().count(AnalyticsSearch(currentMonth._1, currentMonth._2, OUTSIDE_IR35)).map { count =>
-        Logger.warn(s"number of interviews during ${currentMonth._3} $OUTSIDE_IR35 is $count ")
+        Logger.info(s"number of interviews during ${currentMonth._3} $OUTSIDE_IR35 is $count ")
       }
       repo().count(AnalyticsSearch(currentMonth._1, currentMonth._2, UNKNOWN)).map { count =>
-        Logger.warn(s"number of interviews during ${currentMonth._3} $UNKNOWN is $count ")
+        Logger.info(s"number of interviews during ${currentMonth._3} $UNKNOWN is $count ")
       }
     })
   }
@@ -58,7 +59,7 @@ class AnalyticsService @Inject() (repo: InterviewRepository,
     val lastDateOfMonth: DateTime = new DateTime(currentYear, currentMonth, lastDayOfMonth, 23, 59, 59)
     val firstDateOfMonth: DateTime = new DateTime(currentYear, currentMonth, 1, 0, 0, 0)
 
-    (firstDateOfMonth, lastDateOfMonth, s"${offsetDate.monthOfYear().getAsText} - ${currentYear}")
+    (firstDateOfMonth, lastDateOfMonth, s"${offsetDate.monthOfYear().getAsText} - $currentYear")
   }
 
 }

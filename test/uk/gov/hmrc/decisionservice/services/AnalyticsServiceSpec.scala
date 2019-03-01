@@ -22,6 +22,7 @@ import org.scalatest.mockito.MockitoSugar
 import org.scalatestplus.play.OneAppPerSuite
 import uk.gov.hmrc.play.test.UnitSpec
 import play.api.Configuration
+import uk.gov.hmrc.decisionservice.config.AppConfig
 import uk.gov.hmrc.decisionservice.model.analytics.AnalyticsSearch
 import uk.gov.hmrc.decisionservice.repository.{InterviewRepository, ReactiveMongoRepository}
 
@@ -53,7 +54,7 @@ class AnalyticsServiceSpec extends UnitSpec with MockitoSugar with OneAppPerSuit
       when(intRepo().count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), OUTSIDE_IR35))) thenReturn Future.successful(1)
       when(intRepo().count(AnalyticsSearch(firstDateOfMonth.minusMonths(1), lastDateOfMonth.minusMonths(1), UNKNOWN))) thenReturn Future.successful(1)
 
-      new AnalyticsService(intRepo, config ++ Configuration("analytics.gatherAnalytics" -> "true", "analytics.reportingPeriod" -> 2))
+      new AnalyticsService(intRepo, mock[AppConfig])
 
       verify(intRepo(), times(1)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))
       verify(intRepo(), times(1)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))
@@ -74,7 +75,7 @@ class AnalyticsServiceSpec extends UnitSpec with MockitoSugar with OneAppPerSuit
       when(testReactiveRepository.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))) thenReturn Future.successful(1)
       when(testReactiveRepository.count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))) thenReturn Future.successful(1)
 
-      new AnalyticsService(intRepo, config ++ Configuration("analytics.gatherAnalytics" -> false, "analytics.reportingPeriod" -> 1))
+      new AnalyticsService(intRepo, mock[AppConfig])
 
       verify(intRepo(), times(0)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, INSIDE_IR35))
       verify(intRepo(), times(0)).count(AnalyticsSearch(firstDateOfMonth, lastDateOfMonth, OUTSIDE_IR35))

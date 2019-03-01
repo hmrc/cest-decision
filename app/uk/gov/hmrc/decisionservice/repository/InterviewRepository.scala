@@ -18,26 +18,24 @@ package uk.gov.hmrc.decisionservice.repository
 
 import javax.inject.{Inject, Singleton}
 import org.joda.time.{DateTime, DateTimeZone}
-import play.api.libs.json.{JsValue, Json}
-import play.modules.reactivemongo.MongoDbConnection
-import reactivemongo.api.DefaultDB
-import reactivemongo.bson._
-import uk.gov.hmrc.http.cache.client.CacheMap
-
-import scala.concurrent.ExecutionContext.Implicits.global
+import play.api.Logger
 import play.api.libs.json.Writes.StringWrites
+import play.api.libs.json.{JsValue, Json}
+import play.modules.reactivemongo.ReactiveMongoComponent
+import reactivemongo.api.{Cursor, DefaultDB}
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.bson.BSONDocument
+import reactivemongo.bson.{BSONDocument, _}
 import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.decisionservice.model.analytics._
+import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.ReactiveRepository
 
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.ExecutionContext.Implicits.global
+import scala.concurrent.Future
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],
-                         lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC)
-                        )
+                         lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC))
 
 object DatedCacheMap {
 
@@ -61,10 +59,14 @@ class ReactiveMongoRepository(mongo: () => DefaultDB)
 
   def save(i:Interview) : Future[WriteResult] = collection.insert(i)
 
+  val logOnError = Cursor.ContOnError[List[Interview]]((_, ex) =>
+    Logger.error(s"[removeStaleDocuments] Mongo failed, problem occured in collect - ex: ${ex.getMessage}")
+  )
+
   def get(search: InterviewSearch): Future[List[Interview]] = {
     val query = BSONDocument("completed" ->
       BSONDocument("$gte" -> search.start.getMillis, "$lt" -> search.end.getMillis))
-    collection.find(query).cursor[Interview].collect[List]()
+    collection.find(query).batchSize(Int.MaxValue).cursor[Interview]().collect[List](Int.MaxValue, logOnError)
   }
 
   def count(search: AnalyticsSearch): Future[Int] = {
@@ -80,11 +82,9 @@ class ReactiveMongoRepository(mongo: () => DefaultDB)
 }
 
 @Singleton
-class InterviewRepository @Inject()(implicit ec:ExecutionContext) {
+class InterviewRepository @Inject()(mongo: ReactiveMongoComponent) {
 
-  class DbConnection extends MongoDbConnection
-
-  private lazy val interviewRepository = new ReactiveMongoRepository(new DbConnection().db)
+  private lazy val interviewRepository = new ReactiveMongoRepository(mongo.mongoConnector.db)
 
   def apply(): ReactiveMongoRepository = interviewRepository
 }
