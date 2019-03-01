@@ -19,6 +19,7 @@ package uk.gov.hmrc.decisionservice.controllers
 import java.util.concurrent.atomic.AtomicInteger
 
 import cats.data.Validated
+import javax.inject.Singleton
 import org.slf4j.MDC
 import play.api.Logger
 import play.api.libs.json.{JsError, JsSuccess, Json}
@@ -54,15 +55,15 @@ trait DecisionController extends BaseController {
             Logger.info(s"${response.result}")
             Ok(responseBody)
           case Validated.Invalid(error) =>
-            val errorResponse = ErrorResponse(error(0).code, error(0).message)
+            val errorResponse = ErrorResponse(error.head.code, error.head.message)
             val errorResponseBody = Json.toJson(errorResponse)
-            Logger.info(s"error response: ${errorResponseBody}")
+            Logger.info(s"error response: $errorResponseBody")
             BadRequest(errorResponseBody)
         }
       case JsError(jsonErrors) =>
         Logger.info("{\"incorrectRequest\":" + jsonErrors + "}")
         val errorResponseBody = Json.toJson(ErrorResponse(REQUEST_FORMAT, JsError.toJson(jsonErrors).toString()))
-        Logger.info(s"incorrect request response: ${errorResponseBody}")
+        Logger.info(s"incorrect request response: $errorResponseBody")
         Future.successful(BadRequest(errorResponseBody))
     }
   }
