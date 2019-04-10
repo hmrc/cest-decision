@@ -20,20 +20,22 @@ import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import cats.data.Validated
 import com.kenshoo.play.metrics.PlayModule
+import org.scalatest.mockito.MockitoSugar
 import play.api.http.Status
 import play.api.libs.json.Json._
 import play.api.libs.json.{JsObject, JsString, JsValue, Json}
 import play.api.test.{FakeRequest, Helpers}
-import uk.gov.hmrc.decisionservice.{Validation, DecisionServiceVersions}
 import uk.gov.hmrc.decisionservice.model.FactError
 import uk.gov.hmrc.decisionservice.model.api.ErrorCodes._
-import uk.gov.hmrc.decisionservice.model.api.{DecisionRequest, ErrorCodes, Score}
+import uk.gov.hmrc.decisionservice.model.api.{DecisionRequest, Score}
 import uk.gov.hmrc.decisionservice.model.rules.Facts
 import uk.gov.hmrc.decisionservice.ruleengine.RuleEngineDecision
 import uk.gov.hmrc.decisionservice.services._
+import uk.gov.hmrc.decisionservice.util.TestFixture
+import uk.gov.hmrc.decisionservice.{DecisionServiceVersions, Validation}
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
-class DecisionControllerSpec extends UnitSpec with WithFakeApplication {
+class DecisionControllerSpec extends UnitSpec with WithFakeApplication with MockitoSugar with TestFixture{
   override def bindModules = Seq(new PlayModule)
   implicit val system = ActorSystem()
   implicit val materializer = ActorMaterializer()
@@ -50,8 +52,8 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication {
     }
   }
 
-  object DecisionTestController extends DecisionController {
-    lazy val decisionServices = Map(
+  object DecisionTestController extends DecisionController(stubMessagesControllerComponents()) {
+    override lazy val decisionServices = Map(
       DecisionServiceVersions.VERSION110_FINAL -> DecisionServiceTestInstance110final,
       DecisionServiceVersions.VERSION111_FINAL -> DecisionServiceTestInstance111final,
       DecisionServiceVersions.VERSION120_FINAL -> DecisionServiceTestInstance120final,
@@ -61,8 +63,8 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication {
     )
   }
 
-  object DecisionTestControllerWithErrorGeneratingDecisionService extends DecisionController {
-    lazy val decisionServices = Map(
+  object DecisionTestControllerWithErrorGeneratingDecisionService extends DecisionController(stubMessagesControllerComponents()) {
+    override lazy val decisionServices = Map(
       DecisionServiceVersions.VERSION110_FINAL -> ErrorGeneratingDecisionService,
       DecisionServiceVersions.VERSION111_FINAL -> ErrorGeneratingDecisionService,
       DecisionServiceVersions.VERSION120_FINAL -> ErrorGeneratingDecisionService,

@@ -19,19 +19,22 @@ package uk.gov.hmrc.decisionservice.controllers
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import com.kenshoo.play.metrics.PlayModule
+import org.scalatest.mockito.MockitoSugar
 import play.api.http.Status
 import play.api.libs.json.{JsValue, Json}
+import play.api.mvc._
 import play.api.test.{FakeRequest, Helpers}
 import uk.gov.hmrc.decisionservice.model.api.{DecisionRequest, DecisionResponse}
 import uk.gov.hmrc.decisionservice.testutil.RequestAndDecision
-import uk.gov.hmrc.decisionservice.util.{JsonRequestValidatorFactory, JsonResponseValidatorFactory}
+import uk.gov.hmrc.decisionservice.util.{JsonRequestValidatorFactory, JsonResponseValidatorFactory, TestFixture}
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
-trait DecisionControllerCsvSpec extends UnitSpec with WithFakeApplication {
+trait DecisionControllerCsvSpec extends UnitSpec with WithFakeApplication with MockitoSugar with TestFixture {
   override def bindModules = Seq(new PlayModule)
   implicit val system = ActorSystem()
   implicit val materializer = ActorMaterializer()
-  val decisionController = DecisionController
+
+  val decisionController = new DecisionController(stubMessagesControllerComponents())
 
   def createRequestSendVerifyDecision(path: String, version:String): Unit = {
     val testCasesTry = RequestAndDecision.readFlattenedTransposed(path, version)

@@ -19,27 +19,36 @@ package uk.gov.hmrc.decisionservice.controllers
 import java.util.concurrent.atomic.AtomicInteger
 
 import cats.data.Validated
-import javax.inject.Singleton
+import javax.inject.Inject
 import org.slf4j.MDC
 import play.api.Logger
 import play.api.libs.json.{JsError, JsSuccess, Json}
-import play.api.mvc.Action
-import uk.gov.hmrc.decisionservice.{DecisionServiceVersions, Validation}
+import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.decisionservice.model.VersionError
 import uk.gov.hmrc.decisionservice.model.api.ErrorCodes._
 import uk.gov.hmrc.decisionservice.model.api._
 import uk.gov.hmrc.decisionservice.model.rules.{>>>, Facts}
 import uk.gov.hmrc.decisionservice.ruleengine.RuleEngineDecision
 import uk.gov.hmrc.decisionservice.services._
-import uk.gov.hmrc.play.bootstrap.controller.BaseController
+import uk.gov.hmrc.decisionservice.{DecisionServiceVersions, Validation}
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
 
 
-trait DecisionController extends BaseController {
-  val decisionServices: Map[String, DecisionService]
+class DecisionController @Inject()(mcc: MessagesControllerComponents) extends FrontendController(mcc) {
+
+  lazy val decisionServices = Map(
+    DecisionServiceVersions.VERSION110_FINAL -> DecisionServiceInstance110Final,
+    DecisionServiceVersions.VERSION111_FINAL -> DecisionServiceInstance111Final,
+    DecisionServiceVersions.VERSION120_FINAL -> DecisionServiceInstance120Final,
+    DecisionServiceVersions.VERSION130_FINAL -> DecisionServiceInstance130Final,
+    DecisionServiceVersions.VERSION140_FINAL -> DecisionServiceInstance140Final,
+    DecisionServiceVersions.VERSION150_FINAL -> DecisionServiceInstance150Final
+  )
+
   val id: AtomicInteger = new AtomicInteger
 
   def decide() = Action.async(parse.json) { implicit request =>
@@ -97,15 +106,4 @@ trait DecisionController extends BaseController {
     case "unknown" => "Unknown"
     case _ => "Not Matched"
   }
-}
-
-object DecisionController extends DecisionController {
-  lazy val decisionServices = Map(
-    DecisionServiceVersions.VERSION110_FINAL -> DecisionServiceInstance110Final,
-    DecisionServiceVersions.VERSION111_FINAL -> DecisionServiceInstance111Final,
-    DecisionServiceVersions.VERSION120_FINAL -> DecisionServiceInstance120Final,
-    DecisionServiceVersions.VERSION130_FINAL -> DecisionServiceInstance130Final,
-    DecisionServiceVersions.VERSION140_FINAL -> DecisionServiceInstance140Final,
-    DecisionServiceVersions.VERSION150_FINAL -> DecisionServiceInstance150Final
-  )
 }

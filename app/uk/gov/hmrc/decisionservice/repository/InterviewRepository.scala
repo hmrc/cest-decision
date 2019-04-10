@@ -29,16 +29,15 @@ import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.decisionservice.model.analytics._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.ReactiveRepository
-
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
+import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],
                          lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC))
 
 object DatedCacheMap {
-
   implicit val formats = Json.format[DatedCacheMap]
 
   def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
@@ -46,16 +45,6 @@ object DatedCacheMap {
 
 class ReactiveMongoRepository(mongo: () => DefaultDB)
   extends ReactiveRepository[DatedCacheMap, BSONObjectID]("Off-Payroll-Interview", mongo, DatedCacheMap.formats) {
-
-  implicit val sFormat = Json.format[Setup]
-  implicit val eFormat = Json.format[Exit]
-  implicit val psFormat = Json.format[PersonalService]
-  implicit val cFormat = Json.format[Control]
-  implicit val frFormat = Json.format[FinancialRisk]
-  implicit val ppFormat = Json.format[PartAndParcel]
-  implicit val iFormat = Json.format[Interview]
-
-  implicit val isFormat = Json.format[InterviewSearch]
 
   def save(i:Interview) : Future[WriteResult] = collection.insert(i)
 

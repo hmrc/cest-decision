@@ -19,20 +19,21 @@ package uk.gov.hmrc.decisionservice.controllers
 import javax.inject.Inject
 import play.api.Logger
 import play.api.libs.json._
-import play.api.mvc.Action
+import play.api.mvc.{Action, MessagesControllerComponents}
+import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
 import uk.gov.hmrc.decisionservice.model.analytics.{AnalyticsResponse, Interview, InterviewSearch}
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
-import uk.gov.hmrc.play.bootstrap.controller.BaseController
+import uk.gov.hmrc.decisionservice.transformer.InterviewTransformer._
+import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
-import uk.gov.hmrc.decisionservice.transformer.InterviewTransformer._
 
 /**
   * Created by work on 20/06/2017.
   */
-class AnalyticsController @Inject() (val repository: InterviewRepository) extends BaseController {
+class AnalyticsController @Inject() (val repository: InterviewRepository,
+                                     mcc: MessagesControllerComponents) extends FrontendController(mcc) {
 
   def logInterview: Action[JsValue] = Action.async(parse.json) { implicit request =>
     Logger.debug(s"log request: ${request.body.toString.replaceAll("\"", "")}")
