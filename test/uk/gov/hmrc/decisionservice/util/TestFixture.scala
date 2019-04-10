@@ -14,17 +14,20 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.config
+package uk.gov.hmrc.decisionservice.util
 
-import javax.inject.Inject
-import play.api.Mode
-import play.api.{Configuration, Environment}
-import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import play.api.mvc._
+import play.api.test.Helpers
 
-class AppConfig @Inject()(env: Environment, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
+trait TestFixture {
 
-  val mode: Mode = env.mode
-  val gatherAnalytics: Boolean = runModeConfiguration.getOptional[Boolean]("analytics.gatherAnalytics").getOrElse(false)
-  val reportingPeriod = runModeConfiguration.getOptional[Int]("analytics.reportingPeriod").getOrElse(0)
+  def stubMessagesControllerComponents(): MessagesControllerComponents = {
+    val stub = Helpers.stubControllerComponents()
+    new DefaultMessagesControllerComponents(
+      new DefaultMessagesActionBuilderImpl(Helpers.stubBodyParser(AnyContentAsEmpty), stub.messagesApi)(stub.executionContext),
+      DefaultActionBuilder(stub.actionBuilder.parser)(stub.executionContext), stub.parsers,
+      stub.messagesApi, stub.langs, stub.fileMimeTypes, stub.executionContext
+    )
+  }
 
 }

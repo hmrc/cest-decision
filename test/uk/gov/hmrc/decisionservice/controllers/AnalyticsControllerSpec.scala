@@ -30,16 +30,18 @@ import uk.gov.hmrc.decisionservice.model.analytics._
 import uk.gov.hmrc.decisionservice.repository.{InterviewRepository, ReactiveMongoRepository}
 import uk.gov.hmrc.play.test.UnitSpec
 import org.mockito.Mockito._
+import play.api.mvc.MessagesControllerComponents
 import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
+import uk.gov.hmrc.decisionservice.util.TestFixture
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-class AnalyticsControllerSpec extends UnitSpec with MockitoSugar with ScalaFutures{
+class AnalyticsControllerSpec extends UnitSpec with ScalaFutures with MockitoSugar with TestFixture {
 
   val testReactiveRepository: ReactiveMongoRepository = mock[ReactiveMongoRepository]
   val repository: InterviewRepository = mock[InterviewRepository]
-  val analyticsController = new AnalyticsController(repository)
+  val analyticsController = new AnalyticsController(repository,stubMessagesControllerComponents())
   val okResult = DefaultWriteResult(true, 0, Seq.empty, None, None, None)
   val failResult = DefaultWriteResult(false, 1, Seq(WriteError(1, 1, "Error")), None, None, Some("Error"))
 
