@@ -21,7 +21,6 @@ trait MicroService {
   lazy val plugins : Seq[Plugins] = Seq.empty
   lazy val playSettings : Seq[Setting[_]] = Seq.empty
 
-
   lazy val scoverageSettings = {
     import scoverage._
     Seq(
