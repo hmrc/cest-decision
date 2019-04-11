@@ -21,6 +21,12 @@ trait MicroService {
   lazy val plugins : Seq[Plugins] = Seq.empty
   lazy val playSettings : Seq[Setting[_]] = Seq.empty
 
+  parallelExecution in Test := false
+  parallelExecution in IntegrationTest := false
+
+  fork in Test := true
+  fork in IntegrationTest := true
+
 
   lazy val scoverageSettings = {
     import scoverage._
