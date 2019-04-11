@@ -18,8 +18,11 @@ package uk.gov.hmrc.decisionservice.util
 
 import play.api.mvc._
 import play.api.test.Helpers
+import com.codahale.metrics.SharedMetricRegistries
 
 trait TestFixture {
+
+  SharedMetricRegistries.clear()
 
   def stubMessagesControllerComponents(): MessagesControllerComponents = {
     val stub = Helpers.stubControllerComponents()
