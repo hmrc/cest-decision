@@ -1,8 +1,8 @@
-# Contributing Guidelines for off-payroll-decision
+# Contributing Guidelines for cest-decision
 
 Hi!  Thanks for taking the time to contribute to the [HMRC Multichannel Digital Tax Platform](https://hmrc.github.io) (MDTP)
 
-We welcome contributions to off-payroll-decision.  By following these guidelines you will greatly improve the likelihood of your change being accepted and merged.
+We welcome contributions to cest-decision.  By following these guidelines you will greatly improve the likelihood of your change being accepted and merged.
 
 ## How to Help?
 
@@ -22,11 +22,11 @@ We may already have what you’re planning to do in our backlog, already be work
 
 Communicating early can also help with design decisions and direction for your approach, increasing the chance of us accepting your work.
 
-Please come and talk to us in our [Slack channel](https://hmrcdigital.slack.com/archives/team-ddct-liveservice) in the first instance.  Once we've discussed your idea, we'll probably ask you to [raise an issue](https://github.com/hmrc/off-payroll-decision/issues/new) (using our [Issue template](.github/ISSUE_TEMPLATE.md)) before starting work.
+Please come and talk to us in our [Slack channel](https://hmrcdigital.slack.com/archives/team-ddct-liveservice) in the first instance.  Once we've discussed your idea, we'll probably ask you to [raise an issue](https://github.com/hmrc/cest-decision/issues/new) (using our [Issue template](.github/ISSUE_TEMPLATE.md)) before starting work.
 
 ## Contributing code
 
-Once you've identified (or created) an [issue](https://github.com/hmrc/off-payroll-decision/issues) to work on, please follow these guidelines to contribute code:
+Once you've identified (or created) an [issue](https://github.com/hmrc/cest-decision/issues) to work on, please follow these guidelines to contribute code:
 
 * Fork the repository
 * Write tests along with your code
