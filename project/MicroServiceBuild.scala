@@ -2,7 +2,7 @@ import sbt._
 
 object MicroServiceBuild extends Build with MicroService {
 
-  val appName = "off-payroll-decision"
+  val appName = "cest-decision"
 
   override lazy val appDependencies: Seq[ModuleID] = AppDependencies()
 }
