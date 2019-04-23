@@ -8,23 +8,21 @@ import uk.gov.hmrc.decisionservice.model.api.DecisionRequest
 
 trait TestData {
 
-  //TODO change x with real values
-
   val defaultInterview = Json.toJson(Interview(
-    "x","x","x","x",None,
-    Setup("x","x","x"),
-    Exit("x"),
+    "1.1.0-final","df7826*hW@#$","IR35","OUT",None,
+    Setup("personDoingWork","No","partnership"),
+    Exit("Yes"),
     None,None,None,None,DateTime.now()))
 
-  val defaultInterviewSearch = Json.toJson(InterviewSearch("x",DateTime.now(),DateTime.now()))
+  val defaultInterviewSearch = Json.toJson(InterviewSearch("1.1.0-final",DateTime.now(),DateTime.now()))
 
-  val decisionBadVersion = Json.toJson(DecisionRequest("x","x",Map("x" -> Map("x" -> "x"))))
+  val decisionBadVersion = Json.toJson(DecisionRequest("chazDingle","12345",Map("personalService" -> Map("contractualRightForSubstitute" -> "Yes"))))
 
-  val decisionVersion1 = Json.toJson(DecisionRequest("1.1.0-final","x",Map("x" -> Map("x" -> "x"))))
-  val decisionVersion11 = Json.toJson(DecisionRequest("1.1.1-final","x",Map("x" -> Map("x" -> "x"))))
-  val decisionVersion2 = Json.toJson(DecisionRequest("1.2.0-final","x",Map("x" -> Map("x" -> "x"))))
-  val decisionVersion3 = Json.toJson(DecisionRequest("1.3.0-final","x",Map("x" -> Map("x" -> "x"))))
-  val decisionVersion4 = Json.toJson(DecisionRequest("1.4.0-final","x",Map("x" -> Map("x" -> "x"))))
-  val decisionVersion5 = Json.toJson(DecisionRequest("1.5.0-final","x",Map("x" -> Map("x" -> "x"))))
+  val decisionVersion1 = Json.toJson(DecisionRequest("1.1.0-final","12345",Map("personalService" -> Map("contractualRightForSubstitute" -> "Yes"))))
+  val decisionVersion11 = Json.toJson(DecisionRequest("1.1.1-final","12345",Map("personalService" -> Map("contractualRightForSubstitute" -> "Yes"))))
+  val decisionVersion2 = Json.toJson(DecisionRequest("1.2.0-final","12345",Map("personalService" -> Map("contractualRightForSubstitute" -> "Yes"))))
+  val decisionVersion3 = Json.toJson(DecisionRequest("1.3.0-final","12345",Map("personalService" -> Map("contractualRightForSubstitute" -> "Yes"))))
+  val decisionVersion4 = Json.toJson(DecisionRequest("1.4.0-final","12345",Map("personalService" -> Map("contractualRightForSubstitute" -> "Yes"))))
+  val decisionVersion5 = Json.toJson(DecisionRequest("1.5.0-final","12345",Map("personalService" -> Map("contractualRightForSubstitute" -> "Yes"))))
 
 }
