@@ -24,7 +24,7 @@ trait CreateRequestHelper extends ServerProvider {
   }
 
   def postRequest(path: String, formJson: JsValue, follow: Boolean = true): Future[WSResponse] = {
-    ws.url(s"http://localhost:$port/off-payroll-decision$path")
+    ws.url(s"http://localhost:$port/cest-decision$path")
       .withCookies(defaultCookie)
       .withFollowRedirects(follow)
       .post(formJson)
