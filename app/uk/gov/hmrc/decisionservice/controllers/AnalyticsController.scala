@@ -41,7 +41,7 @@ class AnalyticsController @Inject() (val repository: InterviewRepository,
       error    => Future.successful(BadRequest(JsError.toJson(error))),
       req      => {
         repository().save(req).map {
-          case result if result.ok => Ok
+          case result if result.ok => NoContent
           case result => InternalServerError(result.writeErrors.mkString)
         }
       }
