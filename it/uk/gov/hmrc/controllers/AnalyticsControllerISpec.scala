@@ -10,12 +10,12 @@ class AnalyticsControllerISpec extends IntegrationSpecBase with DefaultBodyWrita
 
   s"POST /log" should {
 
-    "return a 200 given a successful post" in {
+    "return a 204 given a successful post" in {
 
       lazy val res = postRequest("/log",defaultInterview)
 
       whenReady(res) { result =>
-        result.status shouldBe OK
+        result.status shouldBe NO_CONTENT
       }
     }
 

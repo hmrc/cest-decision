@@ -90,12 +90,12 @@ class AnalyticsControllerSpec extends UnitSpec with ScalaFutures with MockitoSug
       status(result) shouldBe Status.BAD_REQUEST
     }
 
-    "respond with 200 OK when an Interview is received" in {
+    "respond with 204 NO_CONTENT when an Interview is received" in {
       when(repository.apply()).thenReturn(testReactiveRepository)
       when(testReactiveRepository.save(ArgumentMatchers.any(classOf[Interview]))).thenReturn(Future.successful(okResult))
 
       val result = analyticsController.logInterview(validLogInterviewRequest)
-      status(result) shouldBe Status.OK
+      status(result) shouldBe Status.NO_CONTENT
     }
 
     "respond with 500 Internal Server Error when not able to save due to a DB error" in {
