@@ -22,12 +22,15 @@ import cats.data.Validated
 import javax.inject.Inject
 import org.slf4j.MDC
 import play.api.Logger
-import play.api.libs.json.{JsError, JsSuccess, Json}
-import play.api.mvc.MessagesControllerComponents
+import play.api.libs.json.{Format, JsError, JsResult, JsString, JsSuccess, JsValue, Json, OFormat, Reads, Writes}
+import play.api.mvc.{Action, MessagesControllerComponents, Result}
 import uk.gov.hmrc.decisionservice.model.VersionError
+import uk.gov.hmrc.decisionservice.model.analytics.{Control, Exit, FinancialRisk, PartAndParcel, PersonalService, Setup}
 import uk.gov.hmrc.decisionservice.model.api.ErrorCodes._
 import uk.gov.hmrc.decisionservice.model.api._
 import uk.gov.hmrc.decisionservice.model.rules.{>>>, Facts}
+import uk.gov.hmrc.decisionservice.models._DecisionResponse
+import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, SetupEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.ruleengine.RuleEngineDecision
 import uk.gov.hmrc.decisionservice.services._
 import uk.gov.hmrc.decisionservice.{DecisionServiceVersions, Validation}
@@ -38,7 +41,13 @@ import scala.concurrent.Future
 
 
 
-class DecisionController @Inject()(mcc: MessagesControllerComponents) extends FrontendController(mcc) {
+class DecisionController @Inject()(mcc: MessagesControllerComponents,
+                                   controlDecisionService: ControlDecisionService,
+                                   exitDecisionService: ExitDecisionService,
+                                   financialRiskDecisionService: FinancialRiskDecisionService,
+                                   personalServiceDecisionService: PersonalServiceDecisionService,
+                                   partAndParcelDecisionService: PartAndParcelDecisionService,
+                                   resultService: ResultService) extends FrontendController(mcc) {
 
   lazy val decisionServices = Map(
     DecisionServiceVersions.VERSION110_FINAL -> DecisionServiceInstance110Final,
@@ -50,6 +59,53 @@ class DecisionController @Inject()(mcc: MessagesControllerComponents) extends Fr
   )
 
   val id: AtomicInteger = new AtomicInteger
+
+  ////////////////
+
+  ///////
+
+
+  def decideNew(): Action[JsValue] =  Action.async(parse.json) { implicit request =>
+
+    import uk.gov.hmrc.decisionservice.models.DecisionRequest
+
+    request.body.validate[DecisionRequest] match {
+      case JsSuccess(request, _) =>
+
+        Future.successful(Ok(Json.toJson(calculateResult(request.interview))))
+
+      case JsError(jsonErrors) =>
+        Logger.info("{\"incorrectRequest\":" + jsonErrors + "}")
+        val errorResponseBody = Json.toJson(ErrorResponse(REQUEST_FORMAT, JsError.toJson(jsonErrors).toString()))
+        Logger.info(s"incorrect request response: $errorResponseBody")
+        Future.successful(BadRequest(errorResponseBody))
+    }
+  }
+
+  import uk.gov.hmrc.decisionservice.models.Interview
+
+  def calculateResult(interview: Interview): _DecisionResponse = {
+
+    import uk.gov.hmrc.decisionservice.models._DecisionResponse
+    import uk.gov.hmrc.decisionservice.models.Score
+
+    for {
+
+      exit: ExitEnum.Value <- exitDecisionService.decide(interview.exit)
+      personalService: WeightedAnswerEnum.Value <- personalServiceDecisionService.decide(interview.personalService)
+      control: WeightedAnswerEnum.Value <- controlDecisionService.decide(interview.control)
+      financialRisk: WeightedAnswerEnum.Value <- financialRiskDecisionService.decide(interview.financialRisk)
+      partAndParcel: WeightedAnswerEnum.Value <- partAndParcelDecisionService.decide(interview.partAndParcel)
+      result: ResultEnum.Value <- resultService.decide(exit, personalService, control, financialRisk, partAndParcel)
+
+    } yield _DecisionResponse("1.0.0-beta", "12345",
+      Score(
+        Some(SetupEnum.CONTINUE), Some(exit), Some(personalService), Some(control), Some(financialRisk), Some(partAndParcel)
+      ), result
+    )
+  }
+
+  //////////////////
 
   def decide() = Action.async(parse.json) { implicit request =>
     request.body.validate[DecisionRequest] match {
