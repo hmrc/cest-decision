@@ -1,12 +1,5 @@
-[{
-  "rule": {
-    "officeHolder": "Yes"
-  },
-  "result": "InIR35"
-},
 {
-  "rule": {
-    "officeHolder": "No"
-  },
-  "result": "CONTINUE"
-}]
+  "InIR35": [{
+    "officeHolder": "Yes"
+  }]
+}
