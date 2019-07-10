@@ -27,7 +27,6 @@ object CheckRules extends RuleChecker {
   private val rule4 = Json.toJson(Control(None,None,None,Some("d"))).as[JsObject]
   private val rule5 = Json.toJson(Control(Some("js"),Some("js"),Some("js"),Some("js"))).as[JsObject]
 
-
   val rulesList = List(rule1,rule2,rule3,rule4,rule5)
 
 }
