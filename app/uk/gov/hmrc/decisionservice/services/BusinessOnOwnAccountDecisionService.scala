@@ -1,10 +1,15 @@
 package uk.gov.hmrc.decisionservice.services
 
+import javax.inject.Inject
 import uk.gov.hmrc.decisionservice.models.Section
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 
-trait BusinessOnOwnAccountDecisionService {
+import scala.concurrent.Future
 
-  def decide(section: Section): WeightedAnswerEnum.Value
+class BusinessOnOwnAccountDecisionService @Inject()() {
 
+  def decide(section: Section): Future[Option[WeightedAnswerEnum.Value]] = {
+
+    Future.successful(None)
+  }
 }
