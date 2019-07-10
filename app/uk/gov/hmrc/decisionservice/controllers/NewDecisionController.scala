@@ -18,13 +18,12 @@ package uk.gov.hmrc.decisionservice.controllers
 
 import javax.inject.Inject
 import play.api.Logger
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
 import play.api.mvc.{Action, MessagesControllerComponents}
 import uk.gov.hmrc.decisionservice.model.api.ErrorCodes._
 import uk.gov.hmrc.decisionservice.model.api._
-import uk.gov.hmrc.decisionservice.models.{DecisionRequest, _DecisionResponse}
 import uk.gov.hmrc.decisionservice.models.enums.SetupEnum
+import uk.gov.hmrc.decisionservice.models.{DecisionRequest, _DecisionResponse}
 import uk.gov.hmrc.decisionservice.services._
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
@@ -44,6 +43,8 @@ class NewDecisionController @Inject()(mcc: MessagesControllerComponents,
   def decide(): Action[JsValue] = Action.async(parse.json) { implicit request =>
 
     import uk.gov.hmrc.decisionservice.models.DecisionRequest
+
+    implicit val ec: ExecutionContext = defaultExecutionContext
 
     request.body.validate[DecisionRequest] match {
       case JsSuccess(validRequest, _) =>
