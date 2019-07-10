@@ -23,7 +23,7 @@ import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
 import play.api.mvc.{Action, MessagesControllerComponents}
 import uk.gov.hmrc.decisionservice.model.api.ErrorCodes._
 import uk.gov.hmrc.decisionservice.model.api._
-import uk.gov.hmrc.decisionservice.models._DecisionResponse
+import uk.gov.hmrc.decisionservice.models.{DecisionRequest, _DecisionResponse}
 import uk.gov.hmrc.decisionservice.models.enums.SetupEnum
 import uk.gov.hmrc.decisionservice.services._
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
@@ -40,7 +40,6 @@ class NewDecisionController @Inject()(mcc: MessagesControllerComponents,
                                       resultService: ResultService) extends FrontendController(mcc) {
 
   val version = "1.0.0-beta"
-  def correlationId = ""
 
   def decide(): Action[JsValue] = Action.async(parse.json) { implicit request =>
 
@@ -49,7 +48,7 @@ class NewDecisionController @Inject()(mcc: MessagesControllerComponents,
     request.body.validate[DecisionRequest] match {
       case JsSuccess(validRequest, _) =>
 
-        calculateResult(validRequest.interview).map {
+        calculateResult(validRequest).map {
           response =>
             Ok(Json.toJson(response))
         }
@@ -62,9 +61,9 @@ class NewDecisionController @Inject()(mcc: MessagesControllerComponents,
     }
   }
 
-  import uk.gov.hmrc.decisionservice.models.Interview
+  def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[_DecisionResponse] = {
 
-  def calculateResult(interview: Interview)(implicit ec: ExecutionContext): Future[_DecisionResponse] = {
+    val interview = request.interview
 
     import uk.gov.hmrc.decisionservice.models.{Score, _DecisionResponse}
 
@@ -79,7 +78,6 @@ class NewDecisionController @Inject()(mcc: MessagesControllerComponents,
       partAndParcel <- partAndParcelDecisionService.decide(interview.partAndParcel)
       result <- resultService.decide(exit, personalService, control, financialRisk, partAndParcel)
 
-    } yield _DecisionResponse(version, correlationId, Score(setup, exit, personalService, control, financialRisk, partAndParcel), result
-    )
+    } yield _DecisionResponse(version, request.correlationID, Score(setup, exit, personalService, control, financialRisk, partAndParcel), result)
   }
 }
