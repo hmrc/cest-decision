@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.decisionservice.controllers
 
-import javax.inject.Inject
+import com.google.inject.Inject
 import play.api.Logger
 import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
 import play.api.mvc.{Action, MessagesControllerComponents}
@@ -40,11 +40,11 @@ class NewDecisionController @Inject()(mcc: MessagesControllerComponents,
 
   val version = "1.0.0-beta"
 
+  import uk.gov.hmrc.decisionservice.models.DecisionRequest
+
+  implicit val ec: ExecutionContext = defaultExecutionContext
+
   def decide(): Action[JsValue] = Action.async(parse.json) { implicit request =>
-
-    import uk.gov.hmrc.decisionservice.models.DecisionRequest
-
-    implicit val ec: ExecutionContext = defaultExecutionContext
 
     request.body.validate[DecisionRequest] match {
       case JsSuccess(validRequest, _) =>
