@@ -33,10 +33,9 @@ class NewDecisionService @Inject()(controlDecisionService: ControlDecisionServic
 
   def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[_DecisionResponse] = {
 
-    val interview = request.interview
-
     import uk.gov.hmrc.decisionservice.models.{Score, _DecisionResponse}
 
+    val interview = request.interview
     val setup: Option[SetupEnum.Value] = None
 
     for {
