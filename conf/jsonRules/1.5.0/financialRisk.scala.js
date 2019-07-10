@@ -1,53 +1,7 @@
 {
   "OutOfIR35": [
     {
-      "workerProvidedMaterials": true,
-      "workerProvidedEquipment": true,
-      "workerUsedVehicle": true,
-      "workerHadOtherExpenses": true
-    },
-    {
-      "workerProvidedMaterials": true,
-      "workerProvidedEquipment": true,
-      "workerUsedVehicle": true
-    },
-    {
-      "workerProvidedMaterials": true,
-      "workerProvidedEquipment": true,
-      "workerHadOtherExpenses": true
-    },
-    {
-      "workerProvidedMaterials": true,
-      "workerProvidedEquipment": true
-    },
-    {
-      "workerProvidedMaterials": true,
-      "workerUsedVehicle": true,
-      "workerHadOtherExpenses": true
-    },
-    {
-      "workerProvidedMaterials": true,
-      "workerUsedVehicle": true
-    },
-    {
-      "workerProvidedMaterials": true,
-      "workerHadOtherExpenses": true
-    },
-    {
       "workerProvidedMaterials": true
-    },
-    {
-      "workerProvidedEquipment": true,
-      "workerUsedVehicle": true,
-      "workerHadOtherExpenses": true
-    },
-    {
-      "workerProvidedEquipment": true,
-      "workerUsedVehicle": true
-    },
-    {
-      "workerProvidedEquipment": true,
-      "workerHadOtherExpenses": true
     },
     {
       "workerProvidedEquipment": true
