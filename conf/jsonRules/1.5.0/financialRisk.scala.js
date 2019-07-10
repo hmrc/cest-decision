@@ -1,437 +1,437 @@
 {
   "OutOfIR35": [
     {
-      "workerProvidedMaterials": "Yes",
-      "workerProvidedEquipment": "Yes",
-      "workerUsedVehicle": "Yes",
-      "workerHadOtherExpenses": "Yes"
+      "workerProvidedMaterials": true,
+      "workerProvidedEquipment": true,
+      "workerUsedVehicle": true,
+      "workerHadOtherExpenses": true
     },
     {
-      "workerProvidedMaterials": "Yes",
-      "workerProvidedEquipment": "Yes",
-      "workerUsedVehicle": "Yes"
+      "workerProvidedMaterials": true,
+      "workerProvidedEquipment": true,
+      "workerUsedVehicle": true
     },
     {
-      "workerProvidedMaterials": "Yes",
-      "workerProvidedEquipment": "Yes",
-      "workerHadOtherExpenses": "Yes"
+      "workerProvidedMaterials": true,
+      "workerProvidedEquipment": true,
+      "workerHadOtherExpenses": true
     },
     {
-      "workerProvidedMaterials": "Yes",
-      "workerProvidedEquipment": "Yes"
+      "workerProvidedMaterials": true,
+      "workerProvidedEquipment": true
     },
     {
-      "workerProvidedMaterials": "Yes",
-      "workerUsedVehicle": "Yes",
-      "workerHadOtherExpenses": "Yes"
+      "workerProvidedMaterials": true,
+      "workerUsedVehicle": true,
+      "workerHadOtherExpenses": true
     },
     {
-      "workerProvidedMaterials": "Yes",
-      "workerUsedVehicle": "Yes"
+      "workerProvidedMaterials": true,
+      "workerUsedVehicle": true
     },
     {
-      "workerProvidedMaterials": "Yes",
-      "workerHadOtherExpenses": "Yes"
+      "workerProvidedMaterials": true,
+      "workerHadOtherExpenses": true
     },
     {
-      "workerProvidedMaterials": "Yes"
+      "workerProvidedMaterials": true
     },
     {
-      "workerProvidedEquipment": "Yes",
-      "workerUsedVehicle": "Yes",
-      "workerHadOtherExpenses": "Yes"
+      "workerProvidedEquipment": true,
+      "workerUsedVehicle": true,
+      "workerHadOtherExpenses": true
     },
     {
-      "workerProvidedEquipment": "Yes",
-      "workerUsedVehicle": "Yes"
+      "workerProvidedEquipment": true,
+      "workerUsedVehicle": true
     },
     {
-      "workerProvidedEquipment": "Yes",
-      "workerHadOtherExpenses": "Yes"
+      "workerProvidedEquipment": true,
+      "workerHadOtherExpenses": true
     },
     {
-      "workerProvidedEquipment": "Yes"
+      "workerProvidedEquipment": true
     },
     {
-      "workerUsedVehicle": "Yes",
-      "workerHadOtherExpenses": "Yes"
+      "workerUsedVehicle": true,
+      "workerHadOtherExpenses": true
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     }
   ],
   "MEDIUM": [
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "workerUsedVehicle": "Yes",
+      "workerUsedVehicle": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     }
   ],
   "LOW": [
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "workerHadOtherExpenses": "Yes",
+      "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeProfitOrLosses",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeFixed",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "noObligationToCorrect"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "cannotBeCorrected"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeCommission",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomePieceRate",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
     },
     {
-      "expensesAreNotRelevantForRole": "Yes",
+      "expensesAreNotRelevantForRole": true,
       "workerMainIncome": "incomeCalendarPeriods",
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     }

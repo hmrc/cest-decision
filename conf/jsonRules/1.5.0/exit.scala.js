@@ -1,5 +1,5 @@
 {
   "InIR35": [{
-    "officeHolder": "Yes"
+    "officeHolder": true
   }]
 }
