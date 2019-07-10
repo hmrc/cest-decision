@@ -31,14 +31,14 @@ class NewDecisionControllerSpec extends TestFixture with MockitoSugar with UnitS
   val fakeRequest = FakeRequest()
   val json: JsValue = Json.parse("{}")
 
-  private val a = mock[ControlDecisionService]
-  private val s = mock[ExitDecisionService]
-  private val d = mock[FinancialRiskDecisionService]
-  private val f = mock[PersonalServiceDecisionService]
-  private val g = mock[PartAndParcelDecisionService]
-  private val h = mock[ResultService]
+  val control = mock[ControlDecisionService]
+  val exit = mock[ExitDecisionService]
+  val financialRisk = mock[FinancialRiskDecisionService]
+  val personalService = mock[PersonalServiceDecisionService]
+  val partAndParcel = mock[PartAndParcelDecisionService]
+  val result = mock[ResultService]
 
-  def controller() = new NewDecisionController(stubMessagesControllerComponents(),a,s,d,f,g,h)
+  def controller() = new NewDecisionController(stubMessagesControllerComponents(),control, exit, financialRisk, personalService, partAndParcel, result)
 
   "Decision Controller" must {
 
