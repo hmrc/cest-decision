@@ -18,35 +18,41 @@ package uk.gov.hmrc.decisionservice.controllers
 
 import javax.inject.Inject
 import play.api.Logger
+import play.api.libs.concurrent.Execution.Implicits._
 import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
 import play.api.mvc.{Action, MessagesControllerComponents}
 import uk.gov.hmrc.decisionservice.model.api.ErrorCodes._
 import uk.gov.hmrc.decisionservice.model.api._
 import uk.gov.hmrc.decisionservice.models._DecisionResponse
-import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, SetupEnum, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.models.enums.SetupEnum
 import uk.gov.hmrc.decisionservice.services._
 import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
-import scala.concurrent.Future
-
+import scala.concurrent.{ExecutionContext, Future}
 
 
 class NewDecisionController @Inject()(mcc: MessagesControllerComponents,
-                                   controlDecisionService: ControlDecisionService,
-                                   exitDecisionService: ExitDecisionService,
-                                   financialRiskDecisionService: FinancialRiskDecisionService,
-                                   personalServiceDecisionService: PersonalServiceDecisionService,
-                                   partAndParcelDecisionService: PartAndParcelDecisionService,
-                                   resultService: ResultService) extends FrontendController(mcc) {
+                                      controlDecisionService: ControlDecisionService,
+                                      exitDecisionService: ExitDecisionService,
+                                      financialRiskDecisionService: FinancialRiskDecisionService,
+                                      personalServiceDecisionService: PersonalServiceDecisionService,
+                                      partAndParcelDecisionService: PartAndParcelDecisionService,
+                                      resultService: ResultService) extends FrontendController(mcc) {
 
-  def decide(): Action[JsValue] =  Action.async(parse.json) { implicit request =>
+  val version = "1.0.0-beta"
+  def correlationId = ""
+
+  def decide(): Action[JsValue] = Action.async(parse.json) { implicit request =>
 
     import uk.gov.hmrc.decisionservice.models.DecisionRequest
 
     request.body.validate[DecisionRequest] match {
-      case JsSuccess(request, _) =>
+      case JsSuccess(validRequest, _) =>
 
-        Future.successful(Ok(Json.toJson(calculateResult(request.interview))))
+        calculateResult(validRequest.interview).map {
+          response =>
+            Ok(Json.toJson(response))
+        }
 
       case JsError(jsonErrors) =>
         Logger.info("{\"incorrectRequest\":" + jsonErrors + "}")
@@ -58,23 +64,22 @@ class NewDecisionController @Inject()(mcc: MessagesControllerComponents,
 
   import uk.gov.hmrc.decisionservice.models.Interview
 
-  def calculateResult(interview: Interview): _DecisionResponse = {
+  def calculateResult(interview: Interview)(implicit ec: ExecutionContext): Future[_DecisionResponse] = {
 
     import uk.gov.hmrc.decisionservice.models.{Score, _DecisionResponse}
 
+    val setup: Option[SetupEnum.Value] = None
+
     for {
 
-      exit: ExitEnum.Value <- exitDecisionService.decide(interview.exit)
-      personalService: WeightedAnswerEnum.Value <- personalServiceDecisionService.decide(interview.personalService)
-      control: WeightedAnswerEnum.Value <- controlDecisionService.decide(interview.control)
-      financialRisk: WeightedAnswerEnum.Value <- financialRiskDecisionService.decide(interview.financialRisk)
-      partAndParcel: WeightedAnswerEnum.Value <- partAndParcelDecisionService.decide(interview.partAndParcel)
-      result: ResultEnum.Value <- resultService.decide(exit, personalService, control, financialRisk, partAndParcel)
+      exit <- exitDecisionService.decide(interview.exit)
+      personalService <- personalServiceDecisionService.decide(interview.personalService)
+      control <- controlDecisionService.decide(interview.control)
+      financialRisk <- financialRiskDecisionService.decide(interview.financialRisk)
+      partAndParcel <- partAndParcelDecisionService.decide(interview.partAndParcel)
+      result <- resultService.decide(exit, personalService, control, financialRisk, partAndParcel)
 
-    } yield _DecisionResponse("1.0.0-beta", "12345",
-      Score(
-        Some(SetupEnum.CONTINUE), Some(exit), Some(personalService), Some(control), Some(financialRisk), Some(partAndParcel)
-      ), result
+    } yield _DecisionResponse(version, correlationId, Score(setup, exit, personalService, control, financialRisk, partAndParcel), result
     )
   }
 }
