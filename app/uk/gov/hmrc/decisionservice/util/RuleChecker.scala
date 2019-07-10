@@ -16,17 +16,25 @@
 
 package uk.gov.hmrc.decisionservice.util
 
-import play.api.libs.json.{JsObject, JsString, JsValue, Json}
-import uk.gov.hmrc.decisionservice.models.Control
+import play.api.libs.json.{JsObject, Json}
+import uk.gov.hmrc.decisionservice.models.{Control, PartAndParcel}
 
-object CheckRules extends RuleChecker {
+trait RuleChecker {
 
-  private val rule1 = Json.toJson(Control(Some("a"),Some("b"),Some("c"),Some("d"))).as[JsObject]
-  private val rule2 = Json.toJson(Control(Some("js"),Some("js"),None,None)).as[JsObject]
-  private val rule3 = Json.toJson(Control(None,None,None,None)).as[JsObject]
-  private val rule4 = Json.toJson(Control(None,None,None,Some("d"))).as[JsObject]
-  private val rule5 = Json.toJson(Control(Some("js"),Some("js"),Some("js"),Some("js"))).as[JsObject]
+  implicit class ControlRuleSet(control: Control) {
+    def checkRules = {
+      CheckRules.rulesList.map { rule =>
+        rule.fields.map(fields => Json.toJson(control).as[JsObject].fields.contains(fields)).exists(i => i)
+      }
+    }
+  }
 
-  val rulesList = List(rule1,rule2,rule3,rule4,rule5)
+  implicit class PartAndParcelRuleSet(partAndParcel: PartAndParcel) {
+    def checkRules = {
+      CheckRules.rulesList.map { rule =>
+        rule.fields.map(fields => Json.toJson(partAndParcel).as[JsObject].fields.contains(fields)).exists(i => i)
+      }
+    }
+  }
 
 }
