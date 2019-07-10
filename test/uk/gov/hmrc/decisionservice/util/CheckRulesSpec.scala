@@ -22,24 +22,22 @@ import uk.gov.hmrc.decisionservice.DecisionServiceVersions
 import uk.gov.hmrc.decisionservice.models.{Control, PartAndParcel}
 import uk.gov.hmrc.decisionservice.testutil.RequestAndDecision
 import uk.gov.hmrc.play.test.UnitSpec
-import uk.gov.hmrc.decisionservice.util.CheckRules._
 
 class CheckRulesSpec extends UnitSpec {
 
   "CheckRules" should {
     "check control rules" in {
 
-      val control = Control(Some("a"), Some("b"), Some("c"), Some("d")).checkRules
+      val x = new PretendControlService(new ControlRules)
 
-      control shouldBe List(true,false,false,true,false)
+      x.check(Control(Some("canMoveWorkerWithPermission"),Some("workerDecidesWithoutInput"),Some("scheduleDecidedForWorker"),Some("workerChooses"))) should contain(true)
+
     }
 
       "check parcel rules" in {
 
-        val parcel = PartAndParcel(Some("a"), None, None, None).checkRules
+        val parcel = PartAndParcel(Some("a"), None, None, None)
 
-        parcel shouldBe List(false,false,false,false,false)
       }
     }
-
 }

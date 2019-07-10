@@ -16,17 +16,15 @@
 
 package uk.gov.hmrc.decisionservice.util
 
+import javax.inject.Inject
+
 import play.api.libs.json.{JsObject, JsString, JsValue, Json}
 import uk.gov.hmrc.decisionservice.models.Control
 
-object CheckRules extends RuleChecker {
+class PretendControlService @Inject()(controlRules: ControlRules){
 
-  private val rule1 = Json.toJson(Control(Some("a"),Some("b"),Some("c"),Some("d"))).as[JsObject]
-  private val rule2 = Json.toJson(Control(Some("js"),Some("js"),None,None)).as[JsObject]
-  private val rule3 = Json.toJson(Control(None,None,None,None)).as[JsObject]
-  private val rule4 = Json.toJson(Control(None,None,None,Some("d"))).as[JsObject]
-  private val rule5 = Json.toJson(Control(Some("js"),Some("js"),Some("js"),Some("js"))).as[JsObject]
-
-  val rulesList = List(rule1,rule2,rule3,rule4,rule5)
+  def check(control: Control) = {
+    controlRules.checkRules(control)
+  }
 
 }

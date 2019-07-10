@@ -50,8 +50,9 @@ class NewDecisionControllerSpec extends UnitSpec with WithFakeApplication with M
   val personalService = mock[PersonalServiceDecisionService]
   val partAndParcel = mock[PartAndParcelDecisionService]
   val result = mock[ResultService]
+  val decision = mock[NewDecisionService]
 
-  def controller = new NewDecisionController(stubMessagesControllerComponents(),control, exit, financialRisk, personalService, partAndParcel, result)
+  def controller = new NewDecisionController(stubMessagesControllerComponents(),decision)
 
   "Decision Controller" must {
 

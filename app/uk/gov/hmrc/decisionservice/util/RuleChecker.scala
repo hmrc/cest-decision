@@ -16,25 +16,40 @@
 
 package uk.gov.hmrc.decisionservice.util
 
-import play.api.libs.json.{JsObject, Json}
-import uk.gov.hmrc.decisionservice.models.{Control, PartAndParcel}
+import play.api.libs.json.{JsObject, Json, Writes}
 
-trait RuleChecker {
+abstract class RuleChecker {
 
-  implicit class ControlRuleSet(control: Control) {
-    def checkRules = {
-      CheckRules.rulesList.map { rule =>
-        rule.fields.map(fields => Json.toJson(control).as[JsObject].fields.contains(fields)).exists(i => i)
-      }
+  val ruleSet: List[JsObject]
+
+  def checkRules[T](section: T)(implicit writes: Writes[T]) =
+    ruleSet.map { rule =>
+      rule.fields.map(fields =>
+        Json.toJson(section).as[JsObject].fields.contains(fields)).exists(i => i)
     }
-  }
 
-  implicit class PartAndParcelRuleSet(partAndParcel: PartAndParcel) {
-    def checkRules = {
-      CheckRules.rulesList.map { rule =>
-        rule.fields.map(fields => Json.toJson(partAndParcel).as[JsObject].fields.contains(fields)).exists(i => i)
-      }
-    }
-  }
+}
 
+class ControlRules extends RuleChecker {
+  override val ruleSet: List[JsObject] = JsonFileReader.controlFile
+}
+
+class ExitRules extends RuleChecker {
+  override val ruleSet: List[JsObject] = JsonFileReader.exitFile
+}
+
+class PersonalServiceRules extends RuleChecker {
+  override val ruleSet: List[JsObject] = JsonFileReader.personalServiceFile
+}
+
+class PartAndParcelRules extends RuleChecker {
+  override val ruleSet: List[JsObject] = JsonFileReader.partAndParcelFile
+}
+
+class FinancialRiskRules extends RuleChecker {
+  override val ruleSet: List[JsObject] = JsonFileReader.financialRiskFile
+}
+
+class MatrixOfMatricesRules extends RuleChecker {
+  override val ruleSet: List[JsObject] = JsonFileReader.matrixOfMatricesFile
 }
