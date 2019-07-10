@@ -23,11 +23,11 @@ import uk.gov.hmrc.decisionservice.models.enums.SetupEnum
 import scala.concurrent.{ExecutionContext, Future}
 
 class NewDecisionService @Inject()(controlDecisionService: ControlDecisionService,
-                            exitDecisionService: ExitDecisionService,
-                            financialRiskDecisionService: FinancialRiskDecisionService,
-                            personalServiceDecisionService: PersonalServiceDecisionService,
-                            partAndParcelDecisionService: PartAndParcelDecisionService,
-                            resultService: ResultService) {
+                                   exitDecisionService: ExitDecisionService,
+                                   financialRiskDecisionService: FinancialRiskDecisionService,
+                                   personalServiceDecisionService: PersonalServiceDecisionService,
+                                   partAndParcelDecisionService: PartAndParcelDecisionService,
+                                   resultService: ResultService) {
 
   val version = "1.0.0-beta"
 
@@ -49,5 +49,4 @@ class NewDecisionService @Inject()(controlDecisionService: ControlDecisionServic
 
     } yield _DecisionResponse(version, request.correlationID, Score(setup, exit, personalService, control, financialRisk, partAndParcel), result)
   }
-
 }
