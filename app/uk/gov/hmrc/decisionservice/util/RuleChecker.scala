@@ -17,39 +17,44 @@
 package uk.gov.hmrc.decisionservice.util
 
 import play.api.libs.json.{JsObject, Json, Writes}
+import uk.gov.hmrc.decisionservice.models.Control
+import uk.gov.hmrc.decisionservice.models.rules.RulesSet
 
 abstract class RuleChecker {
 
-  val ruleSet: List[JsObject]
+  def ruleSet: RulesSet
 
-  def checkRules[T](section: T)(implicit writes: Writes[T]) =
-    ruleSet.map { rule =>
-      rule.fields.map(fields =>
-        Json.toJson(section).as[JsObject].fields.contains(fields)).exists(i => i)
+  def checkRules(section: JsObject)(implicit writes: Writes[JsObject]) = {
+    val highCheck = ruleSet.HIGH.flatMap { rule =>
+      rule.fields.map { fields =>
+        if (section.fields.contains(fields)) Some("HIGH") else None
+      }
     }
+
+  }
 
 }
 
 class ControlRules extends RuleChecker {
-  override val ruleSet: List[JsObject] = JsonFileReader.controlFile
+  override def ruleSet: RulesSet = JsonFileReader.controlFile
 }
 
-class ExitRules extends RuleChecker {
-  override val ruleSet: List[JsObject] = JsonFileReader.exitFile
-}
-
-class PersonalServiceRules extends RuleChecker {
-  override val ruleSet: List[JsObject] = JsonFileReader.personalServiceFile
-}
-
-class PartAndParcelRules extends RuleChecker {
-  override val ruleSet: List[JsObject] = JsonFileReader.partAndParcelFile
-}
-
-class FinancialRiskRules extends RuleChecker {
-  override val ruleSet: List[JsObject] = JsonFileReader.financialRiskFile
-}
-
-class MatrixOfMatricesRules extends RuleChecker {
-  override val ruleSet: List[JsObject] = JsonFileReader.matrixOfMatricesFile
-}
+//class ExitRules extends RuleChecker {
+//  override val ruleSet: List[JsObject] = JsonFileReader.exitFile
+//}
+//
+//class PersonalServiceRules extends RuleChecker {
+//  override val ruleSet: List[JsObject] = JsonFileReader.personalServiceFile
+//}
+//
+//class PartAndParcelRules extends RuleChecker {
+//  override val ruleSet: List[JsObject] = JsonFileReader.partAndParcelFile
+//}
+//
+//class FinancialRiskRules extends RuleChecker {
+//  override val ruleSet: List[JsObject] = JsonFileReader.financialRiskFile
+//}
+//
+//class MatrixOfMatricesRules extends RuleChecker {
+//  override val ruleSet: List[JsObject] = JsonFileReader.matrixOfMatricesFile
+//}

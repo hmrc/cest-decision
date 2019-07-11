@@ -20,14 +20,13 @@ import java.io.File
 import java.net.URI
 
 import play.api.libs.json.{JsArray, JsObject, JsString, Json}
+import uk.gov.hmrc.decisionservice.models.rules.RulesSet
 
 import scala.io.Source
 
 object JsonFileReader {
 
-  lazy val controlFile = Json.parse(Source.fromFile("conf/jsonRules/1.5.0/control.scala.json").mkString).as[JsArray].value.map { json =>
-    json.as[JsObject]
-  }.toList
+  lazy val controlFile = Json.parse(Source.fromFile("conf/jsonRules/1.5.0/control.scala.json").mkString).as[RulesSet]
 
   lazy val exitFile = Json.parse(Source.fromFile("conf/jsonRules/1.5.0/exit.scala.json").mkString).as[JsArray].value.map { json =>
     json.as[JsObject]

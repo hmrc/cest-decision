@@ -14,14 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.util
+package uk.gov.hmrc.decisionservice.models.rules
 
-import javax.inject.Inject
+import play.api.libs.json.{Format, JsObject, Json}
 
-import play.api.libs.json.{JsObject, JsString, JsValue, Json}
-import uk.gov.hmrc.decisionservice.models.Control
+case class RulesSet(OutOfIR35: Seq[JsObject], HIGH: Seq[JsObject], MEDIUM: Seq[JsObject], LOW: Seq[JsObject])
 
-class PretendControlService @Inject()(controlRules: ControlRules){
-
+object RulesSet {
+  implicit val format: Format[RulesSet] = Json.format[RulesSet]
 
 }
