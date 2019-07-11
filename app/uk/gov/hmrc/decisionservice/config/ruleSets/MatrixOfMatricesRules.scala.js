@@ -1,8 +1,8 @@
-@import uk.gov.hmrc.decisionservice.models.enums.ResultEnum
+@import uk.gov.hmrc.decisionservice.models.enums.ResultEnum._
 
 
 {
-  "@ResultEnum.INSIDE_IR35": [
+  "@INSIDE_IR35": [
     {
       "personalService": "Medium",
       "control": "Medium",
@@ -112,7 +112,7 @@
       "partAndParcel": "High"
     }
   ],
-  "@ResultEnum.UNKNOWN": [
+  "@UNKNOWN": [
     {
       "personalService": "Medium",
       "control": "Medium",

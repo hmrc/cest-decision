@@ -1,42 +1,43 @@
-@import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+@import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
+@import uk.gov.hmrc.decisionservice.models.PersonalService._
 
 {
-  "@WeightedAnswerEnum.OUTSIDE_IR35": [
+  "@OUTSIDE_IR35": [
     {
-      "workerSentActualSubstitute": "yesClientAgreed",
-      "workerPayActualSubstitute": true
+      "@workerSentActualSubstitute": "yesClientAgreed",
+      "@workerPayActualSubstitute": true
     },
     {
-      "possibleSubstituteRejection": "wouldNotReject",
-      "possibleSubstituteWorkerPay": true
+      "@possibleSubstituteRejection": "wouldNotReject",
+      "@possibleSubstituteWorkerPay": true
     }
   ],
-  "@WeightedAnswerEnum.HIGH": [
+  "@HIGH": [
     {
-      "possibleSubstituteRejection": "wouldReject"
+      "@possibleSubstituteRejection": "wouldReject"
     },
     {
-      "workerSentActualSubstitute": "notAgreedWithClient",
-      "wouldWorkerPayHelper": false
+      "@workerSentActualSubstitute": "notAgreedWithClient",
+      "@wouldWorkerPayHelper": false
     }
   ],
-  "@WeightedAnswerEnum.MEDIUM": [
+  "@MEDIUM": [
     {
-      "possibleSubstituteRejection": "wouldNotReject",
-      "possibleSubstituteWorkerPay": false
+      "@possibleSubstituteRejection": "wouldNotReject",
+      "@possibleSubstituteWorkerPay": false
     },
     {
-      "workerSentActualSubstitute": "notAgreedWithClient",
-      "wouldWorkerPayHelper": true
+      "@workerSentActualSubstitute": "notAgreedWithClient",
+      "@wouldWorkerPayHelper": true
     },
     {
-      "workerSentActualSubstitute": "yesClientAgreed",
-      "workerPayActualSubstitute": false
+      "@workerSentActualSubstitute": "yesClientAgreed",
+      "@workerPayActualSubstitute": false
     },
     {
-      "workerSentActualSubstitute": "noSubstitutionHappened",
-      "possibleSubstituteRejection": "wouldReject",
-      "wouldWorkerPayHelper": true
+      "@workerSentActualSubstitute": "noSubstitutionHappened",
+      "@possibleSubstituteRejection": "wouldReject",
+      "@wouldWorkerPayHelper": true
     }
   ]
 }

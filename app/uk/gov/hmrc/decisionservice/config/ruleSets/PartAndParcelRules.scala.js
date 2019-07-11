@@ -1,30 +1,31 @@
-@import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+@import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
+@import uk.gov.hmrc.decisionservice.models.PartAndParcel._
 
 {
-  "@WeightedAnswerEnum.HIGH": [
+  "@HIGH": [
     {
-      "workerAsLineManager": true
+      "@workerAsLineManager": true
     },
     {
-      "workerReceivesBenefits": true
+      "@workerReceivesBenefits": true
     }
   ],
-  "@WeightedAnswerEnum.MEDIUM": [
+  "@MEDIUM": [
     {
-      "contactWithEngagerCustomer": true,
-      "workerRepresentsEngagerBusiness": "workForEndClient"
+      "@contactWithEngagerCustomer": true,
+      "@workerRepresentsEngagerBusiness": "workForEndClient"
     },
     {
-      "contactWithEngagerCustomer": true,
-      "workerRepresentsEngagerBusiness": "workAsBusiness"
+      "@contactWithEngagerCustomer": true,
+      "@workerRepresentsEngagerBusiness": "workAsBusiness"
     }
   ],
-  "@WeightedAnswerEnum.LOW": [
+  "@LOW": [
     {
-      "contactWithEngagerCustomer": false
+      "@contactWithEngagerCustomer": false
     },
     {
-      "workerRepresentsEngagerBusiness": "workAsIndependent"
+      "@workerRepresentsEngagerBusiness": "workAsIndependent"
     }
   ]
 }
