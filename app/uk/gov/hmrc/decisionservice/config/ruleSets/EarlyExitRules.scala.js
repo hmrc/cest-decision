@@ -1,5 +1,7 @@
+@import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
+
 {
-  "InIR35": [{
+  "@ExitEnum.INSIDE_IR35": [{
     "officeHolder": true
   }]
 }

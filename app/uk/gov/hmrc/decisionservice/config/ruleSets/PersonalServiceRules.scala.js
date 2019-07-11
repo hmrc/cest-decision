@@ -1,5 +1,7 @@
+@import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+
 {
-  "OutOfIR35": [
+  "@WeightedAnswerEnum.OUTSIDE_IR35": [
     {
       "workerSentActualSubstitute": "yesClientAgreed",
       "workerPayActualSubstitute": true
@@ -9,7 +11,7 @@
       "possibleSubstituteWorkerPay": true
     }
   ],
-  "HIGH": [
+  "@WeightedAnswerEnum.HIGH": [
     {
       "possibleSubstituteRejection": "wouldReject"
     },
@@ -18,7 +20,7 @@
       "wouldWorkerPayHelper": false
     }
   ],
-  "MEDIUM": [
+  "@WeightedAnswerEnum.MEDIUM": [
     {
       "possibleSubstituteRejection": "wouldNotReject",
       "possibleSubstituteWorkerPay": false

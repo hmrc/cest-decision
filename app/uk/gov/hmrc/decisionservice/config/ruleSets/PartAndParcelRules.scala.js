@@ -1,5 +1,7 @@
+@import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+
 {
-  "HIGH": [
+  "@WeightedAnswerEnum.HIGH": [
     {
       "workerAsLineManager": true
     },
@@ -7,7 +9,7 @@
       "workerReceivesBenefits": true
     }
   ],
-  "MEDIUM": [
+  "@WeightedAnswerEnum.MEDIUM": [
     {
       "contactWithEngagerCustomer": true,
       "workerRepresentsEngagerBusiness": "workForEndClient"
@@ -17,7 +19,7 @@
       "workerRepresentsEngagerBusiness": "workAsBusiness"
     }
   ],
-  "LOW": [
+  "@WeightedAnswerEnum.LOW": [
     {
       "contactWithEngagerCustomer": false
     },

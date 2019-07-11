@@ -1,5 +1,7 @@
+@import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+
 {
-  "OutOfIR35": [
+  "@WeightedAnswerEnum.OUTSIDE_IR35": [
     {
       "engagerMovingWorker": "cannotMoveWorkerWithoutNewAgreement",
       "workerDecidingHowWorkIsDone": "workerDecidesWithoutInput",
@@ -49,7 +51,7 @@
       "workerDecideWhere": "noLocationRequired"
     }
   ],
-  "HIGH": [
+  "@WeightedAnswerEnum.HIGH": [
     {
       "engagerMovingWorker": "canMoveWorkerWithPermission",
       "workerDecidingHowWorkIsDone": "workerDecidesWithoutInput",
@@ -453,7 +455,7 @@
       "workerDecideWhere": "noLocationRequired"
     }
   ],
-  "MEDIUM": [
+  "@WeightedAnswerEnum.MEDIUM": [
     {
       "engagerMovingWorker": "canMoveWorkerWithPermission",
       "workerDecidingHowWorkIsDone": "workerDecidesWithoutInput",

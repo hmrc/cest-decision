@@ -19,6 +19,7 @@ package uk.gov.hmrc.decisionservice.config.ruleSets
 import play.api.libs.json.{JsValue, Json}
 import play.twirl.api.JavaScript
 import uk.gov.hmrc.decisionservice.config.ruleSets.js.MatrixOfMatricesRules
+import uk.gov.hmrc.decisionservice.models.enums.ResultEnum
 import uk.gov.hmrc.decisionservice.util.TestFixture
 import uk.gov.hmrc.play.test.UnitSpec
 
@@ -30,7 +31,7 @@ class MatrixOfMatricesRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected InIR35 rules" in {
 
-    val actual = (json \ "InIR35").as[List[JsValue]]
+    val actual = (json \ ResultEnum.INSIDE_IR35).as[List[JsValue]]
 
     val expected = Json.parse(
       """
@@ -152,7 +153,7 @@ class MatrixOfMatricesRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected Indeterminate rules" in {
 
-    val actual = (json \ "Indeterminate").as[List[JsValue]]
+    val actual = (json \ ResultEnum.UNKNOWN).as[List[JsValue]]
 
     val expected = Json.parse(
       """

@@ -19,6 +19,7 @@ package uk.gov.hmrc.decisionservice.config.ruleSets
 import play.api.libs.json.{JsValue, Json}
 import play.twirl.api.JavaScript
 import uk.gov.hmrc.decisionservice.config.ruleSets.js.FinancialRiskRules
+import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 import uk.gov.hmrc.decisionservice.util.TestFixture
 import uk.gov.hmrc.play.test.UnitSpec
 
@@ -30,7 +31,7 @@ class FinancialRiskRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected OUT rules" in {
 
-    val actual = (json \ "OutOfIR35").as[List[JsValue]]
+    val actual = (json \ WeightedAnswerEnum.OUTSIDE_IR35).as[List[JsValue]]
 
     val expected = Json.parse(
       """
@@ -119,7 +120,7 @@ class FinancialRiskRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected MEDIUM rules" in {
 
-    val actual = (json \ "MEDIUM").as[List[JsValue]]
+    val actual = (json \ WeightedAnswerEnum.MEDIUM).as[List[JsValue]]
 
     val expected = Json.parse(
       """
@@ -363,7 +364,7 @@ class FinancialRiskRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected LOW rules" in {
 
-    val actual = (json \ "LOW").as[List[JsValue]]
+    val actual = (json \ WeightedAnswerEnum.LOW).as[List[JsValue]]
 
     val expected = Json.parse(
       """

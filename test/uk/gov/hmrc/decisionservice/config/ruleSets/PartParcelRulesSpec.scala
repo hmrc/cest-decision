@@ -19,6 +19,7 @@ package uk.gov.hmrc.decisionservice.config.ruleSets
 import play.api.libs.json.{JsValue, Json}
 import play.twirl.api.JavaScript
 import uk.gov.hmrc.decisionservice.config.ruleSets.js.PartAndParcelRules
+import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 import uk.gov.hmrc.decisionservice.util.TestFixture
 import uk.gov.hmrc.play.test.UnitSpec
 
@@ -30,7 +31,7 @@ class PartParcelRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected HIGH rules" in {
 
-    val actual = (json \ "HIGH").as[List[JsValue]]
+    val actual = (json \ WeightedAnswerEnum.HIGH).as[List[JsValue]]
 
     val expected = Json.parse(
       """
@@ -50,7 +51,7 @@ class PartParcelRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected MEDIUM rules" in {
 
-    val actual = (json \ "MEDIUM").as[List[JsValue]]
+    val actual = (json \ WeightedAnswerEnum.MEDIUM).as[List[JsValue]]
 
     val expected = Json.parse(
       """
@@ -72,7 +73,7 @@ class PartParcelRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected LOW rules" in {
 
-    val actual = (json \ "LOW").as[List[JsValue]]
+    val actual = (json \ WeightedAnswerEnum.LOW).as[List[JsValue]]
 
     val expected = Json.parse(
       """

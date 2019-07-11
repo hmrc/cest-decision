@@ -1,5 +1,7 @@
+@import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+
 {
-  "OutOfIR35": [
+  "@WeightedAnswerEnum.OUTSIDE_IR35": [
     {
       "workerProvidedMaterials": true
     },
@@ -76,7 +78,7 @@
       "paidForSubstandardWork": "outsideOfHoursNoCharge"
     }
   ],
-  "MEDIUM": [
+  "@WeightedAnswerEnum.MEDIUM": [
     {
       "workerUsedVehicle": true,
       "workerMainIncome": "incomeCalendarPeriods",
@@ -308,7 +310,7 @@
       "paidForSubstandardWork": "outsideOfHoursNoCosts"
     }
   ],
-  "LOW": [
+  "@WeightedAnswerEnum.LOW": [
     {
       "workerHadOtherExpenses": true,
       "workerMainIncome": "incomeProfitOrLosses",

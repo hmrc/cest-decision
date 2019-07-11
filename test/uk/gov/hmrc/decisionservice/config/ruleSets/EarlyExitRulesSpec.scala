@@ -19,6 +19,7 @@ package uk.gov.hmrc.decisionservice.config.ruleSets
 import play.api.libs.json.{JsValue, Json}
 import play.twirl.api.JavaScript
 import uk.gov.hmrc.decisionservice.config.ruleSets.js.EarlyExitRules
+import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
 import uk.gov.hmrc.decisionservice.util.TestFixture
 import uk.gov.hmrc.play.test.UnitSpec
 
@@ -30,7 +31,7 @@ class EarlyExitRulesSpec extends UnitSpec with TestFixture {
 
   "Contain the expected IN rule" in {
 
-    val actual = (json \ "InIR35").as[List[JsValue]]
+    val actual = (json \ ExitEnum.INSIDE_IR35).as[List[JsValue]]
 
     val expected = Json.parse(
       """
