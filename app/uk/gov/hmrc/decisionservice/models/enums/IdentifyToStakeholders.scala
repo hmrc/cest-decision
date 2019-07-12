@@ -14,6 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models
+package uk.gov.hmrc.decisionservice.models.enums
 
-trait Section
+import play.api.libs.json.Format
+
+object IdentifyToStakeholders extends Enumeration with EnumFormats {
+
+  val workForEndClient: IdentifyToStakeholders.Value = Value("workForEndClient")
+  val workAsIndependent: IdentifyToStakeholders.Value = Value("workAsIndependent")
+  val workAsBusiness: IdentifyToStakeholders.Value = Value("workAsBusiness")
+  val wouldNotHappen: IdentifyToStakeholders.Value = Value("wouldNotHappen")
+
+  implicit val format: Format[IdentifyToStakeholders.Value] = enumFormat(IdentifyToStakeholders)
+}

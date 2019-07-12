@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models
+package uk.gov.hmrc.decisionservice.models.enums
 
-trait Section
+import play.api.libs.json.Format
+
+object Section extends Enumeration with EnumFormats {
+
+  val exit: Section.Value = Value("exit")
+  val personalService: Section.Value = Value("personalService")
+  val control: Section.Value = Value("control")
+  val financialRisk: Section.Value = Value("financialRisk")
+  val partAndParcel: Section.Value = Value("partAndParcel")
+
+  implicit val format: Format[Section.Value] = enumFormat(Section)
+}

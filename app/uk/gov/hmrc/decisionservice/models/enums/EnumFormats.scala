@@ -39,4 +39,6 @@ trait EnumFormats {
   implicit def enumFormat[E <: Enumeration](enum: E): Format[E#Value] = {
     Format(enumRead(enum), enumWrite)
   }
+
+  implicit def enum2String[E <: Enumeration](v: E#Value): String = v.toString
 }

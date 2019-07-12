@@ -16,4 +16,6 @@
 
 package uk.gov.hmrc.decisionservice.models
 
-trait Section
+class WithName(string: String) {
+  override val toString: String = string
+}
