@@ -17,7 +17,10 @@
 package uk.gov.hmrc.decisionservice.util
 
 import play.api.libs.json._
+import uk.gov.hmrc.decisionservice.config.ruleSets._
 import uk.gov.hmrc.decisionservice.models.rules.{RulesSet, RulesSetWithResult}
+
+import scala.annotation.tailrec
 
 abstract class RuleChecker {
 
@@ -28,80 +31,38 @@ abstract class RuleChecker {
     checkOutcome(jsObject,ruleSet)
   }
 
-//  private def checkOutcome(section: JsObject,rules: Seq[RulesSetWithResult] = ruleSet): String = {
-//    if(rules.isEmpty) "undetermined" else {
-//      val currentRule = rules.head
-//      if(currentRule.rulesSet.map { rule =>
-//        println(currentRule.result)
-//        println(rule)
-//        section.fields.contains(rule.fields)
-//      }.exists(res => res)) currentRule.result else checkOutcome(section,rules.tail)
-//    }
-//  }
-
+  @tailrec
   private def checkOutcome(section: JsObject,rules: Seq[RulesSetWithResult]): String = {
     if(rules.isEmpty) "undetermined" else {
-
       val currentRule = rules.head
-
-      if(currentRule.rulesSet.exists { rule =>
+      if(currentRule.rulesSet.toStream exists(rule => {
         rule.fields.forall(section.fields.contains)
-      }) currentRule.result else checkOutcome(section, rules.tail)
+      })) currentRule.result else checkOutcome(section, rules.tail)
     }
   }
 
-
-
-
-//  private def checkOutRules(implicit section: JsObject) = {
-//    ruleSet.OutOfIR35.fold(None: Option[String]){_.flatMap { rules =>
-//      rules.fields.map { rule =>
-//        if (section.fields.contains(rule)) Some(ruleSet.out) else None
-//      }
-//    }.headOption.flatten
-//    }
-//  }
-//
-//  private def checkHighRules(implicit section: JsObject) = {
-//    ruleSet.HIGH.fold(None: Option[String]){_.flatMap { rules =>
-//      rules.fields.map { rule =>
-//        if (section.fields.contains(rule)) Some(ruleSet.high) else None
-//      }
-//    }.headOption.flatten
-//    }
-//  }
-//
-//  private def checkMediumRules(implicit section: JsObject) = {
-//    ruleSet.MEDIUM.fold(None: Option[String]){_.flatMap { rules =>
-//      rules.fields.map { rule =>
-//        if (section.fields.contains(rule)) Some(ruleSet.medium) else None
-//      }
-//    }.headOption.flatten
-//    }
-//  }
-
 }
 
-class ControlRules extends RuleChecker {
-  override def ruleSet: Seq[RulesSetWithResult] = JsonFileReader.controlFile.rulesInOrder
+class ControlRulesSet extends RuleChecker {
+  override def ruleSet: Seq[RulesSetWithResult] = ControlRules.ruleSet.as[RulesSet].rulesInOrder
 }
 
-//class ExitRules extends RuleChecker {
-//  override val ruleSet: List[JsObject] = JsonFileReader.exitFile
-//}
-//
-//class PersonalServiceRules extends RuleChecker {
-//  override val ruleSet: List[JsObject] = JsonFileReader.personalServiceFile
-//}
-//
-//class PartAndParcelRules extends RuleChecker {
-//  override val ruleSet: List[JsObject] = JsonFileReader.partAndParcelFile
-//}
-//
-//class FinancialRiskRules extends RuleChecker {
-//  override val ruleSet: List[JsObject] = JsonFileReader.financialRiskFile
-//}
-//
-//class MatrixOfMatricesRules extends RuleChecker {
-//  override val ruleSet: List[JsObject] = JsonFileReader.matrixOfMatricesFile
-//}
+class ExitRulesSet extends RuleChecker {
+  override def ruleSet: Seq[RulesSetWithResult] = EarlyExitRules.ruleSet.as[RulesSet].rulesInOrder
+}
+
+class PersonalServiceRulesSet extends RuleChecker {
+  override def ruleSet: Seq[RulesSetWithResult] = PersonalServiceRules.ruleSet.as[RulesSet].rulesInOrder
+}
+
+class PartAndParcelRulesSet extends RuleChecker {
+  override def ruleSet: Seq[RulesSetWithResult] = PartAndParcelRules.ruleSet.as[RulesSet].rulesInOrder
+}
+
+class FinancialRiskRulesSet extends RuleChecker {
+  override def ruleSet: Seq[RulesSetWithResult] = FinancialRiskRules.ruleSet.as[RulesSet].rulesInOrder
+}
+
+class MatrixOfMatricesRulesSet extends RuleChecker {
+  override def ruleSet: Seq[RulesSetWithResult] = MatrixOfMatricesRules.ruleSet.as[RulesSet].rulesInOrder
+}
