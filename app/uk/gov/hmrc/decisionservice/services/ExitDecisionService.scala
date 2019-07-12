@@ -18,7 +18,7 @@ package uk.gov.hmrc.decisionservice.services
 
 import javax.inject.Inject
 import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
-import uk.gov.hmrc.decisionservice.models.Section
+import uk.gov.hmrc.decisionservice.models.{Exit, Section}
 
 import scala.concurrent.Future
 
@@ -26,7 +26,13 @@ class ExitDecisionService @Inject()() {
 
   def decide(section: Section): Future[Option[ExitEnum.Value]] = {
 
-    Future.successful(None)
+    val exit = section.asInstanceOf[Exit]
+
+    exit match {
+      case Exit(officeHolder) =>
+
+        Future.successful(Some(ExitEnum.INSIDE_IR35))
+    }
   }
 
 }

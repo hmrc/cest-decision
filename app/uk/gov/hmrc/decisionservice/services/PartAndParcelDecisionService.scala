@@ -17,7 +17,7 @@
 package uk.gov.hmrc.decisionservice.services
 
 import javax.inject.Inject
-import uk.gov.hmrc.decisionservice.models.Section
+import uk.gov.hmrc.decisionservice.models.{PartAndParcel, Section}
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 
 import scala.concurrent.Future
@@ -26,6 +26,17 @@ class PartAndParcelDecisionService @Inject()() {
 
   def decide(section: Section): Future[Option[WeightedAnswerEnum.Value]] = {
 
-    Future.successful(None)
+    val partAndParcel = section.asInstanceOf[PartAndParcel]
+
+    partAndParcel match {
+      case PartAndParcel(None, None, None, None) =>
+
+        Future.successful(None)
+
+      case PartAndParcel(workerReceivesBenefits, workerAsLineManager, contactWithEngagerCustomer, workerRepresentsEngagerBusiness) =>
+
+        //look up rules
+        Future.successful(Some(WeightedAnswerEnum.OUTSIDE_IR35))
+    }
   }
 }

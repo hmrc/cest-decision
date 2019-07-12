@@ -30,7 +30,14 @@ class ResultService @Inject()() {
              partAndParcel: Option[WeightedAnswerEnum.Value]
             ): Future[ResultEnum.Value] = {
 
-    Future.successful(ResultEnum.UNKNOWN)
-  }
+    (exit,personalService,control,financialRisk,partAndParcel) match {
 
+      case (None, None, None, None, None) => Future.successful(ResultEnum.NOT_MATCHED)
+
+      case (_exit,_personalService,_control,_financialRisk,_partAndParcel) =>
+
+        Future.successful(ResultEnum.OUTSIDE_IR35)
+
+    }
+  }
 }

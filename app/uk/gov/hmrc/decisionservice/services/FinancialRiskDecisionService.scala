@@ -18,7 +18,7 @@ package uk.gov.hmrc.decisionservice.services
 
 import javax.inject.Inject
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
-import uk.gov.hmrc.decisionservice.models.Section
+import uk.gov.hmrc.decisionservice.models.{FinancialRisk, Section}
 
 import scala.concurrent.Future
 
@@ -26,6 +26,18 @@ class FinancialRiskDecisionService @Inject()() {
 
   def decide(section: Section): Future[Option[WeightedAnswerEnum.Value]] = {
 
-    Future.successful(None)
+    val financialRisk = section.asInstanceOf[FinancialRisk]
+
+    financialRisk match {
+      case FinancialRisk(None, None, None, None, None, None, None) =>
+
+        Future.successful(None)
+
+      case FinancialRisk(workerProvidedMaterials, workerProvidedEquipment, workerUsedVehicle,
+      workerHadOtherExpenses, expensesAreNotRelevantForRole, workerMainIncome, paidForSubstandardWork) =>
+
+        //look up rules
+        Future.successful(Some(WeightedAnswerEnum.OUTSIDE_IR35))
+    }
   }
 }

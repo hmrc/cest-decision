@@ -18,7 +18,7 @@ package uk.gov.hmrc.decisionservice.services
 
 import javax.inject.Inject
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
-import uk.gov.hmrc.decisionservice.models.Section
+import uk.gov.hmrc.decisionservice.models.{Control, Section}
 
 import scala.concurrent.Future
 
@@ -26,8 +26,18 @@ class ControlDecisionService @Inject()() {
 
   def decide(section: Section): Future[Option[WeightedAnswerEnum.Value]] = {
 
-    Future.successful(None)
-  }
+    val control = section.asInstanceOf[Control]
 
+    control match {
+      case Control(None, None, None, None) =>
+
+        Future.successful(None)
+
+      case Control(engagerMovingWorker, workerDecidingHowWorkIsDone, workHasToBeDone, workerDecideWhere) =>
+
+        //look up rules
+        Future.successful(Some(WeightedAnswerEnum.OUTSIDE_IR35))
+    }
+  }
 }
 
