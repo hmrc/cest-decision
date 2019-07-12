@@ -14,6 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models
+package uk.gov.hmrc.decisionservice.models.enums
 
-trait Section
+import play.api.libs.json.Format
+
+object HowWorkerIsPaid extends Enumeration with EnumFormats {
+
+  val hourlyDailyOrWeekly: HowWorkerIsPaid.Value = Value("incomeCalendarPeriods")
+  val fixedPrice: HowWorkerIsPaid.Value = Value("incomeFixed")
+  val pieceRate: HowWorkerIsPaid.Value = Value("incomePieceRate")
+  val commission: HowWorkerIsPaid.Value = Value("incomeCommission")
+  val profitOrLosses: HowWorkerIsPaid.Value = Value("incomeProfitOrLosses")
+
+  implicit val format: Format[HowWorkerIsPaid.Value] = enumFormat(HowWorkerIsPaid)
+}

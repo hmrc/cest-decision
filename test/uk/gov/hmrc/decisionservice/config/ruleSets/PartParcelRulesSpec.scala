@@ -16,34 +16,28 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
-import play.api.libs.json.{JsValue, Json}
-import play.twirl.api.JavaScript
-import uk.gov.hmrc.decisionservice.config.ruleSets.js.PartAndParcelRules
-import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import play.api.libs.json.Json
+import uk.gov.hmrc.decisionservice.models.PartAndParcel._
+import uk.gov.hmrc.decisionservice.models.enums.{IdentifyToStakeholders, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.util.TestFixture
 import uk.gov.hmrc.play.test.UnitSpec
 
 class PartParcelRulesSpec extends UnitSpec with TestFixture {
 
-  val testControlRules: JavaScript = PartAndParcelRules()
-
-  val json = Json.parse(testControlRules.body)
+  val json = PartAndParcelRules.ruleSet
 
   "Contain all the expected HIGH rules" in {
 
-    val actual = (json \ WeightedAnswerEnum.HIGH).as[List[JsValue]]
+    val actual = (json \ WeightedAnswerEnum.HIGH).get
 
-    val expected = Json.parse(
-      """
-        |[
-        |    {
-        |      "workerAsLineManager": true
-        |    },
-        |    {
-        |      "workerReceivesBenefits": true
-        |    }
-        |  ]
-      """.stripMargin).as[List[JsValue]]
+    val expected = Json.arr(
+      Json.obj(
+        workerAsLineManager -> true
+      ),
+      Json.obj(
+        workerReceivesBenefits -> true
+      )
+    )
 
     actual shouldBe expected
 
@@ -51,21 +45,18 @@ class PartParcelRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected MEDIUM rules" in {
 
-    val actual = (json \ WeightedAnswerEnum.MEDIUM).as[List[JsValue]]
+    val actual = (json \ WeightedAnswerEnum.MEDIUM).get
 
-    val expected = Json.parse(
-      """
-        |[
-        |    {
-        |      "contactWithEngagerCustomer": true,
-        |      "workerRepresentsEngagerBusiness": "workForEndClient"
-        |    },
-        |    {
-        |      "contactWithEngagerCustomer": true,
-        |      "workerRepresentsEngagerBusiness": "workAsBusiness"
-        |    }
-        |  ]
-      """.stripMargin).as[List[JsValue]]
+    val expected = Json.arr(
+      Json.obj(
+        contactWithEngagerCustomer -> true,
+        workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
+      ),
+      Json.obj(
+        contactWithEngagerCustomer -> true,
+        workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsBusiness
+      )
+    )
 
     actual shouldBe expected
 
@@ -73,24 +64,18 @@ class PartParcelRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected LOW rules" in {
 
-    val actual = (json \ WeightedAnswerEnum.LOW).as[List[JsValue]]
+    val actual = (json \ WeightedAnswerEnum.LOW).get
 
-    val expected = Json.parse(
-      """
-        |[
-        |    {
-        |      "contactWithEngagerCustomer": false
-        |    },
-        |    {
-        |      "workerRepresentsEngagerBusiness": "workAsIndependent"
-        |    }
-        |  ]
-      """.stripMargin).as[List[JsValue]]
+    val expected = Json.arr(
+      Json.obj(
+        contactWithEngagerCustomer -> false
+      ),
+      Json.obj(
+        workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
+      )
+    )
 
     actual shouldBe expected
 
   }
-
-
-
 }

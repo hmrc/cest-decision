@@ -17,35 +17,29 @@
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
 import play.api.libs.json.{JsValue, Json}
-import play.twirl.api.JavaScript
-import uk.gov.hmrc.decisionservice.config.ruleSets.js.PersonalServiceRules
-import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.decisionservice.models.PersonalService._
+import uk.gov.hmrc.decisionservice.models.enums.{ArrangedSubstitute, RejectSubstitute, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.util.TestFixture
 import uk.gov.hmrc.play.test.UnitSpec
 
 class PersonalServiceRulesSpec extends UnitSpec with TestFixture {
 
-  val testControlRules: JavaScript = PersonalServiceRules()
-
-  val json = Json.parse(testControlRules.body)
+  val json = PersonalServiceRules.ruleSet
 
   "Contain all the expected OUT rules" in {
 
-    val actual = (json \ WeightedAnswerEnum.OUTSIDE_IR35).as[List[JsValue]]
+    val actual = (json \ WeightedAnswerEnum.OUTSIDE_IR35).get
 
-    val expected = Json.parse(
-      """
-        |[
-        |    {
-        |      "workerSentActualSubstitute": "yesClientAgreed",
-        |      "workerPayActualSubstitute": true
-        |    },
-        |    {
-        |      "possibleSubstituteRejection": "wouldNotReject",
-        |      "possibleSubstituteWorkerPay": true
-        |    }
-        |  ]
-      """.stripMargin).as[List[JsValue]]
+    val expected = Json.arr(
+      Json.obj(
+        workerSentActualSubstitute -> ArrangedSubstitute.yesClientAgreed,
+        workerPayActualSubstitute -> true
+      ),
+      Json.obj(
+        possibleSubstituteRejection -> RejectSubstitute.wouldNotReject,
+        possibleSubstituteWorkerPay -> true
+      )
+    )
 
     actual shouldBe expected
 
@@ -53,20 +47,17 @@ class PersonalServiceRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected HIGH rules" in {
 
-    val actual = (json \ WeightedAnswerEnum.HIGH).as[List[JsValue]]
+    val actual = (json \ WeightedAnswerEnum.HIGH).get
 
-    val expected = Json.parse(
-      """
-        |[
-        |    {
-        |      "possibleSubstituteRejection": "wouldReject"
-        |    },
-        |    {
-        |      "workerSentActualSubstitute": "notAgreedWithClient",
-        |      "wouldWorkerPayHelper": false
-        |    }
-        |  ]
-      """.stripMargin).as[List[JsValue]]
+    val expected = Json.arr(
+      Json.obj(
+        possibleSubstituteRejection -> RejectSubstitute.wouldReject
+      ),
+      Json.obj(
+        workerSentActualSubstitute -> ArrangedSubstitute.notAgreedWithClient,
+        wouldWorkerPayHelper -> false
+      )
+    )
 
     actual shouldBe expected
 
@@ -74,35 +65,29 @@ class PersonalServiceRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected MEDIUM rules" in {
 
-    val actual = (json \ WeightedAnswerEnum.MEDIUM).as[List[JsValue]]
+    val actual = (json \ WeightedAnswerEnum.MEDIUM).get
 
-    val expected = Json.parse(
-      """
-        |[
-        |    {
-        |      "possibleSubstituteRejection": "wouldNotReject",
-        |      "possibleSubstituteWorkerPay": false
-        |    },
-        |    {
-        |      "workerSentActualSubstitute": "notAgreedWithClient",
-        |      "wouldWorkerPayHelper": true
-        |    },
-        |    {
-        |      "workerSentActualSubstitute": "yesClientAgreed",
-        |      "workerPayActualSubstitute": false
-        |    },
-        |    {
-        |      "workerSentActualSubstitute": "noSubstitutionHappened",
-        |      "possibleSubstituteRejection": "wouldReject",
-        |      "wouldWorkerPayHelper": true
-        |    }
-        |  ]
-      """.stripMargin).as[List[JsValue]]
+    val expected = Json.arr(
+      Json.obj(
+        possibleSubstituteRejection -> RejectSubstitute.wouldNotReject,
+        possibleSubstituteWorkerPay -> false
+      ),
+      Json.obj(
+        workerSentActualSubstitute -> ArrangedSubstitute.notAgreedWithClient,
+        wouldWorkerPayHelper -> true
+      ),
+      Json.obj(
+        workerSentActualSubstitute -> ArrangedSubstitute.yesClientAgreed,
+        workerPayActualSubstitute -> false
+      ),
+      Json.obj(
+        workerSentActualSubstitute -> ArrangedSubstitute.noSubstitutionHappened,
+        possibleSubstituteRejection -> RejectSubstitute.wouldReject,
+        wouldWorkerPayHelper -> true
+      )
+    )
 
     actual shouldBe expected
 
   }
-
-
-
 }

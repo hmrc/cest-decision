@@ -16,136 +16,131 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
-import play.api.libs.json.{JsValue, Json}
-import play.twirl.api.JavaScript
-import uk.gov.hmrc.decisionservice.config.ruleSets.js.MatrixOfMatricesRules
+import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.enums.ResultEnum
+import uk.gov.hmrc.decisionservice.models.enums.Section._
+import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
 import uk.gov.hmrc.decisionservice.util.TestFixture
 import uk.gov.hmrc.play.test.UnitSpec
 
-class MatrixOfMatricesRulesSpec extends UnitSpec with TestFixture {
+class MatrixOfMatricesRulesSpec extends UnitSpec with TestFixture with RuleSetHelperMethods {
 
-  val testControlRules: JavaScript = MatrixOfMatricesRules()
-
-  val json = Json.parse(testControlRules.body)
+  val json = MatrixOfMatricesRules.ruleSet
 
   "Contain all the expected InIR35 rules" in {
 
-    val actual = (json \ ResultEnum.INSIDE_IR35).as[List[JsValue]]
+    val actual = (json \ ResultEnum.INSIDE_IR35).get
 
-    val expected = Json.parse(
-      """
-        |[
-        |    {
-        |      "personalService": "Medium",
-        |      "control": "Medium",
-        |      "financialRisk": "Low",
-        |      "partAndParcel": "High"
-        |    },
-        |    {
-        |      "personalService": "Medium",
-        |      "control": "Medium",
-        |      "financialRisk": "Low",
-        |      "partAndParcel": "Medium"
-        |    },
-        |    {
-        |      "personalService": "Medium",
-        |      "control": "High",
-        |      "financialRisk": "Low",
-        |      "partAndParcel": "Low"
-        |    },
-        |    {
-        |      "personalService": "Medium",
-        |      "control": "High",
-        |      "financialRisk": "Low",
-        |      "partAndParcel": "Medium"
-        |    },
-        |    {
-        |      "personalService": "Medium",
-        |      "control": "High",
-        |      "financialRisk": "Low",
-        |      "partAndParcel": "High"
-        |    },
-        |    {
-        |      "personalService": "High",
-        |      "control": "Medium",
-        |      "financialRisk": "Low",
-        |      "partAndParcel": "Low"
-        |    },
-        |    {
-        |      "personalService": "High",
-        |      "control": "Medium",
-        |      "financialRisk": "Low",
-        |      "partAndParcel": "Medium"
-        |    },
-        |    {
-        |      "personalService": "High",
-        |      "control": "Medium",
-        |      "financialRisk": "Low",
-        |      "partAndParcel": "High"
-        |    },
-        |    {
-        |      "personalService": "High",
-        |      "control": "High",
-        |      "financialRisk": "Low",
-        |      "partAndParcel": "Low"
-        |    },
-        |    {
-        |      "personalService": "High",
-        |      "control": "High",
-        |      "financialRisk": "Low",
-        |      "partAndParcel": "Medium"
-        |    },
-        |    {
-        |      "personalService": "High",
-        |      "control": "High",
-        |      "financialRisk": "Low",
-        |      "partAndParcel": "High"
-        |    },
-        |    {
-        |      "personalService": "High",
-        |      "control": "High",
-        |      "financialRisk": "Medium",
-        |      "partAndParcel": "Low"
-        |    },
-        |    {
-        |      "personalService": "High",
-        |      "control": "High",
-        |      "financialRisk": "Medium",
-        |      "partAndParcel": "Medium"
-        |    },
-        |    {
-        |      "personalService": "Medium",
-        |      "control": "High",
-        |      "financialRisk": "Medium",
-        |      "partAndParcel": "Low"
-        |    },
-        |    {
-        |      "personalService": "Medium",
-        |      "control": "High",
-        |      "financialRisk": "Medium",
-        |      "partAndParcel": "Medium"
-        |    },
-        |    {
-        |      "personalService": "Medium",
-        |      "control": "High",
-        |      "financialRisk": "Medium",
-        |      "partAndParcel": "High"
-        |    },
-        |    {
-        |      "personalService": "High",
-        |      "control": "Medium",
-        |      "financialRisk": "Medium",
-        |      "partAndParcel": "High"
-        |    },
-        |    {
-        |      "personalService": "High",
-        |      "control": "High",
-        |      "financialRisk": "Medium",
-        |      "partAndParcel": "High"
-        |    }
-        |  ]
-      """.stripMargin).as[List[JsValue]]
+    val expected = Json.arr(
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> MEDIUM,
+        financialRisk -> LOW,
+        partAndParcel -> HIGH
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> MEDIUM,
+        financialRisk -> LOW,
+        partAndParcel -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> HIGH,
+        financialRisk -> LOW,
+        partAndParcel -> LOW
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> HIGH,
+        financialRisk -> LOW,
+        partAndParcel -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> HIGH,
+        financialRisk -> LOW,
+        partAndParcel -> HIGH
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
+        financialRisk -> LOW,
+        partAndParcel -> LOW
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
+        financialRisk -> LOW,
+        partAndParcel -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
+        financialRisk -> LOW,
+        partAndParcel -> HIGH
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> HIGH,
+        financialRisk -> LOW,
+        partAndParcel -> LOW
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> HIGH,
+        financialRisk -> LOW,
+        partAndParcel -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> HIGH,
+        financialRisk -> LOW,
+        partAndParcel -> HIGH
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> LOW
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> LOW
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> HIGH
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
+        financialRisk -> MEDIUM,
+        partAndParcel -> HIGH
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> HIGH
+      )
+    )
 
     actual shouldBe expected
 
@@ -153,49 +148,46 @@ class MatrixOfMatricesRulesSpec extends UnitSpec with TestFixture {
 
   "Contain all the expected Indeterminate rules" in {
 
-    val actual = (json \ ResultEnum.UNKNOWN).as[List[JsValue]]
+    val actual = (json \ ResultEnum.UNKNOWN).get
 
-    val expected = Json.parse(
-      """
-        |[
-        |    {
-        |      "personalService": "Medium",
-        |      "control": "Medium",
-        |      "financialRisk": "Low",
-        |      "partAndParcel": "Low"
-        |    },
-        |    {
-        |      "personalService": "Medium",
-        |      "control": "Medium",
-        |      "financialRisk": "Medium",
-        |      "partAndParcel": "Low"
-        |    },
-        |    {
-        |      "personalService": "Medium",
-        |      "control": "Medium",
-        |      "financialRisk": "Medium",
-        |      "partAndParcel": "Medium"
-        |    },
-        |    {
-        |      "personalService": "Medium",
-        |      "control": "Medium",
-        |      "financialRisk": "Medium",
-        |      "partAndParcel": "High"
-        |    },
-        |    {
-        |      "personalService": "High",
-        |      "control": "Medium",
-        |      "financialRisk": "Medium",
-        |      "partAndParcel": "Low"
-        |    },
-        |    {
-        |      "personalService": "High",
-        |      "control": "Medium",
-        |      "financialRisk": "Medium",
-        |      "partAndParcel": "Medium"
-        |    }
-        |  ]
-      """.stripMargin).as[List[JsValue]]
+    val expected = Json.arr(
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> MEDIUM,
+        financialRisk -> LOW,
+        partAndParcel -> LOW
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> MEDIUM,
+        financialRisk -> MEDIUM,
+        partAndParcel -> LOW
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> MEDIUM,
+        financialRisk -> MEDIUM,
+        partAndParcel -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> MEDIUM,
+        financialRisk -> MEDIUM,
+        partAndParcel -> HIGH
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
+        financialRisk -> MEDIUM,
+        partAndParcel -> LOW
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
+        financialRisk -> MEDIUM,
+        partAndParcel -> MEDIUM
+      )
+    )
 
     actual shouldBe expected
 
