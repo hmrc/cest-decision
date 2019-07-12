@@ -16,27 +16,59 @@
 
 package uk.gov.hmrc.decisionservice.util
 
-import play.api.libs.json.{JsObject, Json, Writes}
-import uk.gov.hmrc.decisionservice.models.Control
-import uk.gov.hmrc.decisionservice.models.rules.RulesSet
+import play.api.libs.json._
+import uk.gov.hmrc.decisionservice.models.rules.{RulesSet, RulesSetWithResult}
 
 abstract class RuleChecker {
 
-  def ruleSet: RulesSet
+  def ruleSet: Seq[RulesSetWithResult]
 
-  def checkRules(section: JsObject)(implicit writes: Writes[JsObject]) = {
-    val highCheck = ruleSet.HIGH.flatMap { rule =>
-      rule.fields.map { fields =>
-        if (section.fields.contains(fields)) Some("HIGH") else None
-      }
-    }
-
+  def checkRules[T](section: T)(implicit writes: Writes[T]): String = {
+    val jsObject: JsObject = Json.toJson(section).as[JsObject]
+    checkOutcome(jsObject,ruleSet)
   }
+
+  private def checkOutcome(section: JsObject,rules: Seq[RulesSetWithResult] = ruleSet): String = {
+    if(rules.isEmpty) "undetermined" else {
+      val currentRule = rules.head
+      if(currentRule.rulesSet.forall(i => section.fields.contains(i.fields))) {
+        currentRule.result
+      } else checkOutcome(section,rules.tail)
+    }
+  }
+
+
+//  private def checkOutRules(implicit section: JsObject) = {
+//    ruleSet.OutOfIR35.fold(None: Option[String]){_.flatMap { rules =>
+//      rules.fields.map { rule =>
+//        if (section.fields.contains(rule)) Some(ruleSet.out) else None
+//      }
+//    }.headOption.flatten
+//    }
+//  }
+//
+//  private def checkHighRules(implicit section: JsObject) = {
+//    ruleSet.HIGH.fold(None: Option[String]){_.flatMap { rules =>
+//      rules.fields.map { rule =>
+//        if (section.fields.contains(rule)) Some(ruleSet.high) else None
+//      }
+//    }.headOption.flatten
+//    }
+//  }
+//
+//  private def checkMediumRules(implicit section: JsObject) = {
+//    ruleSet.MEDIUM.fold(None: Option[String]){_.flatMap { rules =>
+//      rules.fields.map { rule =>
+//        if (section.fields.contains(rule)) Some(ruleSet.medium) else None
+//      }
+//    }.headOption.flatten
+//    }
+//  }
 
 }
 
 class ControlRules extends RuleChecker {
-  override def ruleSet: RulesSet = JsonFileReader.controlFile
+  override def ruleSet: Seq[RulesSetWithResult] = JsonFileReader.controlFile.rulesInOrder
 }
 
 //class ExitRules extends RuleChecker {
