@@ -38,16 +38,16 @@ class RuleCheckerSpec extends UnitSpec {
 
     }
 
-    "check bad control rules" in {
-
-      val x = new ControlRules
-
-      val input1 = Json.toJson(Control(Some("dd"),Some("e"),Some("workerDecideSchedule"),Some("workerChooses"))).as[JsObject]
-
-
-      x.checkRules(input1) shouldBe "OutOfIR35"
-
-
-    }
+//    "check bad control rules" in {
+//
+//      val x = new ControlRules
+//
+//      val input1 = Json.toJson(Control(Some("dd"),Some("e"),Some("workerDecideSchedule"),Some("workerChooses"))).as[JsObject]
+//
+//
+//      x.checkRules(input1) shouldBe "OutOfIR35"
+//
+//
+//    }
     }
 }

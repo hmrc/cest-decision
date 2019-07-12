@@ -28,14 +28,29 @@ abstract class RuleChecker {
     checkOutcome(jsObject,ruleSet)
   }
 
-  private def checkOutcome(section: JsObject,rules: Seq[RulesSetWithResult] = ruleSet): String = {
+//  private def checkOutcome(section: JsObject,rules: Seq[RulesSetWithResult] = ruleSet): String = {
+//    if(rules.isEmpty) "undetermined" else {
+//      val currentRule = rules.head
+//      if(currentRule.rulesSet.map { rule =>
+//        println(currentRule.result)
+//        println(rule)
+//        section.fields.contains(rule.fields)
+//      }.exists(res => res)) currentRule.result else checkOutcome(section,rules.tail)
+//    }
+//  }
+
+  private def checkOutcome(section: JsObject,rules: Seq[RulesSetWithResult]): String = {
     if(rules.isEmpty) "undetermined" else {
+
       val currentRule = rules.head
-      if(currentRule.rulesSet.forall(i => section.fields.contains(i.fields))) {
-        currentRule.result
-      } else checkOutcome(section,rules.tail)
+
+      if(currentRule.rulesSet.exists { rule =>
+        rule.fields.forall(section.fields.contains)
+      }) currentRule.result else checkOutcome(section, rules.tail)
     }
   }
+
+
 
 
 //  private def checkOutRules(implicit section: JsObject) = {
