@@ -23,21 +23,31 @@ import uk.gov.hmrc.decisionservice.models.{Control, PartAndParcel}
 import uk.gov.hmrc.decisionservice.testutil.RequestAndDecision
 import uk.gov.hmrc.play.test.UnitSpec
 
-class CheckRulesSpec extends UnitSpec {
+class RuleCheckerSpec extends UnitSpec {
 
   "CheckRules" should {
     "check control rules" in {
 
-      val x = new PretendControlService(new ControlRules)
+      val x = new ControlRules
 
-      x.check(Control(Some("canMoveWorkerWithPermission"),Some("workerDecidesWithoutInput"),Some("scheduleDecidedForWorker"),Some("workerChooses"))) should contain(true)
+      val input = Json.toJson(Control(Some("cannotMoveWorkerWithoutNewAgreement"),Some("workerDecidesWithoutInput"),Some("workerDecideSchedule"),Some("workerChooses"))).as[JsObject]
+
+
+      x.checkRules(input) shouldBe "OutOfIR35"
+
 
     }
 
-      "check parcel rules" in {
+    "check bad control rules" in {
 
-        val parcel = PartAndParcel(Some("a"), None, None, None)
+      val x = new ControlRules
 
-      }
+      val input1 = Json.toJson(Control(Some("dd"),Some("e"),Some("workerDecideSchedule"),Some("workerChooses"))).as[JsObject]
+
+
+      x.checkRules(input1) shouldBe "OutOfIR35"
+
+
+    }
     }
 }
