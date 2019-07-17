@@ -32,11 +32,11 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
 
         val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
         val actualAnswer = TestFinancialRiskDecisionService.decide(FinancialRisk(
-          workerProvidedMaterials = Some(FinancialRisk.workerProvidedMaterials),
-          workerProvidedEquipment = Some(FinancialRisk.workerProvidedEquipment),
-          workerUsedVehicle = Some(FinancialRisk.workerUsedVehicle),
-          workerHadOtherExpenses = Some(FinancialRisk.workerHadOtherExpenses),
-          expensesAreNotRelevantForRole = Some(FinancialRisk.expensesAreNotRelevantForRole),
+          workerProvidedMaterials = Some(true),
+          workerProvidedEquipment = Some(true),
+          workerUsedVehicle = Some(true),
+          workerHadOtherExpenses = Some(true),
+          expensesAreNotRelevantForRole = Some(true),
           workerMainIncome = Some(FinancialRisk.workerMainIncome),
           paidForSubstandardWork = Some(FinancialRisk.paidForSubstandardWork)
         ))

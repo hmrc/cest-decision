@@ -56,7 +56,7 @@ class NewDecisionControllerSpec extends UnitSpec with WithFakeApplication with T
 
       val decisionRequest = DecisionRequest("","", Interview(
         Setup("","",""),
-        Exit(""),
+        Exit(true),
         PersonalService(None,None,None,None,None),
         Control(None,None,None,None),
         FinancialRisk(None,None,None,None,None,None,None),

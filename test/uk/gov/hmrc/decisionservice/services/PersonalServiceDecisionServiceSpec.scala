@@ -22,7 +22,7 @@ import uk.gov.hmrc.play.test.UnitSpec
 
 class PersonalServiceDecisionServiceSpec extends UnitSpec{
 
-  object TestControlDecisionService extends PartAndParcelDecisionService
+  object TestControlDecisionService extends PersonalServiceDecisionService
 
   "PersonalServiceDecisionServiceSpec" when {
 
