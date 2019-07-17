@@ -16,6 +16,45 @@
 
 package uk.gov.hmrc.decisionservice.services
 
-class PersonalServiceDecisionServiceSpec {
+import uk.gov.hmrc.decisionservice.models.PersonalService
+import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.play.test.UnitSpec
+
+class PersonalServiceDecisionServiceSpec extends UnitSpec{
+
+  object TestControlDecisionService extends PartAndParcelDecisionService
+
+  "PersonalServiceDecisionServiceSpec" when {
+
+    "decide is called with a PersonalService section with every value provided" should {
+
+      "return a WeightedAnswer" in {
+
+        val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+        val actualAnswer = TestControlDecisionService.decide(PersonalService(
+          Some("yesClientAgreed"),
+          Some(true),
+          Some(true),
+          Some(true),
+          Some(true)
+        ))
+
+        await(actualAnswer) shouldBe expectedAnswer
+
+      }
+    }
+
+    "decide is called with a PersonalService section with None for every value" should {
+
+      "return a WeightedAnswer" in {
+
+        val expectedAnswer = None
+        val actualAnswer = TestControlDecisionService.decide(PersonalService(None, None, None, None, None))
+
+        await(actualAnswer) shouldBe expectedAnswer
+
+      }
+    }
+  }
 
 }
