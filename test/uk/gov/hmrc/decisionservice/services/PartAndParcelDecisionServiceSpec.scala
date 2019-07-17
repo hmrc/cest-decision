@@ -16,6 +16,44 @@
 
 package uk.gov.hmrc.decisionservice.services
 
-class PartAndParcelDecisionServiceSpec {
+import uk.gov.hmrc.decisionservice.models.PartAndParcel
+import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.play.test.UnitSpec
+
+class PartAndParcelDecisionServiceSpec extends UnitSpec{
+
+  object TestControlDecisionService extends PartAndParcelDecisionService
+
+  "PartAndParcelDecisionServiceSpec" when {
+
+    "decide is called with a PartAndParcel section with every value provided" should {
+
+      "return a WeightedAnswer" in {
+
+        val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+        val actualAnswer = TestControlDecisionService.decide(PartAndParcel(
+          Some(true),
+          Some(true),
+          Some(true),
+          Some("workForEndClient")
+        ))
+
+        await(actualAnswer) shouldBe expectedAnswer
+
+      }
+    }
+
+    "decide is called with a PartAndParcel section with None for every value" should {
+
+      "return a WeightedAnswer" in {
+
+        val expectedAnswer = None
+        val actualAnswer = TestControlDecisionService.decide(PartAndParcel(None, None, None, None))
+
+        await(actualAnswer) shouldBe expectedAnswer
+
+      }
+    }
+  }
 
 }

@@ -18,9 +18,9 @@ package uk.gov.hmrc.decisionservice.models
 
 import play.api.libs.json.{Format, Json}
 
-case class PartAndParcel(workerReceivesBenefits: Option[String],
-                         workerAsLineManager: Option[String],
-                         contactWithEngagerCustomer: Option[String],
+case class PartAndParcel(workerReceivesBenefits: Option[Boolean],
+                         workerAsLineManager: Option[Boolean],
+                         contactWithEngagerCustomer: Option[Boolean],
                          workerRepresentsEngagerBusiness: Option[String]) extends Section
 
 object PartAndParcel {

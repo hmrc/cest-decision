@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
+import play.api.libs.json.Json.JsValueWrapper
 import play.api.libs.json.{JsValue, Json}
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
 import uk.gov.hmrc.decisionservice.models.enums.MoveWorker._
@@ -26,1171 +27,1177 @@ import uk.gov.hmrc.decisionservice.models.Control._
 
 object ControlRules extends BaseRules {
 
+  lazy val out: (String, JsValueWrapper) = OUTSIDE_IR35.toString -> Json.arr(
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ))
+
+  lazy val high: (String, JsValueWrapper) = HIGH.toString -> Json.arr(
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    )
+  )
+
+  lazy val medium: (String, JsValueWrapper) = MEDIUM.toString -> Json.arr(
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> canMoveWorkerWithoutPermission,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerChooses
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.noLocationRequired
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+    ),
+    Json.obj(
+      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
+      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+      whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+      workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+    )
+  )
+
   override val ruleSet: JsValue =
     Json.obj(
-      OUTSIDE_IR35.toString -> Json.arr(
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        )),
-      HIGH.toString -> Json.arr(
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        )
-      ),
-      MEDIUM.toString -> Json.arr(
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> canMoveWorkerWithoutPermission,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerChooses
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.noLocationRequired
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
-        ),
-        Json.obj(
-          engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
-          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-        )
-      )
+      out,
+      high,
+      medium
     )
 
 }
