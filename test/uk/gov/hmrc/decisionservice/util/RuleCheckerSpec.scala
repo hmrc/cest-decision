@@ -22,7 +22,6 @@ import uk.gov.hmrc.decisionservice.models.Control.{engagerMovingWorker, whenWork
 import uk.gov.hmrc.decisionservice.models.Exit
 import uk.gov.hmrc.decisionservice.models.FinancialRisk.{paidForSubstandardWork, workerMainIncome, workerUsedVehicle}
 import uk.gov.hmrc.decisionservice.models.enums._
-import uk.gov.hmrc.decisionservice.models.rules.RulesSetWithResult
 import uk.gov.hmrc.play.test.UnitSpec
 import uk.gov.hmrc.decisionservice.models.FinancialRisk._
 import uk.gov.hmrc.decisionservice.models.PartAndParcel.{contactWithEngagerCustomer, workerReceivesBenefits, workerRepresentsEngagerBusiness}
@@ -30,6 +29,7 @@ import uk.gov.hmrc.decisionservice.models.PersonalService.{possibleSubstituteRej
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
 import uk.gov.hmrc.decisionservice.models.enums.HowWorkerIsPaid._
 import uk.gov.hmrc.decisionservice.models.enums.PutRightAtOwnCost._
+import uk.gov.hmrc.decisionservice.models.rules.RulesSetWithResult
 
 class RuleCheckerSpec extends UnitSpec {
 
@@ -232,11 +232,9 @@ class RuleCheckerSpec extends UnitSpec {
       }
 
       "check a MEDIUM rule is matched" in {
-        //TODO??? do we need this medium rule? if possibleSubstituteRejection -> RejectSubstitute.wouldReject is already caught in high?
         val input = Json.obj(
-          workerSentActualSubstitute -> ArrangedSubstitute.noSubstitutionHappened,
-          possibleSubstituteRejection -> RejectSubstitute.wouldReject,
-          wouldWorkerPayHelper -> true
+          workerSentActualSubstitute -> ArrangedSubstitute.yesClientAgreed,
+          workerPayActualSubstitute -> false
         )
 
         ruleChecker.checkRules(input) shouldBe "MEDIUM"

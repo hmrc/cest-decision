@@ -59,6 +59,7 @@ object PersonalServiceRules extends BaseRules {
         ),
         Json.obj(
           workerSentActualSubstitute -> ArrangedSubstitute.noSubstitutionHappened,
+          //TODO??? do we need this medium rule? if possibleSubstituteRejection -> RejectSubstitute.wouldReject is already caught in high?
           possibleSubstituteRejection -> RejectSubstitute.wouldReject,
           wouldWorkerPayHelper -> true
         )
