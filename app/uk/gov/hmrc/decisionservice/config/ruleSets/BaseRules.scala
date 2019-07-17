@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models
+package uk.gov.hmrc.decisionservice.config.ruleSets
 
-trait Section
+import play.api.libs.json.JsValue
+
+trait BaseRules extends RuleSetHelperMethods {
+
+  val ruleSet: JsValue
+
+}

@@ -14,6 +14,21 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models
+package uk.gov.hmrc.decisionservice.config.ruleSets
 
-trait Section
+import play.api.libs.json.{JsValue, Json}
+import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
+import uk.gov.hmrc.decisionservice.models.Exit
+
+object EarlyExitRules extends BaseRules {
+
+  override val ruleSet: JsValue =
+    Json.obj(
+      INSIDE_IR35.toString -> Json.arr(
+        Json.obj(
+          Exit.officeHolder -> true
+        )
+      )
+    )
+
+}

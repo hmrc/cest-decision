@@ -22,4 +22,6 @@ case class Exit(officeHolder: String) extends Section
 
 object Exit {
   implicit val format: Format[Exit] = Json.format[Exit]
+
+  val officeHolder = "officeHolder"
 }

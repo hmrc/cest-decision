@@ -14,6 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models
+package uk.gov.hmrc.decisionservice.config.ruleSets
 
-trait Section
+import play.api.libs.json.Json
+
+trait RuleSetHelperMethods {
+
+  implicit def convert[E <: Enumeration, B <: Enumeration](x: (E#Value, B#Value)): (String, Json.JsValueWrapper) = (x._1.toString, x._2)
+
+}

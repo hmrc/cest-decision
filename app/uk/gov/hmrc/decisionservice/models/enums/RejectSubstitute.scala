@@ -14,6 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models
+package uk.gov.hmrc.decisionservice.models.enums
 
-trait Section
+import play.api.libs.json.Format
+
+object RejectSubstitute extends Enumeration with EnumFormats {
+
+  val wouldNotReject: RejectSubstitute.Value = Value("wouldNotReject")
+  val wouldReject: RejectSubstitute.Value = Value("wouldReject")
+
+  implicit val format: Format[RejectSubstitute.Value] = enumFormat(RejectSubstitute)
+}
