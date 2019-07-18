@@ -18,6 +18,7 @@ package uk.gov.hmrc.decisionservice.util
 
 import play.api.libs.json._
 import uk.gov.hmrc.decisionservice.config.ruleSets._
+import uk.gov.hmrc.decisionservice.models.enums.SectionDecision
 import uk.gov.hmrc.decisionservice.models.rules.{RulesSet, RulesSetWithResult}
 
 import scala.annotation.tailrec
@@ -33,7 +34,7 @@ abstract class RuleChecker {
 
   @tailrec
   private def checkOutcome(section: JsObject, rules: Seq[RulesSetWithResult]): String = {
-    if(rules.isEmpty) "Unknown" else {
+    if(rules.isEmpty) SectionDecision.UNKNOWN else {
       val currentRule = rules.head
       if(currentRule.rulesSet.toStream exists(rule => {
         rule.fields.forall(section.fields.contains)

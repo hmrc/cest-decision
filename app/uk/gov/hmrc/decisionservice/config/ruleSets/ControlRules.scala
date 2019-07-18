@@ -17,7 +17,7 @@
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
 import play.api.libs.json.Json.JsValueWrapper
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{JsArray, JsValue, Json}
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
 import uk.gov.hmrc.decisionservice.models.enums.MoveWorker._
 import uk.gov.hmrc.decisionservice.models.enums.HowWorkIsDone
@@ -27,7 +27,7 @@ import uk.gov.hmrc.decisionservice.models.Control._
 
 object ControlRules extends BaseRules {
 
-  lazy val out: (String, JsValueWrapper) = OUTSIDE_IR35.toString -> Json.arr(
+  lazy val out: JsArray = Json.arr(
     Json.obj(
       engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
       workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -77,7 +77,7 @@ object ControlRules extends BaseRules {
       workerDecideWhere -> ChooseWhereWork.noLocationRequired
     ))
 
-  lazy val high: (String, JsValueWrapper) = HIGH.toString -> Json.arr(
+  lazy val high: JsArray = Json.arr(
     Json.obj(
       engagerMovingWorker -> canMoveWorkerWithPermission,
       workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -482,7 +482,7 @@ object ControlRules extends BaseRules {
     )
   )
 
-  lazy val medium: (String, JsValueWrapper) = MEDIUM.toString -> Json.arr(
+  lazy val medium: JsArray = Json.arr(
     Json.obj(
       engagerMovingWorker -> canMoveWorkerWithPermission,
       workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -1195,9 +1195,9 @@ object ControlRules extends BaseRules {
 
   override val ruleSet: JsValue =
     Json.obj(
-      out,
-      high,
-      medium
+      OUTSIDE_IR35.toString -> out,
+      HIGH.toString -> high,
+      MEDIUM.toString -> medium
     )
 
 }

@@ -42,6 +42,10 @@ class RuleCheckerSpec extends UnitSpec {
         override def ruleSet: Seq[RulesSetWithResult] = controlRuleSet.ruleSet
       }
 
+      "confirm the unknown value" in {
+        SectionDecision.UNKNOWN shouldBe "Unknown"
+      }
+
       "check an OUT rule is matched" in {
 
         val input = Json.obj(
@@ -87,7 +91,7 @@ class RuleCheckerSpec extends UnitSpec {
           workerDecideWhere -> "jeff"
         )
 
-        ruleChecker.checkRules(input) shouldBe "undetermined"
+        ruleChecker.checkRules(input) shouldBe SectionDecision.UNKNOWN
       }
     }
 
@@ -155,7 +159,7 @@ class RuleCheckerSpec extends UnitSpec {
           paidForSubstandardWork -> outsideOfHoursNoCharge
         )
 
-        ruleChecker.checkRules(input) shouldBe "undetermined"
+        ruleChecker.checkRules(input) shouldBe SectionDecision.UNKNOWN
       }
     }
 
@@ -200,7 +204,7 @@ class RuleCheckerSpec extends UnitSpec {
           workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
         )
 
-        ruleChecker.checkRules(input) shouldBe "undetermined"
+        ruleChecker.checkRules(input) shouldBe SectionDecision.UNKNOWN
       }
     }
 
@@ -246,7 +250,7 @@ class RuleCheckerSpec extends UnitSpec {
           workerSentActualSubstitute -> ArrangedSubstitute.notAgreedWithClient
         )
 
-        ruleChecker.checkRules(input) shouldBe "undetermined"
+        ruleChecker.checkRules(input) shouldBe SectionDecision.UNKNOWN
       }
     }
 

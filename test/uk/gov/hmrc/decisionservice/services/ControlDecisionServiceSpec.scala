@@ -17,6 +17,7 @@
 package uk.gov.hmrc.decisionservice.services
 
 import uk.gov.hmrc.decisionservice.models.Control
+import uk.gov.hmrc.decisionservice.models.Control.{engagerMovingWorker, whenWorkHasToBeDone, workerDecideWhere, workerDecidingHowWorkIsDone}
 import uk.gov.hmrc.decisionservice.models.enums._
 import uk.gov.hmrc.decisionservice.util.ControlRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
@@ -41,6 +42,22 @@ class ControlDecisionServiceSpec extends UnitSpec {
 
         await(actualAnswer) shouldBe expectedAnswer
 
+      }
+    }
+
+    "decide is called with a Control section with some values populated" should {
+
+      "return an answer" in {
+
+        val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+        val actualAnswer = TestControlDecisionService.decide(Control(
+          Some(MoveWorker.cannotMoveWorkerWithoutNewAgreement),
+          Some(HowWorkIsDone.workerDecidesWithoutInput),
+          Some(ScheduleOfWorkingHours.workerDecideSchedule),
+          Some(ChooseWhereWork.workerChooses)
+        ))
+
+        await(actualAnswer) shouldBe expectedAnswer
       }
     }
 

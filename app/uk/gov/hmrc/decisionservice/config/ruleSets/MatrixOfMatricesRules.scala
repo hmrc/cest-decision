@@ -23,156 +23,160 @@ import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
 
 object MatrixOfMatricesRules extends BaseRules {
 
+  val inside = Json.arr(
+    Json.obj(
+      personalService -> MEDIUM,
+      control -> MEDIUM,
+      financialRisk -> LOW,
+      partAndParcel -> HIGH
+    ),
+    Json.obj(
+      personalService -> MEDIUM,
+      control -> MEDIUM,
+      financialRisk -> LOW,
+      partAndParcel -> MEDIUM
+    ),
+    Json.obj(
+      personalService -> MEDIUM,
+      control -> HIGH,
+      financialRisk -> LOW,
+      partAndParcel -> LOW
+    ),
+    Json.obj(
+      personalService -> MEDIUM,
+      control -> HIGH,
+      financialRisk -> LOW,
+      partAndParcel -> MEDIUM
+    ),
+    Json.obj(
+      personalService -> MEDIUM,
+      control -> HIGH,
+      financialRisk -> LOW,
+      partAndParcel -> HIGH
+    ),
+    Json.obj(
+      personalService -> HIGH,
+      control -> MEDIUM,
+      financialRisk -> LOW,
+      partAndParcel -> LOW
+    ),
+    Json.obj(
+      personalService -> HIGH,
+      control -> MEDIUM,
+      financialRisk -> LOW,
+      partAndParcel -> MEDIUM
+    ),
+    Json.obj(
+      personalService -> HIGH,
+      control -> MEDIUM,
+      financialRisk -> LOW,
+      partAndParcel -> HIGH
+    ),
+    Json.obj(
+      personalService -> HIGH,
+      control -> HIGH,
+      financialRisk -> LOW,
+      partAndParcel -> LOW
+    ),
+    Json.obj(
+      personalService -> HIGH,
+      control -> HIGH,
+      financialRisk -> LOW,
+      partAndParcel -> MEDIUM
+    ),
+    Json.obj(
+      personalService -> HIGH,
+      control -> HIGH,
+      financialRisk -> LOW,
+      partAndParcel -> HIGH
+    ),
+    Json.obj(
+      personalService -> HIGH,
+      control -> HIGH,
+      financialRisk -> MEDIUM,
+      partAndParcel -> LOW
+    ),
+    Json.obj(
+      personalService -> HIGH,
+      control -> HIGH,
+      financialRisk -> MEDIUM,
+      partAndParcel -> MEDIUM
+    ),
+    Json.obj(
+      personalService -> MEDIUM,
+      control -> HIGH,
+      financialRisk -> MEDIUM,
+      partAndParcel -> LOW
+    ),
+    Json.obj(
+      personalService -> MEDIUM,
+      control -> HIGH,
+      financialRisk -> MEDIUM,
+      partAndParcel -> MEDIUM
+    ),
+    Json.obj(
+      personalService -> MEDIUM,
+      control -> HIGH,
+      financialRisk -> MEDIUM,
+      partAndParcel -> HIGH
+    ),
+    Json.obj(
+      personalService -> HIGH,
+      control -> MEDIUM,
+      financialRisk -> MEDIUM,
+      partAndParcel -> HIGH
+    ),
+    Json.obj(
+      personalService -> HIGH,
+      control -> HIGH,
+      financialRisk -> MEDIUM,
+      partAndParcel -> HIGH
+    )
+  )
+
+  val unknown = Json.arr(
+    Json.obj(
+      personalService -> MEDIUM,
+      control -> MEDIUM,
+      financialRisk -> LOW,
+      partAndParcel -> LOW
+    ),
+    Json.obj(
+      personalService -> MEDIUM,
+      control -> MEDIUM,
+      financialRisk -> MEDIUM,
+      partAndParcel -> LOW
+    ),
+    Json.obj(
+      personalService -> MEDIUM,
+      control -> MEDIUM,
+      financialRisk -> MEDIUM,
+      partAndParcel -> MEDIUM
+    ),
+    Json.obj(
+      personalService -> MEDIUM,
+      control -> MEDIUM,
+      financialRisk -> MEDIUM,
+      partAndParcel -> HIGH
+    ),
+    Json.obj(
+      personalService -> HIGH,
+      control -> MEDIUM,
+      financialRisk -> MEDIUM,
+      partAndParcel -> LOW
+    ),
+    Json.obj(
+      personalService -> HIGH,
+      control -> MEDIUM,
+      financialRisk -> MEDIUM,
+      partAndParcel -> MEDIUM
+    )
+  )
+
   override val ruleSet: JsValue =
     Json.obj(
-      ResultEnum.INSIDE_IR35.toString -> Json.arr(
-        Json.obj(
-          personalService -> MEDIUM,
-          control -> MEDIUM,
-          financialRisk -> LOW,
-          partAndParcel -> HIGH
-        ),
-        Json.obj(
-          personalService -> MEDIUM,
-          control -> MEDIUM,
-          financialRisk -> LOW,
-          partAndParcel -> MEDIUM
-        ),
-        Json.obj(
-          personalService -> MEDIUM,
-          control -> HIGH,
-          financialRisk -> LOW,
-          partAndParcel -> LOW
-        ),
-        Json.obj(
-          personalService -> MEDIUM,
-          control -> HIGH,
-          financialRisk -> LOW,
-          partAndParcel -> MEDIUM
-        ),
-        Json.obj(
-          personalService -> MEDIUM,
-          control -> HIGH,
-          financialRisk -> LOW,
-          partAndParcel -> HIGH
-        ),
-        Json.obj(
-          personalService -> HIGH,
-          control -> MEDIUM,
-          financialRisk -> LOW,
-          partAndParcel -> LOW
-        ),
-        Json.obj(
-          personalService -> HIGH,
-          control -> MEDIUM,
-          financialRisk -> LOW,
-          partAndParcel -> MEDIUM
-        ),
-        Json.obj(
-          personalService -> HIGH,
-          control -> MEDIUM,
-          financialRisk -> LOW,
-          partAndParcel -> HIGH
-        ),
-        Json.obj(
-          personalService -> HIGH,
-          control -> HIGH,
-          financialRisk -> LOW,
-          partAndParcel -> LOW
-        ),
-        Json.obj(
-          personalService -> HIGH,
-          control -> HIGH,
-          financialRisk -> LOW,
-          partAndParcel -> MEDIUM
-        ),
-        Json.obj(
-          personalService -> HIGH,
-          control -> HIGH,
-          financialRisk -> LOW,
-          partAndParcel -> HIGH
-        ),
-        Json.obj(
-          personalService -> HIGH,
-          control -> HIGH,
-          financialRisk -> MEDIUM,
-          partAndParcel -> LOW
-        ),
-        Json.obj(
-          personalService -> HIGH,
-          control -> HIGH,
-          financialRisk -> MEDIUM,
-          partAndParcel -> MEDIUM
-        ),
-        Json.obj(
-          personalService -> MEDIUM,
-          control -> HIGH,
-          financialRisk -> MEDIUM,
-          partAndParcel -> LOW
-        ),
-        Json.obj(
-          personalService -> MEDIUM,
-          control -> HIGH,
-          financialRisk -> MEDIUM,
-          partAndParcel -> MEDIUM
-        ),
-        Json.obj(
-          personalService -> MEDIUM,
-          control -> HIGH,
-          financialRisk -> MEDIUM,
-          partAndParcel -> HIGH
-        ),
-        Json.obj(
-          personalService -> HIGH,
-          control -> MEDIUM,
-          financialRisk -> MEDIUM,
-          partAndParcel -> HIGH
-        ),
-        Json.obj(
-          personalService -> HIGH,
-          control -> HIGH,
-          financialRisk -> MEDIUM,
-          partAndParcel -> HIGH
-        )
-      ),
-      ResultEnum.UNKNOWN.toString -> Json.arr(
-        Json.obj(
-          personalService -> MEDIUM,
-          control -> MEDIUM,
-          financialRisk -> LOW,
-          partAndParcel -> LOW
-        ),
-        Json.obj(
-          personalService -> MEDIUM,
-          control -> MEDIUM,
-          financialRisk -> MEDIUM,
-          partAndParcel -> LOW
-        ),
-        Json.obj(
-          personalService -> MEDIUM,
-          control -> MEDIUM,
-          financialRisk -> MEDIUM,
-          partAndParcel -> MEDIUM
-        ),
-        Json.obj(
-          personalService -> MEDIUM,
-          control -> MEDIUM,
-          financialRisk -> MEDIUM,
-          partAndParcel -> HIGH
-        ),
-        Json.obj(
-          personalService -> HIGH,
-          control -> MEDIUM,
-          financialRisk -> MEDIUM,
-          partAndParcel -> LOW
-        ),
-        Json.obj(
-          personalService -> HIGH,
-          control -> MEDIUM,
-          financialRisk -> MEDIUM,
-          partAndParcel -> MEDIUM
-        )
-      )
+      ResultEnum.INSIDE_IR35.toString -> inside,
+      ResultEnum.UNKNOWN.toString -> unknown
     )
 
 }
