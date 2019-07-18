@@ -18,11 +18,12 @@ package uk.gov.hmrc.decisionservice.services
 
 import uk.gov.hmrc.decisionservice.models.PersonalService
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.decisionservice.util.PersonalServiceRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
 
 class PersonalServiceDecisionServiceSpec extends UnitSpec{
 
-  object TestControlDecisionService extends PersonalServiceDecisionService
+  object TestControlDecisionService extends PersonalServiceDecisionService(new PersonalServiceRulesSet)
 
   "PersonalServiceDecisionServiceSpec" when {
 

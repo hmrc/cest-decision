@@ -18,11 +18,12 @@ package uk.gov.hmrc.decisionservice.services
 
 import uk.gov.hmrc.decisionservice.models.FinancialRisk
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.decisionservice.util.FinancialRiskRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
 
 class FinancialRiskDecisionServiceSpec extends UnitSpec {
 
-  object TestFinancialRiskDecisionService extends FinancialRiskDecisionService
+  object TestFinancialRiskDecisionService extends FinancialRiskDecisionService(new FinancialRiskRulesSet)
 
   "FinancialRiskDecisionService" when {
 

@@ -38,13 +38,18 @@ class NewDecisionService @Inject()(controlDecisionService: ControlDecisionServic
     val interview = request.interview
     val setup: Option[SetupEnum.Value] = None
 
-    for {
+    val _exitDecisionService = exitDecisionService.decide(interview.exit)
+    val _personalServiceDecisionService = personalServiceDecisionService.decide(interview.personalService)
+    val _controlDecisionService = controlDecisionService.decide(interview.control)
+    val _financialRiskDecisionService = financialRiskDecisionService.decide(interview.financialRisk)
+    val _partAndParcelDecisionService = partAndParcelDecisionService.decide(interview.partAndParcel)
 
-      exit <- exitDecisionService.decide(interview.exit)
-      personalService <- personalServiceDecisionService.decide(interview.personalService)
-      control <- controlDecisionService.decide(interview.control)
-      financialRisk <- financialRiskDecisionService.decide(interview.financialRisk)
-      partAndParcel <- partAndParcelDecisionService.decide(interview.partAndParcel)
+    for {
+      exit <- _exitDecisionService
+      personalService <- _personalServiceDecisionService
+      control <- _controlDecisionService
+      financialRisk <- _financialRiskDecisionService
+      partAndParcel <- _partAndParcelDecisionService
       result <- resultService.decide(exit, personalService, control, financialRisk, partAndParcel)
 
     } yield _DecisionResponse(version, request.correlationID, Score(setup, exit, personalService, control, financialRisk, partAndParcel), result)

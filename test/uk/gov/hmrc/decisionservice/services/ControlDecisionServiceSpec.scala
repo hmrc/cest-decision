@@ -18,11 +18,12 @@ package uk.gov.hmrc.decisionservice.services
 
 import uk.gov.hmrc.decisionservice.models.Control
 import uk.gov.hmrc.decisionservice.models.enums._
+import uk.gov.hmrc.decisionservice.util.ControlRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
 
 class ControlDecisionServiceSpec extends UnitSpec {
 
-  object TestControlDecisionService extends ControlDecisionService
+  object TestControlDecisionService extends ControlDecisionService(new ControlRulesSet)
 
   "ControlDecisionServiceSpec" when {
 

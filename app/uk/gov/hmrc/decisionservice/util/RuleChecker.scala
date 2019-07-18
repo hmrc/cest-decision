@@ -33,7 +33,7 @@ abstract class RuleChecker {
 
   @tailrec
   private def checkOutcome(section: JsObject, rules: Seq[RulesSetWithResult]): String = {
-    if(rules.isEmpty) "undetermined" else {
+    if(rules.isEmpty) "Unknown" else {
       val currentRule = rules.head
       if(currentRule.rulesSet.toStream exists(rule => {
         rule.fields.forall(section.fields.contains)

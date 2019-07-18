@@ -18,11 +18,12 @@ package uk.gov.hmrc.decisionservice.services
 
 import uk.gov.hmrc.decisionservice.models.Exit
 import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
+import uk.gov.hmrc.decisionservice.util.ExitRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
 
 class ExitDecisionServiceSpec extends UnitSpec {
 
-  object TestExitDecisionService extends ExitDecisionService
+  object TestExitDecisionService extends ExitDecisionService(new ExitRulesSet)
 
   "ExitDecisionService" when {
 

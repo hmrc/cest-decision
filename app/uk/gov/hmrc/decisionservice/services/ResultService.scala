@@ -17,11 +17,13 @@
 package uk.gov.hmrc.decisionservice.services
 
 import javax.inject.Inject
+import uk.gov.hmrc.decisionservice.models.Score
 import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.util.MatrixOfMatricesRulesSet
 
 import scala.concurrent.Future
 
-class ResultService @Inject()() {
+class ResultService @Inject()(ruleSet: MatrixOfMatricesRulesSet) {
 
   def decide(exit: Option[ExitEnum.Value],
              personalService: Option[WeightedAnswerEnum.Value],
@@ -34,9 +36,11 @@ class ResultService @Inject()() {
 
       case (None, None, None, None, None) => Future.successful(ResultEnum.NOT_MATCHED)
 
-      case (_exit,_personalService,_control,_financialRisk,_partAndParcel) =>
+      case _ =>
 
-        Future.successful(ResultEnum.OUTSIDE_IR35)
+        val result = ruleSet.checkRules(Score(None, exit,personalService,control,financialRisk,partAndParcel))
+
+        Future.successful(ResultEnum.withName(result))
 
     }
   }

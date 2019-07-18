@@ -18,11 +18,12 @@ package uk.gov.hmrc.decisionservice.services
 
 import uk.gov.hmrc.decisionservice.models.PartAndParcel
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.decisionservice.util.PartAndParcelRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
 
 class PartAndParcelDecisionServiceSpec extends UnitSpec{
 
-  object TestControlDecisionService extends PartAndParcelDecisionService
+  object TestControlDecisionService extends PartAndParcelDecisionService(new PartAndParcelRulesSet)
 
   "PartAndParcelDecisionServiceSpec" when {
 
@@ -30,7 +31,7 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
 
       "return a WeightedAnswer" in {
 
-        val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+        val expectedAnswer = Some(WeightedAnswerEnum.HIGH)
         val actualAnswer = TestControlDecisionService.decide(PartAndParcel(
           Some(true),
           Some(true),
