@@ -473,12 +473,6 @@ object ControlRules extends BaseRules {
       workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
       whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
       workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
-    ),
-    Json.obj(
-      engagerMovingWorker -> cannotMoveWorkerWithoutNewAgreement,
-      workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
-      whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-      workerDecideWhere -> ChooseWhereWork.noLocationRequired
     )
   )
 

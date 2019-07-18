@@ -16,8 +16,8 @@
 
 package uk.gov.hmrc.decisionservice.services
 
+import uk.gov.hmrc.decisionservice.config.ruleSets.ControlRules
 import uk.gov.hmrc.decisionservice.models.Control
-import uk.gov.hmrc.decisionservice.models.Control.{engagerMovingWorker, whenWorkHasToBeDone, workerDecideWhere, workerDecidingHowWorkIsDone}
 import uk.gov.hmrc.decisionservice.models.enums._
 import uk.gov.hmrc.decisionservice.util.ControlRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
@@ -43,6 +43,66 @@ class ControlDecisionServiceSpec extends UnitSpec {
         await(actualAnswer) shouldBe expectedAnswer
 
       }
+    }
+
+    "decide is called with a Control section with out scenarios populated" should {
+
+      val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+      val indexedArray = ControlRules.out.value.zipWithIndex
+
+        indexedArray.foreach {
+          item =>
+
+            val (jsValue, index) = item
+
+            s"return an answer for scenario ${index + 1}" in {
+
+              val actualAnswer = TestControlDecisionService.decide(jsValue.as[Control])
+
+              await(actualAnswer) shouldBe expectedAnswer
+
+            }
+        }
+    }
+
+    "decide is called with a Control section with high scenarios populated" should {
+
+      val expectedAnswer = Some(WeightedAnswerEnum.HIGH)
+      val indexedArray = ControlRules.high.value.zipWithIndex
+
+        indexedArray.foreach {
+          item =>
+
+            val (jsValue, index) = item
+
+            s"return an answer for scenario ${index + 1}" in {
+
+              val actualAnswer = TestControlDecisionService.decide(jsValue.as[Control])
+
+              await(actualAnswer) shouldBe expectedAnswer
+
+            }
+        }
+    }
+
+    "decide is called with a Control section with medium scenarios populated" should {
+
+      val expectedAnswer = Some(WeightedAnswerEnum.MEDIUM)
+      val indexedArray = ControlRules.medium.value.zipWithIndex
+
+        indexedArray.foreach {
+          item =>
+
+            val (jsValue, index) = item
+
+            s"return an answer for scenario ${index + 1}" in {
+
+              val actualAnswer = TestControlDecisionService.decide(jsValue.as[Control])
+
+              await(actualAnswer) shouldBe expectedAnswer
+
+            }
+        }
     }
 
     "decide is called with a Control section with some values populated" should {
