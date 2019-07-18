@@ -25,6 +25,7 @@ object PartAndParcelRules extends BaseRules {
 
   val high: JsArray = Json.arr(
     Json.obj(
+      workerReceivesBenefits -> false,
       workerAsLineManager -> true
     ),
     Json.obj(
@@ -34,7 +35,6 @@ object PartAndParcelRules extends BaseRules {
 
   val medium: JsArray = Json.arr(
     Json.obj(
-
       workerReceivesBenefits -> false,
       workerAsLineManager -> false,
       contactWithEngagerCustomer -> true,

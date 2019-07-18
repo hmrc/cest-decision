@@ -32,6 +32,7 @@ class PartParcelRulesSpec extends UnitSpec with TestFixture {
 
     val expected = Json.arr(
       Json.obj(
+        workerReceivesBenefits -> false,
         workerAsLineManager -> true
       ),
       Json.obj(
