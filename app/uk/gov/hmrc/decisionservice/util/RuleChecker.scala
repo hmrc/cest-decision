@@ -36,7 +36,6 @@ abstract class RuleChecker {
       ruleSet =>
         ruleSet.rulesSet.flatMap{
           rule =>
-
             if(rule.fields.forall(section.fields.contains)) Some(ruleSet.result, rule.fields.size) else None
         }
     }
