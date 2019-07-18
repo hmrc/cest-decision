@@ -34,6 +34,9 @@ abstract class RuleChecker {
 
   @tailrec
   private def checkOutcome(section: JsObject, rules: Seq[RulesSetWithResult]): String = {
+
+    //Json.obj().fields.size
+
     if(rules.isEmpty) SectionDecision.UNKNOWN else {
       val currentRule = rules.head
       if(currentRule.rulesSet.toStream exists(rule => {
@@ -41,8 +44,6 @@ abstract class RuleChecker {
       })) currentRule.result else checkOutcome(section, rules.tail)
     }
   }
-
-}
 
 class ControlRulesSet extends RuleChecker {
   override def ruleSet: Seq[RulesSetWithResult] = ControlRules.ruleSet.as[RulesSet].rulesInOrder

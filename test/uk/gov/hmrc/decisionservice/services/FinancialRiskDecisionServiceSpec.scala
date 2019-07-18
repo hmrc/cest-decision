@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.decisionservice.services
 
+import uk.gov.hmrc.decisionservice.config.ruleSets.FinancialRiskRules
 import uk.gov.hmrc.decisionservice.models.FinancialRisk
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 import uk.gov.hmrc.decisionservice.util.FinancialRiskRulesSet
@@ -44,6 +45,66 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
 
         await(actualAnswer) shouldBe expectedAnswer
 
+      }
+    }
+
+    "decide is called with a FinancialRisk section with out scenarios populated" should {
+
+      val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+      val indexedArray = FinancialRiskRules.out.value.zipWithIndex
+
+      indexedArray.foreach {
+        item =>
+
+          val (jsValue, index) = item
+
+          s"return an answer for scenario ${index + 1}" in {
+
+            val actualAnswer = TestFinancialRiskDecisionService.decide(jsValue.as[FinancialRisk])
+
+            await(actualAnswer) shouldBe expectedAnswer
+
+          }
+      }
+    }
+
+    "decide is called with a FinancialRisk section with medium scenarios populated" should {
+
+      val expectedAnswer = Some(WeightedAnswerEnum.MEDIUM)
+      val indexedArray = FinancialRiskRules.medium.value.zipWithIndex
+
+      indexedArray.foreach {
+        item =>
+
+          val (jsValue, index) = item
+
+          s"return an answer for scenario ${index + 1}" in {
+
+            val actualAnswer = TestFinancialRiskDecisionService.decide(jsValue.as[FinancialRisk])
+
+            await(actualAnswer) shouldBe expectedAnswer
+
+          }
+      }
+    }
+
+    "decide is called with a FinancialRisk section with low scenarios populated" should {
+
+      val expectedAnswer = Some(WeightedAnswerEnum.LOW)
+      val indexedArray = FinancialRiskRules.low.value.zipWithIndex
+
+      indexedArray.foreach {
+        item =>
+
+          val (jsValue, index) = item
+
+          s"return an answer for scenario ${index + 1}" in {
+
+            val actualAnswer = TestFinancialRiskDecisionService.decide(jsValue.as[FinancialRisk])
+
+            await(actualAnswer) shouldBe expectedAnswer
+
+          }
       }
     }
 

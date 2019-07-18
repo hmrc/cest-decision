@@ -20,7 +20,7 @@ import play.api.libs.json.{Format, Json}
 
 case class PersonalService(workerSentActualSubstitute: Option[String],
                            workerPayActualSubstitute: Option[Boolean],
-                           possibleSubstituteRejection: Option[Boolean],
+                           possibleSubstituteRejection: Option[String],
                            possibleSubstituteWorkerPay: Option[Boolean],
                            wouldWorkerPayHelper: Option[Boolean]) extends Section
 

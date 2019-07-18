@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.decisionservice.services
 
+import uk.gov.hmrc.decisionservice.config.ruleSets.PartAndParcelRules
 import uk.gov.hmrc.decisionservice.models.PartAndParcel
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 import uk.gov.hmrc.decisionservice.util.PartAndParcelRulesSet
@@ -41,6 +42,66 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
 
         await(actualAnswer) shouldBe expectedAnswer
 
+      }
+    }
+
+    "decide is called with a PartAndParcel section with medium scenarios populated" should {
+
+      val expectedAnswer = Some(WeightedAnswerEnum.MEDIUM)
+      val indexedArray = PartAndParcelRules.medium.value.zipWithIndex
+
+      indexedArray.foreach {
+        item =>
+
+          val (jsValue, index) = item
+
+          s"return an answer for scenario ${index + 1}" in {
+
+            val actualAnswer = TestControlDecisionService.decide(jsValue.as[PartAndParcel])
+
+            await(actualAnswer) shouldBe expectedAnswer
+
+          }
+      }
+    }
+
+    "decide is called with a PartAndParcel section with low scenarios populated" should {
+
+      val expectedAnswer = Some(WeightedAnswerEnum.LOW)
+      val indexedArray = PartAndParcelRules.low.value.zipWithIndex
+
+      indexedArray.foreach {
+        item =>
+
+          val (jsValue, index) = item
+
+          s"return an answer for scenario ${index + 1}" in {
+
+            val actualAnswer = TestControlDecisionService.decide(jsValue.as[PartAndParcel])
+
+            await(actualAnswer) shouldBe expectedAnswer
+
+          }
+      }
+    }
+
+    "decide is called with a PartAndParcel section with high scenarios populated" should {
+
+      val expectedAnswer = Some(WeightedAnswerEnum.HIGH)
+      val indexedArray = PartAndParcelRules.high.value.zipWithIndex
+
+      indexedArray.foreach {
+        item =>
+
+          val (jsValue, index) = item
+
+          s"return an answer for scenario ${index + 1}" in {
+
+            val actualAnswer = TestControlDecisionService.decide(jsValue.as[PartAndParcel])
+
+            await(actualAnswer) shouldBe expectedAnswer
+
+          }
       }
     }
 

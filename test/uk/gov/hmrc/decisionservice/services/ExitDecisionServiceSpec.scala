@@ -16,8 +16,9 @@
 
 package uk.gov.hmrc.decisionservice.services
 
+import uk.gov.hmrc.decisionservice.config.ruleSets.EarlyExitRules
 import uk.gov.hmrc.decisionservice.models.Exit
-import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
+import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.util.ExitRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
 
@@ -35,6 +36,26 @@ class ExitDecisionServiceSpec extends UnitSpec {
         val expectedResult = Some(ExitEnum.INSIDE_IR35)
 
         await(actualResult) shouldBe expectedResult
+      }
+    }
+
+    "decide is called with a Exit section with in scenarios populated" should {
+
+      val expectedAnswer = Some(ExitEnum.INSIDE_IR35)
+      val indexedArray = EarlyExitRules.inside.value.zipWithIndex
+
+      indexedArray.foreach {
+        item =>
+
+          val (jsValue, index) = item
+
+          s"return an answer for scenario ${index + 1}" in {
+
+            val actualAnswer = TestExitDecisionService.decide(jsValue.as[Exit])
+
+            await(actualAnswer) shouldBe expectedAnswer
+
+          }
       }
     }
   }
