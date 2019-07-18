@@ -21,8 +21,6 @@ import uk.gov.hmrc.decisionservice.config.ruleSets._
 import uk.gov.hmrc.decisionservice.models.enums.SectionDecision
 import uk.gov.hmrc.decisionservice.models.rules.{RulesSet, RulesSetWithResult}
 
-import scala.annotation.tailrec
-
 abstract class RuleChecker {
 
   def ruleSet: Seq[RulesSetWithResult]
@@ -32,18 +30,7 @@ abstract class RuleChecker {
     checkOutcome(jsObject, ruleSet)
   }
 
-//  @tailrec
   private def checkOutcome(section: JsObject, rules: Seq[RulesSetWithResult]): String = {
-
-    //Json.obj().fields.size
-
-//
-//    if (rules.isEmpty) SectionDecision.UNKNOWN else {
-//      val currentRule = rules.head
-//      if (currentRule.rulesSet.toStream exists (rule => {
-//        rule.fields.forall(section.fields.contains)
-//      })) currentRule.result else checkOutcome(section, rules.tail)
-//    }
 
     val matchedResults = rules.flatMap{
       ruleSet =>
