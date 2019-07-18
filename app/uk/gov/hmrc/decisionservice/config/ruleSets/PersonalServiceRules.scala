@@ -59,7 +59,7 @@ object PersonalServiceRules extends BaseRules {
     ),
     Json.obj(
       workerSentActualSubstitute -> ArrangedSubstitute.noSubstitutionHappened,
-      //TODO??? do we need this medium rule? if possibleSubstituteRejection -> RejectSubstitute.wouldReject is already caught in high?
+      //TODO Do we want to return the highest result regardless of a more thorough answer
       possibleSubstituteRejection -> RejectSubstitute.wouldReject,
       wouldWorkerPayHelper -> true
     )

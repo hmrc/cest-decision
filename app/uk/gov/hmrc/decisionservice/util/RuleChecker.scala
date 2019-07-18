@@ -29,21 +29,38 @@ abstract class RuleChecker {
 
   def checkRules[T](section: T)(implicit writes: Writes[T]): String = {
     val jsObject: JsObject = Json.toJson(section).as[JsObject]
-    checkOutcome(jsObject,ruleSet)
+    checkOutcome(jsObject, ruleSet)
   }
 
-  @tailrec
+//  @tailrec
   private def checkOutcome(section: JsObject, rules: Seq[RulesSetWithResult]): String = {
 
     //Json.obj().fields.size
 
-    if(rules.isEmpty) SectionDecision.UNKNOWN else {
-      val currentRule = rules.head
-      if(currentRule.rulesSet.toStream exists(rule => {
-        rule.fields.forall(section.fields.contains)
-      })) currentRule.result else checkOutcome(section, rules.tail)
+//
+//    if (rules.isEmpty) SectionDecision.UNKNOWN else {
+//      val currentRule = rules.head
+//      if (currentRule.rulesSet.toStream exists (rule => {
+//        rule.fields.forall(section.fields.contains)
+//      })) currentRule.result else checkOutcome(section, rules.tail)
+//    }
+
+    val matchedResults = rules.flatMap{
+      ruleSet =>
+        ruleSet.rulesSet.flatMap{
+          rule =>
+
+            if(rule.fields.forall(section.fields.contains)) Some(ruleSet.result, rule.fields.size) else None
+        }
+    }
+
+    if(matchedResults.nonEmpty) {
+      matchedResults.maxBy(result => result._2)._1
+    } else {
+      SectionDecision.UNKNOWN
     }
   }
+}
 
 class ControlRulesSet extends RuleChecker {
   override def ruleSet: Seq[RulesSetWithResult] = ControlRules.ruleSet.as[RulesSet].rulesInOrder

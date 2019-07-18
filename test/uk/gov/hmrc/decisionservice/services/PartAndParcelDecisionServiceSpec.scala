@@ -30,6 +30,7 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
 
     "decide is called with a PartAndParcel section with every value provided" should {
 
+      //TODO More thorough answer results in medium despite matching a high result
       "return a WeightedAnswer" in {
 
         val expectedAnswer = Some(WeightedAnswerEnum.HIGH)

@@ -34,6 +34,9 @@ object PartAndParcelRules extends BaseRules {
 
   val medium: JsArray = Json.arr(
     Json.obj(
+
+      workerReceivesBenefits -> false,
+      workerAsLineManager -> false,
       contactWithEngagerCustomer -> true,
       workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
     ),
