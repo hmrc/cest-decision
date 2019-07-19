@@ -59,7 +59,6 @@ object PersonalServiceRules extends BaseRules {
     ),
     Json.obj(
       workerSentActualSubstitute -> ArrangedSubstitute.noSubstitutionHappened,
-      //TODO Do we want to return the highest result regardless of a more thorough answer
       possibleSubstituteRejection -> RejectSubstitute.wouldReject,
       wouldWorkerPayHelper -> true
     )
