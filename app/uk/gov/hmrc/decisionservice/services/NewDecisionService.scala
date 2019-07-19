@@ -50,7 +50,7 @@ class NewDecisionService @Inject()(controlDecisionService: ControlDecisionServic
       control <- _controlDecisionService
       financialRisk <- _financialRiskDecisionService
       partAndParcel <- _partAndParcelDecisionService
-      result <- resultService.decide(exit, personalService, control, financialRisk, partAndParcel)
+      result <- resultService.decide(Score(None, exit, personalService, control, financialRisk, partAndParcel))
 
     } yield _DecisionResponse(version, request.correlationID, Score(setup, exit, personalService, control, financialRisk, partAndParcel), result)
   }
