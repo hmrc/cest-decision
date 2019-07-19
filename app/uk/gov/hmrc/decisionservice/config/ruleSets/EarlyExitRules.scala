@@ -22,13 +22,15 @@ import uk.gov.hmrc.decisionservice.models.Exit
 
 object EarlyExitRules extends BaseRules {
 
+  val inside = Json.arr(
+    Json.obj(
+      Exit.officeHolder -> true
+    )
+  )
+
   override val ruleSet: JsValue =
     Json.obj(
-      INSIDE_IR35.toString -> Json.arr(
-        Json.obj(
-          Exit.officeHolder -> true
-        )
-      )
+      INSIDE_IR35.toString -> inside
     )
 
 }

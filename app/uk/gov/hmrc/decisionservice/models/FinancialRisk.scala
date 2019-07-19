@@ -18,11 +18,11 @@ package uk.gov.hmrc.decisionservice.models
 
 import play.api.libs.json.{Format, Json}
 
-case class FinancialRisk(workerProvidedMaterials: Option[String],
-                         workerProvidedEquipment: Option[String],
-                         workerUsedVehicle: Option[String],
-                         workerHadOtherExpenses: Option[String],
-                         expensesAreNotRelevantForRole: Option[String],
+case class FinancialRisk(workerProvidedMaterials: Option[Boolean],
+                         workerProvidedEquipment: Option[Boolean],
+                         workerUsedVehicle: Option[Boolean],
+                         workerHadOtherExpenses: Option[Boolean],
+                         expensesAreNotRelevantForRole: Option[Boolean],
                          workerMainIncome: Option[String],
                          paidForSubstandardWork: Option[String]) extends Section
 

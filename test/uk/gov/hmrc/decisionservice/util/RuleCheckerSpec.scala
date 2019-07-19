@@ -16,38 +16,237 @@
 
 package uk.gov.hmrc.decisionservice.util
 
-import cats.syntax.either._
-import play.api.libs.json.{JsObject, JsString, JsValue, Json}
-import uk.gov.hmrc.decisionservice.DecisionServiceVersions
-import uk.gov.hmrc.decisionservice.models.{Control, PartAndParcel}
-import uk.gov.hmrc.decisionservice.testutil.RequestAndDecision
+import play.api.libs.json.Json
+import uk.gov.hmrc.decisionservice.models.Control.{engagerMovingWorker, whenWorkHasToBeDone, workerDecideWhere, workerDecidingHowWorkIsDone}
+import uk.gov.hmrc.decisionservice.models.Exit
+import uk.gov.hmrc.decisionservice.models.FinancialRisk.{paidForSubstandardWork, workerMainIncome, workerUsedVehicle, _}
+import uk.gov.hmrc.decisionservice.models.PartAndParcel.{contactWithEngagerCustomer, workerReceivesBenefits, workerRepresentsEngagerBusiness}
+import uk.gov.hmrc.decisionservice.models.PersonalService.{workerPayActualSubstitute, workerSentActualSubstitute, wouldWorkerPayHelper}
+import uk.gov.hmrc.decisionservice.models.enums.HowWorkerIsPaid._
+import uk.gov.hmrc.decisionservice.models.enums.PutRightAtOwnCost._
+import uk.gov.hmrc.decisionservice.models.enums._
+import uk.gov.hmrc.decisionservice.models.rules.RulesSetWithResult
 import uk.gov.hmrc.play.test.UnitSpec
 
 class RuleCheckerSpec extends UnitSpec {
 
   "CheckRules" should {
-    "check control rules" in {
 
-      val x = new ControlRules
+    "check the Control section is checked properly" should {
 
-      val input = Json.toJson(Control(Some("cannotMoveWorkerWithoutNewAgreement"),Some("workerDecidesWithoutInput"),Some("workerDecideSchedule"),Some("workerChooses"))).as[JsObject]
+      val controlRuleSet = new ControlRulesSet
+      val ruleChecker = new RuleChecker {
+        override def ruleSet: Seq[RulesSetWithResult] = controlRuleSet.ruleSet
+      }
 
+      "check an OUT rule is matched" in {
 
-      x.checkRules(input) shouldBe "OutOfIR35"
+        val input = Json.obj(
+          engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+          workerDecideWhere -> ChooseWhereWork.workerChooses
+        )
 
+        ruleChecker.checkRules(input) shouldBe "OUTOFIR35"
+      }
 
+      "check a HIGH rule is matched" in {
+
+        val input = Json.obj(
+          engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+          whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+          workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+        )
+
+        ruleChecker.checkRules(input) shouldBe "HIGH"
+      }
+
+      "check a MEDIUM rule is matched" in {
+
+        val input = Json.obj(
+          engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+          whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+          workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
+        )
+
+        ruleChecker.checkRules(input) shouldBe "MEDIUM"
+      }
+
+      "check undetermined occurs" in {
+
+        val input = Json.obj(
+          engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+          workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+          whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+          workerDecideWhere -> "jeff"
+        )
+
+        ruleChecker.checkRules(input) shouldBe WeightedAnswerEnum.NOT_VALID_USE_CASE.toString
+      }
     }
 
-    "check bad control rules" in {
+    "check the Early Exit section is checked properly" should {
 
-      val x = new ControlRules
+      val earlyExitRuleSet = new ExitRulesSet
+      val ruleChecker = new RuleChecker {
+        override def ruleSet: Seq[RulesSetWithResult] = earlyExitRuleSet.ruleSet
+      }
 
-      val input1 = Json.toJson(Control(Some("dd"),Some("e"),Some("workerDecideSchedule"),Some("workerChooses"))).as[JsObject]
+      "check an IN rule is matched" in {
+        val input = Json.obj(
+          Exit.officeHolder -> true
+        )
 
-
-      x.checkRules(input1) shouldBe "OutOfIR35"
-
-
+        ruleChecker.checkRules(input) shouldBe "INIR35"
+      }
     }
+
+    "check the FinancialRisk section is checked properly" should {
+
+      val financialRiskSet = new FinancialRiskRulesSet
+      val ruleChecker = new RuleChecker {
+        override def ruleSet: Seq[RulesSetWithResult] = financialRiskSet.ruleSet
+      }
+
+      "check an OUT rule is matched" in {
+
+        val input = Json.obj(
+          workerUsedVehicle -> true,
+          workerMainIncome -> hourlyDailyOrWeekly,
+          paidForSubstandardWork -> outsideOfHoursNoCharge
+        )
+
+        ruleChecker.checkRules(input) shouldBe "OUTOFIR35"
+      }
+
+      "check a MEDIUM rule is matched" in {
+
+        val input = Json.obj(
+          workerUsedVehicle -> true,
+          workerMainIncome -> hourlyDailyOrWeekly,
+          paidForSubstandardWork -> outsideOfHoursNoCosts
+        )
+
+        ruleChecker.checkRules(input) shouldBe "MEDIUM"
+      }
+
+      "check a LOW rule is matched" in {
+
+        val input = Json.obj(
+          expensesAreNotRelevantForRole -> true,
+          workerMainIncome -> fixedPrice,
+          paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
+        )
+
+        ruleChecker.checkRules(input) shouldBe "LOW"
+      }
+
+      "check undetermined occurs" in {
+
+        val input = Json.obj(
+          workerUsedVehicle -> false,
+          workerMainIncome -> hourlyDailyOrWeekly,
+          paidForSubstandardWork -> outsideOfHoursNoCharge
+        )
+
+        ruleChecker.checkRules(input) shouldBe WeightedAnswerEnum.NOT_VALID_USE_CASE.toString
+      }
     }
+
+    "check the PartAndParcel section is checked properly" should {
+
+      val partAndParcelSet = new PartAndParcelRulesSet
+      val ruleChecker = new RuleChecker {
+        override def ruleSet: Seq[RulesSetWithResult] = partAndParcelSet.ruleSet
+      }
+
+      "check an HIGH rule is matched" in {
+
+        val input = Json.obj(
+          workerReceivesBenefits -> true
+        )
+
+        ruleChecker.checkRules(input) shouldBe "HIGH"
+      }
+
+      "check a MEDIUM rule is matched" in {
+
+        val input = Json.obj(
+          contactWithEngagerCustomer -> true,
+          workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsBusiness
+        )
+
+        ruleChecker.checkRules(input) shouldBe "MEDIUM"
+      }
+
+      "check a LOW rule is matched" in {
+
+        val input = Json.obj(
+          workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
+        )
+
+        ruleChecker.checkRules(input) shouldBe "LOW"
+      }
+
+      "check undetermined occurs" in {
+
+        val input = Json.obj(
+          workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
+        )
+
+        ruleChecker.checkRules(input) shouldBe WeightedAnswerEnum.NOT_VALID_USE_CASE.toString
+      }
+    }
+
+    "check the PersonalService section is checked properly" should {
+
+      val personalServiceSet = new PersonalServiceRulesSet
+      val ruleChecker = new RuleChecker {
+        override def ruleSet: Seq[RulesSetWithResult] = personalServiceSet.ruleSet
+      }
+
+      "check an OUT rule is matched" in {
+
+        val input = Json.obj(
+          workerSentActualSubstitute -> ArrangedSubstitute.yesClientAgreed,
+          workerPayActualSubstitute -> true
+        )
+
+        ruleChecker.checkRules(input) shouldBe "OUTOFIR35"
+      }
+
+      "check a HIGH rule is matched" in {
+
+        val input = Json.obj(
+          workerSentActualSubstitute -> ArrangedSubstitute.notAgreedWithClient,
+          wouldWorkerPayHelper -> false
+        )
+
+        ruleChecker.checkRules(input) shouldBe "HIGH"
+      }
+
+      "check a MEDIUM rule is matched" in {
+        val input = Json.obj(
+          workerSentActualSubstitute -> ArrangedSubstitute.yesClientAgreed,
+          workerPayActualSubstitute -> false
+        )
+
+        ruleChecker.checkRules(input) shouldBe "MEDIUM"
+      }
+
+      "check undetermined occurs" in {
+
+        val input = Json.obj(
+          workerSentActualSubstitute -> ArrangedSubstitute.notAgreedWithClient
+        )
+
+        ruleChecker.checkRules(input) shouldBe WeightedAnswerEnum.NOT_VALID_USE_CASE.toString
+      }
+    }
+
+
+  }
 }

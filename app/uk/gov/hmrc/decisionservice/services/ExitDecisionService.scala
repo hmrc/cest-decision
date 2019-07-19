@@ -17,22 +17,22 @@
 package uk.gov.hmrc.decisionservice.services
 
 import javax.inject.Inject
-import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
+import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.models.{Exit, Section}
+import uk.gov.hmrc.decisionservice.util.ExitRulesSet
 
 import scala.concurrent.Future
 
-class ExitDecisionService @Inject()() {
+class ExitDecisionService @Inject()(ruleSet: ExitRulesSet) {
 
   def decide(section: Section): Future[Option[ExitEnum.Value]] = {
 
     val exit = section.asInstanceOf[Exit]
 
-    exit match {
-      case Exit(officeHolder) =>
+    val result = ruleSet.checkRules(exit)
 
-        Future.successful(Some(ExitEnum.INSIDE_IR35))
-    }
+    Future.successful(Some(ExitEnum.withName(result)))
+
   }
 
 }

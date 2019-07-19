@@ -14,14 +14,27 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.util
+package uk.gov.hmrc.decisionservice.services
 
-import javax.inject.Inject
-
-import play.api.libs.json.{JsObject, JsString, JsValue, Json}
 import uk.gov.hmrc.decisionservice.models.Control
+import uk.gov.hmrc.play.test.UnitSpec
 
-class PretendControlService @Inject()(controlRules: ControlRules){
+class BusinessOnOwnAccountDecisionServiceSpec extends UnitSpec {
 
+  object TestBusinessOnOwnAccountDecisionService extends BusinessOnOwnAccountDecisionService
 
+  "BusinessOnOwnAccountDecisionService" when {
+
+    "decide is called" should {
+
+      "return a None" in {
+
+        //TODO upate to use BusinessOnOwnAccount once it has been created
+        val actualResult = TestBusinessOnOwnAccountDecisionService.decide(Control(None, None, None, None))
+        val expectedResult = None
+
+        await(actualResult) shouldBe expectedResult
+      }
+    }
+  }
 }

@@ -25,18 +25,19 @@ import play.api.libs.json.{JsValue, Json}
 import play.api.test.{FakeRequest, Helpers}
 import uk.gov.hmrc.decisionservice.models
 import uk.gov.hmrc.decisionservice.models._
-import uk.gov.hmrc.decisionservice.services._
+import uk.gov.hmrc.decisionservice.services.{NewDecisionService, _}
 import uk.gov.hmrc.decisionservice.util.TestFixture
 import play.api.http.Status.OK
 import play.api.http.Status.BAD_REQUEST
 import org.mockito.Mockito.{verify, when}
 import org.mockito.ArgumentMatchers.any
 import uk.gov.hmrc.decisionservice.models.enums.ResultEnum
+import uk.gov.hmrc.decisionservice.services.mocks.MockNewDecisionService
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
 import scala.concurrent.Future
 
-class NewDecisionControllerSpec extends UnitSpec with WithFakeApplication with MockitoSugar with TestFixture{
+class NewDecisionControllerSpec extends UnitSpec with WithFakeApplication with TestFixture with MockNewDecisionService {
   override def bindModules = Seq(new PlayModule)
   implicit val system = ActorSystem()
   implicit val materializer = ActorMaterializer()
@@ -44,56 +45,41 @@ class NewDecisionControllerSpec extends UnitSpec with WithFakeApplication with M
   val fakeRequest = FakeRequest()
   val json: JsValue = Json.parse("{}")
 
-  val control = mock[ControlDecisionService]
-  val exit = mock[ExitDecisionService]
-  val financialRisk = mock[FinancialRiskDecisionService]
-  val personalService = mock[PersonalServiceDecisionService]
-  val partAndParcel = mock[PartAndParcelDecisionService]
-  val result = mock[ResultService]
-  val decision = mock[NewDecisionService]
-
-  def controller = new NewDecisionController(stubMessagesControllerComponents(),decision)
+  object TestNewDecisionController extends NewDecisionController(
+    stubMessagesControllerComponents(),
+    mockNewDecisionService
+  )
 
   "Decision Controller" must {
 
     "return a OK with a decision" in {
 
-      when(control.decide(any())).thenReturn(Future.successful(None))
-      when(exit.decide(any())).thenReturn(Future.successful(None))
-      when(financialRisk.decide(any())).thenReturn(Future.successful(None))
-      when(personalService.decide(any())).thenReturn(Future.successful(None))
-      when(partAndParcel.decide(any())).thenReturn(Future.successful(None))
-      when(result.decide(any(),any(),any(),any(),any())).thenReturn(Future.successful(ResultEnum.UNKNOWN))
-
-      val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(toJson(DecisionRequest("","", Interview(
+      val decisionRequest = DecisionRequest("","", Interview(
         Setup("","",""),
-        Exit(""),
+        Exit(true),
         PersonalService(None,None,None,None,None),
         Control(None,None,None,None),
         FinancialRisk(None,None,None,None,None,None,None),
-        models.PartAndParcel(None,None,None,None)
-      ))))
+        PartAndParcel(None,None,None,None)
+      ))
 
-      val response = await(controller.decide()(fakeRequest))
+      mockCalculateResult(decisionRequest)(_DecisionResponse("1.0.0-beta", "", Score(), ResultEnum.UNKNOWN))
+
+      val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(toJson(decisionRequest))
+
+      val response = await(TestNewDecisionController.decide()(fakeRequest))
 
       status(response) shouldBe OK
       jsonBodyOf(response) shouldBe Json.parse(
-            """{"version":"1.0.0-beta","correlationID":"","score":{},"result":"Unknown"}""".stripMargin
+        """{"version":"1.0.0-beta","correlationID":"","score":{},"result":"Unknown"}""".stripMargin
       )
     }
 
     "return a 400 error" in {
 
-      when(control.decide(any())).thenReturn(Future.successful(None))
-      when(exit.decide(any())).thenReturn(Future.successful(None))
-      when(financialRisk.decide(any())).thenReturn(Future.successful(None))
-      when(personalService.decide(any())).thenReturn(Future.successful(None))
-      when(partAndParcel.decide(any())).thenReturn(Future.successful(None))
-      when(result.decide(any(),any(),any(),any(),any())).thenReturn(Future.successful(ResultEnum.UNKNOWN))
-
       val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(toJson("{}"))
 
-      val response = await(controller.decide()(fakeRequest))
+      val response = await(TestNewDecisionController.decide()(fakeRequest))
 
       status(response) shouldBe BAD_REQUEST
       jsonBodyOf(response) shouldBe Json.parse(
