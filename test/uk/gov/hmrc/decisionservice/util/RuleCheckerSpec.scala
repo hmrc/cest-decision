@@ -17,19 +17,16 @@
 package uk.gov.hmrc.decisionservice.util
 
 import play.api.libs.json.Json
-import uk.gov.hmrc.decisionservice.config.ruleSets.EarlyExitRules
 import uk.gov.hmrc.decisionservice.models.Control.{engagerMovingWorker, whenWorkHasToBeDone, workerDecideWhere, workerDecidingHowWorkIsDone}
 import uk.gov.hmrc.decisionservice.models.Exit
-import uk.gov.hmrc.decisionservice.models.FinancialRisk.{paidForSubstandardWork, workerMainIncome, workerUsedVehicle}
-import uk.gov.hmrc.decisionservice.models.enums._
-import uk.gov.hmrc.play.test.UnitSpec
-import uk.gov.hmrc.decisionservice.models.FinancialRisk._
+import uk.gov.hmrc.decisionservice.models.FinancialRisk.{paidForSubstandardWork, workerMainIncome, workerUsedVehicle, _}
 import uk.gov.hmrc.decisionservice.models.PartAndParcel.{contactWithEngagerCustomer, workerReceivesBenefits, workerRepresentsEngagerBusiness}
-import uk.gov.hmrc.decisionservice.models.PersonalService.{possibleSubstituteRejection, workerPayActualSubstitute, workerSentActualSubstitute, wouldWorkerPayHelper}
-import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
+import uk.gov.hmrc.decisionservice.models.PersonalService.{workerPayActualSubstitute, workerSentActualSubstitute, wouldWorkerPayHelper}
 import uk.gov.hmrc.decisionservice.models.enums.HowWorkerIsPaid._
 import uk.gov.hmrc.decisionservice.models.enums.PutRightAtOwnCost._
+import uk.gov.hmrc.decisionservice.models.enums._
 import uk.gov.hmrc.decisionservice.models.rules.RulesSetWithResult
+import uk.gov.hmrc.play.test.UnitSpec
 
 class RuleCheckerSpec extends UnitSpec {
 
@@ -40,10 +37,6 @@ class RuleCheckerSpec extends UnitSpec {
       val controlRuleSet = new ControlRulesSet
       val ruleChecker = new RuleChecker {
         override def ruleSet: Seq[RulesSetWithResult] = controlRuleSet.ruleSet
-      }
-
-      "confirm the unknown value" in {
-        SectionDecision.UNKNOWN shouldBe "Unknown"
       }
 
       "check an OUT rule is matched" in {

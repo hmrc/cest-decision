@@ -18,7 +18,7 @@ package uk.gov.hmrc.decisionservice.util
 
 import play.api.libs.json.{JsObject, _}
 import uk.gov.hmrc.decisionservice.config.ruleSets._
-import uk.gov.hmrc.decisionservice.models.enums.{SectionDecision, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 import uk.gov.hmrc.decisionservice.models.rules.{RulesSet, RulesSetWithResult}
 
 abstract class RuleChecker {
