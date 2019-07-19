@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.decisionservice.util
 
-import play.api.libs.json._
+import play.api.libs.json.{JsObject, _}
 import uk.gov.hmrc.decisionservice.config.ruleSets._
 import uk.gov.hmrc.decisionservice.models.enums.SectionDecision
 import uk.gov.hmrc.decisionservice.models.rules.{RulesSet, RulesSetWithResult}
@@ -32,19 +32,26 @@ abstract class RuleChecker {
 
   private def checkOutcome(section: JsObject, rules: Seq[RulesSetWithResult]): String = {
 
-    val matchedResults = rules.flatMap{
-      ruleSet =>
-        ruleSet.rulesSet.flatMap{
-          rule =>
-            if(rule.fields.forall(section.fields.contains)) Some(ruleSet.result, rule.fields.size) else None
-        }
+    case class WeightedRuleAndResult(weighting: Int, rule: JsObject, result: String)
+
+    val weightedRulesWithResults: Seq[WeightedRuleAndResult] = rules.flatMap { ruleSetAndResult =>
+      ruleSetAndResult.rulesSet.map { rule =>
+        WeightedRuleAndResult(
+          weighting = rule.fields.size,
+          rule = rule,
+          result = ruleSetAndResult.result
+        )
+      }
     }
 
-    if(matchedResults.nonEmpty) {
-      matchedResults.maxBy(result => result._2)._1
-    } else {
-      SectionDecision.UNKNOWN
+    val matchedRules = weightedRulesWithResults.filter { weightedRuleAndResult =>
+      weightedRuleAndResult.rule.fields.forall(answer => section.fields.contains(answer))
     }
+
+    matchedRules
+      .sortBy(rule => -rule.weighting) // sort by highest weighting
+      .headOption.map(_.result) // get the first result
+      .getOrElse(SectionDecision.UNKNOWN) // or return unknown if no result found
   }
 }
 
