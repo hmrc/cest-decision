@@ -24,7 +24,7 @@ import uk.gov.hmrc.play.test.UnitSpec
 
 class PartAndParcelDecisionServiceSpec extends UnitSpec{
 
-  object TestControlDecisionService extends PartAndParcelDecisionService(new PartAndParcelRulesSet)
+  object TestPartAndParcelDecisionService extends PartAndParcelDecisionService(new PartAndParcelRulesSet)
 
   "PartAndParcelDecisionServiceSpec" when {
 
@@ -34,7 +34,7 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
       "return a WeightedAnswer" in {
 
         val expectedAnswer = Some(WeightedAnswerEnum.HIGH)
-        val actualAnswer = TestControlDecisionService.decide(PartAndParcel(
+        val actualAnswer = TestPartAndParcelDecisionService.decide(PartAndParcel(
           Some(true),
           Some(true),
           Some(true),
@@ -58,7 +58,7 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
 
           s"return an answer for scenario ${index + 1}" in {
 
-            val actualAnswer = TestControlDecisionService.decide(jsValue.as[PartAndParcel])
+            val actualAnswer = TestPartAndParcelDecisionService.decide(jsValue.as[PartAndParcel])
 
             await(actualAnswer) shouldBe expectedAnswer
 
@@ -78,7 +78,7 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
 
           s"return an answer for scenario ${index + 1}" in {
 
-            val actualAnswer = TestControlDecisionService.decide(jsValue.as[PartAndParcel])
+            val actualAnswer = TestPartAndParcelDecisionService.decide(jsValue.as[PartAndParcel])
 
             await(actualAnswer) shouldBe expectedAnswer
 
@@ -98,7 +98,7 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
 
           s"return an answer for scenario ${index + 1}" in {
 
-            val actualAnswer = TestControlDecisionService.decide(jsValue.as[PartAndParcel])
+            val actualAnswer = TestPartAndParcelDecisionService.decide(jsValue.as[PartAndParcel])
 
             await(actualAnswer) shouldBe expectedAnswer
 
@@ -111,7 +111,7 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
       "return a WeightedAnswer" in {
 
         val expectedAnswer = None
-        val actualAnswer = TestControlDecisionService.decide(PartAndParcel(None, None, None, None))
+        val actualAnswer = TestPartAndParcelDecisionService.decide(PartAndParcel(None, None, None, None))
 
         await(actualAnswer) shouldBe expectedAnswer
 

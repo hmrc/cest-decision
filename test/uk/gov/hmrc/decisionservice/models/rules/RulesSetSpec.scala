@@ -29,6 +29,7 @@ class RulesSetSpec extends UnitSpec {
       Some(Seq(Json.obj())),
       Some(Seq(Json.obj())),
       Some(Seq(Json.obj())),
+      Some(Seq(Json.obj())),
       Some(Seq(Json.obj()))
     )
 
@@ -37,7 +38,8 @@ class RulesSetSpec extends UnitSpec {
       "OUTOFIR35" -> Json.arr(Json.obj()),
       "HIGH" -> Json.arr(Json.obj()),
       "MEDIUM" -> Json.arr(Json.obj()),
-      "LOW" -> Json.arr(Json.obj())
+      "LOW" -> Json.arr(Json.obj()),
+      "Unknown" -> Json.arr(Json.obj())
     )
 
     "rulesInOrder is called" when {
@@ -51,7 +53,8 @@ class RulesSetSpec extends UnitSpec {
             RulesSetWithResult(WeightedAnswerEnum.OUTSIDE_IR35, Seq(Json.obj())),
             RulesSetWithResult(WeightedAnswerEnum.HIGH, Seq(Json.obj())),
             RulesSetWithResult(WeightedAnswerEnum.MEDIUM, Seq(Json.obj())),
-            RulesSetWithResult(WeightedAnswerEnum.LOW, Seq(Json.obj()))
+            RulesSetWithResult(WeightedAnswerEnum.LOW, Seq(Json.obj())),
+            RulesSetWithResult(WeightedAnswerEnum.UNKNOWN, Seq(Json.obj()))
           )
 
           val actualResult = rulesSetModel.rulesInOrder
@@ -66,7 +69,7 @@ class RulesSetSpec extends UnitSpec {
 
           val expectedResult = Seq()
 
-          val actualResult = RulesSet(None, None, None, None, None).rulesInOrder
+          val actualResult = RulesSet(None, None, None, None, None, None).rulesInOrder
 
           actualResult shouldBe expectedResult
         }

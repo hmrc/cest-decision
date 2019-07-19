@@ -17,7 +17,7 @@
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
 import play.api.libs.json.{JsValue, Json}
-import uk.gov.hmrc.decisionservice.models.enums.ResultEnum
+import uk.gov.hmrc.decisionservice.models.enums.{ResultEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.models.enums.Section._
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
 
@@ -175,8 +175,8 @@ object MatrixOfMatricesRules extends BaseRules {
 
   override val ruleSet: JsValue =
     Json.obj(
-      ResultEnum.INSIDE_IR35.toString -> inside,
-      ResultEnum.UNKNOWN.toString -> unknown
+      WeightedAnswerEnum.INSIDE_IR35.toString -> inside,
+      WeightedAnswerEnum.UNKNOWN.toString -> unknown
     )
 
 }

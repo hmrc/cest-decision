@@ -18,19 +18,19 @@ package uk.gov.hmrc.decisionservice.util
 
 import play.api.libs.json.{JsObject, _}
 import uk.gov.hmrc.decisionservice.config.ruleSets._
-import uk.gov.hmrc.decisionservice.models.enums.SectionDecision
+import uk.gov.hmrc.decisionservice.models.enums.{SectionDecision, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.models.rules.{RulesSet, RulesSetWithResult}
 
 abstract class RuleChecker {
 
   def ruleSet: Seq[RulesSetWithResult]
 
-  def checkRules[T](section: T)(implicit writes: Writes[T]): String = {
+  def checkRules[T,A](section: T, notMatched: A = WeightedAnswerEnum.NOT_VALID_USE_CASE)(implicit writes: Writes[T]): String = {
     val jsObject: JsObject = Json.toJson(section).as[JsObject]
-    checkOutcome(jsObject, ruleSet)
+    checkOutcome(jsObject, ruleSet, notMatched)
   }
 
-  private def checkOutcome(section: JsObject, rules: Seq[RulesSetWithResult]): String = {
+  private def checkOutcome[T](section: JsObject, rules: Seq[RulesSetWithResult], notMatched: T): String = {
 
     case class WeightedRuleAndResult(weighting: Int, rule: JsObject, result: String)
 
@@ -51,7 +51,7 @@ abstract class RuleChecker {
     matchedRules
       .sortBy(rule => -rule.weighting) // sort by highest weighting
       .headOption.map(_.result) // get the first result
-      .getOrElse(SectionDecision.UNKNOWN) // or return unknown if no result found
+      .getOrElse(notMatched.toString) // or return unknown if no result found
   }
 }
 

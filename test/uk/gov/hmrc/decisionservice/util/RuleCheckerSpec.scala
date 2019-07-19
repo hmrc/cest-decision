@@ -91,7 +91,7 @@ class RuleCheckerSpec extends UnitSpec {
           workerDecideWhere -> "jeff"
         )
 
-        ruleChecker.checkRules(input) shouldBe SectionDecision.UNKNOWN
+        ruleChecker.checkRules(input) shouldBe WeightedAnswerEnum.NOT_VALID_USE_CASE.toString
       }
     }
 
@@ -159,7 +159,7 @@ class RuleCheckerSpec extends UnitSpec {
           paidForSubstandardWork -> outsideOfHoursNoCharge
         )
 
-        ruleChecker.checkRules(input) shouldBe SectionDecision.UNKNOWN
+        ruleChecker.checkRules(input) shouldBe WeightedAnswerEnum.NOT_VALID_USE_CASE.toString
       }
     }
 
@@ -204,7 +204,7 @@ class RuleCheckerSpec extends UnitSpec {
           workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
         )
 
-        ruleChecker.checkRules(input) shouldBe SectionDecision.UNKNOWN
+        ruleChecker.checkRules(input) shouldBe WeightedAnswerEnum.NOT_VALID_USE_CASE.toString
       }
     }
 
@@ -250,7 +250,7 @@ class RuleCheckerSpec extends UnitSpec {
           workerSentActualSubstitute -> ArrangedSubstitute.notAgreedWithClient
         )
 
-        ruleChecker.checkRules(input) shouldBe SectionDecision.UNKNOWN
+        ruleChecker.checkRules(input) shouldBe WeightedAnswerEnum.NOT_VALID_USE_CASE.toString
       }
     }
 

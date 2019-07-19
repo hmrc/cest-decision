@@ -38,9 +38,14 @@ class ResultService @Inject()(ruleSet: MatrixOfMatricesRulesSet) {
 
       case _ =>
 
-        val result = ruleSet.checkRules(Score(None, exit,personalService,control,financialRisk,partAndParcel))
+        val result = ruleSet.checkRules(Score(None, exit,personalService,control,financialRisk,partAndParcel), ResultEnum.NOT_MATCHED)
 
-        Future.successful(ResultEnum.withName(result))
+        val response = result match {
+          case "INIR35" => ResultEnum.INSIDE_IR35
+          case _ => ResultEnum.withName(result)
+        }
+
+        Future.successful(ResultEnum.withName(response))
 
     }
   }
