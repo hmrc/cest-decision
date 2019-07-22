@@ -21,7 +21,7 @@ import uk.gov.hmrc.decisionservice.config.ruleSets._
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 import uk.gov.hmrc.decisionservice.models.rules.{RulesSet, RulesSetWithResult}
 
-abstract class RuleChecker {
+abstract class RuleChecker  {
 
   def ruleSet: Seq[RulesSetWithResult]
 

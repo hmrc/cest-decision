@@ -30,9 +30,7 @@ class ControlDecisionService @Inject()(ruleSet: ControlRulesSet) {
     control.fold[Future[Option[WeightedAnswerEnum.Value]]](Future.successful(None)){
 
       case Control(None, None, None, None) =>
-
         Future.successful(None)
-
       case _ =>
 
         val result = ruleSet.checkRules(control)
