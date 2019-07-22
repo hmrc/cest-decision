@@ -32,7 +32,7 @@ class ExitDecisionServiceSpec extends UnitSpec {
 
       "returns an INSIDE_IR35" in {
 
-        val actualResult = TestExitDecisionService.decide(Exit(true))
+        val actualResult = TestExitDecisionService.decide(Some(Exit(Some(true))))
         val expectedResult = Some(ExitEnum.INSIDE_IR35)
 
         await(actualResult) shouldBe expectedResult
@@ -51,7 +51,7 @@ class ExitDecisionServiceSpec extends UnitSpec {
 
           s"return an answer for scenario ${index + 1}" in {
 
-            val actualAnswer = TestExitDecisionService.decide(jsValue.as[Exit])
+            val actualAnswer = TestExitDecisionService.decide(Some(jsValue.as[Exit]))
 
             await(actualAnswer) shouldBe expectedAnswer
 

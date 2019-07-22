@@ -25,11 +25,10 @@ import scala.concurrent.Future
 
 class FinancialRiskDecisionService @Inject()(ruleSet: FinancialRiskRulesSet) {
 
-  def decide(section: Section): Future[Option[WeightedAnswerEnum.Value]] = {
+  def decide(financialRisk: Option[FinancialRisk]): Future[Option[WeightedAnswerEnum.Value]] = {
 
-    val financialRisk = section.asInstanceOf[FinancialRisk]
+    financialRisk.fold[Future[Option[WeightedAnswerEnum.Value]]](Future.successful(None)){
 
-    financialRisk match {
       case FinancialRisk(None, None, None, None, None, None, None) =>
 
         Future.successful(None)

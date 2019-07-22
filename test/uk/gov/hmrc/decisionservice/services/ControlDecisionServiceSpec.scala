@@ -33,12 +33,12 @@ class ControlDecisionServiceSpec extends UnitSpec {
       "return a WeightedAnswer" in {
 
         val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-        val actualAnswer = TestControlDecisionService.decide(Control(
+        val actualAnswer = TestControlDecisionService.decide(Some(Control(
           Some(MoveWorker.cannotMoveWorkerWithoutNewAgreement),
           Some(HowWorkIsDone.workerDecidesWithoutInput),
           Some(ScheduleOfWorkingHours.workerDecideSchedule),
           Some(ChooseWhereWork.workerChooses)
-        ))
+        )))
 
         await(actualAnswer) shouldBe expectedAnswer
 
@@ -57,7 +57,7 @@ class ControlDecisionServiceSpec extends UnitSpec {
 
             s"return an answer for scenario ${index + 1}" in {
 
-              val actualAnswer = TestControlDecisionService.decide(jsValue.as[Control])
+              val actualAnswer = TestControlDecisionService.decide(Some(jsValue.as[Control]))
 
               await(actualAnswer) shouldBe expectedAnswer
 
@@ -77,7 +77,7 @@ class ControlDecisionServiceSpec extends UnitSpec {
 
             s"return an answer for scenario ${index + 1}" in {
 
-              val actualAnswer = TestControlDecisionService.decide(jsValue.as[Control])
+              val actualAnswer = TestControlDecisionService.decide(Some(jsValue.as[Control]))
 
               await(actualAnswer) shouldBe expectedAnswer
 
@@ -97,7 +97,7 @@ class ControlDecisionServiceSpec extends UnitSpec {
 
             s"return an answer for scenario ${index + 1}" in {
 
-              val actualAnswer = TestControlDecisionService.decide(jsValue.as[Control])
+              val actualAnswer = TestControlDecisionService.decide(Some(jsValue.as[Control]))
 
               await(actualAnswer) shouldBe expectedAnswer
 
@@ -110,12 +110,12 @@ class ControlDecisionServiceSpec extends UnitSpec {
       "return an answer" in {
 
         val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-        val actualAnswer = TestControlDecisionService.decide(Control(
+        val actualAnswer = TestControlDecisionService.decide(Some(Control(
           Some(MoveWorker.cannotMoveWorkerWithoutNewAgreement),
           Some(HowWorkIsDone.workerDecidesWithoutInput),
           Some(ScheduleOfWorkingHours.workerDecideSchedule),
           Some(ChooseWhereWork.workerChooses)
-        ))
+        )))
 
         await(actualAnswer) shouldBe expectedAnswer
       }
@@ -126,7 +126,7 @@ class ControlDecisionServiceSpec extends UnitSpec {
       "return a WeightedAnswer" in {
 
         val expectedAnswer = None
-        val actualAnswer = TestControlDecisionService.decide(Control(None, None, None, None))
+        val actualAnswer = TestControlDecisionService.decide(Some(Control(None, None, None, None)))
 
         await(actualAnswer) shouldBe expectedAnswer
 

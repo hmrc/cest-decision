@@ -18,7 +18,7 @@ package uk.gov.hmrc.decisionservice.models
 
 import play.api.libs.json.{Format, Json}
 
-case class Setup(endUserRole: String, hasContractStarted: String, provideServices: String) extends Section
+case class Setup(endUserRole: Option[String], hasContractStarted: Option[String], provideServices: Option[String]) extends Section
 
 object Setup {
   implicit val format: Format[Setup] = Json.format[Setup]

@@ -33,7 +33,7 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
       "return a WeightedAnswer" in {
 
         val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-        val actualAnswer = TestFinancialRiskDecisionService.decide(FinancialRisk(
+        val actualAnswer = TestFinancialRiskDecisionService.decide(Some(FinancialRisk(
           workerProvidedMaterials = Some(true),
           workerProvidedEquipment = Some(true),
           workerUsedVehicle = Some(true),
@@ -41,7 +41,7 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
           expensesAreNotRelevantForRole = Some(true),
           workerMainIncome = Some(FinancialRisk.workerMainIncome),
           paidForSubstandardWork = Some(FinancialRisk.paidForSubstandardWork)
-        ))
+        )))
 
         await(actualAnswer) shouldBe expectedAnswer
 
@@ -60,7 +60,7 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
 
           s"return an answer for scenario ${index + 1}" in {
 
-            val actualAnswer = TestFinancialRiskDecisionService.decide(jsValue.as[FinancialRisk])
+            val actualAnswer = TestFinancialRiskDecisionService.decide(Some(jsValue.as[FinancialRisk]))
 
             await(actualAnswer) shouldBe expectedAnswer
 
@@ -80,7 +80,7 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
 
           s"return an answer for scenario ${index + 1}" in {
 
-            val actualAnswer = TestFinancialRiskDecisionService.decide(jsValue.as[FinancialRisk])
+            val actualAnswer = TestFinancialRiskDecisionService.decide(Some(jsValue.as[FinancialRisk]))
 
             await(actualAnswer) shouldBe expectedAnswer
 
@@ -100,7 +100,7 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
 
           s"return an answer for scenario ${index + 1}" in {
 
-            val actualAnswer = TestFinancialRiskDecisionService.decide(jsValue.as[FinancialRisk])
+            val actualAnswer = TestFinancialRiskDecisionService.decide(Some(jsValue.as[FinancialRisk]))
 
             await(actualAnswer) shouldBe expectedAnswer
 
@@ -113,7 +113,7 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
       "return a WeightedAnswer" in {
 
         val expectedAnswer = None
-        val actualAnswer = TestFinancialRiskDecisionService.decide(FinancialRisk(None, None, None, None, None, None, None))
+        val actualAnswer = TestFinancialRiskDecisionService.decide(Some(FinancialRisk(None, None, None, None, None, None, None)))
 
         await(actualAnswer) shouldBe expectedAnswer
 
