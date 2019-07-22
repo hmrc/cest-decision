@@ -25,18 +25,16 @@ import scala.concurrent.Future
 
 class PartAndParcelDecisionService @Inject()(ruleSet: PartAndParcelRulesSet) {
 
-  def decide(section: Section): Future[Option[WeightedAnswerEnum.Value]] = {
+  def decide(section: PartAndParcel): Future[Option[WeightedAnswerEnum.Value]] = {
 
-    val partAndParcel = section.asInstanceOf[PartAndParcel]
-
-    partAndParcel match {
+    section match {
       case PartAndParcel(None, None, None, None) =>
 
         Future.successful(None)
 
       case _ =>
 
-        val result = ruleSet.checkRules(partAndParcel)
+        val result = ruleSet.checkRules(section)
 
         //look up rules
         Future.successful(Some(WeightedAnswerEnum.withName(result)))
