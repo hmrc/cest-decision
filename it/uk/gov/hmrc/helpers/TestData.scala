@@ -94,12 +94,26 @@ trait TestData {
 
   val decisionCase2e = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
     "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-    "exit" -> Map {"officeHolder" -> "No"},"personalService" -> Map("workerSentActualSubstitute" -> "noSubstitutionHappened","possibleSubstituteRejection" -> "wouldReject","wouldWorkerPayHelper" -> "No"),
+    "exit" -> Map {"officeHolder" -> "No"},
+    "personalService" -> Map("workerSentActualSubstitute" -> "noSubstitutionHappened","possibleSubstituteRejection" -> "wouldReject","wouldWorkerPayHelper" -> "No"),
     "control" -> Map("engagerMovingWorker" -> "canMoveWorkerWithoutPermission","workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers","whenWorkHasToBeDone" -> "workerAgreeSchedule","workerDecideWhere" -> "workerCannotChoose"),
     "financialRisk" -> Map("workerProvidedMaterials" -> "No","workerProvidedEquipment" -> "No","workerUsedVehicle" -> "No","workerHadOtherExpenses" -> "No","expensesAreNotRelevantForRole" -> "Yes","workerMainIncome" -> "incomeCalendarPeriods","paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"),
     "partAndParcel" -> Map("workerReceivesBenefits" -> "No","workerAsLineManager" -> "No","contactWithEngagerCustomer" -> "Yes","workerRepresentsEngagerBusiness" -> "workAsIndependent"))))
 
   val decisionRespone2e = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"LOW","financialRisk":"LOW","personalService":"HIGH","exit":"CONTINUE","control":"HIGH","setup":"CONTINUE"},"result":"Inside IR35"}"""
+
+  //TODO - Error codes
+
+  def errorResponse(errorCode: Int, errorMessage: String) = s"""{"code":$errorCode,"message":"$errorMessage"}"""
+
+  //TODO - Personal Services Section
+
+  def personalServices(personalService: Map[String, String]) = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
+    "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
+    "exit" -> Map {"officeHolder" -> "No"},
+    "personalService" -> personalService)))
+
+  def personalServicesResponse(personalServiceResult: String, result: String) = s"""{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"$personalServiceResult","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"$result"}"""
 
 
   // scalastyle:on
