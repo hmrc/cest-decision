@@ -103,313 +103,394 @@ object FinancialRiskRules extends BaseRules {
 
   val medium: JsArray = Json.arr(
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> outsideOfHoursNoCharge
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> fixedPrice,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> fixedPrice,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> outsideOfHoursNoCharge
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> outsideOfHoursNoCharge
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> profitOrLosses,
       paidForSubstandardWork -> noObligationToCorrect
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> profitOrLosses,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> fixedPrice,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> fixedPrice,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
     Json.obj(
+      workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> profitOrLosses,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> profitOrLosses,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> profitOrLosses,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> fixedPrice,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> fixedPrice,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> fixedPrice,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> profitOrLosses,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> profitOrLosses,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> fixedPrice,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> fixedPrice,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerUsedVehicle -> true,
       workerMainIncome -> profitOrLosses,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> profitOrLosses,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ))
 
   val low: JsArray = Json.arr(
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> profitOrLosses,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> fixedPrice,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> fixedPrice,
       paidForSubstandardWork -> outsideOfHoursNoCosts
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       workerHadOtherExpenses -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> profitOrLosses,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> fixedPrice,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> noObligationToCorrect
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> cannotBeCorrected
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> commission,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> pieceRate,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> asPartOfUsualRateInWorkingHours
     ),
-    Json.obj(
+    Json.obj(workerProvidedMaterials -> false,
+      workerProvidedEquipment -> false,
       expensesAreNotRelevantForRole -> true,
       workerMainIncome -> hourlyDailyOrWeekly,
       paidForSubstandardWork -> outsideOfHoursNoCosts
