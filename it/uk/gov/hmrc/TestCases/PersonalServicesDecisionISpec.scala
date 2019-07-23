@@ -1,23 +1,8 @@
 package uk.gov.hmrc.TestCases
 
-import play.api.libs.json.{JsValue, Json}
 import play.api.libs.json.Json.obj
 
 class PersonalServicesDecisionISpec extends BaseISpec {
-
-  def personalServices(personalService: JsValue)(implicit engine: DecisionEngine) =
-    obj(
-      "version" -> "1.5.0-final",
-      "correlationID" -> "session-12345",
-      "interview" -> obj(
-        "setup" -> obj(
-          "endUserRole" -> "personDoingWork",
-          "hasContractStarted" -> true,
-          "provideServices" -> "soleTrader"),
-        "exit" -> obj("officeHolder" -> false),
-        "personalService" -> personalService
-      )
-    )
 
   "Personal Service Section" should {
 
@@ -28,7 +13,7 @@ class PersonalServicesDecisionISpec extends BaseISpec {
         "Scenario 1: return a 200, a OUTOFIR35 for personal services and Outside IR35 result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj(
+            interview(personalService = obj(
               "workerSentActualSubstitute" -> "yesClientAgreed",
               "workerPayActualSubstitute" -> true
             ))
@@ -44,7 +29,7 @@ class PersonalServicesDecisionISpec extends BaseISpec {
         "Scenario 2: return a 200, a OUTOFIR35 for personal services and Outside IR35 result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj(
+            interview(personalService = obj(
               "workerSentActualSubstitute" -> "noSubstitutionHappened",
               "possibleSubstituteRejection" -> "wouldNotReject",
               "possibleSubstituteWorkerPay" -> true
@@ -58,10 +43,10 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           }
         }
 
-        "Scenario 3: return a 200, a MEDIUM for personal services and Not Matched result" in {
+        "Scenario 3: return a 200, a MEDIUM for personal services and Unknown result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj(
+            interview(personalService = obj(
               "workerSentActualSubstitute" -> "yesClientAgreed",
               "workerPayActualSubstitute" -> false,
               "wouldWorkerPayHelper" -> true
@@ -71,14 +56,13 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           whenReady(res) { result =>
             result.status shouldBe OK
             result.body should include(""""personalService":"MEDIUM"""")
-            result.body should include(""""result":"Not Matched"""")
           }
         }
 
-        "Scenario 4: return a 200, a MEDIUM for personal services and Not Matched result" in {
+        "Scenario 4: return a 200, a MEDIUM for personal services and Unknown result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj(
+            interview(personalService = obj(
               "workerSentActualSubstitute" -> "yesClientAgreed",
               "workerPayActualSubstitute" -> false,
               "wouldWorkerPayHelper" -> false
@@ -88,14 +72,13 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           whenReady(res) { result =>
             result.status shouldBe OK
             result.body should include(""""personalService":"MEDIUM"""")
-            result.body should include(""""result":"Not Matched"""")
           }
         }
 
-        "Scenario 5: return a 200, a MEDIUM for personal services and Not Matched result" in {
+        "Scenario 5: return a 200, a MEDIUM for personal services and Unknown result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj(
+            interview(personalService = obj(
               "workerSentActualSubstitute" -> "noSubstitutionHappened",
               "possibleSubstituteRejection" -> "wouldNotReject",
               "possibleSubstituteWorkerPay" -> false,
@@ -106,14 +89,13 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           whenReady(res) { result =>
             result.status shouldBe OK
             result.body should include(""""personalService":"MEDIUM"""")
-            result.body should include(""""result":"Not Matched"""")
           }
         }
 
-        "Scenario 6: return a 200, a MEDIUM for personal services and Not Matched result" in {
+        "Scenario 6: return a 200, a MEDIUM for personal services and Unknown result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj(
+            interview(personalService = obj(
               "workerSentActualSubstitute" -> "noSubstitutionHappened",
               "possibleSubstituteRejection" -> "wouldNotReject",
               "possibleSubstituteWorkerPay" -> false,
@@ -124,14 +106,13 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           whenReady(res) { result =>
             result.status shouldBe OK
             result.body should include(""""personalService":"MEDIUM"""")
-            result.body should include(""""result":"Not Matched"""")
           }
         }
 
-        "Scenario 7: return a 200, a MEDIUM for personal services and Not Matched result" in {
+        "Scenario 7: return a 200, a MEDIUM for personal services and Unknown result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj(
+            interview(personalService = obj(
               "workerSentActualSubstitute" -> "noSubstitutionHappened",
               "possibleSubstituteRejection" -> "wouldReject",
               "wouldWorkerPayHelper" -> true
@@ -141,15 +122,14 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           whenReady(res) { result =>
             result.status shouldBe OK
             result.body should include(""""personalService":"MEDIUM"""")
-            result.body should include(""""result":"Not Matched"""")
           }
         }
 
 
-        "Scenario 8: return a 200, a HIGH for personal services and Not Matched result" in {
+        "Scenario 8: return a 200, a HIGH for personal services and Unknown result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj(
+            interview(personalService = obj(
               "workerSentActualSubstitute" -> "noSubstitutionHappened",
               "possibleSubstituteRejection" -> "wouldReject",
               "wouldWorkerPayHelper" -> false
@@ -159,14 +139,13 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           whenReady(res) { result =>
             result.status shouldBe OK
             result.body should include(""""personalService":"HIGH"""")
-            result.body should include(""""result":"Not Matched"""")
           }
         }
 
-        "Scenario 9: return a 200, a MEDIUM for personal services and Not Matched result" in {
+        "Scenario 9: return a 200, a MEDIUM for personal services and Unknown result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj(
+            interview(personalService = obj(
               "workerSentActualSubstitute" -> "notAgreedWithClient",
               "wouldWorkerPayHelper" -> true
             ))
@@ -175,14 +154,13 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           whenReady(res) { result =>
             result.status shouldBe OK
             result.body should include(""""personalService":"MEDIUM"""")
-            result.body should include(""""result":"Not Matched"""")
           }
         }
 
-        "Scenario 10: return a 200, a HIGH for personal services and Not Matched result" in {
+        "Scenario 10: return a 200, a HIGH for personal services and Unknown result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj(
+            interview(personalService = obj(
               "workerSentActualSubstitute" -> "notAgreedWithClient",
               "wouldWorkerPayHelper" -> false
             ))
@@ -191,7 +169,6 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           whenReady(res) { result =>
             result.status shouldBe OK
             result.body should include(""""personalService":"HIGH"""")
-            result.body should include(""""result":"Not Matched"""")
           }
         }
 
@@ -199,7 +176,7 @@ class PersonalServicesDecisionISpec extends BaseISpec {
         "Scenario 11: return a 200, a OUTOFIR35 for personal services and Outside IR35 result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj(
+            interview(personalService = obj(
               "possibleSubstituteRejection" -> "wouldNotReject",
               "possibleSubstituteWorkerPay" -> true
             ))
@@ -212,10 +189,10 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           }
         }
 
-        "Scenario 12: return a 200, a MEDIUM for personal services and Not Matched result" in {
+        "Scenario 12: return a 200, a MEDIUM for personal services and Unknown result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj(
+            interview(personalService = obj(
               "possibleSubstituteRejection" -> "wouldNotReject",
               "possibleSubstituteWorkerPay" -> false
             ))
@@ -224,30 +201,27 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           whenReady(res) { result =>
             result.status shouldBe OK
             result.body should include(""""personalService":"MEDIUM"""")
-            result.body should include(""""result":"Not Matched"""")
           }
         }
 
-        "Scenario 13: return a 200, a HIGH for personal services and Not Matched result" in {
+        "Scenario 13: return a 200, a HIGH for personal services and Unknown result" in {
 
           lazy val res = postRequest(engine.path,
-            personalServices(obj("possibleSubstituteRejection" -> "wouldReject"))
+            interview(personalService = obj("possibleSubstituteRejection" -> "wouldReject"))
           )
 
           whenReady(res) { result =>
             result.status shouldBe OK
             result.body should include(""""personalService":"HIGH"""")
-            result.body should include(""""result":"Not Matched"""")
           }
         }
 
-        "Scenario 14: return a 200, a NotValidUseCase for personal services and Not Matched result" in {
+        "Scenario 14: return a 200, a NotValidUseCase for personal services and Unknown result" in {
 
-          lazy val res = postRequest(engine.path, personalServices(obj()))
+          lazy val res = postRequest(engine.path, interview(personalService = obj()))
 
           whenReady(res) { result =>
             result.status shouldBe OK
-            result.body should include(""""result":"Not Matched"""")
           }
         }
       }
