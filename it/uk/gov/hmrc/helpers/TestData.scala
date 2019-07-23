@@ -115,7 +115,6 @@ trait TestData {
 
   def personalServicesResponse(personalServiceResult: String, result: String) = s"""{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"$personalServiceResult","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"$result"}"""
 
-
   // scalastyle:on
 
 }
