@@ -29,7 +29,6 @@ class NewDecisionService @Inject()(controlDecisionService: ControlDecisionServic
                                    partAndParcelDecisionService: PartAndParcelDecisionService,
                                    resultService: ResultService) {
 
-  val version = "1.0.0-beta"
 
   def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[_DecisionResponse] = {
 
@@ -38,15 +37,20 @@ class NewDecisionService @Inject()(controlDecisionService: ControlDecisionServic
     val interview = request.interview
     val setup: Option[SetupEnum.Value] = None
 
+    val _exitDecisionService = exitDecisionService.decide(interview.exit)
+    val _personalServiceDecisionService = personalServiceDecisionService.decide(interview.personalService)
+    val _controlDecisionService = controlDecisionService.decide(interview.control)
+    val _financialRiskDecisionService = financialRiskDecisionService.decide(interview.financialRisk)
+    val _partAndParcelDecisionService = partAndParcelDecisionService.decide(interview.partAndParcel)
+
     for {
+      exit <- _exitDecisionService
+      personalService <- _personalServiceDecisionService
+      control <- _controlDecisionService
+      financialRisk <- _financialRiskDecisionService
+      partAndParcel <- _partAndParcelDecisionService
+      result <- resultService.decide(Score(None, exit, personalService, control, financialRisk, partAndParcel))
 
-      exit <- exitDecisionService.decide(interview.exit)
-      personalService <- personalServiceDecisionService.decide(interview.personalService)
-      control <- controlDecisionService.decide(interview.control)
-      financialRisk <- financialRiskDecisionService.decide(interview.financialRisk)
-      partAndParcel <- partAndParcelDecisionService.decide(interview.partAndParcel)
-      result <- resultService.decide(exit, personalService, control, financialRisk, partAndParcel)
-
-    } yield _DecisionResponse(version, request.correlationID, Score(setup, exit, personalService, control, financialRisk, partAndParcel), result)
+    } yield _DecisionResponse(request.version, request.correlationID, Score(setup, exit, personalService, control, financialRisk, partAndParcel), result)
   }
 }

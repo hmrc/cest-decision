@@ -19,26 +19,26 @@ package uk.gov.hmrc.decisionservice.services
 import javax.inject.Inject
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 import uk.gov.hmrc.decisionservice.models.{PersonalService, Section}
+import uk.gov.hmrc.decisionservice.util.PersonalServiceRulesSet
 
 import scala.concurrent.Future
 
-class PersonalServiceDecisionService @Inject()() {
+class PersonalServiceDecisionService @Inject()(ruleSet: PersonalServiceRulesSet) {
 
-  def decide(section: Section): Future[Option[WeightedAnswerEnum.Value]] = {
+  def decide(personalService: Option[PersonalService]): Future[Option[WeightedAnswerEnum.Value]] = {
 
-    val personalService = section.asInstanceOf[PersonalService]
+    personalService.fold[Future[Option[WeightedAnswerEnum.Value]]](Future.successful(None)){
 
-    personalService match {
       case PersonalService(None, None, None, None, None) =>
 
         Future.successful(None)
 
-      case PersonalService(workerSentActualSubstitute, workerPayActualSubstitute,
-      possibleSubstituteRejection, possibleSubstituteWorkerPay, wouldWorkerPayHelper) =>
+      case _ =>
+
+        val result = ruleSet.checkRules(personalService)
 
         //look up rules
-        Future.successful(Some(WeightedAnswerEnum.OUTSIDE_IR35))
+        Future.successful(Some(WeightedAnswerEnum.withName(result)))
     }
   }
-
 }

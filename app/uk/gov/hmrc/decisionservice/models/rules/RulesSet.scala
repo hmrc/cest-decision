@@ -20,14 +20,17 @@ import play.api.libs.json.{Format, JsObject, Json}
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 
 case class RulesSet(INIR35: Option[Seq[JsObject]], OUTOFIR35: Option[Seq[JsObject]],
-                    HIGH: Option[Seq[JsObject]], MEDIUM: Option[Seq[JsObject]], LOW: Option[Seq[JsObject]]) {
+                    HIGH: Option[Seq[JsObject]], MEDIUM: Option[Seq[JsObject]], LOW: Option[Seq[JsObject]],
+                    Unknown: Option[Seq[JsObject]]) {
 
   def rulesInOrder: Seq[RulesSetWithResult] = Seq(
     rulesAndOutcome(WeightedAnswerEnum.INSIDE_IR35, INIR35),
     rulesAndOutcome(WeightedAnswerEnum.OUTSIDE_IR35, OUTOFIR35),
     rulesAndOutcome(WeightedAnswerEnum.HIGH, HIGH),
     rulesAndOutcome(WeightedAnswerEnum.MEDIUM, MEDIUM),
-    rulesAndOutcome(WeightedAnswerEnum.LOW, LOW)).flatten
+    rulesAndOutcome(WeightedAnswerEnum.LOW, LOW),
+    rulesAndOutcome(WeightedAnswerEnum.UNKNOWN, Unknown)
+  ).flatten
 
   private def rulesAndOutcome(outcome: String, rules: Option[Seq[JsObject]]) = {
     rules.fold(None: Option[RulesSetWithResult]) { res => Some(RulesSetWithResult(outcome, res)) }

@@ -16,31 +16,43 @@
 
 package uk.gov.hmrc.decisionservice.util
 
-import play.api.libs.json._
+import play.api.libs.json.{JsObject, _}
 import uk.gov.hmrc.decisionservice.config.ruleSets._
+import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 import uk.gov.hmrc.decisionservice.models.rules.{RulesSet, RulesSetWithResult}
 
-import scala.annotation.tailrec
-
-abstract class RuleChecker {
+abstract class RuleChecker  {
 
   def ruleSet: Seq[RulesSetWithResult]
 
-  def checkRules[T](section: T)(implicit writes: Writes[T]): String = {
+  def checkRules[T,A](section: T, notMatched: A = WeightedAnswerEnum.NOT_VALID_USE_CASE)(implicit writes: Writes[T]): String = {
     val jsObject: JsObject = Json.toJson(section).as[JsObject]
-    checkOutcome(jsObject,ruleSet)
+    checkOutcome(jsObject, ruleSet, notMatched)
   }
 
-  @tailrec
-  private def checkOutcome(section: JsObject,rules: Seq[RulesSetWithResult]): String = {
-    if(rules.isEmpty) "undetermined" else {
-      val currentRule = rules.head
-      if(currentRule.rulesSet.toStream exists(rule => {
-        rule.fields.forall(section.fields.contains)
-      })) currentRule.result else checkOutcome(section, rules.tail)
+  private def checkOutcome[T](section: JsObject, rules: Seq[RulesSetWithResult], notMatched: T): String = {
+
+    case class WeightedRuleAndResult(weighting: Int, rule: JsObject, result: String)
+
+    val weightedRulesWithResults: Seq[WeightedRuleAndResult] = rules.flatMap { ruleSetAndResult =>
+      ruleSetAndResult.rulesSet.map { rule =>
+        WeightedRuleAndResult(
+          weighting = rule.fields.size,
+          rule = rule,
+          result = ruleSetAndResult.result
+        )
+      }
     }
-  }
 
+    val matchedRules = weightedRulesWithResults.filter { weightedRuleAndResult =>
+      weightedRuleAndResult.rule.fields.forall(answer => section.fields.contains(answer))
+    }
+
+    matchedRules
+      .sortBy(rule => -rule.weighting) // sort by highest weighting
+      .headOption.map(_.result) // get the first result
+      .getOrElse(notMatched.toString) // or return unknown if no result found
+  }
 }
 
 class ControlRulesSet extends RuleChecker {

@@ -44,7 +44,8 @@ private object AppDependencies {
         "uk.gov.hmrc" %% "play-reactivemongo" % "6.5.0" % scope,
         "uk.gov.hmrc" %% "http-caching-client" % "8.2.0" % scope,
         "org.mockito" % "mockito-core" % "2.26.0" % scope,
-        "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlayPlusVersion % scope
+        "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlayPlusVersion % scope,
+        "org.scalamock" %% "scalamock-scalatest-support" % "3.6.0" % scope
       )
     }.test
   }

@@ -17,19 +17,16 @@
 package uk.gov.hmrc.decisionservice.util
 
 import play.api.libs.json.Json
-import uk.gov.hmrc.decisionservice.config.ruleSets.EarlyExitRules
 import uk.gov.hmrc.decisionservice.models.Control.{engagerMovingWorker, whenWorkHasToBeDone, workerDecideWhere, workerDecidingHowWorkIsDone}
 import uk.gov.hmrc.decisionservice.models.Exit
-import uk.gov.hmrc.decisionservice.models.FinancialRisk.{paidForSubstandardWork, workerMainIncome, workerUsedVehicle}
+import uk.gov.hmrc.decisionservice.models.FinancialRisk.{paidForSubstandardWork, workerMainIncome, workerUsedVehicle, _}
+import uk.gov.hmrc.decisionservice.models.PartAndParcel.{contactWithEngagerCustomer, workerReceivesBenefits, workerRepresentsEngagerBusiness}
+import uk.gov.hmrc.decisionservice.models.PersonalService.{workerPayActualSubstitute, workerSentActualSubstitute, wouldWorkerPayHelper}
+import uk.gov.hmrc.decisionservice.models.enums.HowWorkerIsPaid._
+import uk.gov.hmrc.decisionservice.models.enums.PutRightAtOwnCost._
 import uk.gov.hmrc.decisionservice.models.enums._
 import uk.gov.hmrc.decisionservice.models.rules.RulesSetWithResult
 import uk.gov.hmrc.play.test.UnitSpec
-import uk.gov.hmrc.decisionservice.models.FinancialRisk._
-import uk.gov.hmrc.decisionservice.models.PartAndParcel.{contactWithEngagerCustomer, workerReceivesBenefits, workerRepresentsEngagerBusiness}
-import uk.gov.hmrc.decisionservice.models.PersonalService.{possibleSubstituteRejection, workerPayActualSubstitute, workerSentActualSubstitute, wouldWorkerPayHelper}
-import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
-import uk.gov.hmrc.decisionservice.models.enums.HowWorkerIsPaid._
-import uk.gov.hmrc.decisionservice.models.enums.PutRightAtOwnCost._
 
 class RuleCheckerSpec extends UnitSpec {
 
@@ -87,7 +84,7 @@ class RuleCheckerSpec extends UnitSpec {
           workerDecideWhere -> "jeff"
         )
 
-        ruleChecker.checkRules(input) shouldBe "undetermined"
+        ruleChecker.checkRules(input) shouldBe WeightedAnswerEnum.NOT_VALID_USE_CASE.toString
       }
     }
 
@@ -155,7 +152,7 @@ class RuleCheckerSpec extends UnitSpec {
           paidForSubstandardWork -> outsideOfHoursNoCharge
         )
 
-        ruleChecker.checkRules(input) shouldBe "undetermined"
+        ruleChecker.checkRules(input) shouldBe WeightedAnswerEnum.NOT_VALID_USE_CASE.toString
       }
     }
 
@@ -200,7 +197,7 @@ class RuleCheckerSpec extends UnitSpec {
           workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
         )
 
-        ruleChecker.checkRules(input) shouldBe "undetermined"
+        ruleChecker.checkRules(input) shouldBe WeightedAnswerEnum.NOT_VALID_USE_CASE.toString
       }
     }
 
@@ -232,11 +229,9 @@ class RuleCheckerSpec extends UnitSpec {
       }
 
       "check a MEDIUM rule is matched" in {
-        //TODO??? do we need this medium rule? if possibleSubstituteRejection -> RejectSubstitute.wouldReject is already caught in high?
         val input = Json.obj(
-          workerSentActualSubstitute -> ArrangedSubstitute.noSubstitutionHappened,
-          possibleSubstituteRejection -> RejectSubstitute.wouldReject,
-          wouldWorkerPayHelper -> true
+          workerSentActualSubstitute -> ArrangedSubstitute.yesClientAgreed,
+          workerPayActualSubstitute -> false
         )
 
         ruleChecker.checkRules(input) shouldBe "MEDIUM"
@@ -248,7 +243,7 @@ class RuleCheckerSpec extends UnitSpec {
           workerSentActualSubstitute -> ArrangedSubstitute.notAgreedWithClient
         )
 
-        ruleChecker.checkRules(input) shouldBe "undetermined"
+        ruleChecker.checkRules(input) shouldBe WeightedAnswerEnum.NOT_VALID_USE_CASE.toString
       }
     }
 

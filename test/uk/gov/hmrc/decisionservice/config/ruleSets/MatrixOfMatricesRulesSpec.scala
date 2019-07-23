@@ -17,7 +17,7 @@
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
 import play.api.libs.json.Json
-import uk.gov.hmrc.decisionservice.models.enums.ResultEnum
+import uk.gov.hmrc.decisionservice.models.enums.{ResultEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.models.enums.Section._
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
 import uk.gov.hmrc.decisionservice.util.TestFixture
@@ -29,7 +29,7 @@ class MatrixOfMatricesRulesSpec extends UnitSpec with TestFixture with RuleSetHe
 
   "Contain all the expected InIR35 rules" in {
 
-    val actual = (json \ ResultEnum.INSIDE_IR35).get
+    val actual = (json \ WeightedAnswerEnum.INSIDE_IR35).get
 
     val expected = Json.arr(
       Json.obj(
