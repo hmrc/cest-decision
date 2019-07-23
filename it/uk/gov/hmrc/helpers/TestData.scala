@@ -105,16 +105,6 @@ trait TestData {
   //TODO - Error codes
 
   def errorResponse(errorCode: Int, errorMessage: String) = s"""{"code":$errorCode,"message":"$errorMessage"}"""
-
-  //TODO - Personal Services Section
-
-  def personalServices(personalService: Map[String, String]) = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
-    "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-    "exit" -> Map {"officeHolder" -> "No"},
-    "personalService" -> personalService)))
-
-  def personalServicesResponse(personalServiceResult: String, result: String) = s"""{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"$personalServiceResult","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"$result"}"""
-
   // scalastyle:on
 
 }
