@@ -16,22 +16,25 @@
 
 package uk.gov.hmrc.decisionservice.services
 
-import javax.inject.Inject
-import uk.gov.hmrc.decisionservice.models.Exit
-import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
-import uk.gov.hmrc.decisionservice.util.ExitRulesSet
+import uk.gov.hmrc.decisionservice.models.Control
+import uk.gov.hmrc.play.test.UnitSpec
 
-import scala.concurrent.Future
+class BusinessOnOwnAccountDecisionServiceSpec extends UnitSpec {
 
-class ExitDecisionService @Inject()(ruleSet: ExitRulesSet) {
+  object TestBusinessOnOwnAccountDecisionService extends BusinessOnOwnAccountDecisionService
 
-  def decide(exit: Option[Exit]): Future[Option[ExitEnum.Value]] = {
+  "BusinessOnOwnAccountDecisionService" when {
 
-    exit.fold[Future[Option[ExitEnum.Value]]](Future.successful(None))(exit => {
+    "decide is called" should {
 
-      val result = ruleSet.checkRules(exit)
+      "return a None" in {
 
-      Future.successful(Some(ExitEnum.withName(result)))
-    })
+        //TODO upate to use BusinessOnOwnAccount once it has been created
+        val actualResult = TestBusinessOnOwnAccountDecisionService.decide(Control(None, None, None, None))
+        val expectedResult = None
+
+        await(actualResult) shouldBe expectedResult
+      }
+    }
   }
 }

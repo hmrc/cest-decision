@@ -19,25 +19,26 @@ package uk.gov.hmrc.decisionservice.services
 import javax.inject.Inject
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 import uk.gov.hmrc.decisionservice.models.{FinancialRisk, Section}
+import uk.gov.hmrc.decisionservice.util.FinancialRiskRulesSet
 
 import scala.concurrent.Future
 
-class FinancialRiskDecisionService @Inject()() {
+class FinancialRiskDecisionService @Inject()(ruleSet: FinancialRiskRulesSet) {
 
-  def decide(section: Section): Future[Option[WeightedAnswerEnum.Value]] = {
+  def decide(financialRisk: Option[FinancialRisk]): Future[Option[WeightedAnswerEnum.Value]] = {
 
-    val financialRisk = section.asInstanceOf[FinancialRisk]
+    financialRisk.fold[Future[Option[WeightedAnswerEnum.Value]]](Future.successful(None)){
 
-    financialRisk match {
       case FinancialRisk(None, None, None, None, None, None, None) =>
 
         Future.successful(None)
 
-      case FinancialRisk(workerProvidedMaterials, workerProvidedEquipment, workerUsedVehicle,
-      workerHadOtherExpenses, expensesAreNotRelevantForRole, workerMainIncome, paidForSubstandardWork) =>
+      case _ =>
+
+        val result = ruleSet.checkRules(financialRisk)
 
         //look up rules
-        Future.successful(Some(WeightedAnswerEnum.OUTSIDE_IR35))
+        Future.successful(Some(WeightedAnswerEnum.withName(result)))
     }
   }
 }

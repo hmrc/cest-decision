@@ -41,6 +41,7 @@ class NewDecisionController @Inject()(mcc: MessagesControllerComponents,
     request.body.validate[DecisionRequest] match {
       case JsSuccess(validRequest, _) =>
 
+        Logger.info("Valid interview request to decide API")
         service.calculateResult(validRequest).map {
           response =>
             Ok(Json.toJson(response))

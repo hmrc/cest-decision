@@ -26,6 +26,7 @@ object WeightedAnswerEnum extends Enumeration with EnumFormats {
   val NOT_VALID_USE_CASE: WeightedAnswerEnum.Value = Value("NotValidUseCase")
   val OUTSIDE_IR35: WeightedAnswerEnum.Value = Value("OUTOFIR35")
   val INSIDE_IR35: WeightedAnswerEnum.Value = Value("INIR35")
+  val UNKNOWN: WeightedAnswerEnum.Value = Value("Unknown")
   implicit val format: Format[WeightedAnswerEnum.Value] = enumFormat(WeightedAnswerEnum)
 }
 
