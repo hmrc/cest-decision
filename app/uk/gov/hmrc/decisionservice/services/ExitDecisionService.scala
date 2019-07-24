@@ -29,9 +29,14 @@ class ExitDecisionService @Inject()(ruleSet: ExitRulesSet) {
 
     exit.fold[Future[Option[ExitEnum.Value]]](Future.successful(None))(exit => {
 
-      val result = ruleSet.checkRules(exit)
+      if(exit.officeHolder.contains(false)){
 
-      Future.successful(Some(ExitEnum.withName(result)))
+        Future.successful(Some(ExitEnum.CONTINUE))
+      } else {
+        val result = ruleSet.checkRules(exit)
+
+        Future.successful(Some(ExitEnum.withName(result)))
+      }
     })
   }
 }
