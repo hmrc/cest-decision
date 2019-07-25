@@ -29,7 +29,6 @@ class NewDecisionService @Inject()(controlDecisionService: ControlDecisionServic
                                    partAndParcelDecisionService: PartAndParcelDecisionService,
                                    resultService: ResultService) {
 
-  val version = "1.0.0-beta"
 
   def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[_DecisionResponse] = {
 
@@ -52,6 +51,6 @@ class NewDecisionService @Inject()(controlDecisionService: ControlDecisionServic
       partAndParcel <- _partAndParcelDecisionService
       result <- resultService.decide(Score(None, exit, personalService, control, financialRisk, partAndParcel))
 
-    } yield _DecisionResponse(version, request.correlationID, Score(setup, exit, personalService, control, financialRisk, partAndParcel), result)
+    } yield _DecisionResponse(request.version, request.correlationID, Score(setup, exit, personalService, control, financialRisk, partAndParcel), result)
   }
 }

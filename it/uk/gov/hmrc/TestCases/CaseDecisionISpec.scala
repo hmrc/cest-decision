@@ -6,9 +6,10 @@ import play.api.libs.ws.DefaultBodyWritables
 import uk.gov.hmrc.helpers._
 
 class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
-  with Status with IntegrationPatience with CreateRequestHelper with WiremockHelper with TestData with CaseTestData {
+  with Status with IntegrationPatience with CreateRequestHelper with WiremockHelper with CaseTestData {
 
-  s"For Case 1 a POST /decide" should {
+
+  s"For Case 1 a POST /decide}" should {
 
     "return a 200 and continue response given a early exit request" in {
 
