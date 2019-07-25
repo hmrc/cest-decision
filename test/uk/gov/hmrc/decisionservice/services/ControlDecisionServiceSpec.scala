@@ -33,12 +33,12 @@ class ControlDecisionServiceSpec extends UnitSpec {
       "return a WeightedAnswer" in {
 
         val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
-        val actualAnswer = TestControlDecisionService.decide(Control(
+        val actualAnswer = TestControlDecisionService.decide(Some(Control(
           Some(MoveWorker.cannotMoveWorkerWithoutNewAgreement),
           Some(HowWorkIsDone.workerDecidesWithoutInput),
           Some(ScheduleOfWorkingHours.workerDecideSchedule),
           Some(ChooseWhereWork.workerChooses)
-        ))
+        )))
 
         await(actualAnswer) shouldBe Some(expectedAnswer)
 
@@ -53,7 +53,7 @@ class ControlDecisionServiceSpec extends UnitSpec {
 
             s"return an answer for scenario ${index + 1}" in {
 
-              val actualAnswer = TestControlDecisionService.decide(ruleSet.rules.as[Control])
+              val actualAnswer = TestControlDecisionService.decide(Some(ruleSet.rules.as[Control]))
               val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
 
               await(actualAnswer) shouldBe Some(expectedAnswer)
@@ -66,12 +66,12 @@ class ControlDecisionServiceSpec extends UnitSpec {
       "return an answer" in {
 
         val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
-        val actualAnswer = TestControlDecisionService.decide(Control(
+        val actualAnswer = TestControlDecisionService.decide(Some(Control(
           Some(MoveWorker.cannotMoveWorkerWithoutNewAgreement),
           Some(HowWorkIsDone.workerDecidesWithoutInput),
           Some(ScheduleOfWorkingHours.workerDecideSchedule),
           Some(ChooseWhereWork.workerChooses)
-        ))
+        )))
 
         await(actualAnswer) shouldBe Some(expectedAnswer)
       }
@@ -81,10 +81,9 @@ class ControlDecisionServiceSpec extends UnitSpec {
 
       "return a WeightedAnswer" in {
 
-        val expectedAnswer = None
-        val actualAnswer = TestControlDecisionService.decide(Control(None, None, None, None))
+        val actualAnswer = TestControlDecisionService.decide(Some(Control(None, None, None, None)))
 
-        await(actualAnswer) shouldBe expectedAnswer
+        await(actualAnswer) shouldBe None
 
       }
     }

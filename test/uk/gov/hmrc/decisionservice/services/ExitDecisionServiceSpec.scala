@@ -18,7 +18,7 @@ package uk.gov.hmrc.decisionservice.services
 
 import uk.gov.hmrc.decisionservice.config.ruleSets.EarlyExitRules
 import uk.gov.hmrc.decisionservice.models.Exit
-import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
 import uk.gov.hmrc.decisionservice.util.ExitRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
 
@@ -32,8 +32,8 @@ class ExitDecisionServiceSpec extends UnitSpec {
 
       "returns an INSIDE_IR35" in {
 
-        val actualResult = TestExitDecisionService.decide(Exit(true))
-        val expectedResult = ExitEnum.INSIDE_IR35
+        val actualResult = TestExitDecisionService.decide(Some(Exit(Some(false))))
+        val expectedResult = ExitEnum.CONTINUE
 
         await(actualResult) shouldBe Some(expectedResult)
       }
@@ -47,7 +47,7 @@ class ExitDecisionServiceSpec extends UnitSpec {
 
         s"return an answer for scenario ${index + 1}" in {
 
-          val actualAnswer = TestExitDecisionService.decide(ruleSet.rules.as[Exit])
+          val actualAnswer = TestExitDecisionService.decide(Some(ruleSet.rules.as[Exit]))
           val expectedAnswer = ExitEnum.withName(ruleSet.result)
 
           await(actualAnswer) shouldBe Some(expectedAnswer)

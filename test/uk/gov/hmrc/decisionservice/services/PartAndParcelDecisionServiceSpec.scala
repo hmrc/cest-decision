@@ -33,15 +33,14 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
       "return a WeightedAnswer" in {
 
         val expectedAnswer = WeightedAnswerEnum.MEDIUM
-        val actualAnswer = TestPartAndParcelDecisionService.decide(PartAndParcel(
+        val actualAnswer = TestPartAndParcelDecisionService.decide(Some(PartAndParcel(
           Some(false),
           Some(false),
           Some(true),
           Some("workForEndClient")
-        ))
+        )))
 
         await(actualAnswer) shouldBe Some(expectedAnswer)
-
       }
     }
 
@@ -53,10 +52,11 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
 
           s"return an answer for scenario ${index + 1}" in {
 
-            val actualAnswer = TestPartAndParcelDecisionService.decide(ruleSet.rules.as[PartAndParcel])
+            val actualAnswer = TestPartAndParcelDecisionService.decide(Some(ruleSet.rules.as[PartAndParcel]))
             val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
 
             await(actualAnswer) shouldBe Some(expectedAnswer)
+
           }
       }
     }
@@ -66,7 +66,7 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
       "return a WeightedAnswer" in {
 
         val expectedAnswer = None
-        val actualAnswer = TestPartAndParcelDecisionService.decide(PartAndParcel(None, None, None, None))
+        val actualAnswer = TestPartAndParcelDecisionService.decide(Some(PartAndParcel(None, None, None, None)))
 
         await(actualAnswer) shouldBe expectedAnswer
 

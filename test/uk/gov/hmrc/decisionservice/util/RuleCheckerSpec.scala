@@ -125,6 +125,9 @@ class RuleCheckerSpec extends UnitSpec {
       "check a MEDIUM rule is matched" in {
 
         val input = Json.obj(
+
+            workerProvidedMaterials -> false,
+            workerProvidedEquipment -> false,
           workerUsedVehicle -> true,
           workerMainIncome -> hourlyDailyOrWeekly,
           paidForSubstandardWork -> outsideOfHoursNoCosts
@@ -136,6 +139,9 @@ class RuleCheckerSpec extends UnitSpec {
       "check a LOW rule is matched" in {
 
         val input = Json.obj(
+
+            workerProvidedMaterials -> false,
+            workerProvidedEquipment -> false,
           expensesAreNotRelevantForRole -> true,
           workerMainIncome -> fixedPrice,
           paidForSubstandardWork -> asPartOfUsualRateInWorkingHours

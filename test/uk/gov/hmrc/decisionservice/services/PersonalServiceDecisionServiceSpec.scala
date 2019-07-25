@@ -33,13 +33,13 @@ class PersonalServiceDecisionServiceSpec extends UnitSpec{
       "return a WeightedAnswer" in {
 
         val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
-        val actualAnswer = TestControlDecisionService.decide(PersonalService(
+        val actualAnswer = TestControlDecisionService.decide(Some(PersonalService(
           Some("yesClientAgreed"),
           Some(true),
           Some("wouldNotReject"),
           Some(true),
           Some(true)
-        ))
+        )))
 
         await(actualAnswer) shouldBe Some(expectedAnswer)
 
@@ -54,7 +54,7 @@ class PersonalServiceDecisionServiceSpec extends UnitSpec{
 
           s"return an answer for scenario ${index + 1}" in {
 
-            val actualAnswer = TestControlDecisionService.decide(ruleSet.rules.as[PersonalService])
+            val actualAnswer = TestControlDecisionService.decide(Some(ruleSet.rules.as[PersonalService]))
             val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
 
             await(actualAnswer) shouldBe Some(expectedAnswer)
@@ -68,7 +68,7 @@ class PersonalServiceDecisionServiceSpec extends UnitSpec{
       "return a WeightedAnswer" in {
 
         val expectedAnswer = None
-        val actualAnswer = TestControlDecisionService.decide(PersonalService(None, None, None, None, None))
+        val actualAnswer = TestControlDecisionService.decide(Some(PersonalService(None, None, None, None, None)))
 
         await(actualAnswer) shouldBe expectedAnswer
 

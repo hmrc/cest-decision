@@ -25,14 +25,15 @@ import scala.concurrent.Future
 
 class ControlDecisionService @Inject()(ruleSet: ControlRulesSet) {
 
-  def decide(section: Control): Future[Option[WeightedAnswerEnum.Value]] = {
+  def decide(control: Option[Control]): Future[Option[WeightedAnswerEnum.Value]] = {
 
-    section match {
+    control.fold[Future[Option[WeightedAnswerEnum.Value]]](Future.successful(None)){
+
       case Control(None, None, None, None) =>
         Future.successful(None)
       case _ =>
 
-        val result = ruleSet.checkRules(section)
+        val result = ruleSet.checkRules(control)
 
         //look up rules
         Future.successful(Some(WeightedAnswerEnum.withName(result)))

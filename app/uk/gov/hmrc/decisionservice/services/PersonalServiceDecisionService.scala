@@ -25,20 +25,20 @@ import scala.concurrent.Future
 
 class PersonalServiceDecisionService @Inject()(ruleSet: PersonalServiceRulesSet) {
 
-  def decide(section: PersonalService): Future[Option[WeightedAnswerEnum.Value]] = {
+  def decide(personalService: Option[PersonalService]): Future[Option[WeightedAnswerEnum.Value]] = {
 
-    section match {
+    personalService.fold[Future[Option[WeightedAnswerEnum.Value]]](Future.successful(None)){
+
       case PersonalService(None, None, None, None, None) =>
 
         Future.successful(None)
 
       case _ =>
 
-        val result = ruleSet.checkRules(section)
+        val result = ruleSet.checkRules(personalService)
 
         //look up rules
         Future.successful(Some(WeightedAnswerEnum.withName(result)))
     }
   }
-
 }
