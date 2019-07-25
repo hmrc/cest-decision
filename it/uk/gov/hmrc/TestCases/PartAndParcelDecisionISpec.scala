@@ -85,7 +85,7 @@ class PartAndParcelDecisionISpec extends BaseISpec {
               "workerReceivesBenefits" -> false,
               "workerAsLineManager" -> false,
               "contactWithEngagerCustomer" -> false,
-              "workerRepresentsEngagerBusiness" -> ""
+              "workerRepresentsEngagerBusiness" -> "workAsBusiness"
             ))
           )
 
