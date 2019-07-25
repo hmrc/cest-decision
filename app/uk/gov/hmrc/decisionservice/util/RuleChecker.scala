@@ -19,62 +19,46 @@ package uk.gov.hmrc.decisionservice.util
 import play.api.libs.json.{JsObject, _}
 import uk.gov.hmrc.decisionservice.config.ruleSets._
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
-import uk.gov.hmrc.decisionservice.models.rules.{RulesSet, RulesSetWithResult}
 
-sealed abstract class RuleChecker {
+abstract class RuleChecker {
 
-  def ruleSet: Seq[RulesSetWithResult]
+  def ruleSet: Seq[RuleSet]
 
   def checkRules[T,A](section: T, notMatched: A = WeightedAnswerEnum.NOT_VALID_USE_CASE)(implicit writes: Writes[T]): String = {
     val jsObject: JsObject = Json.toJson(section).as[JsObject]
     checkOutcome(jsObject, ruleSet, notMatched)
   }
 
-  private def checkOutcome[T](section: JsObject, rules: Seq[RulesSetWithResult], notMatched: T): String = {
-
-    case class WeightedRuleAndResult(weighting: Int, rule: JsObject, result: String)
-
-    val weightedRulesWithResults: Seq[WeightedRuleAndResult] = rules.flatMap { ruleSetAndResult =>
-      ruleSetAndResult.rulesSet.map { rule =>
-        WeightedRuleAndResult(
-          weighting = rule.fields.size,
-          rule = rule,
-          result = ruleSetAndResult.result
-        )
-      }
+  private def checkOutcome[T](section: JsObject ,rules: Seq[RuleSet], notMatched: T): String = {
+    rules.find(ruleSet => {
+      ruleSet.rules.fields.forall(section.fields.contains)
+    }) match {
+      case Some(matchedRule) => matchedRule.result
+      case _ => notMatched.toString
     }
-
-    val matchedRules = weightedRulesWithResults.filter { weightedRuleAndResult =>
-      weightedRuleAndResult.rule.fields.forall(answer => section.fields.contains(answer))
-    }
-
-    matchedRules
-      .sortBy(rule => -rule.weighting) // sort by highest weighting
-      .headOption.map(_.result) // get the first result
-      .getOrElse(notMatched.toString) // or return unknown if no result found
   }
 }
 
 class ControlRulesSet extends RuleChecker {
-  override def ruleSet: Seq[RulesSetWithResult] = ControlRules.ruleSet.as[RulesSet].rulesInOrder
+  override def ruleSet: Seq[RuleSet] = ControlRules.ruleSet
 }
 
 class ExitRulesSet extends RuleChecker {
-  override def ruleSet: Seq[RulesSetWithResult] = EarlyExitRules.ruleSet.as[RulesSet].rulesInOrder
+  override def ruleSet: Seq[RuleSet] = EarlyExitRules.ruleSet
 }
 
 class PersonalServiceRulesSet extends RuleChecker {
-  override def ruleSet: Seq[RulesSetWithResult] = PersonalServiceRules.ruleSet.as[RulesSet].rulesInOrder
+  override def ruleSet: Seq[RuleSet] = PersonalServiceRules.ruleSet
 }
 
 class PartAndParcelRulesSet extends RuleChecker {
-  override def ruleSet: Seq[RulesSetWithResult] = PartAndParcelRules.ruleSet.as[RulesSet].rulesInOrder
+  override def ruleSet: Seq[RuleSet] = PartAndParcelRules.ruleSet
 }
 
 class FinancialRiskRulesSet extends RuleChecker {
-  override def ruleSet: Seq[RulesSetWithResult] = FinancialRiskRules.ruleSet.as[RulesSet].rulesInOrder
+  override def ruleSet: Seq[RuleSet] = FinancialRiskRules.ruleSet
 }
 
 class MatrixOfMatricesRulesSet extends RuleChecker {
-  override def ruleSet: Seq[RulesSetWithResult] = MatrixOfMatricesRules.ruleSet.as[RulesSet].rulesInOrder
+  override def ruleSet: Seq[RuleSet] = MatrixOfMatricesRules.ruleSet
 }

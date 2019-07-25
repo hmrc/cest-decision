@@ -33,29 +33,25 @@ class ExitDecisionServiceSpec extends UnitSpec {
       "returns an INSIDE_IR35" in {
 
         val actualResult = TestExitDecisionService.decide(Exit(true))
-        val expectedResult = Some(ExitEnum.INSIDE_IR35)
+        val expectedResult = ExitEnum.INSIDE_IR35
 
-        await(actualResult) shouldBe expectedResult
+        await(actualResult) shouldBe Some(expectedResult)
       }
     }
 
-    "decide is called with a Exit section with in scenarios populated" should {
+    "decide is called with a Exit section with triggered rules" should {
 
-      val expectedAnswer = Some(ExitEnum.INSIDE_IR35)
-      val indexedArray = EarlyExitRules.inside.value.zipWithIndex
+      EarlyExitRules.ruleSet.zipWithIndex.foreach { item =>
 
-      indexedArray.foreach {
-        item =>
+        val (ruleSet, index) = item
 
-          val (jsValue, index) = item
+        s"return an answer for scenario ${index + 1}" in {
 
-          s"return an answer for scenario ${index + 1}" in {
+          val actualAnswer = TestExitDecisionService.decide(ruleSet.rules.as[Exit])
+          val expectedAnswer = ExitEnum.withName(ruleSet.result)
 
-            val actualAnswer = TestExitDecisionService.decide(jsValue.as[Exit])
-
-            await(actualAnswer) shouldBe expectedAnswer
-
-          }
+          await(actualAnswer) shouldBe Some(expectedAnswer)
+        }
       }
     }
   }

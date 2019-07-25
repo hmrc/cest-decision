@@ -16,10 +16,34 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
-import play.api.libs.json.JsValue
+import play.api.libs.json._
+
+import scala.io.Source
+
+case class RuleSet(rules: JsObject, result: String)
 
 trait BaseRules extends RuleSetHelperMethods {
 
-  val ruleSet: JsValue
+  val ruleSet: Seq[RuleSet]
 
+  def parseRules(section: String, version: String = "1.6.0-final"): Seq[RuleSet] = {
+
+    lazy val csvRules: List[String] = Source.fromFile(s"conf/tables/$version/$section.csv").getLines.toList
+    lazy val headers: List[String] = csvRules.head.split(",").toList
+
+    csvRules.tail.map { row =>
+
+      val columns = row.split(",")
+      val answers = columns.dropRight(1)
+      val result = columns.last
+
+      val rules: Map[String, JsValue] = headers.zip(answers).filterNot(_._2.isEmpty).map {
+        case (key, "true") => key -> JsBoolean(true)
+        case (key, "false") => key -> JsBoolean(false)
+        case (key, value) => key -> JsString(value)
+      }.toMap
+
+      RuleSet(JsObject(rules), result)
+    }
+  }
 }

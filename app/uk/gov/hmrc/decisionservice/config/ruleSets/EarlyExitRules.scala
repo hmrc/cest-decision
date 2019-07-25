@@ -16,21 +16,6 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
-import play.api.libs.json.{JsValue, Json}
-import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
-import uk.gov.hmrc.decisionservice.models.Exit
-
 object EarlyExitRules extends BaseRules {
-
-  val inside = Json.arr(
-    Json.obj(
-      Exit.officeHolder -> true
-    )
-  )
-
-  override val ruleSet: JsValue =
-    Json.obj(
-      INSIDE_IR35.toString -> inside
-    )
-
+  override val ruleSet: Seq[RuleSet] = parseRules("exit")
 }

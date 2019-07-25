@@ -21,18 +21,16 @@ import uk.gov.hmrc.decisionservice.models.FinancialRisk._
 import uk.gov.hmrc.decisionservice.models.enums.HowWorkerIsPaid._
 import uk.gov.hmrc.decisionservice.models.enums.PutRightAtOwnCost._
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
-import uk.gov.hmrc.decisionservice.util.TestFixture
-import uk.gov.hmrc.play.test.UnitSpec
 
-class FinancialRiskRulesSpec extends UnitSpec with TestFixture {
+class FinancialRiskRulesSpec extends BaseRuleSpec {
 
-  val json = FinancialRiskRules.ruleSet
+  implicit val ruleSet = FinancialRiskRules.ruleSet
 
-  "Contain all the expected OUT rules" in {
+  "For the OUT rules" should {
 
-    val actual = (json \ WeightedAnswerEnum.OUTSIDE_IR35).get
+    val actual = getRules(WeightedAnswerEnum.OUTSIDE_IR35)
 
-    val expected = Json.arr(
+    val expected = List(
       Json.obj(
         workerProvidedMaterials -> true
       ),
@@ -109,15 +107,14 @@ class FinancialRiskRulesSpec extends UnitSpec with TestFixture {
         paidForSubstandardWork -> outsideOfHoursNoCharge
       ))
 
-    actual shouldBe expected
-
+    checkRules(expected, actual)
   }
 
-  "Contain all the expected MEDIUM rules" in {
+  "For the MEDIUM rules" should {
 
-    val actual = (json \ WeightedAnswerEnum.MEDIUM).get
+    val actual = getRules(WeightedAnswerEnum.MEDIUM)
 
-    val expected = Json.arr(
+    val expected = List(
       Json.obj(
         workerUsedVehicle -> true,
         workerMainIncome -> hourlyDailyOrWeekly,
@@ -349,15 +346,14 @@ class FinancialRiskRulesSpec extends UnitSpec with TestFixture {
         paidForSubstandardWork -> outsideOfHoursNoCosts
       ))
 
-    actual shouldBe expected
-
+    checkRules(expected, actual)
   }
 
-  "Contain all the expected LOW rules" in {
+  "For the LOW rules" should {
 
-    val actual = (json \ WeightedAnswerEnum.LOW).get
+    val actual = getRules(WeightedAnswerEnum.LOW)
 
-    val expected = Json.arr(
+    val expected = List(
       Json.obj(
         workerHadOtherExpenses -> true,
         workerMainIncome -> profitOrLosses,
@@ -440,10 +436,6 @@ class FinancialRiskRulesSpec extends UnitSpec with TestFixture {
       )
     )
 
-    actual shouldBe expected
-
+    checkRules(expected, actual)
   }
-
-
-
 }

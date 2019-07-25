@@ -29,4 +29,10 @@ object ResultEnum extends Enumeration with EnumFormats {
   val NOT_MATCHED: ResultEnum.Value = Value("Not Matched")
 
   implicit val format: Format[ResultEnum.Value] = enumFormat(ResultEnum)
+
+  def apply(value: String): ResultEnum.Value = value match {
+    case "INIR35" => ResultEnum.INSIDE_IR35
+    case "UNKNOWN" => ResultEnum.UNKNOWN
+    case _ => ResultEnum.NOT_MATCHED
+  }
 }

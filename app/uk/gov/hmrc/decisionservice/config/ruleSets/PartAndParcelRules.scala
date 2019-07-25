@@ -16,50 +16,6 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
-import play.api.libs.json.{JsArray, JsValue, Json}
-import uk.gov.hmrc.decisionservice.models.PartAndParcel._
-import uk.gov.hmrc.decisionservice.models.enums.IdentifyToStakeholders
-import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
-
 object PartAndParcelRules extends BaseRules {
-
-  val high: JsArray = Json.arr(
-    Json.obj(
-      workerReceivesBenefits -> false,
-      workerAsLineManager -> true
-    ),
-    Json.obj(
-      workerReceivesBenefits -> true
-    )
-  )
-
-  val medium: JsArray = Json.arr(
-    Json.obj(
-      workerReceivesBenefits -> false,
-      workerAsLineManager -> false,
-      contactWithEngagerCustomer -> true,
-      workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
-    ),
-    Json.obj(
-      contactWithEngagerCustomer -> true,
-      workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsBusiness
-    )
-  )
-
-  val low: JsArray = Json.arr(
-    Json.obj(
-      contactWithEngagerCustomer -> false
-    ),
-    Json.obj(
-      workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
-    )
-  )
-
-  override val ruleSet: JsValue =
-    Json.obj(
-      HIGH.toString -> high,
-      MEDIUM.toString  -> medium,
-      LOW.toString  -> low
-    )
-
+  override val ruleSet: Seq[RuleSet] = parseRules("part-and-parcel")
 }

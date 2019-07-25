@@ -32,7 +32,7 @@ class ControlDecisionServiceSpec extends UnitSpec {
 
       "return a WeightedAnswer" in {
 
-        val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+        val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
         val actualAnswer = TestControlDecisionService.decide(Control(
           Some(MoveWorker.cannotMoveWorkerWithoutNewAgreement),
           Some(HowWorkIsDone.workerDecidesWithoutInput),
@@ -40,67 +40,23 @@ class ControlDecisionServiceSpec extends UnitSpec {
           Some(ChooseWhereWork.workerChooses)
         ))
 
-        await(actualAnswer) shouldBe expectedAnswer
+        await(actualAnswer) shouldBe Some(expectedAnswer)
 
       }
     }
 
-    "decide is called with a Control section with out scenarios populated" should {
+    "decide is called with a Control section with triggered rules" should {
 
-      val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-      val indexedArray = ControlRules.out.value.zipWithIndex
+        ControlRules.ruleSet.zipWithIndex.foreach { item =>
 
-        indexedArray.foreach {
-          item =>
-
-            val (jsValue, index) = item
+            val (ruleSet, index) = item
 
             s"return an answer for scenario ${index + 1}" in {
 
-              val actualAnswer = TestControlDecisionService.decide(jsValue.as[Control])
+              val actualAnswer = TestControlDecisionService.decide(ruleSet.rules.as[Control])
+              val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
 
-              await(actualAnswer) shouldBe expectedAnswer
-
-            }
-        }
-    }
-
-    "decide is called with a Control section with high scenarios populated" should {
-
-      val expectedAnswer = Some(WeightedAnswerEnum.HIGH)
-      val indexedArray = ControlRules.high.value.zipWithIndex
-
-        indexedArray.foreach {
-          item =>
-
-            val (jsValue, index) = item
-
-            s"return an answer for scenario ${index + 1}" in {
-
-              val actualAnswer = TestControlDecisionService.decide(jsValue.as[Control])
-
-              await(actualAnswer) shouldBe expectedAnswer
-
-            }
-        }
-    }
-
-    "decide is called with a Control section with medium scenarios populated" should {
-
-      val expectedAnswer = Some(WeightedAnswerEnum.MEDIUM)
-      val indexedArray = ControlRules.medium.value.zipWithIndex
-
-        indexedArray.foreach {
-          item =>
-
-            val (jsValue, index) = item
-
-            s"return an answer for scenario ${index + 1}" in {
-
-              val actualAnswer = TestControlDecisionService.decide(jsValue.as[Control])
-
-              await(actualAnswer) shouldBe expectedAnswer
-
+              await(actualAnswer) shouldBe Some(expectedAnswer)
             }
         }
     }
@@ -109,7 +65,7 @@ class ControlDecisionServiceSpec extends UnitSpec {
 
       "return an answer" in {
 
-        val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+        val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
         val actualAnswer = TestControlDecisionService.decide(Control(
           Some(MoveWorker.cannotMoveWorkerWithoutNewAgreement),
           Some(HowWorkIsDone.workerDecidesWithoutInput),
@@ -117,7 +73,7 @@ class ControlDecisionServiceSpec extends UnitSpec {
           Some(ChooseWhereWork.workerChooses)
         ))
 
-        await(actualAnswer) shouldBe expectedAnswer
+        await(actualAnswer) shouldBe Some(expectedAnswer)
       }
     }
 

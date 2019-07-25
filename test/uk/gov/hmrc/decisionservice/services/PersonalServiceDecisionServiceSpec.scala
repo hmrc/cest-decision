@@ -32,7 +32,7 @@ class PersonalServiceDecisionServiceSpec extends UnitSpec{
 
       "return a WeightedAnswer" in {
 
-        val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+        val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
         val actualAnswer = TestControlDecisionService.decide(PersonalService(
           Some("yesClientAgreed"),
           Some(true),
@@ -41,66 +41,23 @@ class PersonalServiceDecisionServiceSpec extends UnitSpec{
           Some(true)
         ))
 
-        await(actualAnswer) shouldBe expectedAnswer
+        await(actualAnswer) shouldBe Some(expectedAnswer)
 
       }
     }
 
     "decide is called with a PersonalService section with out scenarios populated" should {
 
-      val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-      val indexedArray = PersonalServiceRules.out.value.zipWithIndex
+        PersonalServiceRules.ruleSet.zipWithIndex.foreach { item =>
 
-      indexedArray.foreach {
-        item =>
-
-          val (jsValue, index) = item
+          val (ruleSet, index) = item
 
           s"return an answer for scenario ${index + 1}" in {
 
-            val actualAnswer = TestControlDecisionService.decide(jsValue.as[PersonalService])
+            val actualAnswer = TestControlDecisionService.decide(ruleSet.rules.as[PersonalService])
+            val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
 
-            await(actualAnswer) shouldBe expectedAnswer
-
-          }
-      }
-    }
-
-    "decide is called with a PersonalService section with medium scenarios populated" should {
-
-      val expectedAnswer = Some(WeightedAnswerEnum.MEDIUM)
-      val indexedArray = PersonalServiceRules.medium.value.zipWithIndex
-
-      indexedArray.foreach {
-        item =>
-
-          val (jsValue, index) = item
-
-          s"return an answer for scenario ${index + 1}" in {
-
-            val actualAnswer = TestControlDecisionService.decide(jsValue.as[PersonalService])
-
-            await(actualAnswer) shouldBe expectedAnswer
-
-          }
-      }
-    }
-
-    "decide is called with a PersonalService section with high scenarios populated" should {
-
-      val expectedAnswer = Some(WeightedAnswerEnum.HIGH)
-      val indexedArray = PersonalServiceRules.high.value.zipWithIndex
-
-      indexedArray.foreach {
-        item =>
-
-          val (jsValue, index) = item
-
-          s"return an answer for scenario ${index + 1}" in {
-
-            val actualAnswer = TestControlDecisionService.decide(jsValue.as[PersonalService])
-
-            await(actualAnswer) shouldBe expectedAnswer
+            await(actualAnswer) shouldBe Some(expectedAnswer)
 
           }
       }

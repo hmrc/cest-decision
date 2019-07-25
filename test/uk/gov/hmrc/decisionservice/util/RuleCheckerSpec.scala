@@ -17,15 +17,15 @@
 package uk.gov.hmrc.decisionservice.util
 
 import play.api.libs.json.Json
+import uk.gov.hmrc.decisionservice.config.ruleSets.RuleSet
 import uk.gov.hmrc.decisionservice.models.Control.{engagerMovingWorker, whenWorkHasToBeDone, workerDecideWhere, workerDecidingHowWorkIsDone}
 import uk.gov.hmrc.decisionservice.models.Exit
 import uk.gov.hmrc.decisionservice.models.FinancialRisk.{paidForSubstandardWork, workerMainIncome, workerUsedVehicle, _}
-import uk.gov.hmrc.decisionservice.models.PartAndParcel.{contactWithEngagerCustomer, workerReceivesBenefits, workerRepresentsEngagerBusiness}
+import uk.gov.hmrc.decisionservice.models.PartAndParcel._
 import uk.gov.hmrc.decisionservice.models.PersonalService.{workerPayActualSubstitute, workerSentActualSubstitute, wouldWorkerPayHelper}
 import uk.gov.hmrc.decisionservice.models.enums.HowWorkerIsPaid._
 import uk.gov.hmrc.decisionservice.models.enums.PutRightAtOwnCost._
 import uk.gov.hmrc.decisionservice.models.enums._
-import uk.gov.hmrc.decisionservice.models.rules.RulesSetWithResult
 import uk.gov.hmrc.play.test.UnitSpec
 
 class RuleCheckerSpec extends UnitSpec {
@@ -36,7 +36,7 @@ class RuleCheckerSpec extends UnitSpec {
 
       val controlRuleSet = new ControlRulesSet
       val ruleChecker = new RuleChecker {
-        override def ruleSet: Seq[RulesSetWithResult] = controlRuleSet.ruleSet
+        override def ruleSet: Seq[RuleSet] = controlRuleSet.ruleSet
       }
 
       "check an OUT rule is matched" in {
@@ -92,7 +92,7 @@ class RuleCheckerSpec extends UnitSpec {
 
       val earlyExitRuleSet = new ExitRulesSet
       val ruleChecker = new RuleChecker {
-        override def ruleSet: Seq[RulesSetWithResult] = earlyExitRuleSet.ruleSet
+        override def ruleSet: Seq[RuleSet] = earlyExitRuleSet.ruleSet
       }
 
       "check an IN rule is matched" in {
@@ -108,7 +108,7 @@ class RuleCheckerSpec extends UnitSpec {
 
       val financialRiskSet = new FinancialRiskRulesSet
       val ruleChecker = new RuleChecker {
-        override def ruleSet: Seq[RulesSetWithResult] = financialRiskSet.ruleSet
+        override def ruleSet: Seq[RuleSet] = financialRiskSet.ruleSet
       }
 
       "check an OUT rule is matched" in {
@@ -160,7 +160,7 @@ class RuleCheckerSpec extends UnitSpec {
 
       val partAndParcelSet = new PartAndParcelRulesSet
       val ruleChecker = new RuleChecker {
-        override def ruleSet: Seq[RulesSetWithResult] = partAndParcelSet.ruleSet
+        override def ruleSet: Seq[RuleSet] = partAndParcelSet.ruleSet
       }
 
       "check an HIGH rule is matched" in {
@@ -175,6 +175,8 @@ class RuleCheckerSpec extends UnitSpec {
       "check a MEDIUM rule is matched" in {
 
         val input = Json.obj(
+          workerReceivesBenefits -> false,
+          workerAsLineManager -> false,
           contactWithEngagerCustomer -> true,
           workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsBusiness
         )
@@ -185,6 +187,9 @@ class RuleCheckerSpec extends UnitSpec {
       "check a LOW rule is matched" in {
 
         val input = Json.obj(
+          workerReceivesBenefits -> false,
+          workerAsLineManager -> false,
+          contactWithEngagerCustomer -> true,
           workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
         )
 
@@ -205,7 +210,7 @@ class RuleCheckerSpec extends UnitSpec {
 
       val personalServiceSet = new PersonalServiceRulesSet
       val ruleChecker = new RuleChecker {
-        override def ruleSet: Seq[RulesSetWithResult] = personalServiceSet.ruleSet
+        override def ruleSet: Seq[RuleSet] = personalServiceSet.ruleSet
       }
 
       "check an OUT rule is matched" in {
@@ -231,7 +236,8 @@ class RuleCheckerSpec extends UnitSpec {
       "check a MEDIUM rule is matched" in {
         val input = Json.obj(
           workerSentActualSubstitute -> ArrangedSubstitute.yesClientAgreed,
-          workerPayActualSubstitute -> false
+          workerPayActualSubstitute -> false,
+          wouldWorkerPayHelper -> true
         )
 
         ruleChecker.checkRules(input) shouldBe "MEDIUM"

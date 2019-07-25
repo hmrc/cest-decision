@@ -16,24 +16,24 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
-import play.api.libs.json.Json
-import uk.gov.hmrc.decisionservice.models.Exit
-import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
+import play.api.libs.json.JsObject
+import uk.gov.hmrc.decisionservice.util.TestFixture
+import uk.gov.hmrc.play.test.UnitSpec
 
-class EarlyExitRulesSpec extends BaseRuleSpec {
+trait BaseRuleSpec extends UnitSpec with TestFixture {
 
-  implicit val ruleSet = EarlyExitRules.ruleSet
+  def getRules[E <: Enumeration](weighting: E#Value)(implicit ruleSet: Seq[RuleSet]) =
+    ruleSet.filter(_.result == weighting.toString).map(_.rules).toList
 
-  "For the IN rules" should {
+  def checkRules(expected: List[JsObject], actual: List[JsObject]): Unit = {
+    expected.foreach { rule =>
+      s"contain the rule: $rule" in {
+        assert(actual.contains(rule))
+      }
+    }
 
-    val actual = getRules(ExitEnum.INSIDE_IR35)
-
-    val expected = List(
-      Json.obj(
-        Exit.officeHolder -> true
-      )
-    )
-
-    checkRules(expected, actual)
+    "Contain the correct number of rules" in {
+      expected.length shouldBe actual.length
+    }
   }
 }

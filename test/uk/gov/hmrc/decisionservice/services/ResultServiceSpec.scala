@@ -30,49 +30,17 @@ class ResultServiceSpec extends UnitSpec {
 
     "decide is called with all sections populated for a in determination" should {
 
-      val expectedAnswer = ResultEnum.INSIDE_IR35
-      val indexedArray = MatrixOfMatricesRules.inside.value.zipWithIndex
+      MatrixOfMatricesRules.ruleSet.zipWithIndex.foreach { item =>
 
-      indexedArray.foreach {
-        item =>
+        val (ruleSet, index) = item
 
-          val (jsValue, index) = item
+        s"return a result for scenario ${index + 1}" in {
 
-          s"return a result for scenario ${index + 1}" in {
+          val actualAnswer = TestResultDecisionService.decide(ruleSet.rules.as[Score])
+          val expectedAnswer = ResultEnum(ruleSet.result)
 
-            val score = jsValue.as[Score]
-
-            val actualAnswer = TestResultDecisionService.decide(Score(None,
-              score.exit, score.personalService, score.control, score.financialRisk, score.partAndParcel)
-            )
-
-            await(actualAnswer) shouldBe expectedAnswer
-
-          }
-      }
-    }
-
-    "decide is called with all sections populated for a unknown determination" should {
-
-      val expectedAnswer = ResultEnum.UNKNOWN
-      val indexedArray = MatrixOfMatricesRules.unknown.value.zipWithIndex
-
-      indexedArray.foreach {
-        item =>
-
-          val (jsValue, index) = item
-
-          s"return a result for scenario ${index + 1}" in {
-
-            val score = jsValue.as[Score]
-
-            val actualAnswer = TestResultDecisionService.decide(Score(None,
-              score.exit, score.personalService, score.control, score.financialRisk, score.partAndParcel)
-            )
-
-            await(actualAnswer) shouldBe expectedAnswer
-
-          }
+          await(actualAnswer) shouldBe expectedAnswer
+        }
       }
     }
 
@@ -143,38 +111,38 @@ class ResultServiceSpec extends UnitSpec {
 
     "decide is called with a section containing an OUT decision with no IN decisions present" should {
 
-        val score = Score(
-          setup = None,
-          exit = Some(ExitEnum.CONTINUE),
-          personalService = Some(WeightedAnswerEnum.HIGH),
-          control = Some(WeightedAnswerEnum.HIGH),
-          financialRisk = Some(WeightedAnswerEnum.HIGH),
-          partAndParcel = Some(WeightedAnswerEnum.HIGH)
-        )
+      val score = Score(
+        setup = None,
+        exit = Some(ExitEnum.CONTINUE),
+        personalService = Some(WeightedAnswerEnum.HIGH),
+        control = Some(WeightedAnswerEnum.HIGH),
+        financialRisk = Some(WeightedAnswerEnum.HIGH),
+        partAndParcel = Some(WeightedAnswerEnum.HIGH)
+      )
 
-        val outside = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-        val expectedAnswer = ResultEnum.OUTSIDE_IR35
+      val outside = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+      val expectedAnswer = ResultEnum.OUTSIDE_IR35
 
-        "return an OUT result when personalService is OUT" in {
-          val actualAnswer = TestResultDecisionService.decide(score.copy(personalService = outside))
-          await(actualAnswer) shouldBe expectedAnswer
-        }
-
-        "return an OUT result when control is OUT" in {
-          val actualAnswer = TestResultDecisionService.decide(score.copy(control = outside))
-          await(actualAnswer) shouldBe expectedAnswer
-        }
-
-        "return an OUT result when financialRisk is OUT" in {
-          val actualAnswer = TestResultDecisionService.decide(score.copy(financialRisk = outside))
-          await(actualAnswer) shouldBe expectedAnswer
-        }
-
-        "return an OUT result when partAndParcel is OUT" in {
-          val actualAnswer = TestResultDecisionService.decide(score.copy(partAndParcel = outside))
-          await(actualAnswer) shouldBe expectedAnswer
-        }
+      "return an OUT result when personalService is OUT" in {
+        val actualAnswer = TestResultDecisionService.decide(score.copy(personalService = outside))
+        await(actualAnswer) shouldBe expectedAnswer
       }
+
+      "return an OUT result when control is OUT" in {
+        val actualAnswer = TestResultDecisionService.decide(score.copy(control = outside))
+        await(actualAnswer) shouldBe expectedAnswer
+      }
+
+      "return an OUT result when financialRisk is OUT" in {
+        val actualAnswer = TestResultDecisionService.decide(score.copy(financialRisk = outside))
+        await(actualAnswer) shouldBe expectedAnswer
+      }
+
+      "return an OUT result when partAndParcel is OUT" in {
+        val actualAnswer = TestResultDecisionService.decide(score.copy(partAndParcel = outside))
+        await(actualAnswer) shouldBe expectedAnswer
+      }
+    }
 
     "decide is called with only one section supplied" should {
 

@@ -29,13 +29,7 @@ class ResultService @Inject()(ruleSet: MatrixOfMatricesRulesSet) {
 
     def checkMatrixOfMatrices: Future[ResultEnum.Value] = {
       val result = ruleSet.checkRules(score, ResultEnum.NOT_MATCHED)
-
-      val response = result match {
-        case "INIR35" => ResultEnum.INSIDE_IR35
-        case _ => ResultEnum.withName(result)
-      }
-
-      Future.successful(ResultEnum.withName(response))
+      Future.successful(ResultEnum(result))
     }
 
     score match {

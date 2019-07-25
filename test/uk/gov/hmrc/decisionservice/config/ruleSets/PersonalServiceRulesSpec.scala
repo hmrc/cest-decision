@@ -16,24 +16,27 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.PersonalService._
 import uk.gov.hmrc.decisionservice.models.enums.{ArrangedSubstitute, RejectSubstitute, WeightedAnswerEnum}
-import uk.gov.hmrc.decisionservice.util.TestFixture
-import uk.gov.hmrc.play.test.UnitSpec
 
-class PersonalServiceRulesSpec extends UnitSpec with TestFixture {
+class PersonalServiceRulesSpec extends BaseRuleSpec {
 
-  val json = PersonalServiceRules.ruleSet
+  implicit val ruleSet = PersonalServiceRules.ruleSet
 
-  "Contain all the expected OUT rules" in {
+  "For all the expected OUT rules" should {
 
-    val actual = (json \ WeightedAnswerEnum.OUTSIDE_IR35).get
+    val actual = getRules(WeightedAnswerEnum.OUTSIDE_IR35)
 
-    val expected = Json.arr(
+    val expected = List(
       Json.obj(
         workerSentActualSubstitute -> ArrangedSubstitute.yesClientAgreed,
         workerPayActualSubstitute -> true
+      ),
+      Json.obj(
+        workerSentActualSubstitute -> ArrangedSubstitute.noSubstitutionHappened,
+        possibleSubstituteRejection -> RejectSubstitute.wouldNotReject,
+        possibleSubstituteWorkerPay -> true
       ),
       Json.obj(
         possibleSubstituteRejection -> RejectSubstitute.wouldNotReject,
@@ -41,33 +44,46 @@ class PersonalServiceRulesSpec extends UnitSpec with TestFixture {
       )
     )
 
-    actual shouldBe expected
-
+    checkRules(expected, actual)
   }
 
-  "Contain all the expected HIGH rules" in {
+  "For all the expected HIGH rules" should {
 
-    val actual = (json \ WeightedAnswerEnum.HIGH).get
+    val actual = getRules(WeightedAnswerEnum.HIGH)
 
-    val expected = Json.arr(
-      Json.obj(
-        possibleSubstituteRejection -> RejectSubstitute.wouldReject
-      ),
+    val expected = List(
       Json.obj(
         workerSentActualSubstitute -> ArrangedSubstitute.notAgreedWithClient,
         wouldWorkerPayHelper -> false
+      ),
+      Json.obj(
+        workerSentActualSubstitute -> ArrangedSubstitute.noSubstitutionHappened,
+        possibleSubstituteRejection -> RejectSubstitute.wouldReject,
+        wouldWorkerPayHelper -> false
+      ),
+      Json.obj(
+        possibleSubstituteRejection -> RejectSubstitute.wouldReject
       )
     )
 
-    actual shouldBe expected
-
+    checkRules(expected, actual)
   }
 
-  "Contain all the expected MEDIUM rules" in {
+  "For all the expected MEDIUM rules" should {
 
-    val actual = (json \ WeightedAnswerEnum.MEDIUM).get
+    val actual = getRules(WeightedAnswerEnum.MEDIUM)
 
-    val expected = Json.arr(
+    val expected = List(
+      Json.obj(
+        workerSentActualSubstitute -> ArrangedSubstitute.yesClientAgreed,
+        workerPayActualSubstitute -> false
+      ),
+      Json.obj(
+        workerSentActualSubstitute -> ArrangedSubstitute.noSubstitutionHappened,
+        possibleSubstituteRejection -> RejectSubstitute.wouldNotReject,
+        possibleSubstituteWorkerPay -> false,
+        wouldWorkerPayHelper -> true
+      ),
       Json.obj(
         possibleSubstituteRejection -> RejectSubstitute.wouldNotReject,
         possibleSubstituteWorkerPay -> false
@@ -77,17 +93,12 @@ class PersonalServiceRulesSpec extends UnitSpec with TestFixture {
         wouldWorkerPayHelper -> true
       ),
       Json.obj(
-        workerSentActualSubstitute -> ArrangedSubstitute.yesClientAgreed,
-        workerPayActualSubstitute -> false
-      ),
-      Json.obj(
         workerSentActualSubstitute -> ArrangedSubstitute.noSubstitutionHappened,
         possibleSubstituteRejection -> RejectSubstitute.wouldReject,
         wouldWorkerPayHelper -> true
       )
     )
 
-    actual shouldBe expected
-
+    checkRules(expected, actual)
   }
 }

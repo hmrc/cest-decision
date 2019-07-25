@@ -32,7 +32,7 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
 
       "return a WeightedAnswer" in {
 
-        val expectedAnswer = Some(WeightedAnswerEnum.MEDIUM)
+        val expectedAnswer = WeightedAnswerEnum.MEDIUM
         val actualAnswer = TestPartAndParcelDecisionService.decide(PartAndParcel(
           Some(false),
           Some(false),
@@ -40,67 +40,23 @@ class PartAndParcelDecisionServiceSpec extends UnitSpec{
           Some("workForEndClient")
         ))
 
-        await(actualAnswer) shouldBe expectedAnswer
+        await(actualAnswer) shouldBe Some(expectedAnswer)
 
       }
     }
 
-    "decide is called with a PartAndParcel section with medium scenarios populated" should {
+    "decide is called with a PartAndParcel section with triggered rules populated" should {
 
-      val expectedAnswer = Some(WeightedAnswerEnum.MEDIUM)
-      val indexedArray = PartAndParcelRules.medium.value.zipWithIndex
+      PartAndParcelRules.ruleSet.zipWithIndex.foreach { item =>
 
-      indexedArray.foreach {
-        item =>
-
-          val (jsValue, index) = item
+          val (ruleSet, index) = item
 
           s"return an answer for scenario ${index + 1}" in {
 
-            val actualAnswer = TestPartAndParcelDecisionService.decide(jsValue.as[PartAndParcel])
+            val actualAnswer = TestPartAndParcelDecisionService.decide(ruleSet.rules.as[PartAndParcel])
+            val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
 
-            await(actualAnswer) shouldBe expectedAnswer
-
-          }
-      }
-    }
-
-    "decide is called with a PartAndParcel section with low scenarios populated" should {
-
-      val expectedAnswer = Some(WeightedAnswerEnum.LOW)
-      val indexedArray = PartAndParcelRules.low.value.zipWithIndex
-
-      indexedArray.foreach {
-        item =>
-
-          val (jsValue, index) = item
-
-          s"return an answer for scenario ${index + 1}" in {
-
-            val actualAnswer = TestPartAndParcelDecisionService.decide(jsValue.as[PartAndParcel])
-
-            await(actualAnswer) shouldBe expectedAnswer
-
-          }
-      }
-    }
-
-    "decide is called with a PartAndParcel section with high scenarios populated" should {
-
-      val expectedAnswer = Some(WeightedAnswerEnum.HIGH)
-      val indexedArray = PartAndParcelRules.high.value.zipWithIndex
-
-      indexedArray.foreach {
-        item =>
-
-          val (jsValue, index) = item
-
-          s"return an answer for scenario ${index + 1}" in {
-
-            val actualAnswer = TestPartAndParcelDecisionService.decide(jsValue.as[PartAndParcel])
-
-            await(actualAnswer) shouldBe expectedAnswer
-
+            await(actualAnswer) shouldBe Some(expectedAnswer)
           }
       }
     }

@@ -16,58 +16,6 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
-import play.api.libs.json.{JsArray, JsValue, Json}
-import uk.gov.hmrc.decisionservice.models.PersonalService._
-import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
-import uk.gov.hmrc.decisionservice.models.enums.{ArrangedSubstitute, RejectSubstitute}
-
 object PersonalServiceRules extends BaseRules {
-
-  val out: JsArray = Json.arr(
-    Json.obj(
-      workerSentActualSubstitute -> ArrangedSubstitute.yesClientAgreed,
-      workerPayActualSubstitute -> true
-    ),
-    Json.obj(
-      possibleSubstituteRejection -> RejectSubstitute.wouldNotReject,
-      possibleSubstituteWorkerPay -> true
-    )
-  )
-
-  val high: JsArray = Json.arr(
-    Json.obj(
-      possibleSubstituteRejection -> RejectSubstitute.wouldReject
-    ),
-    Json.obj(
-      workerSentActualSubstitute -> ArrangedSubstitute.notAgreedWithClient,
-      wouldWorkerPayHelper -> false
-    )
-  )
-
-  val medium: JsArray = Json.arr(
-    Json.obj(
-      possibleSubstituteRejection -> RejectSubstitute.wouldNotReject,
-      possibleSubstituteWorkerPay -> false
-    ),
-    Json.obj(
-      workerSentActualSubstitute -> ArrangedSubstitute.notAgreedWithClient,
-      wouldWorkerPayHelper -> true
-    ),
-    Json.obj(
-      workerSentActualSubstitute -> ArrangedSubstitute.yesClientAgreed,
-      workerPayActualSubstitute -> false
-    ),
-    Json.obj(
-      workerSentActualSubstitute -> ArrangedSubstitute.noSubstitutionHappened,
-      possibleSubstituteRejection -> RejectSubstitute.wouldReject,
-      wouldWorkerPayHelper -> true
-    )
-  )
-
-  override val ruleSet: JsValue =
-    Json.obj(
-      OUTSIDE_IR35.toString -> out,
-      HIGH.toString  -> high,
-      MEDIUM.toString  -> medium
-    )
+  override val ruleSet: Seq[RuleSet] = parseRules("personal-service")
 }

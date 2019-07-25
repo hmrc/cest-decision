@@ -32,7 +32,7 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
 
       "return a WeightedAnswer" in {
 
-        val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+        val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
         val actualAnswer = TestFinancialRiskDecisionService.decide(FinancialRisk(
           workerProvidedMaterials = Some(true),
           workerProvidedEquipment = Some(true),
@@ -43,68 +43,24 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
           paidForSubstandardWork = Some(FinancialRisk.paidForSubstandardWork)
         ))
 
-        await(actualAnswer) shouldBe expectedAnswer
+        await(actualAnswer) shouldBe Some(expectedAnswer)
 
       }
     }
 
-    "decide is called with a FinancialRisk section with out scenarios populated" should {
+    "decide is called with a FinancialRisk section with triggered rules" should {
 
-      val expectedAnswer = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-      val indexedArray = FinancialRiskRules.out.value.zipWithIndex
+      FinancialRiskRules.ruleSet.zipWithIndex.foreach { item =>
 
-      indexedArray.foreach {
-        item =>
+        val (ruleSet, index) = item
 
-          val (jsValue, index) = item
+        s"return an answer for scenario ${index + 1}" in {
 
-          s"return an answer for scenario ${index + 1}" in {
+          val actualAnswer = TestFinancialRiskDecisionService.decide(ruleSet.rules.as[FinancialRisk])
+          val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
 
-            val actualAnswer = TestFinancialRiskDecisionService.decide(jsValue.as[FinancialRisk])
-
-            await(actualAnswer) shouldBe expectedAnswer
-
-          }
-      }
-    }
-
-    "decide is called with a FinancialRisk section with medium scenarios populated" should {
-
-      val expectedAnswer = Some(WeightedAnswerEnum.MEDIUM)
-      val indexedArray = FinancialRiskRules.medium.value.zipWithIndex
-
-      indexedArray.foreach {
-        item =>
-
-          val (jsValue, index) = item
-
-          s"return an answer for scenario ${index + 1}" in {
-
-            val actualAnswer = TestFinancialRiskDecisionService.decide(jsValue.as[FinancialRisk])
-
-            await(actualAnswer) shouldBe expectedAnswer
-
-          }
-      }
-    }
-
-    "decide is called with a FinancialRisk section with low scenarios populated" should {
-
-      val expectedAnswer = Some(WeightedAnswerEnum.LOW)
-      val indexedArray = FinancialRiskRules.low.value.zipWithIndex
-
-      indexedArray.foreach {
-        item =>
-
-          val (jsValue, index) = item
-
-          s"return an answer for scenario ${index + 1}" in {
-
-            val actualAnswer = TestFinancialRiskDecisionService.decide(jsValue.as[FinancialRisk])
-
-            await(actualAnswer) shouldBe expectedAnswer
-
-          }
+          await(actualAnswer) shouldBe Some(expectedAnswer)
+        }
       }
     }
 
