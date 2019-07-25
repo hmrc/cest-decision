@@ -32,27 +32,13 @@ abstract class RuleChecker  {
 
   private def checkOutcome[T](section: JsObject, rules: Seq[RulesSetWithResult], notMatched: T): String = {
 
-    case class WeightedRuleAndResult(weighting: Int, rule: JsObject, result: String)
-
-    val weightedRulesWithResults: Seq[WeightedRuleAndResult] = rules.flatMap { ruleSetAndResult =>
-      ruleSetAndResult.rulesSet.map { rule =>
-        WeightedRuleAndResult(
-          weighting = rule.fields.size,
-          rule = rule,
-          result = ruleSetAndResult.result
-        )
+      if(rules.isEmpty) notMatched.toString else {
+        val currentRule = rules.head
+        if(currentRule.rulesSet.toStream exists(rule => {
+          rule.fields.forall(section.fields.contains)
+        })) currentRule.result else checkOutcome(section, rules.tail, notMatched)
       }
     }
-
-    val matchedRules = weightedRulesWithResults.filter { weightedRuleAndResult =>
-      weightedRuleAndResult.rule.fields.forall(answer => section.fields.contains(answer))
-    }
-
-    matchedRules
-      .sortBy(rule => -rule.weighting) // sort by highest weighting
-      .headOption.map(_.result) // get the first result
-      .getOrElse(notMatched.toString) // or return unknown if no result found
-  }
 }
 
 class ControlRulesSet extends RuleChecker {
@@ -64,7 +50,7 @@ class ExitRulesSet extends RuleChecker {
 }
 
 class PersonalServiceRulesSet extends RuleChecker {
-  override def ruleSet: Seq[RulesSetWithResult] = PersonalServiceRules.ruleSet.as[RulesSet].rulesInOrder
+  override def ruleSet: Seq[RulesSetWithResult] = PersonalServiceRules.ruleSet.as[RulesSet].rulesInOrder.reverse
 }
 
 class PartAndParcelRulesSet extends RuleChecker {
