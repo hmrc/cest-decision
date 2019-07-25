@@ -26,19 +26,9 @@ import scala.concurrent.Future
 class FinancialRiskDecisionService @Inject()(ruleSet: FinancialRiskRulesSet) {
 
   def decide(financialRisk: Option[FinancialRisk]): Future[Option[WeightedAnswerEnum.Value]] = {
-
-    financialRisk.fold[Future[Option[WeightedAnswerEnum.Value]]](Future.successful(None)){
-
-      case FinancialRisk(None, None, None, None, None, None, None) =>
-
-        Future.successful(None)
-
-      case _ =>
-
-        val result = ruleSet.checkRules(financialRisk)
-
-        //look up rules
-        Future.successful(Some(WeightedAnswerEnum.withName(result)))
-    }
+    Future.successful(financialRisk flatMap {
+      case FinancialRisk(None, None, None, None, None, None, None) => None
+      case section => Some(WeightedAnswerEnum.withName(ruleSet.checkRules(section)))
+    })
   }
 }

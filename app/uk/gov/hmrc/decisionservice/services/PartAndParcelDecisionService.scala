@@ -25,20 +25,9 @@ import scala.concurrent.Future
 
 class PartAndParcelDecisionService @Inject()(ruleSet: PartAndParcelRulesSet) {
 
-  def decide(partAndParcel: Option[PartAndParcel]): Future[Option[WeightedAnswerEnum.Value]] = {
-
-    partAndParcel.fold[Future[Option[WeightedAnswerEnum.Value]]](Future.successful(None)){
-
-      case PartAndParcel(None, None, None, None) =>
-
-        Future.successful(None)
-
-      case _ =>
-
-        val result = ruleSet.checkRules(partAndParcel)
-
-        //look up rules
-        Future.successful(Some(WeightedAnswerEnum.withName(result)))
-    }
-  }
+  def decide(partAndParcel: Option[PartAndParcel]): Future[Option[WeightedAnswerEnum.Value]] =
+    Future.successful(partAndParcel flatMap {
+      case PartAndParcel(None, None, None, None) => None
+      case section => Some(WeightedAnswerEnum.withName(ruleSet.checkRules(section)))
+    })
 }

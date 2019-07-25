@@ -25,18 +25,9 @@ import scala.concurrent.Future
 
 class ExitDecisionService @Inject()(ruleSet: ExitRulesSet) {
 
-  def decide(exit: Option[Exit]): Future[Option[ExitEnum.Value]] = {
-
-    exit.fold[Future[Option[ExitEnum.Value]]](Future.successful(None))(exit => {
-
-      if(exit.officeHolder.contains(false)){
-
-        Future.successful(Some(ExitEnum.CONTINUE))
-      } else {
-        val result = ruleSet.checkRules(exit)
-
-        Future.successful(Some(ExitEnum.withName(result)))
-      }
+  def decide(exit: Option[Exit]): Future[Option[ExitEnum.Value]] =
+    Future.successful(exit flatMap {
+      case Exit(None) => None
+      case section => Some(ExitEnum.withName(ruleSet.checkRules(section)))
     })
-  }
 }
