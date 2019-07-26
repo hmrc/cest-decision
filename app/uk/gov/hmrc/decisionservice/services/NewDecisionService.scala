@@ -24,25 +24,25 @@ import scala.concurrent.{ExecutionContext, Future}
 import uk.gov.hmrc.decisionservice.models.{DecisionResponse, Score}
 import uk.gov.hmrc.decisionservice.ruleEngines._
 
-class NewDecisionService @Inject()(controlDecisionService: ControlRuleEngine,
-                                   exitDecisionService: ExitRuleEngine,
-                                   financialRiskDecisionService: FinancialRiskRuleEngine,
-                                   personalServiceDecisionService: PersonalServiceRuleEngine,
-                                   partAndParcelDecisionService: PartAndParcelRuleEngine,
-                                   resultService: ResultRuleEngine) {
+class NewDecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
+                                   earlyExitRuleEngine: ExitRuleEngine,
+                                   financialRiskRuleEngine: FinancialRiskRuleEngine,
+                                   personalServiceRuleEngine: PersonalServiceRuleEngine,
+                                   partAndParcelRuleEngine: PartAndParcelRuleEngine,
+                                   resultRuleEngine: ResultRuleEngine) {
 
   def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[DecisionResponse] = {
 
     val interview = request.interview
 
     for {
-      exit <- exitDecisionService.decide(interview.exit)
-      personalService <- personalServiceDecisionService.decide(interview.personalService)
-      control <- controlDecisionService.decide(interview.control)
-      financialRisk <- financialRiskDecisionService.decide(interview.financialRisk)
-      partAndParcel <- partAndParcelDecisionService.decide(interview.partAndParcel)
+      exit <- earlyExitRuleEngine.decide(interview.exit)
+      personalService <- personalServiceRuleEngine.decide(interview.personalService)
+      control <- controlRuleEngine.decide(interview.control)
+      financialRisk <- financialRiskRuleEngine.decide(interview.financialRisk)
+      partAndParcel <- partAndParcelRuleEngine.decide(interview.partAndParcel)
       score = Score(None, exit, personalService, control, financialRisk, partAndParcel)
-      result <- resultService.decide(score)
+      result <- resultRuleEngine.decide(score)
 
     } yield DecisionResponse(request.version, request.correlationID, score, result)
   }

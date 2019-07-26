@@ -25,11 +25,7 @@ trait EnumFormats {
         try {
           JsSuccess(enum.withName(s))
         } catch {
-          case _: NoSuchElementException => try {
-            JsSuccess(enum.withName(s.toUpperCase))
-          } catch {
-            case _: NoSuchElementException => JsError(s"Expected an enumeration of type: '${enum.getClass}'")
-          }
+          case _: NoSuchElementException => JsError(s"Expected an enumeration of type: '${enum.getClass}'")
         }
       }
       case _ => JsError("Expected a string value")
