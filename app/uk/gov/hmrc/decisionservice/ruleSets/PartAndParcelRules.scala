@@ -14,8 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models.rules
+package uk.gov.hmrc.decisionservice.ruleSets
 
-import play.api.libs.json.JsObject
+import javax.inject.{Inject, Singleton}
+import uk.gov.hmrc.decisionservice.config.AppConfig
+import uk.gov.hmrc.decisionservice.models.RuleSet
 
-case class RulesSetWithResult(result: String, rulesSet: Seq[JsObject])
+@Singleton()
+class PartAndParcelRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
+  override val ruleSet: Seq[RuleSet] = parseRules("part-and-parcel")
+}

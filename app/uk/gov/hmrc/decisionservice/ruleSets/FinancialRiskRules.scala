@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.config.ruleSets
+package uk.gov.hmrc.decisionservice.ruleSets
 
 import javax.inject.{Inject, Singleton}
 import uk.gov.hmrc.decisionservice.config.AppConfig
 import uk.gov.hmrc.decisionservice.models.RuleSet
 
 @Singleton()
-class MatrixOfMatricesRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
-  override val ruleSet: Seq[RuleSet] = parseRules("matrix-of-matrices")
+class FinancialRiskRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
+  override val ruleSet: Seq[RuleSet] = parseRules("financial-risk")
 }

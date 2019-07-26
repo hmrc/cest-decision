@@ -14,24 +14,24 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.services
+package uk.gov.hmrc.decisionservice.ruleEngines
 
 import javax.inject.Inject
-import uk.gov.hmrc.decisionservice.config.ruleSets.PartAndParcelRules
-import uk.gov.hmrc.decisionservice.models.PartAndParcel
+import uk.gov.hmrc.decisionservice.models.FinancialRisk
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
-import uk.gov.hmrc.decisionservice.util.RuleEngine
+import uk.gov.hmrc.decisionservice.ruleSets.FinancialRiskRules
 
 import scala.concurrent.Future
 
-class PartAndParcelRuleEngine @Inject()(rules: PartAndParcelRules) extends RuleEngine {
+class FinancialRiskRuleEngine @Inject()(rules: FinancialRiskRules) extends RuleEngine {
 
-  def decide(partAndParcel: Option[PartAndParcel]): Future[Option[WeightedAnswerEnum.Value]] =
-    Future.successful(partAndParcel flatMap {
-      case PartAndParcel(None, None, None, None) => None
+  def decide(financialRisk: Option[FinancialRisk]): Future[Option[WeightedAnswerEnum.Value]] = {
+    Future.successful(financialRisk flatMap {
+      case FinancialRisk(None, None, None, None, None, None, None) => None
       case section => {
         val result = checkRules(section, rules.ruleSet)
         Some(WeightedAnswerEnum.withName(result))
       }
     })
+  }
 }

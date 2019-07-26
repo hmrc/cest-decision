@@ -17,9 +17,10 @@
 package uk.gov.hmrc.decisionservice.services
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import uk.gov.hmrc.decisionservice.config.ruleSets.ControlRules
 import uk.gov.hmrc.decisionservice.models.Control
 import uk.gov.hmrc.decisionservice.models.enums._
+import uk.gov.hmrc.decisionservice.ruleEngines.ControlRuleEngine
+import uk.gov.hmrc.decisionservice.ruleSets.ControlRules
 import uk.gov.hmrc.play.test.UnitSpec
 
 class ControlRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {

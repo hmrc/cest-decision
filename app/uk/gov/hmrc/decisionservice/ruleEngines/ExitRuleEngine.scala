@@ -14,13 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.services
+package uk.gov.hmrc.decisionservice.ruleEngines
 
 import javax.inject.Inject
-import uk.gov.hmrc.decisionservice.config.ruleSets.EarlyExitRules
 import uk.gov.hmrc.decisionservice.models.Exit
 import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
-import uk.gov.hmrc.decisionservice.util.RuleEngine
+import uk.gov.hmrc.decisionservice.ruleSets.EarlyExitRules
 
 import scala.concurrent.Future
 

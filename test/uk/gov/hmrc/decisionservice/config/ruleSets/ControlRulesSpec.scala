@@ -22,6 +22,7 @@ import uk.gov.hmrc.decisionservice.config.AppConfig
 import uk.gov.hmrc.decisionservice.models.Control._
 import uk.gov.hmrc.decisionservice.models.enums.MoveWorker._
 import uk.gov.hmrc.decisionservice.models.enums._
+import uk.gov.hmrc.decisionservice.ruleSets.ControlRules
 
 class ControlRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 

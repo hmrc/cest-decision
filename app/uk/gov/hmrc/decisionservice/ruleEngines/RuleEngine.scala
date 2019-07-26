@@ -14,13 +14,23 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.config.ruleSets
+package uk.gov.hmrc.decisionservice.ruleEngines
 
-import javax.inject.{Inject, Singleton}
-import uk.gov.hmrc.decisionservice.config.AppConfig
+import play.api.libs.json.{JsObject, Json, Writes}
 import uk.gov.hmrc.decisionservice.models.RuleSet
+import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 
-@Singleton()
-class ControlRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
-  override val ruleSet: Seq[RuleSet] = parseRules("control")
+trait RuleEngine {
+
+  def checkRules[T,A](section: T,
+                      ruleSet: Seq[RuleSet],
+                      notMatched: A = WeightedAnswerEnum.NOT_VALID_USE_CASE)(implicit writes: Writes[T]): String = {
+
+    val sectionAsJson: JsObject = Json.toJson(section).as[JsObject]
+
+    ruleSet.find(_.rules.fields.forall(sectionAsJson.fields.contains)) match {
+      case Some(matchedRule) => matchedRule.result
+      case _ => notMatched.toString
+    }
+  }
 }

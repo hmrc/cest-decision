@@ -20,6 +20,7 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.Exit
 import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
+import uk.gov.hmrc.decisionservice.ruleSets.EarlyExitRules
 
 class EarlyExitRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 

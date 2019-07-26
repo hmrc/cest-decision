@@ -20,6 +20,7 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.enums.Section._
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
+import uk.gov.hmrc.decisionservice.ruleSets.MatrixOfMatricesRules
 
 class MatrixOfMatricesRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 

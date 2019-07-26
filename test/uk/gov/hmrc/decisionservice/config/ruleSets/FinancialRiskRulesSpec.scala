@@ -22,6 +22,7 @@ import uk.gov.hmrc.decisionservice.models.FinancialRisk._
 import uk.gov.hmrc.decisionservice.models.enums.HowWorkerIsPaid._
 import uk.gov.hmrc.decisionservice.models.enums.PutRightAtOwnCost._
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.decisionservice.ruleSets.FinancialRiskRules
 
 class FinancialRiskRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 

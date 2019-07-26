@@ -17,9 +17,10 @@
 package uk.gov.hmrc.decisionservice.services
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import uk.gov.hmrc.decisionservice.config.ruleSets.MatrixOfMatricesRules
 import uk.gov.hmrc.decisionservice.models.Score
 import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.ruleEngines.ResultRuleEngine
+import uk.gov.hmrc.decisionservice.ruleSets.MatrixOfMatricesRules
 import uk.gov.hmrc.play.test.UnitSpec
 
 class ResultRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {

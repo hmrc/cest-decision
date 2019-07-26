@@ -17,9 +17,10 @@
 package uk.gov.hmrc.decisionservice.services
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import uk.gov.hmrc.decisionservice.config.ruleSets.FinancialRiskRules
 import uk.gov.hmrc.decisionservice.models.FinancialRisk
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.decisionservice.ruleEngines.FinancialRiskRuleEngine
+import uk.gov.hmrc.decisionservice.ruleSets.FinancialRiskRules
 import uk.gov.hmrc.play.test.UnitSpec
 
 class FinancialRiskRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {

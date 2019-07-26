@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.config.ruleSets
+package uk.gov.hmrc.decisionservice.ruleSets
 
 import javax.inject.{Inject, Singleton}
 import uk.gov.hmrc.decisionservice.config.AppConfig
 import uk.gov.hmrc.decisionservice.models.RuleSet
 
 @Singleton()
-class PartAndParcelRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
-  override val ruleSet: Seq[RuleSet] = parseRules("part-and-parcel")
+class ControlRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
+  override val ruleSet: Seq[RuleSet] = parseRules("control")
 }

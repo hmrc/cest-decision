@@ -17,9 +17,10 @@
 package uk.gov.hmrc.decisionservice.services
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import uk.gov.hmrc.decisionservice.config.ruleSets.PartAndParcelRules
 import uk.gov.hmrc.decisionservice.models.PartAndParcel
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.decisionservice.ruleEngines.PartAndParcelRuleEngine
+import uk.gov.hmrc.decisionservice.ruleSets.PartAndParcelRules
 import uk.gov.hmrc.play.test.UnitSpec
 
 class PartAndParcelRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {

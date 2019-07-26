@@ -17,9 +17,10 @@
 package uk.gov.hmrc.decisionservice.services
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import uk.gov.hmrc.decisionservice.config.ruleSets.EarlyExitRules
 import uk.gov.hmrc.decisionservice.models.Exit
 import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
+import uk.gov.hmrc.decisionservice.ruleEngines.ExitRuleEngine
+import uk.gov.hmrc.decisionservice.ruleSets.EarlyExitRules
 import uk.gov.hmrc.play.test.UnitSpec
 
 class ExitRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {

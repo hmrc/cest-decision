@@ -21,7 +21,8 @@ import uk.gov.hmrc.decisionservice.models.{DecisionRequest, DecisionResponse}
 import uk.gov.hmrc.decisionservice.models.enums.SetupEnum
 
 import scala.concurrent.{ExecutionContext, Future}
-import uk.gov.hmrc.decisionservice.models.{Score, DecisionResponse}
+import uk.gov.hmrc.decisionservice.models.{DecisionResponse, Score}
+import uk.gov.hmrc.decisionservice.ruleEngines._
 
 class NewDecisionService @Inject()(controlDecisionService: ControlRuleEngine,
                                    exitDecisionService: ExitRuleEngine,
@@ -30,25 +31,17 @@ class NewDecisionService @Inject()(controlDecisionService: ControlRuleEngine,
                                    partAndParcelDecisionService: PartAndParcelRuleEngine,
                                    resultService: ResultRuleEngine) {
 
-
   def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[DecisionResponse] = {
 
     val interview = request.interview
-    val setup: Option[SetupEnum.Value] = None
-
-    val _exitDecisionService = exitDecisionService.decide(interview.exit)
-    val _personalServiceDecisionService = personalServiceDecisionService.decide(interview.personalService)
-    val _controlDecisionService = controlDecisionService.decide(interview.control)
-    val _financialRiskDecisionService = financialRiskDecisionService.decide(interview.financialRisk)
-    val _partAndParcelDecisionService = partAndParcelDecisionService.decide(interview.partAndParcel)
 
     for {
-      exit <- _exitDecisionService
-      personalService <- _personalServiceDecisionService
-      control <- _controlDecisionService
-      financialRisk <- _financialRiskDecisionService
-      partAndParcel <- _partAndParcelDecisionService
-      score = Score(setup, exit, personalService, control, financialRisk, partAndParcel)
+      exit <- exitDecisionService.decide(interview.exit)
+      personalService <- personalServiceDecisionService.decide(interview.personalService)
+      control <- controlDecisionService.decide(interview.control)
+      financialRisk <- financialRiskDecisionService.decide(interview.financialRisk)
+      partAndParcel <- partAndParcelDecisionService.decide(interview.partAndParcel)
+      score = Score(None, exit, personalService, control, financialRisk, partAndParcel)
       result <- resultService.decide(score)
 
     } yield DecisionResponse(request.version, request.correlationID, score, result)

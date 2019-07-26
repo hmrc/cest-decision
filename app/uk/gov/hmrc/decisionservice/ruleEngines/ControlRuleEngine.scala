@@ -14,27 +14,23 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.services
+package uk.gov.hmrc.decisionservice.ruleEngines
 
+import javax.inject.Inject
 import uk.gov.hmrc.decisionservice.models.Control
-import uk.gov.hmrc.play.test.UnitSpec
+import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.decisionservice.ruleSets.ControlRules
 
-class BusinessOnOwnAccountDecisionServiceSpec extends UnitSpec {
+import scala.concurrent.Future
 
-  object TestBusinessOnOwnAccountDecisionService extends BusinessOnOwnAccountDecisionService
+class ControlRuleEngine @Inject()(rules: ControlRules) extends RuleEngine {
 
-  "BusinessOnOwnAccountDecisionService" when {
-
-    "decide is called" should {
-
-      "return a None" in {
-
-        //TODO upate to use BusinessOnOwnAccount once it has been created
-        val actualResult = TestBusinessOnOwnAccountDecisionService.decide(Control(None, None, None, None))
-        val expectedResult = None
-
-        await(actualResult) shouldBe expectedResult
+  def decide(control: Option[Control]): Future[Option[WeightedAnswerEnum.Value]] =
+    Future.successful(control flatMap {
+      case Control(None, None, None, None) => None
+      case section => {
+        val result = checkRules(section, rules.ruleSet)
+        Some(WeightedAnswerEnum.withName(result))
       }
-    }
-  }
+    })
 }

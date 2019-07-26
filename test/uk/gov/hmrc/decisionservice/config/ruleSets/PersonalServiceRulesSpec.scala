@@ -20,6 +20,7 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.PersonalService._
 import uk.gov.hmrc.decisionservice.models.enums.{ArrangedSubstitute, RejectSubstitute, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.ruleSets.PersonalServiceRules
 
 class PersonalServiceRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 

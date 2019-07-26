@@ -24,16 +24,12 @@ import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
 import uk.gov.hmrc.decisionservice.model.analytics.{AnalyticsResponse, Interview, InterviewSearch}
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 import uk.gov.hmrc.decisionservice.transformer.InterviewTransformer._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-/**
-  * Created by work on 20/06/2017.
-  */
+
 class AnalyticsController @Inject() (val repository: InterviewRepository,
-                                     mcc: MessagesControllerComponents) extends FrontendController(mcc) {
+                                     mcc: MessagesControllerComponents) extends BaseController(mcc) {
 
   def logInterview: Action[JsValue] = Action.async(parse.json) { implicit request =>
     Logger.debug(s"log request: ${request.body.toString.replaceAll("\"", "")}")
@@ -60,5 +56,4 @@ class AnalyticsController @Inject() (val repository: InterviewRepository,
       }
     )
   }
-
 }

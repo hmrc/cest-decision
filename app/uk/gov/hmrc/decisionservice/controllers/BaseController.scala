@@ -14,13 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.config.ruleSets
+package uk.gov.hmrc.decisionservice.controllers
 
-import javax.inject.{Inject, Singleton}
-import uk.gov.hmrc.decisionservice.config.AppConfig
-import uk.gov.hmrc.decisionservice.models.RuleSet
+import javax.inject.Inject
+import play.api.mvc.ControllerComponents
+import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
-@Singleton()
-class FinancialRiskRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
-  override val ruleSet: Seq[RuleSet] = parseRules("financial-risk")
+import scala.concurrent.ExecutionContext
+
+
+class BaseController @Inject()(mcc: ControllerComponents) extends BackendController(mcc) {
+
+  implicit val ec: ExecutionContext = defaultExecutionContext
+
 }

@@ -14,25 +14,23 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.services
+package uk.gov.hmrc.decisionservice.ruleEngines
 
 import javax.inject.Inject
-import uk.gov.hmrc.decisionservice.config.ruleSets.FinancialRiskRules
-import uk.gov.hmrc.decisionservice.models.FinancialRisk
+import uk.gov.hmrc.decisionservice.models.PersonalService
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
-import uk.gov.hmrc.decisionservice.util.RuleEngine
+import uk.gov.hmrc.decisionservice.ruleSets.PersonalServiceRules
 
 import scala.concurrent.Future
 
-class FinancialRiskRuleEngine @Inject()(rules: FinancialRiskRules) extends RuleEngine {
+class PersonalServiceRuleEngine @Inject()(rules: PersonalServiceRules) extends RuleEngine {
 
-  def decide(financialRisk: Option[FinancialRisk]): Future[Option[WeightedAnswerEnum.Value]] = {
-    Future.successful(financialRisk flatMap {
-      case FinancialRisk(None, None, None, None, None, None, None) => None
+  def decide(personalService: Option[PersonalService]): Future[Option[WeightedAnswerEnum.Value]] =
+    Future.successful(personalService flatMap {
+      case PersonalService(None, None, None, None, None) => None
       case section => {
         val result = checkRules(section, rules.ruleSet)
         Some(WeightedAnswerEnum.withName(result))
       }
     })
-  }
 }

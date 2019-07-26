@@ -20,6 +20,7 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.PartAndParcel._
 import uk.gov.hmrc.decisionservice.models.enums.{IdentifyToStakeholders, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.ruleSets.PartAndParcelRules
 
 class PartParcelRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
