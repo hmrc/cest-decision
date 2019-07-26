@@ -17,7 +17,7 @@
 package uk.gov.hmrc.decisionservice.services.mocks
 
 import org.scalamock.scalatest.MockFactory
-import uk.gov.hmrc.decisionservice.models.{DecisionRequest, _DecisionResponse}
+import uk.gov.hmrc.decisionservice.models.{DecisionRequest, DecisionResponse}
 import uk.gov.hmrc.decisionservice.services.NewDecisionService
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -26,7 +26,7 @@ trait MockNewDecisionService extends MockFactory {
 
   val mockNewDecisionService = mock[NewDecisionService]
 
-  def mockCalculateResult(request: DecisionRequest)(response: _DecisionResponse): Unit = {
+  def mockCalculateResult(request: DecisionRequest)(response: DecisionResponse): Unit = {
     (mockNewDecisionService.calculateResult(_: DecisionRequest)(_: ExecutionContext))
       .expects(request, *)
       .returns(Future.successful(response))

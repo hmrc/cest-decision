@@ -17,17 +17,21 @@
 package uk.gov.hmrc.decisionservice.services
 
 import javax.inject.Inject
-import uk.gov.hmrc.decisionservice.models.{PartAndParcel, Section}
-import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
-import uk.gov.hmrc.decisionservice.util.PartAndParcelRulesSet
+import uk.gov.hmrc.decisionservice.config.ruleSets.EarlyExitRules
+import uk.gov.hmrc.decisionservice.models.Exit
+import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
+import uk.gov.hmrc.decisionservice.util.RuleEngine
 
 import scala.concurrent.Future
 
-class PartAndParcelDecisionService @Inject()(ruleSet: PartAndParcelRulesSet) {
+class ExitRuleEngine @Inject()(rules: EarlyExitRules) extends RuleEngine {
 
-  def decide(partAndParcel: Option[PartAndParcel]): Future[Option[WeightedAnswerEnum.Value]] =
-    Future.successful(partAndParcel flatMap {
-      case PartAndParcel(None, None, None, None) => None
-      case section => Some(WeightedAnswerEnum.withName(ruleSet.checkRules(section)))
+  def decide(exit: Option[Exit]): Future[Option[ExitEnum.Value]] =
+    Future.successful(exit flatMap {
+      case Exit(None) => None
+      case section => {
+        val result = checkRules(section, rules.ruleSet)
+        Some(ExitEnum.withName(result))
+      }
     })
 }

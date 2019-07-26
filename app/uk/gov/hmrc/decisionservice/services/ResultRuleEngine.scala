@@ -17,44 +17,39 @@
 package uk.gov.hmrc.decisionservice.services
 
 import javax.inject.Inject
+import uk.gov.hmrc.decisionservice.config.ruleSets.MatrixOfMatricesRules
 import uk.gov.hmrc.decisionservice.models.Score
 import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, WeightedAnswerEnum}
-import uk.gov.hmrc.decisionservice.util.MatrixOfMatricesRulesSet
+import uk.gov.hmrc.decisionservice.util.RuleEngine
 
 import scala.concurrent.Future
 
-class ResultService @Inject()(ruleSet: MatrixOfMatricesRulesSet) {
+class ResultRuleEngine @Inject()(rules: MatrixOfMatricesRules) extends RuleEngine {
 
   def decide(score: Score): Future[ResultEnum.Value] = {
+    Future.successful(score match {
+      case Score(None, None, None, None, None, None) => ResultEnum.NOT_MATCHED
+      case _ => checkResults(score) match {
+        case Some(result) => result
+        case _ => checkMatrixOfMatrices(score)
+      }
+    })
+  }
 
-    def checkMatrixOfMatrices: Future[ResultEnum.Value] = {
-      val result = ruleSet.checkRules(score, ResultEnum.NOT_MATCHED)
-      Future.successful(ResultEnum(result))
-    }
-
-    score match {
-      case Score(None, None, None, None, None, None) => Future.successful(ResultEnum.NOT_MATCHED)
-      case _ => checkResults(score).fold(checkMatrixOfMatrices)(result => Future.successful(result))
-    }
+  def checkMatrixOfMatrices(score: Score): ResultEnum.Value = {
+    val result = checkRules(score, rules.ruleSet, ResultEnum.NOT_MATCHED)
+    ResultEnum(result)
   }
 
   def checkResults(score: Score): Option[ResultEnum.Value] = {
 
-    val exitInside = Some(ExitEnum.INSIDE_IR35)
-    val sectionInside = Some(WeightedAnswerEnum.INSIDE_IR35)
-    val sectionOutside = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-    val sectionAnswers = Seq(score.personalService, score.control, score.financialRisk, score.partAndParcel)
+    val sectionAnswers = Seq(score.personalService, score.control, score.financialRisk, score.partAndParcel).flatten
 
-    if (score.exit == exitInside || sectionAnswers.contains(sectionInside)) {
-
+    if (score.exit.contains(ExitEnum.INSIDE_IR35)) {
       Some(ResultEnum.INSIDE_IR35)
-
-    } else if (sectionAnswers.contains(sectionOutside)) {
-
+    } else if (sectionAnswers.contains(WeightedAnswerEnum.OUTSIDE_IR35)) {
       Some(ResultEnum.OUTSIDE_IR35)
-
     } else {
-
       None
     }
   }

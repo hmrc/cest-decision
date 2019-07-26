@@ -14,12 +14,13 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.config.ruleSets
+package uk.gov.hmrc.decisionservice.models
 
-import play.api.libs.json.Json
+import play.api.libs.json.{Json, OFormat}
+import uk.gov.hmrc.decisionservice.models.enums.ResultEnum
 
-trait RuleSetHelperMethods {
+case class DecisionResponse(version: String, correlationID: String, score: Score, result: ResultEnum.Value)
 
-  implicit def convert[E <: Enumeration, B <: Enumeration](x: (E#Value, B#Value)): (String, Json.JsValueWrapper) = (x._1.toString, x._2)
-
+object DecisionResponse {
+  implicit val formats: OFormat[DecisionResponse] = Json.format[DecisionResponse]
 }

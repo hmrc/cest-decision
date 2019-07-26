@@ -16,13 +16,14 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.PersonalService._
 import uk.gov.hmrc.decisionservice.models.enums.{ArrangedSubstitute, RejectSubstitute, WeightedAnswerEnum}
 
-class PersonalServiceRulesSpec extends BaseRuleSpec {
+class PersonalServiceRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  implicit val ruleSet = PersonalServiceRules.ruleSet
+  implicit val ruleSet = app.injector.instanceOf[PersonalServiceRules].ruleSet
 
   "For all the expected OUT rules" should {
 

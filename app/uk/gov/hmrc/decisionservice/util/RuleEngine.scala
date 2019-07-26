@@ -14,21 +14,23 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.services
+package uk.gov.hmrc.decisionservice.util
 
-import javax.inject.Inject
+import play.api.libs.json.{JsObject, _}
+import uk.gov.hmrc.decisionservice.models.RuleSet
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
-import uk.gov.hmrc.decisionservice.models.{FinancialRisk, Section}
-import uk.gov.hmrc.decisionservice.util.FinancialRiskRulesSet
 
-import scala.concurrent.Future
+trait RuleEngine {
 
-class FinancialRiskDecisionService @Inject()(ruleSet: FinancialRiskRulesSet) {
+  def checkRules[T,A](section: T,
+                      ruleSet: Seq[RuleSet],
+                      notMatched: A = WeightedAnswerEnum.NOT_VALID_USE_CASE)(implicit writes: Writes[T]): String = {
 
-  def decide(financialRisk: Option[FinancialRisk]): Future[Option[WeightedAnswerEnum.Value]] = {
-    Future.successful(financialRisk flatMap {
-      case FinancialRisk(None, None, None, None, None, None, None) => None
-      case section => Some(WeightedAnswerEnum.withName(ruleSet.checkRules(section)))
-    })
+    val sectionAsJson: JsObject = Json.toJson(section).as[JsObject]
+
+    ruleSet.find(_.rules.fields.forall(sectionAsJson.fields.contains)) match {
+      case Some(matchedRule) => matchedRule.result
+      case _ => notMatched.toString
+    }
   }
 }

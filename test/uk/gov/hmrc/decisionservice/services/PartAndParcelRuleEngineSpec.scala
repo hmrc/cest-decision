@@ -16,45 +16,45 @@
 
 package uk.gov.hmrc.decisionservice.services
 
-import uk.gov.hmrc.decisionservice.config.ruleSets.PersonalServiceRules
-import uk.gov.hmrc.decisionservice.models.PersonalService
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import uk.gov.hmrc.decisionservice.config.ruleSets.PartAndParcelRules
+import uk.gov.hmrc.decisionservice.models.PartAndParcel
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
-import uk.gov.hmrc.decisionservice.util.PersonalServiceRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
 
-class PersonalServiceDecisionServiceSpec extends UnitSpec{
+class PartAndParcelRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
-  object TestControlDecisionService extends PersonalServiceDecisionService(new PersonalServiceRulesSet)
+  lazy val partAndParcelRules = app.injector.instanceOf[PartAndParcelRules]
 
-  "PersonalServiceDecisionServiceSpec" when {
+  object TestPartAndParcelRuleEngine extends PartAndParcelRuleEngine(partAndParcelRules)
 
-    "decide is called with a PersonalService section with every value provided" should {
+  "PartAndParcelDecisionServiceSpec" when {
+
+    "decide is called with a PartAndParcel section with every value provided" should {
 
       "return a WeightedAnswer" in {
 
-        val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
-        val actualAnswer = TestControlDecisionService.decide(Some(PersonalService(
-          Some("yesClientAgreed"),
+        val expectedAnswer = WeightedAnswerEnum.MEDIUM
+        val actualAnswer = TestPartAndParcelRuleEngine.decide(Some(PartAndParcel(
+          Some(false),
+          Some(false),
           Some(true),
-          Some("wouldNotReject"),
-          Some(true),
-          Some(true)
+          Some("workForEndClient")
         )))
 
         await(actualAnswer) shouldBe Some(expectedAnswer)
-
       }
     }
 
-    "decide is called with a PersonalService section with out scenarios populated" should {
+    "decide is called with a PartAndParcel section with triggered rules populated" should {
 
-        PersonalServiceRules.ruleSet.zipWithIndex.foreach { item =>
+      partAndParcelRules.ruleSet.zipWithIndex.foreach { item =>
 
           val (ruleSet, index) = item
 
           s"return an answer for scenario ${index + 1}" in {
 
-            val actualAnswer = TestControlDecisionService.decide(Some(ruleSet.rules.as[PersonalService]))
+            val actualAnswer = TestPartAndParcelRuleEngine.decide(Some(ruleSet.rules.as[PartAndParcel]))
             val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
 
             await(actualAnswer) shouldBe Some(expectedAnswer)
@@ -63,12 +63,12 @@ class PersonalServiceDecisionServiceSpec extends UnitSpec{
       }
     }
 
-    "decide is called with a PersonalService section with None for every value" should {
+    "decide is called with a PartAndParcel section with None for every value" should {
 
       "return a WeightedAnswer" in {
 
         val expectedAnswer = None
-        val actualAnswer = TestControlDecisionService.decide(Some(PersonalService(None, None, None, None, None)))
+        val actualAnswer = TestPartAndParcelRuleEngine.decide(Some(PartAndParcel(None, None, None, None)))
 
         await(actualAnswer) shouldBe expectedAnswer
 

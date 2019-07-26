@@ -27,4 +27,6 @@ class AppConfig @Inject()(env: Environment, val runModeConfiguration: Configurat
   val gatherAnalytics: Boolean = runModeConfiguration.getOptional[Boolean]("analytics.gatherAnalytics").getOrElse(false)
   val reportingPeriod = runModeConfiguration.getOptional[Int]("analytics.reportingPeriod").getOrElse(0)
 
+  val newDecisionVersion = servicesConfig.getString("newDecisionVersion")
+
 }

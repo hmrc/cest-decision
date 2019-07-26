@@ -19,7 +19,6 @@ package uk.gov.hmrc.decisionservice.services
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
-import uk.gov.hmrc.decisionservice.model.api.DecisionResponse
 import uk.gov.hmrc.decisionservice.models._
 import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.play.test.UnitSpec
@@ -30,12 +29,12 @@ import scala.concurrent.Future
 class NewDecisionServiceSpec extends UnitSpec {
 
   private trait Setup extends MockitoSugar {
-    val exit = mock[ExitDecisionService]
-    val control = mock[ControlDecisionService]
-    val personalService = mock[PersonalServiceDecisionService]
-    val financialRisk = mock[FinancialRiskDecisionService]
-    val partAndParcel = mock[PartAndParcelDecisionService]
-    val result = mock[ResultService]
+    val exit = mock[ExitRuleEngine]
+    val control = mock[ControlRuleEngine]
+    val personalService = mock[PersonalServiceRuleEngine]
+    val financialRisk = mock[FinancialRiskRuleEngine]
+    val partAndParcel = mock[PartAndParcelRuleEngine]
+    val result = mock[ResultRuleEngine]
 
     val target = new NewDecisionService(control,exit,financialRisk,personalService,partAndParcel,result)
   }
@@ -64,7 +63,7 @@ class NewDecisionServiceSpec extends UnitSpec {
         when(partAndParcel.decide(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
         when(result.decide(ArgumentMatchers.any())).thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
 
-        await(target.calculateResult(request)) shouldBe _DecisionResponse(
+        await(target.calculateResult(request)) shouldBe DecisionResponse(
           "1.0.0-beta", "coral", Score(
             None,Some(ExitEnum.CONTINUE),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH)
           ), ResultEnum.INSIDE_IR35

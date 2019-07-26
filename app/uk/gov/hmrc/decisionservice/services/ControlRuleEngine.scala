@@ -17,12 +17,21 @@
 package uk.gov.hmrc.decisionservice.services
 
 import javax.inject.Inject
-import uk.gov.hmrc.decisionservice.models.Section
+import uk.gov.hmrc.decisionservice.config.ruleSets.ControlRules
+import uk.gov.hmrc.decisionservice.models.Control
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.decisionservice.util.RuleEngine
 
 import scala.concurrent.Future
 
-class BusinessOnOwnAccountDecisionService @Inject()() {
+class ControlRuleEngine @Inject()(rules: ControlRules) extends RuleEngine {
 
-  def decide(section: Section): Future[Option[WeightedAnswerEnum.Value]] = Future.successful(None)
+  def decide(control: Option[Control]): Future[Option[WeightedAnswerEnum.Value]] =
+    Future.successful(control flatMap {
+      case Control(None, None, None, None) => None
+      case section => {
+        val result = checkRules(section, rules.ruleSet)
+        Some(WeightedAnswerEnum.withName(result))
+      }
+    })
 }

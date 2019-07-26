@@ -16,21 +16,23 @@
 
 package uk.gov.hmrc.decisionservice.services
 
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.config.ruleSets.MatrixOfMatricesRules
 import uk.gov.hmrc.decisionservice.models.Score
 import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, WeightedAnswerEnum}
-import uk.gov.hmrc.decisionservice.util.MatrixOfMatricesRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
 
-class ResultServiceSpec extends UnitSpec {
+class ResultRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
-  object TestResultDecisionService extends ResultService(new MatrixOfMatricesRulesSet)
+  lazy val matrixOfMatricesRules = app.injector.instanceOf[MatrixOfMatricesRules]
+
+  object TestResultDecisionService extends ResultRuleEngine(matrixOfMatricesRules)
 
   "ResultService" when {
 
     "decide is called with all sections populated for a in determination" should {
 
-      MatrixOfMatricesRules.ruleSet.zipWithIndex.foreach { item =>
+      matrixOfMatricesRules.ruleSet.zipWithIndex.foreach { item =>
 
         val (ruleSet, index) = item
 
@@ -56,42 +58,21 @@ class ResultServiceSpec extends UnitSpec {
       }
     }
 
-    "decide is called with one section containing an IN decision" should {
+    "decide is called with Exit section being an IN decision" should {
 
-      val score = Score(
-        setup = None,
-        exit = Some(ExitEnum.CONTINUE),
-        personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
-        control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
-        financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
-        partAndParcel = Some(WeightedAnswerEnum.OUTSIDE_IR35)
-      )
+      "return an IN result" in {
 
-      val inside = Some(WeightedAnswerEnum.INSIDE_IR35)
-      val expectedAnswer = ResultEnum.INSIDE_IR35
+        val score = Score(
+          setup = None,
+          exit = Some(ExitEnum.CONTINUE),
+          personalService = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+          control = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+          financialRisk = Some(WeightedAnswerEnum.OUTSIDE_IR35),
+          partAndParcel = Some(WeightedAnswerEnum.OUTSIDE_IR35)
+        )
 
-      "return an IN result when exit is IN" in {
+        val expectedAnswer = ResultEnum.INSIDE_IR35
         val actualAnswer = TestResultDecisionService.decide(score.copy(exit = Some(ExitEnum.INSIDE_IR35)))
-        await(actualAnswer) shouldBe expectedAnswer
-      }
-
-      "return an IN result when personalService is IN" in {
-        val actualAnswer = TestResultDecisionService.decide(score.copy(personalService = inside))
-        await(actualAnswer) shouldBe expectedAnswer
-      }
-
-      "return an IN result when control is IN" in {
-        val actualAnswer = TestResultDecisionService.decide(score.copy(control = inside))
-        await(actualAnswer) shouldBe expectedAnswer
-      }
-
-      "return an IN result when financialRisk is IN" in {
-        val actualAnswer = TestResultDecisionService.decide(score.copy(financialRisk = inside))
-        await(actualAnswer) shouldBe expectedAnswer
-      }
-
-      "return an IN result when partAndParcel is IN" in {
-        val actualAnswer = TestResultDecisionService.decide(score.copy(partAndParcel = inside))
         await(actualAnswer) shouldBe expectedAnswer
       }
     }

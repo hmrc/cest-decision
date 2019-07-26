@@ -16,15 +16,17 @@
 
 package uk.gov.hmrc.decisionservice.services
 
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.config.ruleSets.FinancialRiskRules
 import uk.gov.hmrc.decisionservice.models.FinancialRisk
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
-import uk.gov.hmrc.decisionservice.util.FinancialRiskRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
 
-class FinancialRiskDecisionServiceSpec extends UnitSpec {
+class FinancialRiskRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
-  object TestFinancialRiskDecisionService extends FinancialRiskDecisionService(new FinancialRiskRulesSet)
+  lazy val financialRiskRules = app.injector.instanceOf[FinancialRiskRules]
+
+  object TestFinancialRiskRuleEngine extends FinancialRiskRuleEngine(financialRiskRules)
 
   "FinancialRiskDecisionService" when {
 
@@ -33,7 +35,7 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
       "return a WeightedAnswer" in {
 
         val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
-        val actualAnswer = TestFinancialRiskDecisionService.decide(Some(FinancialRisk(
+        val actualAnswer = TestFinancialRiskRuleEngine.decide(Some(FinancialRisk(
           workerProvidedMaterials = Some(true),
           workerProvidedEquipment = Some(true),
           workerUsedVehicle = Some(true),
@@ -49,13 +51,13 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
 
     "decide is called with a FinancialRisk section with triggered rules" should {
 
-      FinancialRiskRules.ruleSet.zipWithIndex.foreach { item =>
+      financialRiskRules.ruleSet.zipWithIndex.foreach { item =>
 
         val (ruleSet, index) = item
 
         s"return an answer for scenario ${index + 1}" in {
 
-          val actualAnswer = TestFinancialRiskDecisionService.decide(Some(ruleSet.rules.as[FinancialRisk]))
+          val actualAnswer = TestFinancialRiskRuleEngine.decide(Some(ruleSet.rules.as[FinancialRisk]))
           val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
 
           await(actualAnswer) shouldBe Some(expectedAnswer)
@@ -68,7 +70,7 @@ class FinancialRiskDecisionServiceSpec extends UnitSpec {
       "return a WeightedAnswer" in {
 
         val expectedAnswer = None
-        val actualAnswer = TestFinancialRiskDecisionService.decide(Some(FinancialRisk(None, None, None, None, None, None, None)))
+        val actualAnswer = TestFinancialRiskRuleEngine.decide(Some(FinancialRisk(None, None, None, None, None, None, None)))
 
         await(actualAnswer) shouldBe expectedAnswer
 

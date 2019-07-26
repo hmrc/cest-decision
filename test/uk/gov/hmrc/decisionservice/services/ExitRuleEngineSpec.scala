@@ -16,15 +16,17 @@
 
 package uk.gov.hmrc.decisionservice.services
 
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.config.ruleSets.EarlyExitRules
 import uk.gov.hmrc.decisionservice.models.Exit
 import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
-import uk.gov.hmrc.decisionservice.util.ExitRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
 
-class ExitDecisionServiceSpec extends UnitSpec {
+class ExitRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
-  object TestExitDecisionService extends ExitDecisionService(new ExitRulesSet)
+  lazy val earlyExitRules = app.injector.instanceOf[EarlyExitRules]
+
+  object TestExitRuleEngine extends ExitRuleEngine(earlyExitRules)
 
   "ExitDecisionService" when {
 
@@ -32,7 +34,7 @@ class ExitDecisionServiceSpec extends UnitSpec {
 
       "returns an INSIDE_IR35" in {
 
-        val actualResult = TestExitDecisionService.decide(Some(Exit(Some(false))))
+        val actualResult = TestExitRuleEngine.decide(Some(Exit(Some(false))))
         val expectedResult = ExitEnum.CONTINUE
 
         await(actualResult) shouldBe Some(expectedResult)
@@ -41,13 +43,13 @@ class ExitDecisionServiceSpec extends UnitSpec {
 
     "decide is called with a Exit section with triggered rules" should {
 
-      EarlyExitRules.ruleSet.zipWithIndex.foreach { item =>
+      earlyExitRules.ruleSet.zipWithIndex.foreach { item =>
 
         val (ruleSet, index) = item
 
         s"return an answer for scenario ${index + 1}" in {
 
-          val actualAnswer = TestExitDecisionService.decide(Some(ruleSet.rules.as[Exit]))
+          val actualAnswer = TestExitRuleEngine.decide(Some(ruleSet.rules.as[Exit]))
           val expectedAnswer = ExitEnum.withName(ruleSet.result)
 
           await(actualAnswer) shouldBe Some(expectedAnswer)

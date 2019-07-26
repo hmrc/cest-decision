@@ -16,19 +16,20 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
+import javax.inject.Inject
 import play.api.libs.json._
+import uk.gov.hmrc.decisionservice.config.AppConfig
+import uk.gov.hmrc.decisionservice.models.RuleSet
 
 import scala.io.Source
 
-case class RuleSet(rules: JsObject, result: String)
-
-trait BaseRules extends RuleSetHelperMethods {
+abstract class BaseRules @Inject()(appConfig: AppConfig) {
 
   val ruleSet: Seq[RuleSet]
 
-  def parseRules(section: String, version: String = "1.6.0-final"): Seq[RuleSet] = {
+  def parseRules(section: String): Seq[RuleSet] = {
 
-    lazy val csvRules: List[String] = Source.fromFile(s"conf/tables/$version/$section.csv").getLines.toList
+    lazy val csvRules: List[String] = Source.fromFile(s"conf/tables/${appConfig.newDecisionVersion}/$section.csv").getLines.toList
     lazy val headers: List[String] = csvRules.head.split(",").toList
 
     csvRules.tail.map { row =>

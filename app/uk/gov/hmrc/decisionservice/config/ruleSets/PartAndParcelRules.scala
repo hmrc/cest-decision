@@ -16,6 +16,11 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
-object PartAndParcelRules extends BaseRules {
+import javax.inject.{Inject, Singleton}
+import uk.gov.hmrc.decisionservice.config.AppConfig
+import uk.gov.hmrc.decisionservice.models.RuleSet
+
+@Singleton()
+class PartAndParcelRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
   override val ruleSet: Seq[RuleSet] = parseRules("part-and-parcel")
 }

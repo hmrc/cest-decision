@@ -16,15 +16,17 @@
 
 package uk.gov.hmrc.decisionservice.services
 
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.config.ruleSets.ControlRules
 import uk.gov.hmrc.decisionservice.models.Control
 import uk.gov.hmrc.decisionservice.models.enums._
-import uk.gov.hmrc.decisionservice.util.ControlRulesSet
 import uk.gov.hmrc.play.test.UnitSpec
 
-class ControlDecisionServiceSpec extends UnitSpec {
+class ControlRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
-  object TestControlDecisionService extends ControlDecisionService(new ControlRulesSet)
+  lazy val controlRules = app.injector.instanceOf[ControlRules]
+
+  object TestControlRuleEngine extends ControlRuleEngine(controlRules)
 
   "ControlDecisionServiceSpec" when {
 
@@ -33,7 +35,7 @@ class ControlDecisionServiceSpec extends UnitSpec {
       "return a WeightedAnswer" in {
 
         val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
-        val actualAnswer = TestControlDecisionService.decide(Some(Control(
+        val actualAnswer = TestControlRuleEngine.decide(Some(Control(
           Some(MoveWorker.cannotMoveWorkerWithoutNewAgreement),
           Some(HowWorkIsDone.workerDecidesWithoutInput),
           Some(ScheduleOfWorkingHours.workerDecideSchedule),
@@ -47,18 +49,18 @@ class ControlDecisionServiceSpec extends UnitSpec {
 
     "decide is called with a Control section with triggered rules" should {
 
-        ControlRules.ruleSet.zipWithIndex.foreach { item =>
+      controlRules.ruleSet.zipWithIndex.foreach { item =>
 
-            val (ruleSet, index) = item
+        val (ruleSet, index) = item
 
-            s"return an answer for scenario ${index + 1}" in {
+        s"return an answer for scenario ${index + 1}" in {
 
-              val actualAnswer = TestControlDecisionService.decide(Some(ruleSet.rules.as[Control]))
-              val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
+          val actualAnswer = TestControlRuleEngine.decide(Some(ruleSet.rules.as[Control]))
+          val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
 
-              await(actualAnswer) shouldBe Some(expectedAnswer)
-            }
+          await(actualAnswer) shouldBe Some(expectedAnswer)
         }
+      }
     }
 
     "decide is called with a Control section with some values populated" should {
@@ -66,7 +68,7 @@ class ControlDecisionServiceSpec extends UnitSpec {
       "return an answer" in {
 
         val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
-        val actualAnswer = TestControlDecisionService.decide(Some(Control(
+        val actualAnswer = TestControlRuleEngine.decide(Some(Control(
           Some(MoveWorker.cannotMoveWorkerWithoutNewAgreement),
           Some(HowWorkIsDone.workerDecidesWithoutInput),
           Some(ScheduleOfWorkingHours.workerDecideSchedule),
@@ -81,7 +83,7 @@ class ControlDecisionServiceSpec extends UnitSpec {
 
       "return a WeightedAnswer" in {
 
-        val actualAnswer = TestControlDecisionService.decide(Some(Control(None, None, None, None)))
+        val actualAnswer = TestControlRuleEngine.decide(Some(Control(None, None, None, None)))
 
         await(actualAnswer) shouldBe None
 
