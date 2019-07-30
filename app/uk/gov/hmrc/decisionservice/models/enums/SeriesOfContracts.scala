@@ -14,18 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models
+package uk.gov.hmrc.decisionservice.models.enums
 
-import play.api.libs.json.{Format, Json}
+import play.api.libs.json.Format
 
-case class Interview(setup: Option[Setup] = None,
-                     exit: Option[Exit] = None,
-                     personalService: Option[PersonalService] = None,
-                     control: Option[Control] = None,
-                     financialRisk: Option[FinancialRisk] = None,
-                     partAndParcel: Option[PartAndParcel] = None,
-                     businessOnOwnAccount: Option[BusinessOnOwnAccount] = None)
+object SeriesOfContracts extends Enumeration with EnumFormats {
 
-object Interview {
-  implicit val format: Format[Interview] = Json.format[Interview]
+  val contractIsPartOfASeries: SeriesOfContracts.Value = Value("contractIsPartOfASeries")
+  val standAloneContract: SeriesOfContracts.Value = Value("standAloneContract")
+  val contractCouldBeExtended: SeriesOfContracts.Value = Value("contractCouldBeExtended")
+
+  implicit val format: Format[SeriesOfContracts.Value] = enumFormat(SeriesOfContracts)
 }

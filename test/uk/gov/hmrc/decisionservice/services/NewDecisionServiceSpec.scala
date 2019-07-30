@@ -48,12 +48,14 @@ class NewDecisionServiceSpec extends UnitSpec {
 
         val request = DecisionRequest(
           "1.0.0-beta", "coral", Interview(
-            Some(Setup(None, None, None)),
-            Some(Exit(None)),
-            Some(PersonalService(None, None, None, None, None)),
-            Some(Control(None, None, None, None)),
-            Some(FinancialRisk(None, None, None, None, None, None, None)),
-            Some(PartAndParcel(None, None, None, None))
+            setup = Some(Setup(None, None, None)),
+            exit = Some(Exit(None)),
+            personalService = Some(PersonalService(None, None, None, None, None)),
+            control = Some(Control(None, None, None, None)),
+            financialRisk = Some(FinancialRisk(None, None, None, None, None, None, None)),
+            partAndParcel = Some(PartAndParcel(None, None, None, None)),
+            businessOnOwnAccount = Some(BusinessOnOwnAccount(None, None, None, None, None))
+
           )
         )
 

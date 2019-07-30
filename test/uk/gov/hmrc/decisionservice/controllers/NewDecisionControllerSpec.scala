@@ -55,12 +55,13 @@ class NewDecisionControllerSpec extends UnitSpec with WithFakeApplication with T
     "return a OK with a decision" in {
 
       val decisionRequest = DecisionRequest("","", Interview(
-        Some(Setup(None,None,None)),
-        Some(Exit(None)),
-        Some(PersonalService(None,None,None,None,None)),
-        Some(Control(None,None,None,None)),
-        Some(FinancialRisk(None,None,None,None,None,None,None)),
-        Some(PartAndParcel(None,None,None,None))
+        setup = Some(Setup(None, None, None)),
+        exit = Some(Exit(None)),
+        personalService = Some(PersonalService(None, None, None, None, None)),
+        control = Some(Control(None, None, None, None)),
+        financialRisk = Some(FinancialRisk(None, None, None, None, None, None, None)),
+        partAndParcel = Some(PartAndParcel(None, None, None, None)),
+        businessOnOwnAccount = Some(BusinessOnOwnAccount(None, None, None, None, None))
       ))
 
       mockCalculateResult(decisionRequest)(DecisionResponse("1.0.0-beta", "", Score(), ResultEnum.UNKNOWN))
