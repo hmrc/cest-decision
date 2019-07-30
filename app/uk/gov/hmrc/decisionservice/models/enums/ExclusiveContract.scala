@@ -18,11 +18,11 @@ package uk.gov.hmrc.decisionservice.models.enums
 
 import play.api.libs.json.Format
 
-object MultipleEngagements extends Enumeration with EnumFormats {
+object ExclusiveContract extends Enumeration with EnumFormats {
 
-  val providedServicesToOtherEngagers: MultipleEngagements.Value = Value("providedServicesToOtherEngagers")
-  val onlyContractForPeriod: MultipleEngagements.Value = Value("onlyContractForPeriod")
-  val noKnowledgeOfExternalActivity: MultipleEngagements.Value = Value("noKnowledgeOfExternalActivity")
+  val unableToProvideServices: ExclusiveContract.Value = Value("unableToProvideServices")
+  val ableToProvideServicesWithPermission: ExclusiveContract.Value = Value("ableToProvideServicesWithPermission")
+  val ableToProvideServices: ExclusiveContract.Value = Value("ableToProvideServices")
 
-  implicit val format: Format[MultipleEngagements.Value] = enumFormat(MultipleEngagements)
+  implicit val format: Format[ExclusiveContract.Value] = enumFormat(ExclusiveContract)
 }

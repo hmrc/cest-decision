@@ -18,20 +18,20 @@ package uk.gov.hmrc.decisionservice.models
 
 import play.api.libs.json.{Format, Json}
 
-case class BusinessOnOwnAccount(contractPreventServices: Option[String],
-                                contractProprietyRights: Option[String],
-                                servicesOfTheSameNature: Option[String],
-                                consumeSignificantTime: Option[Boolean],
-                                seriesOfContract: Option[String]) extends Section
+case class BusinessOnOwnAccount(exclusiveContract: Option[String] = None,
+                                transferRights: Option[String] = None,
+                                multipleEngagements: Option[String] = None,
+                                significantWorkingTime: Option[Boolean] = None,
+                                seriesOfContracts: Option[String] = None) extends Section
 
 object BusinessOnOwnAccount {
   implicit val format: Format[BusinessOnOwnAccount] = Json.format[BusinessOnOwnAccount]
 
-  val contractPreventServices = "contractPreventServices"
-  val contractProprietyRights = "contractProprietyRights"
-  val servicesOfTheSameNature = "servicesOfTheSameNature"
-  val consumeSignificantTime = "consumeSignificantTime"
-  val seriesOfContract = "seriesOfContract"
+  val exclusiveContract = "exclusiveContract"
+  val transferRights = "transferRights"
+  val multipleEngagements = "multipleEngagements"
+  val significantWorkingTime = "significantWorkingTime"
+  val seriesOfContracts = "seriesOfContracts"
 }
 
 
