@@ -23,7 +23,8 @@ case class Interview(setup: Option[Setup] = None,
                      personalService: Option[PersonalService] = None,
                      control: Option[Control] = None,
                      financialRisk: Option[FinancialRisk] = None,
-                     partAndParcel: Option[PartAndParcel] = None)
+                     partAndParcel: Option[PartAndParcel] = None,
+                     businessOnOwnAccount: Option[BusinessOnOwnAccount] = None)
 
 object Interview {
   implicit val format: Format[Interview] = Json.format[Interview]

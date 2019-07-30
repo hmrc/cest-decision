@@ -16,7 +16,7 @@
 
 package uk.gov.hmrc.decisionservice.services
 
-import uk.gov.hmrc.decisionservice.models.Control
+import uk.gov.hmrc.decisionservice.models.BusinessOnOwnAccount
 import uk.gov.hmrc.play.test.UnitSpec
 
 class BusinessOnOwnAccountDecisionServiceSpec extends UnitSpec {
@@ -29,8 +29,7 @@ class BusinessOnOwnAccountDecisionServiceSpec extends UnitSpec {
 
       "return a None" in {
 
-        //TODO upate to use BusinessOnOwnAccount once it has been created
-        val actualResult = TestBusinessOnOwnAccountDecisionService.decide(Control(None, None, None, None))
+        val actualResult = TestBusinessOnOwnAccountDecisionService.decide(BusinessOnOwnAccount(None, None, None, None, None))
         val expectedResult = None
 
         await(actualResult) shouldBe expectedResult
