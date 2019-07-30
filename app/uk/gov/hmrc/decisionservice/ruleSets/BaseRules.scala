@@ -29,10 +29,11 @@ abstract class BaseRules @Inject()(appConfig: AppConfig) {
 
   def parseRules(section: String): Seq[RuleSet] = {
 
-    lazy val csvRules: List[String] = Source.fromFile(s"conf/tables/${appConfig.newDecisionVersion}/$section.csv").getLines.toList
+    lazy val file = Source.fromFile(s"conf/tables/${appConfig.newDecisionVersion}/$section.csv")
+    lazy val csvRules: List[String] = file.getLines.toList
     lazy val headers: List[String] = csvRules.head.split(",").toList
 
-    csvRules.tail.map { row =>
+    val resultSet = csvRules.tail.map { row =>
 
       val columns = row.split(",")
       val answers = columns.dropRight(1)
@@ -46,5 +47,8 @@ abstract class BaseRules @Inject()(appConfig: AppConfig) {
 
       RuleSet(JsObject(rules), result)
     }
+
+    file.close()
+    resultSet
   }
 }
