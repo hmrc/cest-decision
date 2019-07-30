@@ -22,5 +22,5 @@ import uk.gov.hmrc.decisionservice.models.RuleSet
 
 @Singleton()
 class MatrixOfMatricesRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
-  override val ruleSet: Seq[RuleSet] = parseRules("matrix-of-matrices")
+  override lazy val ruleSet: Seq[RuleSet] = parseRules("matrix-of-matrices")
 }

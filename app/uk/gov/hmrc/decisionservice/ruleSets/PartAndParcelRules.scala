@@ -22,5 +22,5 @@ import uk.gov.hmrc.decisionservice.models.RuleSet
 
 @Singleton()
 class PartAndParcelRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
-  override val ruleSet: Seq[RuleSet] = parseRules("part-and-parcel")
+  override lazy val ruleSet: Seq[RuleSet] = parseRules("part-and-parcel")
 }
