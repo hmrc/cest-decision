@@ -22,5 +22,5 @@ import uk.gov.hmrc.decisionservice.models.RuleSet
 
 @Singleton()
 class ControlRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
-  override val ruleSet: Seq[RuleSet] = parseRules("control")
+  override lazy val ruleSet: Seq[RuleSet] = parseRules("control")
 }

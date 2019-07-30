@@ -22,5 +22,5 @@ import uk.gov.hmrc.decisionservice.models.RuleSet
 
 @Singleton()
 class FinancialRiskRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
-  override val ruleSet: Seq[RuleSet] = parseRules("financial-risk")
+  override lazy val ruleSet: Seq[RuleSet] = parseRules("financial-risk")
 }

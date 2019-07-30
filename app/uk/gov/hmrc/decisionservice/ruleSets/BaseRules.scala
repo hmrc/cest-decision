@@ -29,7 +29,9 @@ abstract class BaseRules @Inject()(appConfig: AppConfig) {
 
   def parseRules(section: String): Seq[RuleSet] = {
 
-    lazy val file = Source.fromFile(s"conf/tables/${appConfig.newDecisionVersion}/$section.csv")
+    lazy val csv = getClass.getResourceAsStream(s"/tables/${appConfig.newDecisionVersion}/$section.csv")
+    lazy val file = Source.fromInputStream(csv)
+
     lazy val csvRules: List[String] = file.getLines.toList
     lazy val headers: List[String] = csvRules.head.split(",").toList
 
