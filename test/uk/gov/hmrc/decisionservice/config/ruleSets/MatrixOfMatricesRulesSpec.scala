@@ -16,22 +16,23 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
-import uk.gov.hmrc.decisionservice.models.enums.{ResultEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.models.enums.Section._
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
-import uk.gov.hmrc.decisionservice.util.TestFixture
-import uk.gov.hmrc.play.test.UnitSpec
+import uk.gov.hmrc.decisionservice.ruleSets.MatrixOfMatricesRules
 
-class MatrixOfMatricesRulesSpec extends UnitSpec with TestFixture with RuleSetHelperMethods {
+class MatrixOfMatricesRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  val json = MatrixOfMatricesRules.ruleSet
+  implicit def enumTuple[E <: Enumeration, B <: Enumeration](x: (E#Value, B#Value)): (String, Json.JsValueWrapper) = (x._1.toString, x._2)
 
-  "Contain all the expected InIR35 rules" in {
+  val ruleSet = app.injector.instanceOf[MatrixOfMatricesRules].ruleSet
 
-    val actual = (json \ WeightedAnswerEnum.INSIDE_IR35).get
+  "For all the expected InIR35 rules" should {
 
-    val expected = Json.arr(
+    val actual = ruleSet.filter(_.result == "INIR35").map(_.rules).toList
+
+    val expected = List(
       Json.obj(
         personalService -> MEDIUM,
         control -> MEDIUM,
@@ -142,15 +143,14 @@ class MatrixOfMatricesRulesSpec extends UnitSpec with TestFixture with RuleSetHe
       )
     )
 
-    actual shouldBe expected
-
+    checkRules(expected, actual)
   }
 
-  "Contain all the expected Indeterminate rules" in {
+  "For all the expected Indeterminate rules" should {
 
-    val actual = (json \ ResultEnum.UNKNOWN).get
+    val actual = ruleSet.filter(_.result == "UNKNOWN").map(_.rules).toList
 
-    val expected = Json.arr(
+    val expected = List(
       Json.obj(
         personalService -> MEDIUM,
         control -> MEDIUM,
@@ -189,7 +189,6 @@ class MatrixOfMatricesRulesSpec extends UnitSpec with TestFixture with RuleSetHe
       )
     )
 
-    actual shouldBe expected
-
+    checkRules(expected, actual)
   }
 }

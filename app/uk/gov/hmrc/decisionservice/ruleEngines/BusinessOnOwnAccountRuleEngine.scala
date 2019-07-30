@@ -14,19 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.config
+package uk.gov.hmrc.decisionservice.ruleEngines
 
 import javax.inject.Inject
-import play.api.Mode
-import play.api.{Configuration, Environment}
-import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import uk.gov.hmrc.decisionservice.models.Section
+import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 
-class AppConfig @Inject()(env: Environment, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
+import scala.concurrent.Future
 
-  val mode: Mode = env.mode
-  val gatherAnalytics: Boolean = runModeConfiguration.getOptional[Boolean]("analytics.gatherAnalytics").getOrElse(false)
-  val reportingPeriod = runModeConfiguration.getOptional[Int]("analytics.reportingPeriod").getOrElse(0)
+class BusinessOnOwnAccountRuleEngine @Inject()() {
 
-  val newDecisionVersion = servicesConfig.getString("newDecisionVersion")
-
+  def decide(section: Section): Future[Option[WeightedAnswerEnum.Value]] = Future.successful(None)
 }

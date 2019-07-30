@@ -16,21 +16,21 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.PartAndParcel._
 import uk.gov.hmrc.decisionservice.models.enums.{IdentifyToStakeholders, WeightedAnswerEnum}
-import uk.gov.hmrc.decisionservice.util.TestFixture
-import uk.gov.hmrc.play.test.UnitSpec
+import uk.gov.hmrc.decisionservice.ruleSets.PartAndParcelRules
 
-class PartParcelRulesSpec extends UnitSpec with TestFixture {
+class PartParcelRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  val json = PartAndParcelRules.ruleSet
+  implicit val ruleSet = app.injector.instanceOf[PartAndParcelRules].ruleSet
 
-  "Contain all the expected HIGH rules" in {
+  "For all the expected HIGH rules" should {
 
-    val actual = (json \ WeightedAnswerEnum.HIGH).get
+    val actual = getRules(WeightedAnswerEnum.HIGH)
 
-    val expected = Json.arr(
+    val expected = List(
       Json.obj(
         workerReceivesBenefits -> false,
         workerAsLineManager -> true
@@ -40,18 +40,15 @@ class PartParcelRulesSpec extends UnitSpec with TestFixture {
       )
     )
 
-    actual shouldBe expected
-
+    checkRules(expected, actual)
   }
 
-  "Contain all the expected MEDIUM rules" in {
+  "For all the expected MEDIUM rules" should {
 
-    val actual = (json \ WeightedAnswerEnum.MEDIUM).get
+    val actual = getRules(WeightedAnswerEnum.MEDIUM)
 
-    val expected = Json.arr(
+    val expected = List(
       Json.obj(
-        workerReceivesBenefits -> false,
-        workerAsLineManager -> false,
         contactWithEngagerCustomer -> true,
         workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
       ),
@@ -61,15 +58,12 @@ class PartParcelRulesSpec extends UnitSpec with TestFixture {
       )
     )
 
-    actual shouldBe expected
-
+    checkRules(expected, actual)
   }
 
-  "Contain all the expected LOW rules" in {
+  "for the expected LOW rules" should {
 
-    val actual = (json \ WeightedAnswerEnum.LOW).get
-
-    val expected = Json.arr(
+    val expected = List(
       Json.obj(
         contactWithEngagerCustomer -> false
       ),
@@ -78,7 +72,8 @@ class PartParcelRulesSpec extends UnitSpec with TestFixture {
       )
     )
 
-    actual shouldBe expected
+    val actual = ruleSet.filter(_.result == WeightedAnswerEnum.LOW.toString).map(_.rules).toList
 
+    checkRules(expected, actual)
   }
 }

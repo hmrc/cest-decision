@@ -14,28 +14,23 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.config.ruleSets
+package uk.gov.hmrc.decisionservice.ruleEngines
 
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
-import play.api.libs.json.Json
+import javax.inject.Inject
 import uk.gov.hmrc.decisionservice.models.Exit
 import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
 import uk.gov.hmrc.decisionservice.ruleSets.EarlyExitRules
 
-class EarlyExitRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
+import scala.concurrent.Future
 
-  implicit val ruleSet = app.injector.instanceOf[EarlyExitRules].ruleSet
+class ExitRuleEngine @Inject()(rules: EarlyExitRules) extends RuleEngine {
 
-  "For the IN rules" should {
-
-    val actual = getRules(ExitEnum.INSIDE_IR35)
-
-    val expected = List(
-      Json.obj(
-        Exit.officeHolder -> true
-      )
-    )
-
-    checkRules(expected, actual)
-  }
+  def decide(exit: Option[Exit]): Future[Option[ExitEnum.Value]] =
+    Future.successful(exit flatMap {
+      case Exit(None) => None
+      case section => {
+        val result = checkRules(section, rules.ruleSet)
+        Some(ExitEnum.withName(result))
+      }
+    })
 }

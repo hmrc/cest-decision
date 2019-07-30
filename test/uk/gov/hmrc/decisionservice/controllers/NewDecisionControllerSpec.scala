@@ -64,7 +64,7 @@ class NewDecisionControllerSpec extends UnitSpec with WithFakeApplication with T
         businessOnOwnAccount = Some(BusinessOnOwnAccount(None, None, None, None, None))
       ))
 
-      mockCalculateResult(decisionRequest)(_DecisionResponse("1.0.0-beta", "", Score(), ResultEnum.UNKNOWN))
+      mockCalculateResult(decisionRequest)(DecisionResponse("1.0.0-beta", "", Score(), ResultEnum.UNKNOWN))
 
       val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(toJson(decisionRequest))
 

@@ -14,19 +14,17 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.config
+package uk.gov.hmrc.decisionservice.controllers
 
 import javax.inject.Inject
-import play.api.Mode
-import play.api.{Configuration, Environment}
-import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
+import play.api.mvc.ControllerComponents
+import uk.gov.hmrc.play.bootstrap.controller.BackendController
 
-class AppConfig @Inject()(env: Environment, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
+import scala.concurrent.ExecutionContext
 
-  val mode: Mode = env.mode
-  val gatherAnalytics: Boolean = runModeConfiguration.getOptional[Boolean]("analytics.gatherAnalytics").getOrElse(false)
-  val reportingPeriod = runModeConfiguration.getOptional[Int]("analytics.reportingPeriod").getOrElse(0)
 
-  val newDecisionVersion = servicesConfig.getString("newDecisionVersion")
+class BaseController @Inject()(mcc: ControllerComponents) extends BackendController(mcc) {
+
+  implicit val ec: ExecutionContext = defaultExecutionContext
 
 }

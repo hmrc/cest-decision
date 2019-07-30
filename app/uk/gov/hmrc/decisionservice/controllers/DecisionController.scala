@@ -31,14 +31,10 @@ import uk.gov.hmrc.decisionservice.model.rules.{>>>, Facts}
 import uk.gov.hmrc.decisionservice.ruleengine.RuleEngineDecision
 import uk.gov.hmrc.decisionservice.services._
 import uk.gov.hmrc.decisionservice.{DecisionServiceVersions, Validation}
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
-import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
 
-
-
-class DecisionController @Inject()(mcc: MessagesControllerComponents) extends FrontendController(mcc) {
+class DecisionController @Inject()(mcc: MessagesControllerComponents) extends BaseController(mcc) {
 
   lazy val decisionServices = Map(
     DecisionServiceVersions.VERSION110_FINAL -> DecisionServiceInstance110Final,

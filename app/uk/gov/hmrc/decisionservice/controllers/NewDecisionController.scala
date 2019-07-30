@@ -22,19 +22,13 @@ import play.api.libs.json.{JsError, JsSuccess, JsValue, Json}
 import play.api.mvc.{Action, MessagesControllerComponents}
 import uk.gov.hmrc.decisionservice.model.api.ErrorCodes._
 import uk.gov.hmrc.decisionservice.model.api._
+import uk.gov.hmrc.decisionservice.models.DecisionRequest
 import uk.gov.hmrc.decisionservice.services._
-import uk.gov.hmrc.play.bootstrap.controller.FrontendController
 
-import scala.concurrent.{ExecutionContext, Future}
-
+import scala.concurrent.Future
 
 class NewDecisionController @Inject()(mcc: MessagesControllerComponents,
-                                      service: NewDecisionService) extends FrontendController(mcc) {
-
-
-  import uk.gov.hmrc.decisionservice.models.DecisionRequest
-
-  implicit val ec: ExecutionContext = defaultExecutionContext
+                                      service: NewDecisionService) extends BaseController(mcc) {
 
   def decide(): Action[JsValue] = Action.async(parse.json) { implicit request =>
 
@@ -55,6 +49,4 @@ class NewDecisionController @Inject()(mcc: MessagesControllerComponents,
 
     }
   }
-
-
 }

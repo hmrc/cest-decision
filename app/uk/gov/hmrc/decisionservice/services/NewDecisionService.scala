@@ -17,40 +17,33 @@
 package uk.gov.hmrc.decisionservice.services
 
 import com.google.inject.Inject
-import uk.gov.hmrc.decisionservice.models.{DecisionRequest, _DecisionResponse}
+import uk.gov.hmrc.decisionservice.models.{DecisionRequest, DecisionResponse}
 import uk.gov.hmrc.decisionservice.models.enums.SetupEnum
 
 import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.decisionservice.models.{DecisionResponse, Score}
+import uk.gov.hmrc.decisionservice.ruleEngines._
 
-class NewDecisionService @Inject()(controlDecisionService: ControlDecisionService,
-                                   exitDecisionService: ExitDecisionService,
-                                   financialRiskDecisionService: FinancialRiskDecisionService,
-                                   personalServiceDecisionService: PersonalServiceDecisionService,
-                                   partAndParcelDecisionService: PartAndParcelDecisionService,
-                                   resultService: ResultService) {
+class NewDecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
+                                   earlyExitRuleEngine: ExitRuleEngine,
+                                   financialRiskRuleEngine: FinancialRiskRuleEngine,
+                                   personalServiceRuleEngine: PersonalServiceRuleEngine,
+                                   partAndParcelRuleEngine: PartAndParcelRuleEngine,
+                                   resultRuleEngine: ResultRuleEngine) {
 
-
-  def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[_DecisionResponse] = {
-
-    import uk.gov.hmrc.decisionservice.models.{Score, _DecisionResponse}
+  def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[DecisionResponse] = {
 
     val interview = request.interview
-    val setup: Option[SetupEnum.Value] = None
-
-    val _exitDecisionService = exitDecisionService.decide(interview.exit)
-    val _personalServiceDecisionService = personalServiceDecisionService.decide(interview.personalService)
-    val _controlDecisionService = controlDecisionService.decide(interview.control)
-    val _financialRiskDecisionService = financialRiskDecisionService.decide(interview.financialRisk)
-    val _partAndParcelDecisionService = partAndParcelDecisionService.decide(interview.partAndParcel)
 
     for {
-      exit <- _exitDecisionService
-      personalService <- _personalServiceDecisionService
-      control <- _controlDecisionService
-      financialRisk <- _financialRiskDecisionService
-      partAndParcel <- _partAndParcelDecisionService
-      result <- resultService.decide(Score(None, exit, personalService, control, financialRisk, partAndParcel))
+      exit <- earlyExitRuleEngine.decide(interview.exit)
+      personalService <- personalServiceRuleEngine.decide(interview.personalService)
+      control <- controlRuleEngine.decide(interview.control)
+      financialRisk <- financialRiskRuleEngine.decide(interview.financialRisk)
+      partAndParcel <- partAndParcelRuleEngine.decide(interview.partAndParcel)
+      score = Score(None, exit, personalService, control, financialRisk, partAndParcel)
+      result <- resultRuleEngine.decide(score)
 
-    } yield _DecisionResponse(request.version, request.correlationID, Score(setup, exit, personalService, control, financialRisk, partAndParcel), result)
+    } yield DecisionResponse(request.version, request.correlationID, score, result)
   }
 }
