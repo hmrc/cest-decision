@@ -18,7 +18,7 @@ package uk.gov.hmrc.decisionservice.services
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.models.PersonalService
-import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.decisionservice.models.enums.{PossibleSubstituteRejection, WeightedAnswerEnum, WorkerSentActualSubstitute}
 import uk.gov.hmrc.decisionservice.ruleEngines.PersonalServiceRuleEngine
 import uk.gov.hmrc.decisionservice.ruleSets.PersonalServiceRules
 import uk.gov.hmrc.play.test.UnitSpec
@@ -37,9 +37,9 @@ class PersonalServiceRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
         val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
         val actualAnswer = TestControlDecisionServiceRuleEngine.decide(Some(PersonalService(
-          Some("yesClientAgreed"),
+          Some(WorkerSentActualSubstitute.yesClientAgreed),
           Some(true),
-          Some("wouldNotReject"),
+          Some(PossibleSubstituteRejection.wouldNotReject),
           Some(true),
           Some(true)
         )))

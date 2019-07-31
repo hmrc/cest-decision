@@ -14,13 +14,16 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models
+package uk.gov.hmrc.decisionservice.models.enums
 
-import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.decisionservice.models.enums.{EndUserRole, ProvideServices}
+import play.api.libs.json.Format
 
-case class Setup(endUserRole: Option[EndUserRole.Value], hasContractStarted: Option[Boolean], provideServices: Option[ProvideServices.Value]) extends Section
+object ProvideServices extends Enumeration with EnumFormats {
 
-object Setup {
-  implicit val format: Format[Setup] = Json.format[Setup]
+  val limitedCompany: ProvideServices.Value = Value("limitedCompany")
+  val partnership: ProvideServices.Value = Value("partnership")
+  val intermediary: ProvideServices.Value = Value("intermediary")
+  val soleTrader: ProvideServices.Value = Value("soleTrader")
+
+  implicit val format: Format[ProvideServices.Value] = enumFormat(ProvideServices)
 }

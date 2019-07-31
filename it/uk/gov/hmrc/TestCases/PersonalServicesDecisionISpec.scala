@@ -1,6 +1,7 @@
 package uk.gov.hmrc.TestCases
 
 import play.api.libs.json.Json.obj
+import uk.gov.hmrc.decisionservice.models.PersonalService
 
 class PersonalServicesDecisionISpec extends BaseISpec {
 
@@ -31,8 +32,8 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
               "workerSentActualSubstitute" -> "noSubstitutionHappened",
-              "possibleSubstituteRejection" -> "wouldNotReject",
-              "possibleSubstituteWorkerPay" -> true
+              PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+              PersonalService.possibleSubstituteWorkerPay -> true
             ))
           )
 
@@ -80,8 +81,8 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
               "workerSentActualSubstitute" -> "noSubstitutionHappened",
-              "possibleSubstituteRejection" -> "wouldNotReject",
-              "possibleSubstituteWorkerPay" -> false,
+              PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+              PersonalService.possibleSubstituteWorkerPay -> false,
               "wouldWorkerPayHelper" -> true
             ))
           )
@@ -97,8 +98,8 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
               "workerSentActualSubstitute" -> "noSubstitutionHappened",
-              "possibleSubstituteRejection" -> "wouldNotReject",
-              "possibleSubstituteWorkerPay" -> false,
+              PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+              PersonalService.possibleSubstituteWorkerPay -> false,
               "wouldWorkerPayHelper" -> false
             ))
           )
@@ -114,7 +115,7 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
               "workerSentActualSubstitute" -> "noSubstitutionHappened",
-              "possibleSubstituteRejection" -> "wouldReject",
+              PersonalService.possibleSubstituteRejection -> "wouldReject",
               "wouldWorkerPayHelper" -> true
             ))
           )
@@ -131,7 +132,7 @@ class PersonalServicesDecisionISpec extends BaseISpec {
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
               "workerSentActualSubstitute" -> "noSubstitutionHappened",
-              "possibleSubstituteRejection" -> "wouldReject",
+              PersonalService.possibleSubstituteRejection -> "wouldReject",
               "wouldWorkerPayHelper" -> false
             ))
           )
@@ -177,8 +178,8 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              "possibleSubstituteRejection" -> "wouldNotReject",
-              "possibleSubstituteWorkerPay" -> true
+              PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+              PersonalService.possibleSubstituteWorkerPay -> true
             ))
           )
 
@@ -193,8 +194,8 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              "possibleSubstituteRejection" -> "wouldNotReject",
-              "possibleSubstituteWorkerPay" -> false
+              PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+              PersonalService.possibleSubstituteWorkerPay -> false
             ))
           )
 
@@ -207,7 +208,7 @@ class PersonalServicesDecisionISpec extends BaseISpec {
         "Scenario 13: return a 200, a HIGH for personal services" in {
 
           lazy val res = postRequest(engine.path,
-            interview(personalService = obj("possibleSubstituteRejection" -> "wouldReject"))
+            interview(personalService = obj(PersonalService.possibleSubstituteRejection -> "wouldReject"))
           )
 
           whenReady(res) { result =>

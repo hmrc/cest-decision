@@ -1,6 +1,8 @@
 package uk.gov.hmrc.TestCases
 
 import play.api.libs.json.Json.obj
+import uk.gov.hmrc.decisionservice.models.{Control, FinancialRisk, PartAndParcel, PersonalService}
+import uk.gov.hmrc.decisionservice.models.enums.IdentifyToStakeholders
 
 class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
@@ -15,29 +17,29 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
           lazy val res = postRequest(engine.path,
             interview(
               personalService = obj(
-                "possibleSubstituteRejection" -> "wouldNotReject",
-                "possibleSubstituteWorkerPay" -> false
+                PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+                PersonalService.possibleSubstituteWorkerPay -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-                "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-                "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-                "workerDecideWhere" -> "noLocationRequired"
+                Control.engagerMovingWorker -> "cannotMoveWorkerWithoutNewAgreement",
+                Control.workerDecidingHowWorkIsDone -> "workerDecidesWithoutInput",
+                Control.whenWorkHasToBeDone -> "scheduleDecidedForWorker",
+                Control.workerDecideWhere -> "noLocationRequired"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> false,
-                "expensesAreNotRelevantForRole" -> true,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> false,
+                FinancialRisk.expensesAreNotRelevantForRole -> true,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> true,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workerRepresentsEngagerBusiness"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> true,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -57,29 +59,29 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
           lazy val res = postRequest(engine.path,
             interview(
               personalService = obj(
-                "possibleSubstituteRejection" -> "wouldNotReject",
-                "possibleSubstituteWorkerPay" -> false
+                PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+                PersonalService.possibleSubstituteWorkerPay -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-                "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-                "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-                "workerDecideWhere" -> "noLocationRequired"
+                Control.engagerMovingWorker -> "cannotMoveWorkerWithoutNewAgreement",
+                Control.workerDecidingHowWorkIsDone -> "workerDecidesWithoutInput",
+                Control.whenWorkHasToBeDone -> "scheduleDecidedForWorker",
+                Control.workerDecideWhere -> "noLocationRequired"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> false,
-                "expensesAreNotRelevantForRole" -> true,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> false,
+                FinancialRisk.expensesAreNotRelevantForRole -> true,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> true,
-                "workerRepresentsEngagerBusiness" -> "workForEndClient"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> true,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -99,29 +101,29 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
           lazy val res = postRequest(engine.path,
             interview(
               personalService = obj(
-                "possibleSubstituteRejection" -> "wouldNotReject",
-                "possibleSubstituteWorkerPay" -> false
+                PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+                PersonalService.possibleSubstituteWorkerPay -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-                "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-                "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-                "workerDecideWhere" -> "noLocationRequired"
+                Control.engagerMovingWorker -> "cannotMoveWorkerWithoutNewAgreement",
+                Control.workerDecidingHowWorkIsDone -> "workerDecidesWithoutInput",
+                Control.whenWorkHasToBeDone -> "scheduleDecidedForWorker",
+                Control.workerDecideWhere -> "noLocationRequired"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> false,
-                "expensesAreNotRelevantForRole" -> true,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> false,
+                FinancialRisk.expensesAreNotRelevantForRole -> true,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workAsBusiness"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsBusiness
               )
             )
           )
@@ -141,29 +143,29 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
           lazy val res = postRequest(engine.path,
             interview(
               personalService = obj(
-                "possibleSubstituteRejection" -> "wouldNotReject",
-                "possibleSubstituteWorkerPay" -> false
+                PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+                PersonalService.possibleSubstituteWorkerPay -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "noLocationRequired"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "noLocationRequired"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> false,
-                "expensesAreNotRelevantForRole" -> true,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> false,
+                FinancialRisk.expensesAreNotRelevantForRole -> true,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workAsBusiness"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsBusiness
               )
             )
           )
@@ -183,29 +185,29 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
           lazy val res = postRequest(engine.path,
             interview(
               personalService = obj(
-                "possibleSubstituteRejection" -> "wouldNotReject",
-                "possibleSubstituteWorkerPay" -> false
+                PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+                PersonalService.possibleSubstituteWorkerPay -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "noLocationRequired"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "noLocationRequired"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> false,
-                "expensesAreNotRelevantForRole" -> true,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> false,
+                FinancialRisk.expensesAreNotRelevantForRole -> true,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> true,
-                "workerRepresentsEngagerBusiness" -> "workAsBusiness"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> true,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsBusiness
               )
             )
           )
@@ -225,29 +227,29 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
           lazy val res = postRequest(engine.path,
             interview(
               personalService = obj(
-                "possibleSubstituteRejection" -> "wouldNotReject",
-                "possibleSubstituteWorkerPay" -> false
+                PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+                PersonalService.possibleSubstituteWorkerPay -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "noLocationRequired"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "noLocationRequired"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> false,
-                "expensesAreNotRelevantForRole" -> true,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> false,
+                FinancialRisk.expensesAreNotRelevantForRole -> true,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> true,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workerRepresentsEngagerBusiness"
+                PartAndParcel.workerReceivesBenefits -> true,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -271,25 +273,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "workerChooses"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "workerChooses"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> false,
-                "expensesAreNotRelevantForRole" -> true,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> false,
+                FinancialRisk.expensesAreNotRelevantForRole -> true,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> true,
-                "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> true,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
               )
             )
           )
@@ -313,25 +315,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "workerChooses"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "workerChooses"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> false,
-                "expensesAreNotRelevantForRole" -> true,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> false,
+                FinancialRisk.expensesAreNotRelevantForRole -> true,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> true,
-                "workerRepresentsEngagerBusiness" -> "workForEndClient"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> true,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -355,25 +357,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "workerChooses"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "workerChooses"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> false,
-                "expensesAreNotRelevantForRole" -> true,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> false,
+                FinancialRisk.expensesAreNotRelevantForRole -> true,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> true,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workerRepresentsEngagerBusiness"
+                PartAndParcel.workerReceivesBenefits -> true,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -397,25 +399,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "workerCannotChoose"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "workerCannotChoose"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> false,
-                "expensesAreNotRelevantForRole" -> true,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> false,
+                FinancialRisk.expensesAreNotRelevantForRole -> true,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> true,
-                "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> true,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
               )
             )
           )
@@ -439,25 +441,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "workerCannotChoose"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "workerCannotChoose"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> false,
-                "expensesAreNotRelevantForRole" -> true,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> false,
+                FinancialRisk.expensesAreNotRelevantForRole -> true,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> true,
-                "workerRepresentsEngagerBusiness" -> "workForEndClient"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> true,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -481,25 +483,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "workerCannotChoose"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "workerCannotChoose"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> false,
-                "expensesAreNotRelevantForRole" -> true,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> false,
+                FinancialRisk.expensesAreNotRelevantForRole -> true,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> true,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workerRepresentsEngagerBusiness"
+                PartAndParcel.workerReceivesBenefits -> true,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -523,25 +525,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "workerCannotChoose"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "workerCannotChoose"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> true,
-                "expensesAreNotRelevantForRole" -> false,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> true,
+                FinancialRisk.expensesAreNotRelevantForRole -> false,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workAsBusiness"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsBusiness
               )
             )
           )
@@ -565,25 +567,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "workerCannotChoose"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "workerCannotChoose"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> true,
-                "expensesAreNotRelevantForRole" -> false,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> true,
+                FinancialRisk.expensesAreNotRelevantForRole -> false,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> true,
-                "workerRepresentsEngagerBusiness" -> "workForEndClient"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> true,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -607,25 +609,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> true
               ),
               control = obj(
-                "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-                "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-                "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-                "workerDecideWhere" -> "workerAgreeWithOthers"
+                Control.engagerMovingWorker -> "cannotMoveWorkerWithoutNewAgreement",
+                Control.workerDecidingHowWorkIsDone -> "workerDecidesWithoutInput",
+                Control.whenWorkHasToBeDone -> "scheduleDecidedForWorker",
+                Control.workerDecideWhere -> "workerAgreeWithOthers"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> true,
-                "expensesAreNotRelevantForRole" -> false,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> true,
+                FinancialRisk.expensesAreNotRelevantForRole -> false,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workAsBusiness"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsBusiness
               )
             )
           )
@@ -649,25 +651,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> true
               ),
               control = obj(
-                "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-                "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-                "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-                "workerDecideWhere" -> "workerAgreeWithOthers"
+                Control.engagerMovingWorker -> "cannotMoveWorkerWithoutNewAgreement",
+                Control.workerDecidingHowWorkIsDone -> "workerDecidesWithoutInput",
+                Control.whenWorkHasToBeDone -> "scheduleDecidedForWorker",
+                Control.workerDecideWhere -> "workerAgreeWithOthers"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> true,
-                "expensesAreNotRelevantForRole" -> false,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> true,
+                FinancialRisk.expensesAreNotRelevantForRole -> false,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> true,
-                "workerRepresentsEngagerBusiness" -> "workForEndClient"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> true,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -691,25 +693,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> true
               ),
               control = obj(
-                "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-                "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-                "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-                "workerDecideWhere" -> "workerAgreeWithOthers"
+                Control.engagerMovingWorker -> "cannotMoveWorkerWithoutNewAgreement",
+                Control.workerDecidingHowWorkIsDone -> "workerDecidesWithoutInput",
+                Control.whenWorkHasToBeDone -> "scheduleDecidedForWorker",
+                Control.workerDecideWhere -> "workerAgreeWithOthers"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> true,
-                "expensesAreNotRelevantForRole" -> false,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> true,
+                FinancialRisk.expensesAreNotRelevantForRole -> false,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> true,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workerRepresentsEngagerBusiness"
+                PartAndParcel.workerReceivesBenefits -> true,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -733,25 +735,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> true
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "workerAgreeWithOthers"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "workerAgreeWithOthers"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> true,
-                "expensesAreNotRelevantForRole" -> false,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> true,
+                FinancialRisk.expensesAreNotRelevantForRole -> false,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workAsBusiness"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsBusiness
               )
             )
           )
@@ -775,25 +777,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> true
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "workerAgreeWithOthers"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "workerAgreeWithOthers"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> true,
-                "expensesAreNotRelevantForRole" -> false,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> true,
+                FinancialRisk.expensesAreNotRelevantForRole -> false,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> true,
-                "workerRepresentsEngagerBusiness" -> "workForEndClient"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> true,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -817,25 +819,25 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 "wouldWorkerPayHelper" -> true
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "workerAgreeWithOthers"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "workerAgreeWithOthers"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> true,
-                "expensesAreNotRelevantForRole" -> false,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> true,
+                FinancialRisk.expensesAreNotRelevantForRole -> false,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> true,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workerRepresentsEngagerBusiness"
+                PartAndParcel.workerReceivesBenefits -> true,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -856,29 +858,29 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
             interview(
               personalService = obj(
                 "workerSentActualSubstitute" -> "noSubstitutionHappened",
-                "possibleSubstituteRejection" -> "wouldReject",
+                PersonalService.possibleSubstituteRejection -> "wouldReject",
                 "wouldWorkerPayHelper" -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-                "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-                "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-                "workerDecideWhere" -> "workerChooses"
+                Control.engagerMovingWorker -> "cannotMoveWorkerWithoutNewAgreement",
+                Control.workerDecidingHowWorkIsDone -> "workerDecidesWithoutInput",
+                Control.whenWorkHasToBeDone -> "scheduleDecidedForWorker",
+                Control.workerDecideWhere -> "workerChooses"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> true,
-                "expensesAreNotRelevantForRole" -> false,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> true,
+                FinancialRisk.expensesAreNotRelevantForRole -> false,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> true,
-                "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> true,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
               )
             )
           )
@@ -899,29 +901,29 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
             interview(
               personalService = obj(
                 "workerSentActualSubstitute" -> "noSubstitutionHappened",
-                "possibleSubstituteRejection" -> "wouldReject",
+                PersonalService.possibleSubstituteRejection -> "wouldReject",
                 "wouldWorkerPayHelper" -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-                "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-                "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-                "workerDecideWhere" -> "workerChooses"
+                Control.engagerMovingWorker -> "cannotMoveWorkerWithoutNewAgreement",
+                Control.workerDecidingHowWorkIsDone -> "workerDecidesWithoutInput",
+                Control.whenWorkHasToBeDone -> "scheduleDecidedForWorker",
+                Control.workerDecideWhere -> "workerChooses"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> true,
-                "expensesAreNotRelevantForRole" -> false,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> true,
+                FinancialRisk.expensesAreNotRelevantForRole -> false,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> false,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> true,
-                "workerRepresentsEngagerBusiness" -> "workForEndClient"
+                PartAndParcel.workerReceivesBenefits -> false,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> true,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -942,29 +944,29 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
             interview(
               personalService = obj(
                 "workerSentActualSubstitute" -> "noSubstitutionHappened",
-                "possibleSubstituteRejection" -> "wouldReject",
+                PersonalService.possibleSubstituteRejection -> "wouldReject",
                 "wouldWorkerPayHelper" -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-                "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-                "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-                "workerDecideWhere" -> "workerChooses"
+                Control.engagerMovingWorker -> "cannotMoveWorkerWithoutNewAgreement",
+                Control.workerDecidingHowWorkIsDone -> "workerDecidesWithoutInput",
+                Control.whenWorkHasToBeDone -> "scheduleDecidedForWorker",
+                Control.workerDecideWhere -> "workerChooses"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> true,
-                "expensesAreNotRelevantForRole" -> false,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> true,
+                FinancialRisk.expensesAreNotRelevantForRole -> false,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> true,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workerRepresentsEngagerBusiness"
+                PartAndParcel.workerReceivesBenefits -> true,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )
@@ -985,29 +987,29 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
             interview(
               personalService = obj(
                 "workerSentActualSubstitute" -> "noSubstitutionHappened",
-                "possibleSubstituteRejection" -> "wouldReject",
+                PersonalService.possibleSubstituteRejection -> "wouldReject",
                 "wouldWorkerPayHelper" -> false
               ),
               control = obj(
-                "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-                "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-                "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-                "workerDecideWhere" -> "workerAgreeWithOthers"
+                Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",
+                Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",
+                Control.whenWorkHasToBeDone -> "noScheduleRequiredOnlyDeadlines",
+                Control.workerDecideWhere -> "workerAgreeWithOthers"
               ),
               financialRisk = obj(
-                "workerProvidedMaterials" -> false,
-                "workerProvidedEquipment" -> false,
-                "workerUsedVehicle" -> false,
-                "workerHadOtherExpenses" -> true,
-                "expensesAreNotRelevantForRole" -> false,
-                "workerMainIncome" -> "incomeCalendarPeriods",
-                "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+                FinancialRisk.workerProvidedMaterials -> false,
+                FinancialRisk.workerProvidedEquipment -> false,
+                FinancialRisk.workerUsedVehicle -> false,
+                FinancialRisk.workerHadOtherExpenses -> true,
+                FinancialRisk.expensesAreNotRelevantForRole -> false,
+                FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+                FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
               ),
               partAndParcel = obj(
-                "workerReceivesBenefits" -> true,
-                "workerAsLineManager" -> false,
-                "contactWithEngagerCustomer" -> false,
-                "workerRepresentsEngagerBusiness" -> "workerRepresentsEngagerBusiness"
+                PartAndParcel.workerReceivesBenefits -> true,
+                PartAndParcel.workerAsLineManager -> false,
+                PartAndParcel.contactWithEngagerCustomer -> false,
+                PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
               )
             )
           )

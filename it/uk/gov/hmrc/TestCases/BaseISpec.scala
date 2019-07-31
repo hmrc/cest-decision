@@ -3,6 +3,8 @@ package uk.gov.hmrc.TestCases
 import play.api.http.Status
 import play.api.libs.json.Json.obj
 import play.api.libs.json.{JsValue, Json}
+import uk.gov.hmrc.decisionservice.models.{Control, FinancialRisk, PartAndParcel}
+import uk.gov.hmrc.decisionservice.models.enums.IdentifyToStakeholders
 import uk.gov.hmrc.helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
 
 trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData {
@@ -25,27 +27,27 @@ trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status
     "wouldWorkerPayHelper" -> false
   )
   val defaultControl = obj(
-    "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-    "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-    "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-    "workerDecideWhere" -> "workerAgreeWithOthers"
+    Control.engagerMovingWorker -> "cannotMoveWorkerWithoutNewAgreement",
+    Control.workerDecidingHowWorkIsDone -> "workerAgreeWithOthers",
+    Control.whenWorkHasToBeDone -> "workerAgreeSchedule",
+    Control.workerDecideWhere -> "workerAgreeWithOthers"
   )
 
   val defaultFinancialRisk = obj(
-    "workerProvidedMaterials" -> false,
-    "workerProvidedEquipment" -> false,
-    "workerUsedVehicle" -> false,
-    "workerHadOtherExpenses" -> false,
-    "expensesAreNotRelevantForRole" -> true,
-    "workerMainIncome" -> "incomeCalendarPeriods",
-    "paidForSubstandardWork" -> "cannotBeCorrected"
+    FinancialRisk.workerProvidedMaterials -> false,
+    FinancialRisk.workerProvidedEquipment -> false,
+    FinancialRisk.workerUsedVehicle -> false,
+    FinancialRisk.workerHadOtherExpenses -> false,
+    FinancialRisk.expensesAreNotRelevantForRole -> true,
+    FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
+    FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
   )
 
   val defaultPartAndParcel = obj(
-    "workerReceivesBenefits" -> false,
-    "workerAsLineManager" -> false,
-    "contactWithEngagerCustomer" -> true,
-    "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+    PartAndParcel.workerReceivesBenefits -> false,
+    PartAndParcel.workerAsLineManager -> false,
+    PartAndParcel.contactWithEngagerCustomer -> true,
+    PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
   )
 
   def interview(exit: JsValue = defaultExit,

@@ -17,12 +17,13 @@
 package uk.gov.hmrc.decisionservice.models
 
 import play.api.libs.json.{Format, Json}
+import uk.gov.hmrc.decisionservice.models.enums.{ExclusiveContract, MultipleEngagements, SeriesOfContracts, TransferRights}
 
-case class BusinessOnOwnAccount(exclusiveContract: Option[String] = None,
-                                transferRights: Option[String] = None,
-                                multipleEngagements: Option[String] = None,
+case class BusinessOnOwnAccount(exclusiveContract: Option[ExclusiveContract.Value] = None,
+                                transferRights: Option[TransferRights.Value] = None,
+                                multipleEngagements: Option[MultipleEngagements.Value] = None,
                                 significantWorkingTime: Option[Boolean] = None,
-                                seriesOfContracts: Option[String] = None) extends Section
+                                seriesOfContracts: Option[SeriesOfContracts.Value] = None) extends Section
 
 object BusinessOnOwnAccount {
   implicit val format: Format[BusinessOnOwnAccount] = Json.format[BusinessOnOwnAccount]

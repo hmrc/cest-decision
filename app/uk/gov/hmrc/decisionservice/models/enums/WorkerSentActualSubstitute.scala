@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models
+package uk.gov.hmrc.decisionservice.models.enums
 
-import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.decisionservice.models.enums.{EndUserRole, ProvideServices}
+import play.api.libs.json.Format
 
-case class Setup(endUserRole: Option[EndUserRole.Value], hasContractStarted: Option[Boolean], provideServices: Option[ProvideServices.Value]) extends Section
+object WorkerSentActualSubstitute extends Enumeration with EnumFormats {
 
-object Setup {
-  implicit val format: Format[Setup] = Json.format[Setup]
+  val yesClientAgreed: WorkerSentActualSubstitute.Value = Value("yesClientAgreed")
+  val notAgreedWithClient: WorkerSentActualSubstitute.Value = Value("notAgreedWithClient")
+  val noSubstitutionHappened: WorkerSentActualSubstitute.Value = Value("noSubstitutionHappened")
+
+  implicit val format: Format[WorkerSentActualSubstitute.Value] = enumFormat(WorkerSentActualSubstitute)
 }
