@@ -18,51 +18,117 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
     "return a 200 and continue response given a early exit request" in {
 
       val jsonBody = Json.toJson(
-        DecisionRequest("1.5.0-final","session-12345",Map("setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),
-        "exit" -> Map("officeHolder" -> "No"),
-        "personalService" -> Map(),"control"-> Map(),
-        "financialRisk" -> Map(FinancialRisk.expensesAreNotRelevantForRole -> "No"),"partAndParcel"-> Map()))
+
+        DecisionRequest("1.5.0-final",
+          "session-12345",Map("setup" -> Map("endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+            "exit" -> Map("officeHolder" -> "No"
+            ),
+            "personalService" -> Map(),
+            "control"-> Map(),
+            "financialRisk" -> Map(FinancialRisk.expensesAreNotRelevantForRole -> "No"
+            ),
+            "partAndParcel"-> Map()
+          )
+        )
+
       )
 
-      val expectedResponse = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val expectedResponse = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
 
       lazy val res = postRequest("/decide", jsonBody)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(expectedResponse)
+        result.json should equal(expectedResponse)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val jsonBody = Json.toJson(DecisionRequest("1.5.0-final","session-12345",
-        Map("setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),
-          "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,PersonalService.wouldWorkerPayHelper -> "No"))))
+      val jsonBody = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",
+          Map("setup" -> Map("endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+            "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,PersonalService.wouldWorkerPayHelper -> "No"
+            )
+          )
+        )
+      )
 
       lazy val res = postRequest("/decide", jsonBody)
 
-      val expectedResult = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val expectedResult = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(expectedResult)
+        result.json should equal(expectedResult)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val jsonBody = Json.toJson(DecisionRequest("1.5.0-final","session-12345",
-        Map("setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),"control" -> Map(Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose))))
+      val jsonBody = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",
+          Map("setup" -> Map("endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+            "control" -> Map(Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose)
+          )
+        )
+      )
 
       lazy val res = postRequest("/decide",jsonBody)
 
-      val expectedResult = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"HIGH","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val expectedResult = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "HIGH",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(expectedResult)
+        result.json should equal(expectedResult)
       }
     }
 
@@ -70,38 +136,92 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
 
       val jsonBody = Json.toJson(
-        DecisionRequest("1.5.0-final","session-12345",Map(
-          "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),
-          "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours))))
+
+        DecisionRequest("1.5.0-final",
+          "session-12345",Map(
+            "setup" -> Map("endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> "Yes",
+              "provideServices" -> "limitedCompany"
+            ),
+            "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",
+              FinancialRisk.workerProvidedEquipment -> "No",
+              FinancialRisk.workerUsedVehicle -> "No",
+              FinancialRisk.workerHadOtherExpenses -> "No",
+              FinancialRisk.expensesAreNotRelevantForRole -> "Yes",
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours)
+          )
+        )
+      )
 
       lazy val res = postRequest("/decide",jsonBody)
 
-      val expectedResult = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"LOW","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val expectedResult = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "LOW",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(expectedResult)
+        result.json should equal(expectedResult)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
 
-      val jsonBody = Json.toJson(DecisionRequest("1.5.0-final","session-12345",
-        Map("setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),
-          "exit" -> Map ("officeHolder" -> "No"),
-          "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,PersonalService.wouldWorkerPayHelper -> "No"),
-          "control" -> Map(Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose),
-          "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours),
-          "partAndParcel" -> Map(PartAndParcel.workerReceivesBenefits -> "No",PartAndParcel.workerAsLineManager -> "No",PartAndParcel.contactWithEngagerCustomer -> "Yes",PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent))))
+      val jsonBody = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",
+          Map("setup" -> Map("endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+            "exit" -> Map ("officeHolder" -> "No"
+            ),
+            "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,PersonalService.wouldWorkerPayHelper -> "No"
+            ),
+            "control" -> Map(Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose),
+            "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",
+              FinancialRisk.workerProvidedEquipment -> "No",
+              FinancialRisk.workerUsedVehicle -> "No",
+              FinancialRisk.workerHadOtherExpenses -> "No",
+              FinancialRisk.expensesAreNotRelevantForRole -> "Yes",
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours),
+            "partAndParcel" -> Map(PartAndParcel.workerReceivesBenefits -> "No",PartAndParcel.workerAsLineManager -> "No",PartAndParcel.contactWithEngagerCustomer -> "Yes",PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent)
+          )
+        )
+      )
 
       lazy val res = postRequest("/decide",jsonBody)
 
-      val expectedResult = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"LOW","financialRisk":"LOW","personalService":"HIGH","exit":"CONTINUE","control":"HIGH","setup":"CONTINUE"},"result":"Inside IR35"}"""
+      val expectedResult = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "LOW",
+          "financialRisk" -> "LOW",
+          "personalService" -> "HIGH",
+          "exit" -> "CONTINUE",
+          "control" -> "HIGH",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Inside IR35"
+      )
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(expectedResult)
+        result.json should equal(expectedResult)
       }
     }
 
@@ -111,90 +231,207 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase2a = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
-        "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "exit" -> Map("officeHolder" -> "No"),
-        "personalService" -> Map(),
-        "control"-> Map(),
-        "financialRisk" -> Map(FinancialRisk.expensesAreNotRelevantForRole -> "No"),
-        "partAndParcel"-> Map())))
+      val decisionCase2a = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",Map(
+            "setup" -> Map("endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> "Yes",
+              "provideServices" -> "soleTrader"
+            ),
+            "exit" -> Map("officeHolder" -> "No"
+            ),
+            "personalService" -> Map(),
+            "control"-> Map(),
+            "financialRisk" -> Map(FinancialRisk.expensesAreNotRelevantForRole -> "No"
+            ),
+            "partAndParcel"-> Map()
+          )
+        )
+      )
 
-      val decisionRespone2 = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionRespone2 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
 
       lazy val res = postRequest("/decide",decisionCase2a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone2)
+        result.json should equal(decisionRespone2)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase2b = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
-        "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,PersonalService.wouldWorkerPayHelper -> "No"))))
+      val decisionCase2b = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",Map(
+            "setup" -> Map("endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> "Yes",
+              "provideServices" -> "soleTrader"
+            ),
+            "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,PersonalService.wouldWorkerPayHelper -> "No"
+            )
+          )
+        )
+      )
 
-      val decisionRespone2b = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionRespone2b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
 
       lazy val res = postRequest("/decide",decisionCase2b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone2b)
+        result.json should equal(decisionRespone2b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase2c = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
-        "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "control" -> Map(Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose))))
+      val decisionCase2c = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",Map(
+            "setup" -> Map("endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> "Yes",
+              "provideServices" -> "soleTrader"
+            ),
+            "control" -> Map(Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose)
+          )
+        )
+      )
 
-      val decisionRespone2c = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionRespone2c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
 
       lazy val res = postRequest("/decide",decisionCase2c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone2c)
+        result.json should equal(decisionRespone2c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase2d = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
-        "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours))))
+      val decisionCase2d = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",Map(
+            "setup" -> Map("endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> "Yes",
+              "provideServices" -> "soleTrader"
+            ),
+            "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",
+              FinancialRisk.workerProvidedEquipment -> "No",
+              FinancialRisk.workerUsedVehicle -> "No",
+              FinancialRisk.workerHadOtherExpenses -> "No",
+              FinancialRisk.expensesAreNotRelevantForRole -> "Yes",
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours)
+          )
+        )
+      )
 
-      val decisionRespone2d = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"LOW","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionRespone2d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "LOW",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
 
       lazy val res = postRequest("/decide",decisionCase2d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone2d)
+        result.json should equal(decisionRespone2d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase2e = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
-        "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "exit" -> Map ("officeHolder" -> "No"),
-        "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,PersonalService.wouldWorkerPayHelper -> "No"),
-        "control" -> Map(Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose),
-        "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours),
-        "partAndParcel" -> Map(PartAndParcel.workerReceivesBenefits -> "No",PartAndParcel.workerAsLineManager -> "No",PartAndParcel.contactWithEngagerCustomer -> "Yes",PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent))))
+      val decisionCase2e = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",Map(
+            "setup" -> Map("endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> "Yes",
+              "provideServices" -> "soleTrader"
+            ),
+            "exit" -> Map ("officeHolder" -> "No"
+            ),
+            "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,PersonalService.wouldWorkerPayHelper -> "No"
+            ),
+            "control" -> Map(Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose),
+            "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",
+              FinancialRisk.workerProvidedEquipment -> "No",
+              FinancialRisk.workerUsedVehicle -> "No",
+              FinancialRisk.workerHadOtherExpenses -> "No",
+              FinancialRisk.expensesAreNotRelevantForRole -> "Yes",
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours),
+            "partAndParcel" -> Map(PartAndParcel.workerReceivesBenefits -> "No",PartAndParcel.workerAsLineManager -> "No",PartAndParcel.contactWithEngagerCustomer -> "Yes",PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent)
+          )
+        )
+      )
 
-      val decisionRespone2e = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"LOW","financialRisk":"LOW","personalService":"HIGH","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Inside IR35"}"""
+      val decisionRespone2e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "LOW",
+          "financialRisk" -> "LOW",
+          "personalService" -> "HIGH",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Inside IR35"
+      )
 
       lazy val res = postRequest("/decide",decisionCase2e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone2e)
+        result.json should equal(decisionRespone2e)
       }
     }
 
@@ -204,91 +441,202 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase3a = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
-        "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),
-        "exit" -> Map("officeHolder" -> "No"),
-        "personalService" -> Map(),
-        "control"-> Map(),
-        "financialRisk" -> Map(FinancialRisk.expensesAreNotRelevantForRole -> "No"),
-        "partAndParcel"-> Map())))
+      val decisionCase3a = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",Map(
+            "setup" -> Map("endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> "Yes",
+              "provideServices" -> "limitedCompany"
+            ),
+            "exit" -> Map("officeHolder" -> "No"
+            ),
+            "personalService" -> Map(),
+            "control"-> Map(),
+            "financialRisk" -> Map(FinancialRisk.expensesAreNotRelevantForRole -> "No"
+            ),
+            "partAndParcel"-> Map()
+          )
+        )
+      )
 
-      val decisionRespone3 = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionRespone3 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
 
       lazy val res = postRequest("/decide",decisionCase3a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone3)
+        result.json should equal(decisionRespone3)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase3b = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
-        "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,PersonalService.possibleSubstituteWorkerPay -> "No",PersonalService.wouldWorkerPayHelper -> "No"))))
+      val decisionCase3b = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",Map(
+            "setup" -> Map("endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> "Yes",
+              "provideServices" -> "soleTrader"
+            ),
+            "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,PersonalService.possibleSubstituteWorkerPay -> "No",PersonalService.wouldWorkerPayHelper -> "No"
+            )
+          )
+        )
+      )
 
-      val decisionRespone3b = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"MEDIUM","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionRespone3b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "MEDIUM",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
 
       lazy val res = postRequest("/decide",decisionCase3b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone3b)
+        result.json should equal(decisionRespone3b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase3c = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
-        "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "control" -> Map(Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired))))
+      val decisionCase3c = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",Map(
+            "setup" -> Map("endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> "Yes",
+              "provideServices" -> "soleTrader"
+            ),
+            "control" -> Map(Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired)
+          )
+        )
+      )
 
-      val decisionRespone3c = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"exit":"NotValidUseCase","control":"OUTOFIR35","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionRespone3c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "exit" -> "NotValidUseCase",
+          "control" -> "OUTOFIR35",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
 
       lazy val res = postRequest("/decide",decisionCase3c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone3c)
+        result.json should equal(decisionRespone3c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase3d = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
-        "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours))))
+      val decisionCase3d = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",Map(
+            "setup" -> Map("endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> "Yes",
+              "provideServices" -> "soleTrader"
+            ),
+            "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",
+              FinancialRisk.workerProvidedEquipment -> "No",
+              FinancialRisk.workerUsedVehicle -> "No",
+              FinancialRisk.workerHadOtherExpenses -> "No",
+              FinancialRisk.expensesAreNotRelevantForRole -> "Yes",
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours)
+          )
+        )
+      )
 
-      val decisionRespone3d = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"LOW","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionRespone3d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "LOW",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
 
       lazy val res = postRequest("/decide",decisionCase3d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone3d)
+        result.json should equal(decisionRespone3d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase3e = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
-        "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),
-        "exit" -> Map ("officeHolder" -> "No"),
-        "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,PersonalService.possibleSubstituteWorkerPay -> "No",PersonalService.wouldWorkerPayHelper -> "Yes"),
-        "control" -> Map(Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired),
-        "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours),
-        "partAndParcel" -> Map(PartAndParcel.workerReceivesBenefits -> "No",PartAndParcel.workerAsLineManager -> "No",PartAndParcel.contactWithEngagerCustomer -> "Yes",PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent))))
+      val decisionCase3e = Json.toJson(
+        DecisionRequest("1.5.0-final",
+          "session-12345",Map(
+            "setup" -> Map("endUserRole" -> "personDoingWork",
+              "hasContractStarted" -> "Yes",
+              "provideServices" -> "limitedCompany"
+            ),
+            "exit" -> Map ("officeHolder" -> "No"
+            ),
+            "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,PersonalService.possibleSubstituteWorkerPay -> "No",PersonalService.wouldWorkerPayHelper -> "Yes"
+            ),
+            "control" -> Map(Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired),
+            "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",
+              FinancialRisk.workerProvidedEquipment -> "No",
+              FinancialRisk.workerUsedVehicle -> "No",
+              FinancialRisk.workerHadOtherExpenses -> "No",
+              FinancialRisk.expensesAreNotRelevantForRole -> "Yes",
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours),
+            "partAndParcel" -> Map(PartAndParcel.workerReceivesBenefits -> "No",PartAndParcel.workerAsLineManager -> "No",PartAndParcel.contactWithEngagerCustomer -> "Yes",PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent)
+          )
+        )
+      )
 
 
-      val decisionRespone3e = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"exit":"CONTINUE","control":"OUTOFIR35","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionRespone3e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-12345",
+        "score" -> Json.obj(
+          "exit" -> "CONTINUE",
+          "control" -> "OUTOFIR35",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
 
       lazy val res = postRequest("/decide",decisionCase3e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone3e)
+        result.json should equal(decisionRespone3e)
       }
     }
 
@@ -299,67 +647,240 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase4a =  """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone4 = """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase4a =  Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(),
+          "control" -> Json.obj(),
+          "financialRisk" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase4a)
+      val decisionRespone4 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase4a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone4)
+        result.json should equal(decisionRespone4)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase4b =  """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone4b = """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase4b =  Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase4b)
+      val decisionRespone4b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase4b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone4b)
+        result.json should equal(decisionRespone4b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase4c = """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"canMoveWorkerWithoutPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"workerAgreeWithOthers"}}}"""
-      val decisionRespone4c = """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"HIGH","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase4c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "workerAgreeWithOthers"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase4c)
+      val decisionRespone4c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "HIGH",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase4c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone4c)
+        result.json should equal(decisionRespone4c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase4d = """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"Yes","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"noObligationToCorrect"}}}"""
-      val decisionRespone4d = """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","score":{"partAndParcel":"NotValidUseCase","financialRisk":"MEDIUM","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase4d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "Yes",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "noObligationToCorrect"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase4d)
+      val decisionRespone4d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "MEDIUM",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase4d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone4d)
+        result.json should equal(decisionRespone4d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase4e =  """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"canMoveWorkerWithoutPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"workerAgreeWithOthers"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"Yes","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"noObligationToCorrect"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"Yes","workerRepresentsEngagerBusiness":"workAsIndependent"}}}"""
-      val decisionRespone4e = """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","score":{"partAndParcel":"LOW","financialRisk":"MEDIUM","personalService":"HIGH","exit":"CONTINUE","control":"HIGH","setup":"CONTINUE"},"result":"Inside IR35"}"""
+      val decisionCase4e =  Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "workerAgreeWithOthers"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "Yes",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "noObligationToCorrect"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "Yes",
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase4e)
+      val decisionRespone4e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+        "score" -> Json.obj(
+          "partAndParcel" -> "LOW",
+          "financialRisk" -> "MEDIUM",
+          "personalService" -> "HIGH",
+          "exit" -> "CONTINUE",
+          "control" -> "HIGH",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Inside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase4e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone4e)
+        result.json should equal(decisionRespone4e)
       }
     }
 
@@ -370,67 +891,232 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase5a = """{"version":"1.5.0-final","correlationID":"session-4ab87a6b-2dea-49db-a519-650a12ae06b1","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone5 = """{"version":"1.5.0-final","correlationID":"session-4ab87a6b-2dea-49db-a519-650a12ae06b1","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase5a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase5a)
+      val decisionRespone5 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase5a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone5)
+        result.json should equal(decisionRespone5)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase5b = """{"version":"1.5.0-final","correlationID":"session-4ab87a6b-2dea-49db-a519-650a12ae06b1","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone5b = """{"version":"1.5.0-final","correlationID":"session-4ab87a6b-2dea-49db-a519-650a12ae06b1","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase5b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase5b)
+      val decisionRespone5b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase5b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone5b)
+        result.json should equal(decisionRespone5b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase5c = """{"version":"1.5.0-final","correlationID":"session-4ab87a6b-2dea-49db-a519-650a12ae06b1","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"workerDecidesWithoutInput","whenWorkHasToBeDone":"workerDecideSchedule","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone5c = """{"version":"1.5.0-final","correlationID":"session-4ab87a6b-2dea-49db-a519-650a12ae06b1","score":{"exit":"NotValidUseCase","control":"OUTOFIR35","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase5c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
+            "whenWorkHasToBeDone" -> "workerDecideSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase5c)
+      val decisionRespone5c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
+        "score" -> Json.obj(
+          "exit" -> "NotValidUseCase",
+          "control" -> "OUTOFIR35",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase5c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone5c)
+        result.json should equal(decisionRespone5c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase5d = """{"version":"1.5.0-final","correlationID":"session-4ab87a6b-2dea-49db-a519-650a12ae06b1","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"Yes","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"noObligationToCorrect"}}}"""
-      val decisionRespone5d = """{"version":"1.5.0-final","correlationID":"session-4ab87a6b-2dea-49db-a519-650a12ae06b1","score":{"partAndParcel":"NotValidUseCase","financialRisk":"MEDIUM","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase5d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "Yes",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "noObligationToCorrect"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase5d)
+      val decisionRespone5d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "MEDIUM",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase5d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone5d)
+        result.json should equal(decisionRespone5d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase5e = """{"version":"1.5.0-final","correlationID":"session-4ab87a6b-2dea-49db-a519-650a12ae06b1","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"workerDecidesWithoutInput","whenWorkHasToBeDone":"workerDecideSchedule","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"Yes","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"noObligationToCorrect"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"Yes","workerRepresentsEngagerBusiness":"workAsIndependent"}}}"""
-      val decisionRespone5e = """{"version":"1.5.0-final","correlationID":"session-4ab87a6b-2dea-49db-a519-650a12ae06b1","score":{"exit":"CONTINUE","control":"OUTOFIR35","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase5e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
+            "whenWorkHasToBeDone" -> "workerDecideSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "Yes",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "noObligationToCorrect"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "Yes",
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase5e)
+      val decisionRespone5e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
+        "score" -> Json.obj(
+          "exit" -> "CONTINUE",
+          "control" -> "OUTOFIR35",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase5e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone5e)
+        result.json should equal(decisionRespone5e)
       }
     }
 
@@ -441,67 +1127,235 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase6a = """{"version":"1.5.0-final","correlationID":"session-425437df-24ce-4e97-8537-d521697277d5","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone6 = """{"version":"1.5.0-final","correlationID":"session-425437df-24ce-4e97-8537-d521697277d5","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase6a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(),
+          "control" -> Json.obj(),
+          "financialRisk" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase6a)
+      val decisionRespone6 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase6a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone6)
+        result.json should equal(decisionRespone6)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase6b = """{"version":"1.5.0-final","correlationID":"session-425437df-24ce-4e97-8537-d521697277d5","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone6b = """{"version":"1.5.0-final","correlationID":"session-425437df-24ce-4e97-8537-d521697277d5","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase6b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase6b)
+      val decisionRespone6b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase6b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone6b)
+        result.json should equal(decisionRespone6b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase6c = """{"version":"1.5.0-final","correlationID":"session-425437df-24ce-4e97-8537-d521697277d5","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"noScheduleRequiredOnlyDeadlines","workerDecideWhere":"workerAgreeWithOthers"}}}"""
-      val decisionRespone6c = """{"version":"1.5.0-final","correlationID":"session-425437df-24ce-4e97-8537-d521697277d5","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase6c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
+            "workerDecideWhere" -> "workerAgreeWithOthers"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase6c)
+      val decisionRespone6c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase6c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone6c)
+        result.json should equal(decisionRespone6c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase6d = """{"version":"1.5.0-final","correlationID":"session-425437df-24ce-4e97-8537-d521697277d5","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"Yes","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"Yes","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"noObligationToCorrect"}}}"""
-      val decisionRespone6d = """{"version":"1.5.0-final","correlationID":"session-425437df-24ce-4e97-8537-d521697277d5","score":{"financialRisk":"OUTOFIR35","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase6d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "Yes",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "Yes",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "noObligationToCorrect"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase6d)
+      val decisionRespone6d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase6d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone6d)
+        result.json should equal(decisionRespone6d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase6e = """{"version":"1.5.0-final","correlationID":"session-425437df-24ce-4e97-8537-d521697277d5","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"noScheduleRequiredOnlyDeadlines","workerDecideWhere":"workerAgreeWithOthers"},"financialRisk":{"workerProvidedMaterials":"Yes","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"Yes","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"noObligationToCorrect"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"No"}}}"""
-      val decisionRespone6e = """{"version":"1.5.0-final","correlationID":"session-425437df-24ce-4e97-8537-d521697277d5","score":{"financialRisk":"OUTOFIR35","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase6e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
+            "workerDecideWhere" -> "workerAgreeWithOthers"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "Yes",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "Yes",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "noObligationToCorrect"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase6e)
+      val decisionRespone6e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase6e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone6e)
+        result.json should equal(decisionRespone6e)
       }
     }
 
@@ -512,67 +1366,238 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase7a = """{"version":"1.5.0-final","correlationID":"session-3015fd77-c21b-4b49-b166-ff6170b834c8","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone7 = """{"version":"1.5.0-final","correlationID":"session-3015fd77-c21b-4b49-b166-ff6170b834c8","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase7a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase7a)
+      val decisionRespone7 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase7a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone7)
+        result.json should equal(decisionRespone7)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase7b = """{"version":"1.5.0-final","correlationID":"session-3015fd77-c21b-4b49-b166-ff6170b834c8","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone7b = """{"version":"1.5.0-final","correlationID":"session-3015fd77-c21b-4b49-b166-ff6170b834c8","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase7b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase7b)
+      val decisionRespone7b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase7b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone7b)
+        result.json should equal(decisionRespone7b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase7c = """{"version":"1.5.0-final","correlationID":"session-3015fd77-c21b-4b49-b166-ff6170b834c8","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"canMoveWorkerWithoutPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone7c = """{"version":"1.5.0-final","correlationID":"session-3015fd77-c21b-4b49-b166-ff6170b834c8","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"HIGH","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase7c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase7c)
+      val decisionRespone7c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "HIGH",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase7c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone7c)
+        result.json should equal(decisionRespone7c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase7d = """{"version":"1.5.0-final","correlationID":"session-3015fd77-c21b-4b49-b166-ff6170b834c8","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"noObligationToCorrect"}}}"""
-      val decisionRespone7d = """{"version":"1.5.0-final","correlationID":"session-3015fd77-c21b-4b49-b166-ff6170b834c8","score":{"partAndParcel":"NotValidUseCase","financialRisk":"LOW","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase7d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "noObligationToCorrect"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase7d)
+      val decisionRespone7d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "LOW",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase7d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone7d)
+        result.json should equal(decisionRespone7d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase7e = """{"version":"1.5.0-final","correlationID":"session-3015fd77-c21b-4b49-b166-ff6170b834c8","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"canMoveWorkerWithoutPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"noObligationToCorrect"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"Yes","workerRepresentsEngagerBusiness":"workAsIndependent"}}}"""
-      val decisionRespone7e = """{"version":"1.5.0-final","correlationID":"session-3015fd77-c21b-4b49-b166-ff6170b834c8","score":{"partAndParcel":"LOW","financialRisk":"LOW","personalService":"HIGH","exit":"CONTINUE","control":"HIGH","setup":"CONTINUE"},"result":"Inside IR35"}"""
+      val decisionCase7e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "noObligationToCorrect"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "Yes",
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase7e)
+      val decisionRespone7e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
+        "score" -> Json.obj(
+          "partAndParcel" -> "LOW",
+          "financialRisk" -> "LOW",
+          "personalService" -> "HIGH",
+          "exit" -> "CONTINUE",
+          "control" -> "HIGH",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Inside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase7e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone7e)
+        result.json should equal(decisionRespone7e)
       }
     }
 
@@ -583,67 +1608,239 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase8a = """{"version":"1.5.0-final","correlationID":"session-8cbd115f-d486-46d8-ba89-1d7531c96479","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone8 = """{"version":"1.5.0-final","correlationID":"session-8cbd115f-d486-46d8-ba89-1d7531c96479","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase8a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(),
+          "control" -> Json.obj(),
+          "financialRisk" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase8a)
+      val decisionRespone8 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase8a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone8)
+        result.json should equal(decisionRespone8)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase8b = """{"version":"1.5.0-final","correlationID":"session-8cbd115f-d486-46d8-ba89-1d7531c96479","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone8b = """{"version":"1.5.0-final","correlationID":"session-8cbd115f-d486-46d8-ba89-1d7531c96479","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase8b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase8b)
+      val decisionRespone8b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase8b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone8b)
+        result.json should equal(decisionRespone8b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase8c = """{"version":"1.5.0-final","correlationID":"session-8cbd115f-d486-46d8-ba89-1d7531c96479","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone8c = """{"version":"1.5.0-final","correlationID":"session-8cbd115f-d486-46d8-ba89-1d7531c96479","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase8c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase8c)
+      val decisionRespone8c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase8c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone8c)
+        result.json should equal(decisionRespone8c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase8d = """{"version":"1.5.0-final","correlationID":"session-8cbd115f-d486-46d8-ba89-1d7531c96479","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"noObligationToCorrect"}}}"""
-      val decisionRespone8d = """{"version":"1.5.0-final","correlationID":"session-8cbd115f-d486-46d8-ba89-1d7531c96479","score":{"partAndParcel":"NotValidUseCase","financialRisk":"LOW","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase8d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "noObligationToCorrect"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase8d)
+      val decisionRespone8d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "LOW",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase8d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone8d)
+        result.json should equal(decisionRespone8d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase8e = """{"version":"1.5.0-final","correlationID":"session-8cbd115f-d486-46d8-ba89-1d7531c96479","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"noObligationToCorrect"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"Yes","contactWithEngagerCustomer":"No"}}}"""
-      val decisionRespone8e = """{"version":"1.5.0-final","correlationID":"session-8cbd115f-d486-46d8-ba89-1d7531c96479","score":{"partAndParcel":"HIGH","financialRisk":"LOW","personalService":"HIGH","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Inside IR35"}"""
+      val decisionCase8e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "noObligationToCorrect"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "Yes",
+            "contactWithEngagerCustomer" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase8e)
+      val decisionRespone8e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
+        "score" -> Json.obj(
+          "partAndParcel" -> "HIGH",
+          "financialRisk" -> "LOW",
+          "personalService" -> "HIGH",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Inside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase8e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone8e)
+        result.json should equal(decisionRespone8e)
       }
     }
 
@@ -654,67 +1851,238 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase9a = """{"version":"1.5.0-final","correlationID":"session-a9aed912-33b1-49ad-b972-72b5d8c65be0","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone9 = """{"version":"1.5.0-final","correlationID":"session-a9aed912-33b1-49ad-b972-72b5d8c65be0","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase9a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase9a)
+      val decisionRespone9 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase9a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone9)
+        result.json should equal(decisionRespone9)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase9b = """{"version":"1.5.0-final","correlationID":"session-a9aed912-33b1-49ad-b972-72b5d8c65be0","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone9b = """{"version":"1.5.0-final","correlationID":"session-a9aed912-33b1-49ad-b972-72b5d8c65be0","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase9b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase9b)
+      val decisionRespone9b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase9b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone9b)
+        result.json should equal(decisionRespone9b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase9c = """{"version":"1.5.0-final","correlationID":"session-a9aed912-33b1-49ad-b972-72b5d8c65be0","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"workerAgreeWithOthers"}}}"""
-      val decisionRespone9c = """{"version":"1.5.0-final","correlationID":"session-a9aed912-33b1-49ad-b972-72b5d8c65be0","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase9c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "workerAgreeWithOthers"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase9c)
+      val decisionRespone9c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase9c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone9c)
+        result.json should equal(decisionRespone9c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase9d = """{"version":"1.5.0-final","correlationID":"session-a9aed912-33b1-49ad-b972-72b5d8c65be0","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"outsideOfHoursNoCosts"}}}"""
-      val decisionRespone9d = """{"version":"1.5.0-final","correlationID":"session-a9aed912-33b1-49ad-b972-72b5d8c65be0","score":{"partAndParcel":"NotValidUseCase","financialRisk":"LOW","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase9d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase9d)
+      val decisionRespone9d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "LOW",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase9d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone9d)
+        result.json should equal(decisionRespone9d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase9e = """{"version":"1.5.0-final","correlationID":"session-a9aed912-33b1-49ad-b972-72b5d8c65be0","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"workerAgreeWithOthers"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"outsideOfHoursNoCosts"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"Yes","workerRepresentsEngagerBusiness":"workAsIndependent"}}}"""
-      val decisionRespone9e = """{"version":"1.5.0-final","correlationID":"session-a9aed912-33b1-49ad-b972-72b5d8c65be0","score":{"partAndParcel":"LOW","financialRisk":"LOW","personalService":"HIGH","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Inside IR35"}"""
+      val decisionCase9e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "workerAgreeWithOthers"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "Yes",
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase9e)
+      val decisionRespone9e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
+        "score" -> Json.obj(
+          "partAndParcel" -> "LOW",
+          "financialRisk" -> "LOW",
+          "personalService" -> "HIGH",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Inside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase9e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone9e)
+        result.json should equal(decisionRespone9e)
       }
     }
 
@@ -725,67 +2093,235 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase10a = """{"version":"1.5.0-final","correlationID":"session-30128ec4-15e1-4ff0-a487-3dc866f8d25d","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone10 = """{"version":"1.5.0-final","correlationID":"session-30128ec4-15e1-4ff0-a487-3dc866f8d25d","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase10a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(),
+          "control" -> Json.obj(),
+          "financialRisk" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase10a)
+      val decisionRespone10 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase10a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone10)
+        result.json should equal(decisionRespone10)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase10b = """{"version":"1.5.0-final","correlationID":"session-30128ec4-15e1-4ff0-a487-3dc866f8d25d","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"personalService":{"workerSentActualSubstitute":"yesClientAgreed","workerPayActualSubstitute":"No","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone10b = """{"version":"1.5.0-final","correlationID":"session-30128ec4-15e1-4ff0-a487-3dc866f8d25d","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"MEDIUM","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase10b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "yesClientAgreed",
+            "workerPayActualSubstitute" -> "No",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase10b)
+      val decisionRespone10b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "MEDIUM",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase10b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone10b)
+        result.json should equal(decisionRespone10b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase10c = """{"version":"1.5.0-final","correlationID":"session-30128ec4-15e1-4ff0-a487-3dc866f8d25d","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerDecidesWithoutInput","whenWorkHasToBeDone":"noScheduleRequiredOnlyDeadlines","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone10c = """{"version":"1.5.0-final","correlationID":"session-30128ec4-15e1-4ff0-a487-3dc866f8d25d","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase10c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
+            "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase10c)
+      val decisionRespone10c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase10c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone10c)
+        result.json should equal(decisionRespone10c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase10d = """{"version":"1.5.0-final","correlationID":"session-30128ec4-15e1-4ff0-a487-3dc866f8d25d","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"Yes","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeFixed","paidForSubstandardWork":"outsideOfHoursNoCharge"}}}"""
-      val decisionRespone10d = """{"version":"1.5.0-final","correlationID":"session-30128ec4-15e1-4ff0-a487-3dc866f8d25d","score":{"financialRisk":"OUTOFIR35","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase10d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "Yes",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeFixed",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase10d)
+      val decisionRespone10d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase10d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone10d)
+        result.json should equal(decisionRespone10d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase10e = """{"version":"1.5.0-final","correlationID":"session-30128ec4-15e1-4ff0-a487-3dc866f8d25d","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"yesClientAgreed","workerPayActualSubstitute":"No","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerDecidesWithoutInput","whenWorkHasToBeDone":"noScheduleRequiredOnlyDeadlines","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"Yes","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeFixed","paidForSubstandardWork":"outsideOfHoursNoCharge"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"No"}}}"""
-      val decisionRespone10e = """{"version":"1.5.0-final","correlationID":"session-30128ec4-15e1-4ff0-a487-3dc866f8d25d","score":{"financialRisk":"OUTOFIR35","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase10e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "yesClientAgreed",
+            "workerPayActualSubstitute" -> "No",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
+            "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "Yes",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeFixed",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase10e)
+      val decisionRespone10e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase10e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone10e)
+        result.json should equal(decisionRespone10e)
       }
     }
 
@@ -793,142 +2329,373 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   //TODO still requires the last case
 
-//  s"For Case 11 a POST /decide" should {
-//
-//    "return a 200 and continue response given a early exit request" in {
-//
-//      val decisionCase11a = """"""
-//      val decisionRespone11 = """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
-//
-//      lazy val res = postFullJsonRequest("/decide",decisionCase11a)
-//
-//      whenReady(res) { result =>
-//        result.status shouldBe OK
-//        result.body should equal(decisionRespone11)
-//      }
-//    }
-//
-//
-//    "return a 200 and continue response given a Personal service request" in {
-//
-//      val decisionCase11b = """"""
-//      val decisionRespone11b = """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
-//
-//      lazy val res = postFullJsonRequest("/decide",decisionCase11b)
-//
-//      whenReady(res) { result =>
-//        result.status shouldBe OK
-//        result.body should equal(decisionRespone11b)
-//      }
-//    }
-//
-//    "return a 200 and continue response given a control request" in {
-//
-//      val decisionCase11c = """"""
-//      val decisionRespone11c = """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"HIGH","setup":"CONTINUE"},"result":"Not Matched"}"""
-//
-//      lazy val res = postFullJsonRequest("/decide",decisionCase11c)
-//
-//      whenReady(res) { result =>
-//        result.status shouldBe OK
-//        result.body should equal(decisionRespone11c)
-//      }
-//    }
-//
-//    "return a 200 and continue response given a Financial Risk request" in {
-//
-//      val decisionCase11d = """"""
-//      val decisionRespone11d = """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","score":{"partAndParcel":"NotValidUseCase","financialRisk":"MEDIUM","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
-//
-//      lazy val res = postFullJsonRequest("/decide",decisionCase11d)
-//
-//      whenReady(res) { result =>
-//        result.status shouldBe OK
-//        result.body should equal(decisionRespone11d)
-//      }
-//    }
-//
-//    "return a 200 and continue response given a All sections request" in {
-//
-//      val decisionCase11e = """"""
-//      val decisionRespone11e = """{"version":"1.5.0-final","correlationID":"session-72dc03fc-c41e-49be-bee3-f207fb21e8ec","score":{"partAndParcel":"LOW","financialRisk":"MEDIUM","personalService":"HIGH","exit":"CONTINUE","control":"HIGH","setup":"CONTINUE"},"result":"Inside IR35"}"""
-//
-//      lazy val res = postFullJsonRequest("/decide",decisionCase11e)
-//
-//      whenReady(res) { result =>
-//        result.status shouldBe OK
-//        result.body should equal(decisionRespone11e)
-//      }
-//    }
-//
-//  }
+  //  s"For Case 11 a POST /decide" should {
+  //
+  //    "return a 200 and continue response given a early exit request" in {
+  //
+  //      val decisionCase11a = """"""
+  //      val decisionRespone11 = Json.obj(
+  //      "version" -> "1.5.0-final",
+  //      "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+  //      "score" -> Json.obj(
+  //      "partAndParcel" -> "NotValidUseCase",
+  //      "financialRisk" -> "NotValidUseCase",
+  //      "personalService" -> "NotValidUseCase",
+  //      "exit" -> "CONTINUE",
+  //      "control" -> "NotValidUseCase",
+  //      "setup" -> "CONTINUE"
+  //      ),
+  //      "result" -> "Not Matched"
+  //      )
+  //
+  //      lazy val res = postRequest("/decide",decisionCase11a)
+  //
+  //      whenReady(res) { result =>
+  //        result.status shouldBe OK
+  //        result.json should equal(decisionRespone11)
+  //      }
+  //    }
+  //
+  //
+  //    "return a 200 and continue response given a Personal service request" in {
+  //
+  //      val decisionCase11b = """"""
+  //      val decisionRespone11b = Json.obj(
+  //      "version" -> "1.5.0-final",
+  //      "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+  //      "score" -> Json.obj(
+  //      "partAndParcel" -> "NotValidUseCase",
+  //      "financialRisk" -> "NotValidUseCase",
+  //      "personalService" -> "HIGH",
+  //      "exit" -> "NotValidUseCase",
+  //      "control" -> "NotValidUseCase",
+  //      "setup" -> "CONTINUE"
+  //      ),
+  //      "result" -> "Not Matched"
+  //      )
+  //
+  //      lazy val res = postRequest("/decide",decisionCase11b)
+  //
+  //      whenReady(res) { result =>
+  //        result.status shouldBe OK
+  //        result.json should equal(decisionRespone11b)
+  //      }
+  //    }
+  //
+  //    "return a 200 and continue response given a control request" in {
+  //
+  //      val decisionCase11c = """"""
+  //      val decisionRespone11c = Json.obj(
+  //      "version" -> "1.5.0-final",
+  //      "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+  //      "score" -> Json.obj(
+  //      "partAndParcel" -> "NotValidUseCase",
+  //      "financialRisk" -> "NotValidUseCase",
+  //      "personalService" -> "NotValidUseCase",
+  //      "exit" -> "NotValidUseCase",
+  //      "control" -> "HIGH",
+  //      "setup" -> "CONTINUE"
+  //      ),
+  //      "result" -> "Not Matched"
+  //      )
+  //
+  //      lazy val res = postRequest("/decide",decisionCase11c)
+  //
+  //      whenReady(res) { result =>
+  //        result.status shouldBe OK
+  //        result.json should equal(decisionRespone11c)
+  //      }
+  //    }
+  //
+  //    "return a 200 and continue response given a Financial Risk request" in {
+  //
+  //      val decisionCase11d = """"""
+  //      val decisionRespone11d = Json.obj(
+  //      "version" -> "1.5.0-final",
+  //      "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+  //      "score" -> Json.obj(
+  //      "partAndParcel" -> "NotValidUseCase",
+  //      "financialRisk" -> "MEDIUM",
+  //      "personalService" -> "NotValidUseCase",
+  //      "exit" -> "NotValidUseCase",
+  //      "control" -> "NotValidUseCase",
+  //      "setup" -> "CONTINUE"
+  //      ),
+  //      "result" -> "Not Matched"
+  //      )
+  //
+  //      lazy val res = postRequest("/decide",decisionCase11d)
+  //
+  //      whenReady(res) { result =>
+  //        result.status shouldBe OK
+  //        result.json should equal(decisionRespone11d)
+  //      }
+  //    }
+  //
+  //    "return a 200 and continue response given a All sections request" in {
+  //
+  //      val decisionCase11e = """"""
+  //      val decisionRespone11e = Json.obj(
+  //      "version" -> "1.5.0-final",
+  //      "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
+  //      "score" -> Json.obj(
+  //      "partAndParcel" -> "LOW",
+  //      "financialRisk" -> "MEDIUM",
+  //      "personalService" -> "HIGH",
+  //      "exit" -> "CONTINUE",
+  //      "control" -> "HIGH",
+  //      "setup" -> "CONTINUE"
+  //      ),
+  //      "result" -> "Inside IR35"
+  //      )
+  //
+  //      lazy val res = postRequest("/decide",decisionCase11e)
+  //
+  //      whenReady(res) { result =>
+  //        result.status shouldBe OK
+  //        result.json should equal(decisionRespone11e)
+  //      }
+  //    }
+  //
+  //  }
 
 
   s"For Case 12 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase12a = """{"version":"1.5.0-final","correlationID":"session-8975db1b-80d7-4c76-85d6-03a25c558925","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone12 = """{"version":"1.5.0-final","correlationID":"session-8975db1b-80d7-4c76-85d6-03a25c558925","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase12a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(),
+          "control" -> Json.obj(),
+          "financialRisk" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase12a)
+      val decisionRespone12 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase12a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone12)
+        result.json should equal(decisionRespone12)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase12b = """{"version":"1.5.0-final","correlationID":"session-8975db1b-80d7-4c76-85d6-03a25c558925","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldNotReject","possibleSubstituteWorkerPay":"No","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone12b = """{"version":"1.5.0-final","correlationID":"session-8975db1b-80d7-4c76-85d6-03a25c558925","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"MEDIUM","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase12b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldNotReject",
+            "possibleSubstituteWorkerPay" -> "No",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase12b)
+      val decisionRespone12b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "MEDIUM",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase12b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone12b)
+        result.json should equal(decisionRespone12b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase12c = """{"version":"1.5.0-final","correlationID":"session-8975db1b-80d7-4c76-85d6-03a25c558925","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"scheduleDecidedForWorker","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone12c = """{"version":"1.5.0-final","correlationID":"session-8975db1b-80d7-4c76-85d6-03a25c558925","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase12c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase12c)
+      val decisionRespone12c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase12c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone12c)
+        result.json should equal(decisionRespone12c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase12d = """{"version":"1.5.0-final","correlationID":"session-8975db1b-80d7-4c76-85d6-03a25c558925","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"Yes","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"asPartOfUsualRateInWorkingHours"}}}"""
-      val decisionRespone12d = """{"version":"1.5.0-final","correlationID":"session-8975db1b-80d7-4c76-85d6-03a25c558925","score":{"financialRisk":"OUTOFIR35","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase12d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "Yes",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase12d)
+      val decisionRespone12d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase12d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone12d)
+        result.json should equal(decisionRespone12d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase12e = """{"version":"1.5.0-final","correlationID":"session-8975db1b-80d7-4c76-85d6-03a25c558925","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldNotReject","possibleSubstituteWorkerPay":"No","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"scheduleDecidedForWorker","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"Yes","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"asPartOfUsualRateInWorkingHours"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"Yes","workerRepresentsEngagerBusiness":"workAsIndependent"}}}"""
-      val decisionRespone12e = """{"version":"1.5.0-final","correlationID":"session-8975db1b-80d7-4c76-85d6-03a25c558925","score":{"financialRisk":"OUTOFIR35","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase12e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldNotReject",
+            "possibleSubstituteWorkerPay" -> "No",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "Yes",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "Yes",
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase12e)
+      val decisionRespone12e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase12e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone12e)
+        result.json should equal(decisionRespone12e)
       }
     }
 
@@ -938,67 +2705,236 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase13a = """{"version":"1.5.0-final","correlationID":"session-f49e56a6-b690-4c06-a0d8-f82f836a58d7","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone13 = """{"version":"1.5.0-final","correlationID":"session-f49e56a6-b690-4c06-a0d8-f82f836a58d7","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase13a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase13a)
+      val decisionRespone13 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase13a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone13)
+        result.json should equal(decisionRespone13)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase13b = """{"version":"1.5.0-final","correlationID":"session-f49e56a6-b690-4c06-a0d8-f82f836a58d7","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldNotReject","possibleSubstituteWorkerPay":"No","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone13b = """{"version":"1.5.0-final","correlationID":"session-f49e56a6-b690-4c06-a0d8-f82f836a58d7","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"MEDIUM","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase13b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldNotReject",
+            "possibleSubstituteWorkerPay" -> "No",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase13b)
+      val decisionRespone13b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "MEDIUM",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase13b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone13b)
+        result.json should equal(decisionRespone13b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase13c = """{"version":"1.5.0-final","correlationID":"session-f49e56a6-b690-4c06-a0d8-f82f836a58d7","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"workerDecidesWithoutInput","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone13c = """{"version":"1.5.0-final","correlationID":"session-f49e56a6-b690-4c06-a0d8-f82f836a58d7","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase13c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase13c)
+      val decisionRespone13c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase13c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone13c)
+        result.json should equal(decisionRespone13c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase13d = """{"version":"1.5.0-final","correlationID":"session-f49e56a6-b690-4c06-a0d8-f82f836a58d7","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"Yes","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"outsideOfHoursNoCosts"}}}"""
-      val decisionRespone13d = """{"version":"1.5.0-final","correlationID":"session-f49e56a6-b690-4c06-a0d8-f82f836a58d7","score":{"financialRisk":"OUTOFIR35","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase13d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "Yes",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase13d)
+      val decisionRespone13d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase13d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone13d)
+        result.json should equal(decisionRespone13d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase13e = """{"version":"1.5.0-final","correlationID":"session-f49e56a6-b690-4c06-a0d8-f82f836a58d7","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldNotReject","possibleSubstituteWorkerPay":"No","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"workerDecidesWithoutInput","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"Yes","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"outsideOfHoursNoCosts"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"Yes","workerRepresentsEngagerBusiness":"workForEndClient"}}}"""
-      val decisionRespone13e = """{"version":"1.5.0-final","correlationID":"session-f49e56a6-b690-4c06-a0d8-f82f836a58d7","score":{"financialRisk":"OUTOFIR35","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase13e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldNotReject",
+            "possibleSubstituteWorkerPay" -> "No",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "Yes",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "Yes",
+            "workerRepresentsEngagerBusiness" -> "workForEndClient"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase13e)
+      val decisionRespone13e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase13e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone13e)
+        result.json should equal(decisionRespone13e)
       }
     }
 
@@ -1008,67 +2944,236 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase14a = """{"version":"1.5.0-final","correlationID":"session-7ff64104-e39b-4e75-8960-3bccbcb7df23","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone14 = """{"version":"1.5.0-final","correlationID":"session-7ff64104-e39b-4e75-8960-3bccbcb7df23","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase14a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(),
+          "control" -> Json.obj(),
+          "financialRisk" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase14a)
+      val decisionRespone14 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase14a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone14)
+        result.json should equal(decisionRespone14)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase14b = """{"version":"1.5.0-final","correlationID":"session-7ff64104-e39b-4e75-8960-3bccbcb7df23","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone14b = """{"version":"1.5.0-final","correlationID":"session-7ff64104-e39b-4e75-8960-3bccbcb7df23","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase14b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase14b)
+      val decisionRespone14b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase14b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone14b)
+        result.json should equal(decisionRespone14b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase14c = """{"version":"1.5.0-final","correlationID":"session-7ff64104-e39b-4e75-8960-3bccbcb7df23","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerDecideSchedule","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone14c = """{"version":"1.5.0-final","correlationID":"session-7ff64104-e39b-4e75-8960-3bccbcb7df23","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase14c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerDecideSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase14c)
+      val decisionRespone14c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase14c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone14c)
+        result.json should equal(decisionRespone14c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase14d = """{"version":"1.5.0-final","correlationID":"session-7ff64104-e39b-4e75-8960-3bccbcb7df23","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"Yes","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"outsideOfHoursNoCharge"}}}"""
-      val decisionRespone14d = """{"version":"1.5.0-final","correlationID":"session-7ff64104-e39b-4e75-8960-3bccbcb7df23","score":{"financialRisk":"OUTOFIR35","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase14d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "Yes",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase14d)
+      val decisionRespone14d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase14d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone14d)
+        result.json should equal(decisionRespone14d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase14e = """{"version":"1.5.0-final","correlationID":"session-7ff64104-e39b-4e75-8960-3bccbcb7df23","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerDecideSchedule","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"Yes","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"outsideOfHoursNoCharge"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"Yes","workerRepresentsEngagerBusiness":"workAsIndependent"}}}"""
-      val decisionRespone14e = """{"version":"1.5.0-final","correlationID":"session-7ff64104-e39b-4e75-8960-3bccbcb7df23","score":{"financialRisk":"OUTOFIR35","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase14e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerDecideSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "Yes",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "Yes",
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase14e)
+      val decisionRespone14e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase14e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone14e)
+        result.json should equal(decisionRespone14e)
       }
     }
 
@@ -1079,67 +3184,233 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase15a = """{"version":"1.5.0-final","correlationID":"session-b2d2388f-b241-4957-8141-2d0c5c0836a2","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone15 = """{"version":"1.5.0-final","correlationID":"session-b2d2388f-b241-4957-8141-2d0c5c0836a2","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase15a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase15a)
+      val decisionRespone15 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase15a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone15)
+        result.json should equal(decisionRespone15)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase15b = """{"version":"1.5.0-final","correlationID":"session-b2d2388f-b241-4957-8141-2d0c5c0836a2","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone15b = """{"version":"1.5.0-final","correlationID":"session-b2d2388f-b241-4957-8141-2d0c5c0836a2","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase15b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase15b)
+      val decisionRespone15b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase15b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone15b)
+        result.json should equal(decisionRespone15b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase15c = """{"version":"1.5.0-final","correlationID":"session-b2d2388f-b241-4957-8141-2d0c5c0836a2","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone15c = """{"version":"1.5.0-final","correlationID":"session-b2d2388f-b241-4957-8141-2d0c5c0836a2","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase15c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase15c)
+      val decisionRespone15c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase15c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone15c)
+        result.json should equal(decisionRespone15c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase15d = """{"version":"1.5.0-final","correlationID":"session-b2d2388f-b241-4957-8141-2d0c5c0836a2","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"Yes","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"outsideOfHoursNoCharge"}}}"""
-      val decisionRespone15d = """{"version":"1.5.0-final","correlationID":"session-b2d2388f-b241-4957-8141-2d0c5c0836a2","score":{"financialRisk":"OUTOFIR35","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase15d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "Yes",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase15d)
+      val decisionRespone15d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase15d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone15d)
+        result.json should equal(decisionRespone15d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase15e = """{"version":"1.5.0-final","correlationID":"session-b2d2388f-b241-4957-8141-2d0c5c0836a2","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"Yes","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"outsideOfHoursNoCharge"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"No"}}}"""
-      val decisionRespone15e = """{"version":"1.5.0-final","correlationID":"session-b2d2388f-b241-4957-8141-2d0c5c0836a2","score":{"financialRisk":"OUTOFIR35","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase15e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "Yes",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase15e)
+      val decisionRespone15e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase15e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone15e)
+        result.json should equal(decisionRespone15e)
       }
     }
 
@@ -1150,67 +3421,239 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase16a = """{"version":"1.5.0-final","correlationID":"session-f757b601-7eec-46db-8024-652e6d425957","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone16 = """{"version":"1.5.0-final","correlationID":"session-f757b601-7eec-46db-8024-652e6d425957","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase16a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(),
+          "control" -> Json.obj(),
+          "financialRisk" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase16a)
+      val decisionRespone16 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase16a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone16)
+        result.json should equal(decisionRespone16)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase16b = """{"version":"1.5.0-final","correlationID":"session-f757b601-7eec-46db-8024-652e6d425957","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone16b = """{"version":"1.5.0-final","correlationID":"session-f757b601-7eec-46db-8024-652e6d425957","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase16b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase16b)
+      val decisionRespone16b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase16b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone16b)
+        result.json should equal(decisionRespone16b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase16c = """{"version":"1.5.0-final","correlationID":"session-f757b601-7eec-46db-8024-652e6d425957","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"canMoveWorkerWithoutPermission","workerDecidingHowWorkIsDone":"workerAgreeWithOthers","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone16c = """{"version":"1.5.0-final","correlationID":"session-f757b601-7eec-46db-8024-652e6d425957","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"HIGH","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase16c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
+            "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase16c)
+      val decisionRespone16c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "HIGH",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase16c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone16c)
+        result.json should equal(decisionRespone16c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase16d = """{"version":"1.5.0-final","correlationID":"session-f757b601-7eec-46db-8024-652e6d425957","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"asPartOfUsualRateInWorkingHours"}}}"""
-      val decisionRespone16d = """{"version":"1.5.0-final","correlationID":"session-f757b601-7eec-46db-8024-652e6d425957","score":{"partAndParcel":"NotValidUseCase","financialRisk":"LOW","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase16d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase16d)
+      val decisionRespone16d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "LOW",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase16d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone16d)
+        result.json should equal(decisionRespone16d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase16e = """{"version":"1.5.0-final","correlationID":"session-f757b601-7eec-46db-8024-652e6d425957","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"canMoveWorkerWithoutPermission","workerDecidingHowWorkIsDone":"workerAgreeWithOthers","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"asPartOfUsualRateInWorkingHours"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"No"}}}"""
-      val decisionRespone16e = """{"version":"1.5.0-final","correlationID":"session-f757b601-7eec-46db-8024-652e6d425957","score":{"partAndParcel":"LOW","financialRisk":"LOW","personalService":"HIGH","exit":"CONTINUE","control":"HIGH","setup":"CONTINUE"},"result":"Inside IR35"}"""
+      val decisionCase16e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
+            "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase16e)
+      val decisionRespone16e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
+        "score" -> Json.obj(
+          "partAndParcel" -> "LOW",
+          "financialRisk" -> "LOW",
+          "personalService" -> "HIGH",
+          "exit" -> "CONTINUE",
+          "control" -> "HIGH",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Inside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase16e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone16e)
+        result.json should equal(decisionRespone16e)
       }
     }
 
@@ -1220,67 +3663,238 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase17a = """{"version":"1.5.0-final","correlationID":"session-4d138f6f-3656-4044-ba7d-6a8540e094dc","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone17 = """{"version":"1.5.0-final","correlationID":"session-4d138f6f-3656-4044-ba7d-6a8540e094dc","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase17a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase17a)
+      val decisionRespone17 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase17a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone17)
+        result.json should equal(decisionRespone17)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase17b = """{"version":"1.5.0-final","correlationID":"session-4d138f6f-3656-4044-ba7d-6a8540e094dc","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone17b = """{"version":"1.5.0-final","correlationID":"session-4d138f6f-3656-4044-ba7d-6a8540e094dc","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase17b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase17b)
+      val decisionRespone17b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase17b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone17b)
+        result.json should equal(decisionRespone17b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase17c = """{"version":"1.5.0-final","correlationID":"session-4d138f6f-3656-4044-ba7d-6a8540e094dc","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"noScheduleRequiredOnlyDeadlines","workerDecideWhere":"workerCannotChoose"}}}"""
-      val decisionRespone17c = """{"version":"1.5.0-final","correlationID":"session-4d138f6f-3656-4044-ba7d-6a8540e094dc","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"HIGH","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase17c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
+            "workerDecideWhere" -> "workerCannotChoose"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase17c)
+      val decisionRespone17c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "HIGH",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase17c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone17c)
+        result.json should equal(decisionRespone17c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase17d = """{"version":"1.5.0-final","correlationID":"session-4d138f6f-3656-4044-ba7d-6a8540e094dc","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"outsideOfHoursNoCharge"}}}"""
-      val decisionRespone17d = """{"version":"1.5.0-final","correlationID":"session-4d138f6f-3656-4044-ba7d-6a8540e094dc","score":{"partAndParcel":"NotValidUseCase","financialRisk":"MEDIUM","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase17d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase17d)
+      val decisionRespone17d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "MEDIUM",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase17d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone17d)
+        result.json should equal(decisionRespone17d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase17e = """{"version":"1.5.0-final","correlationID":"session-4d138f6f-3656-4044-ba7d-6a8540e094dc","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"noScheduleRequiredOnlyDeadlines","workerDecideWhere":"workerCannotChoose"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"outsideOfHoursNoCharge"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"Yes","workerRepresentsEngagerBusiness":"workAsIndependent"}}}"""
-      val decisionRespone17e = """{"version":"1.5.0-final","correlationID":"session-4d138f6f-3656-4044-ba7d-6a8540e094dc","score":{"partAndParcel":"LOW","financialRisk":"MEDIUM","personalService":"HIGH","exit":"CONTINUE","control":"HIGH","setup":"CONTINUE"},"result":"Inside IR35"}"""
+      val decisionCase17e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
+            "workerDecideWhere" -> "workerCannotChoose"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "Yes",
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase17e)
+      val decisionRespone17e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
+        "score" -> Json.obj(
+          "partAndParcel" -> "LOW",
+          "financialRisk" -> "MEDIUM",
+          "personalService" -> "HIGH",
+          "exit" -> "CONTINUE",
+          "control" -> "HIGH",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Inside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase17e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone17e)
+        result.json should equal(decisionRespone17e)
       }
     }
 
@@ -1290,67 +3904,235 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase18a = """{"version":"1.5.0-final","correlationID":"session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone18 = """{"version":"1.5.0-final","correlationID":"session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase18a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(),
+          "control" -> Json.obj(),
+          "financialRisk" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase18a)
+      val decisionRespone18 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase18a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone18)
+        result.json should equal(decisionRespone18)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase18b = """{"version":"1.5.0-final","correlationID":"session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone18b = """{"version":"1.5.0-final","correlationID":"session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase18b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase18b)
+      val decisionRespone18b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase18b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone18b)
+        result.json should equal(decisionRespone18b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase18c =  """{"version":"1.5.0-final","correlationID":"session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerDecidesWithoutInput","whenWorkHasToBeDone":"workerDecideSchedule","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone18c = """{"version":"1.5.0-final","correlationID":"session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase18c =  Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
+            "whenWorkHasToBeDone" -> "workerDecideSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase18c)
+      val decisionRespone18c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase18c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone18c)
+        result.json should equal(decisionRespone18c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase18d =  """{"version":"1.5.0-final","correlationID":"session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"Yes","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"asPartOfUsualRateInWorkingHours"}}}"""
-      val decisionRespone18d = """{"version":"1.5.0-final","correlationID":"session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e","score":{"financialRisk":"OUTOFIR35","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase18d =  Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "Yes",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase18d)
+      val decisionRespone18d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase18d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone18d)
+        result.json should equal(decisionRespone18d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase18e = """{"version":"1.5.0-final","correlationID":"session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerDecidesWithoutInput","whenWorkHasToBeDone":"workerDecideSchedule","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"Yes","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"asPartOfUsualRateInWorkingHours"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"No"}}}"""
-      val decisionRespone18e = """{"version":"1.5.0-final","correlationID":"session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e","score":{"financialRisk":"OUTOFIR35","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase18e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
+            "whenWorkHasToBeDone" -> "workerDecideSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "Yes",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase18e)
+      val decisionRespone18e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase18e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone18e)
+        result.json should equal(decisionRespone18e)
       }
     }
 
@@ -1360,67 +4142,234 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase19a = """{"version":"1.5.0-final","correlationID":"session-6dc80962-346a-4c25-b5a6-7d08cabee4c9","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone19 = """{"version":"1.5.0-final","correlationID":"session-6dc80962-346a-4c25-b5a6-7d08cabee4c9","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase19a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase19a)
+      val decisionRespone19 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase19a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone19)
+        result.json should equal(decisionRespone19)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase19b = """{"version":"1.5.0-final","correlationID":"session-6dc80962-346a-4c25-b5a6-7d08cabee4c9","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone19b = """{"version":"1.5.0-final","correlationID":"session-6dc80962-346a-4c25-b5a6-7d08cabee4c9","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase19b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase19b)
+      val decisionRespone19b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase19b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone19b)
+        result.json should equal(decisionRespone19b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase19c = """{"version":"1.5.0-final","correlationID":"session-6dc80962-346a-4c25-b5a6-7d08cabee4c9","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone19c = """{"version":"1.5.0-final","correlationID":"session-6dc80962-346a-4c25-b5a6-7d08cabee4c9","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase19c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase19c)
+      val decisionRespone19c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase19c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone19c)
+        result.json should equal(decisionRespone19c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase19d = """{"version":"1.5.0-final","correlationID":"session-6dc80962-346a-4c25-b5a6-7d08cabee4c9","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"Yes","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeFixed","paidForSubstandardWork":"cannotBeCorrected"}}}"""
-      val decisionRespone19d = """{"version":"1.5.0-final","correlationID":"session-6dc80962-346a-4c25-b5a6-7d08cabee4c9","score":{"financialRisk":"OUTOFIR35","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase19d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "Yes",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeFixed",
+            "paidForSubstandardWork" -> "cannotBeCorrected"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase19d)
+      val decisionRespone19d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase19d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone19d)
+        result.json should equal(decisionRespone19d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase19e = """{"version":"1.5.0-final","correlationID":"session-6dc80962-346a-4c25-b5a6-7d08cabee4c9","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"canMoveWorkerWithPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"Yes","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"No","workerMainIncome":"incomeFixed","paidForSubstandardWork":"cannotBeCorrected"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"Yes","workerRepresentsEngagerBusiness":"workAsIndependent"}}}"""
-      val decisionRespone19e = """{"version":"1.5.0-final","correlationID":"session-6dc80962-346a-4c25-b5a6-7d08cabee4c9","score":{"financialRisk":"OUTOFIR35","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Outside IR35"}"""
+      val decisionCase19e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "Yes",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "No",
+            "workerMainIncome" -> "incomeFixed",
+            "paidForSubstandardWork" -> "cannotBeCorrected"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "Yes",
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase19e)
+      val decisionRespone19e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
+        "score" -> Json.obj(
+          "financialRisk" -> "OUTOFIR35",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Outside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase19e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone19e)
+        result.json should equal(decisionRespone19e)
       }
     }
 
@@ -1430,67 +4379,242 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase20a = """{"version":"1.5.0-final","correlationID":"session-685d7f4f-92c3-49c2-9520-09836fa0390b","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone20 = """{"version":"1.5.0-final","correlationID":"session-685d7f4f-92c3-49c2-9520-09836fa0390b","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase20a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(),
+          "control" -> Json.obj(),
+          "financialRisk" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase20a)
+      val decisionRespone20 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase20a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone20)
+        result.json should equal(decisionRespone20)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase20b = """{"version":"1.5.0-final","correlationID":"session-685d7f4f-92c3-49c2-9520-09836fa0390b","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldNotReject","possibleSubstituteWorkerPay":"No","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone20b = """{"version":"1.5.0-final","correlationID":"session-685d7f4f-92c3-49c2-9520-09836fa0390b","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"MEDIUM","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase20b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldNotReject",
+            "possibleSubstituteWorkerPay" -> "No",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase20b)
+      val decisionRespone20b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "MEDIUM",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase20b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone20b)
+        result.json should equal(decisionRespone20b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase20c = """{"version":"1.5.0-final","correlationID":"session-685d7f4f-92c3-49c2-9520-09836fa0390b","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone20c = """{"version":"1.5.0-final","correlationID":"session-685d7f4f-92c3-49c2-9520-09836fa0390b","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase20c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase20c)
+      val decisionRespone20c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase20c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone20c)
+        result.json should equal(decisionRespone20c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase20d = """{"version":"1.5.0-final","correlationID":"session-685d7f4f-92c3-49c2-9520-09836fa0390b","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"outsideOfHoursNoCharge"}}}"""
-      val decisionRespone20d = """{"version":"1.5.0-final","correlationID":"session-685d7f4f-92c3-49c2-9520-09836fa0390b","score":{"partAndParcel":"NotValidUseCase","financialRisk":"MEDIUM","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase20d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase20d)
+      val decisionRespone20d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "MEDIUM",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase20d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone20d)
+        result.json should equal(decisionRespone20d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase20e = """{"version":"1.5.0-final","correlationID":"session-685d7f4f-92c3-49c2-9520-09836fa0390b","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldNotReject","possibleSubstituteWorkerPay":"No","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"outsideOfHoursNoCharge"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"Yes","workerRepresentsEngagerBusiness":"workAsIndependent"}}}"""
-      val decisionRespone20e = """{"version":"1.5.0-final","correlationID":"session-685d7f4f-92c3-49c2-9520-09836fa0390b","score":{"partAndParcel":"LOW","financialRisk":"MEDIUM","personalService":"MEDIUM","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Unknown"}"""
+      val decisionCase20e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldNotReject",
+            "possibleSubstituteWorkerPay" -> "No",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "Yes",
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase20e)
+      val decisionRespone20e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
+        "score" -> Json.obj(
+          "partAndParcel" -> "LOW",
+          "financialRisk" -> "MEDIUM",
+          "personalService" -> "MEDIUM",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Unknown"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase20e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone20e)
+        result.json should equal(decisionRespone20e)
       }
     }
 
@@ -1500,67 +4624,237 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase21a = """{"version":"1.5.0-final","correlationID":"session-bb2b9dee-2599-4494-9c4d-324709e81adc","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone21 = """{"version":"1.5.0-final","correlationID":"session-bb2b9dee-2599-4494-9c4d-324709e81adc","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase21a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase21a)
+      val decisionRespone21 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase21a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone21)
+        result.json should equal(decisionRespone21)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase21b = """{"version":"1.5.0-final","correlationID":"session-bb2b9dee-2599-4494-9c4d-324709e81adc","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone21b = """{"version":"1.5.0-final","correlationID":"session-bb2b9dee-2599-4494-9c4d-324709e81adc","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase21b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase21b)
+      val decisionRespone21b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "HIGH",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase21b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone21b)
+        result.json should equal(decisionRespone21b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase21c = """{"version":"1.5.0-final","correlationID":"session-bb2b9dee-2599-4494-9c4d-324709e81adc","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"control":{"engagerMovingWorker":"canMoveWorkerWithoutPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"}}}"""
-      val decisionRespone21c = """{"version":"1.5.0-final","correlationID":"session-bb2b9dee-2599-4494-9c4d-324709e81adc","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"HIGH","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase21c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase21c)
+      val decisionRespone21c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "HIGH",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase21c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone21c)
+        result.json should equal(decisionRespone21c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase21d = """{"version":"1.5.0-final","correlationID":"session-bb2b9dee-2599-4494-9c4d-324709e81adc","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"asPartOfUsualRateInWorkingHours"}}}"""
-      val decisionRespone21d = """{"version":"1.5.0-final","correlationID":"session-bb2b9dee-2599-4494-9c4d-324709e81adc","score":{"partAndParcel":"NotValidUseCase","financialRisk":"LOW","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase21d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase21d)
+      val decisionRespone21d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "LOW",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase21d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone21d)
+        result.json should equal(decisionRespone21d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase21e = """{"version":"1.5.0-final","correlationID":"session-bb2b9dee-2599-4494-9c4d-324709e81adc","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"limitedCompany"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldReject","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"canMoveWorkerWithoutPermission","workerDecidingHowWorkIsDone":"workerFollowStrictEmployeeProcedures","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"noLocationRequired"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"asPartOfUsualRateInWorkingHours"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"No"}}}"""
-      val decisionRespone21e = """{"version":"1.5.0-final","correlationID":"session-bb2b9dee-2599-4494-9c4d-324709e81adc","score":{"partAndParcel":"LOW","financialRisk":"LOW","personalService":"HIGH","exit":"CONTINUE","control":"HIGH","setup":"CONTINUE"},"result":"Inside IR35"}"""
+      val decisionCase21e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "limitedCompany"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
+            "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase21e)
+      val decisionRespone21e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
+        "score" -> Json.obj(
+          "partAndParcel" -> "LOW",
+          "financialRisk" -> "LOW",
+          "personalService" -> "HIGH",
+          "exit" -> "CONTINUE",
+          "control" -> "HIGH",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Inside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase21e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone21e)
+        result.json should equal(decisionRespone21e)
       }
     }
 
@@ -1571,71 +4865,246 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      val decisionCase22a = """{"version":"1.5.0-final","correlationID":"session-72f6b69a-018e-4ad7-8589-a04658801d32","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"exit":{"officeHolder":"No"},"personalService":{},"control":{},"financialRisk":{"expensesAreNotRelevantForRole":"No"},"partAndParcel":{}}}"""
-      val decisionRespone22 = """{"version":"1.5.0-final","correlationID":"session-72f6b69a-018e-4ad7-8589-a04658801d32","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"CONTINUE","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase22a = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(),
+          "control" -> Json.obj(),
+          "financialRisk" -> Json.obj(
+            "expensesAreNotRelevantForRole" -> "No"
+          ),
+          "partAndParcel" -> Json.obj()
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase22a)
+      val decisionRespone22 = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "CONTINUE",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase22a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone22)
+        result.json should equal(decisionRespone22)
       }
     }
 
 
     "return a 200 and continue response given a Personal service request" in {
 
-      val decisionCase22b = """{"version":"1.5.0-final","correlationID":"session-72f6b69a-018e-4ad7-8589-a04658801d32","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldNotReject","possibleSubstituteWorkerPay":"No","wouldWorkerPayHelper":"No"}}}"""
-      val decisionRespone22b = """{"version":"1.5.0-final","correlationID":"session-72f6b69a-018e-4ad7-8589-a04658801d32","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"MEDIUM","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase22b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldNotReject",
+            "possibleSubstituteWorkerPay" -> "No",
+            "wouldWorkerPayHelper" -> "No"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase22b)
+      val decisionRespone22b = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "MEDIUM",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase22b)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone22b)
+        result.json should equal(decisionRespone22b)
       }
     }
 
     "return a 200 and continue response given a control request" in {
 
-      val decisionCase22c = """{"version":"1.5.0-final","correlationID":"session-72f6b69a-018e-4ad7-8589-a04658801d32","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"noWorkerInputAllowed","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"workerCannotChoose"}}}"""
-      val decisionRespone22c = """{"version":"1.5.0-final","correlationID":"session-72f6b69a-018e-4ad7-8589-a04658801d32","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase22c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "workerCannotChoose"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase22c)
+      val decisionRespone22c = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "NotValidUseCase",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase22c)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone22c)
+        result.json should equal(decisionRespone22c)
       }
     }
 
     "return a 200 and continue response given a Financial Risk request" in {
 
-      val decisionCase22d = """{"version":"1.5.0-final","correlationID":"session-72f6b69a-018e-4ad7-8589-a04658801d32","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"cannotBeCorrected"}}}"""
-      val decisionRespone22d = """{"version":"1.5.0-final","correlationID":"session-72f6b69a-018e-4ad7-8589-a04658801d32","score":{"partAndParcel":"NotValidUseCase","financialRisk":"LOW","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
+      val decisionCase22d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "cannotBeCorrected"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase22d)
+      val decisionRespone22d = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
+        "score" -> Json.obj(
+          "partAndParcel" -> "NotValidUseCase",
+          "financialRisk" -> "LOW",
+          "personalService" -> "NotValidUseCase",
+          "exit" -> "NotValidUseCase",
+          "control" -> "NotValidUseCase",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Not Matched"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase22d)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone22d)
+        result.json should equal(decisionRespone22d)
       }
     }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase22e =  """{"version":"1.5.0-final","correlationID":"session-72f6b69a-018e-4ad7-8589-a04658801d32","interview":{"setup":{"endUserRole":"personDoingWork","hasContractStarted":"Yes","provideServices":"soleTrader"},"exit":{"officeHolder":"No"},"personalService":{"workerSentActualSubstitute":"noSubstitutionHappened","possibleSubstituteRejection":"wouldNotReject","possibleSubstituteWorkerPay":"No","wouldWorkerPayHelper":"No"},"control":{"engagerMovingWorker":"cannotMoveWorkerWithoutNewAgreement","workerDecidingHowWorkIsDone":"noWorkerInputAllowed","whenWorkHasToBeDone":"workerAgreeSchedule","workerDecideWhere":"workerCannotChoose"},"financialRisk":{"workerProvidedMaterials":"No","workerProvidedEquipment":"No","workerUsedVehicle":"No","workerHadOtherExpenses":"No","expensesAreNotRelevantForRole":"Yes","workerMainIncome":"incomeCalendarPeriods","paidForSubstandardWork":"cannotBeCorrected"},"partAndParcel":{"workerReceivesBenefits":"No","workerAsLineManager":"No","contactWithEngagerCustomer":"Yes","workerRepresentsEngagerBusiness":"workForEndClient"}}}"""
-      val decisionRespone22e = """{"version":"1.5.0-final","correlationID":"session-72f6b69a-018e-4ad7-8589-a04658801d32","score":{"partAndParcel":"MEDIUM","financialRisk":"LOW","personalService":"MEDIUM","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Inside IR35"}"""
+      val decisionCase22e =  Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "personDoingWork",
+            "hasContractStarted" -> "Yes",
+            "provideServices" -> "soleTrader"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> "No"
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldNotReject",
+            "possibleSubstituteWorkerPay" -> "No",
+            "wouldWorkerPayHelper" -> "No"
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "workerCannotChoose"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> "No",
+            "workerProvidedEquipment" -> "No",
+            "workerUsedVehicle" -> "No",
+            "workerHadOtherExpenses" -> "No",
+            "expensesAreNotRelevantForRole" -> "Yes",
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "cannotBeCorrected"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> "No",
+            "workerAsLineManager" -> "No",
+            "contactWithEngagerCustomer" -> "Yes",
+            "workerRepresentsEngagerBusiness" -> "workForEndClient"
+          )
+        )
+      )
 
-      lazy val res = postFullJsonRequest("/decide",decisionCase22e)
+      val decisionRespone22e = Json.obj(
+        "version" -> "1.5.0-final",
+        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
+        "score" -> Json.obj(
+          "partAndParcel" -> "MEDIUM",
+          "financialRisk" -> "LOW",
+          "personalService" -> "MEDIUM",
+          "exit" -> "CONTINUE",
+          "control" -> "MEDIUM",
+          "setup" -> "CONTINUE"
+        ),
+        "result" -> "Inside IR35"
+      )
+
+      lazy val res = postRequest("/decide",decisionCase22e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
-        result.body should equal(decisionRespone22e)
+        result.json should equal(decisionRespone22e)
       }
     }
 
   }
 
-  
+
 }

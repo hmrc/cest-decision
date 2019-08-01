@@ -29,6 +29,8 @@ import uk.gov.hmrc.decisionservice.model.FactError
 import uk.gov.hmrc.decisionservice.model.api.ErrorCodes._
 import uk.gov.hmrc.decisionservice.model.api.{DecisionRequest, Score}
 import uk.gov.hmrc.decisionservice.model.rules.Facts
+import uk.gov.hmrc.decisionservice.models.PersonalService
+import uk.gov.hmrc.decisionservice.models.enums.WorkerSentActualSubstitute
 import uk.gov.hmrc.decisionservice.ruleengine.RuleEngineDecision
 import uk.gov.hmrc.decisionservice.services._
 import uk.gov.hmrc.decisionservice.util.TestFixture
