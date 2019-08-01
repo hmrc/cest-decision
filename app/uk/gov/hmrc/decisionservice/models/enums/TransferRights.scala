@@ -23,7 +23,7 @@ object TransferRights extends Enumeration with EnumFormats {
   val rightsTransferredToClient: TransferRights.Value = Value("rightsTransferredToClient")
   val ableToTransferRights: TransferRights.Value = Value("ableToTransferRights")
   val retainOwnershipRights: TransferRights.Value = Value("retainOwnershipRights")
-  val noRightsAriseFromContract: TransferRights.Value = Value("noRightsAriseFromContract")
+  val noRightsArise: TransferRights.Value = Value("noRightsArise")
 
   implicit val format: Format[TransferRights.Value] = enumFormat(TransferRights)
 }
