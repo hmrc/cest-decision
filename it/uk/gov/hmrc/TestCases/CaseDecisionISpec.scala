@@ -5,12 +5,12 @@ import play.api.http.Status
 import play.api.libs.json.Json
 import play.api.libs.ws.DefaultBodyWritables
 import uk.gov.hmrc.decisionservice.model.api.DecisionRequest
-import uk.gov.hmrc.decisionservice.models.enums.IdentifyToStakeholders
+import uk.gov.hmrc.decisionservice.models.enums.{ChooseWhereWork, HowWorkIsDone, IdentifyToStakeholders, MoveWorker, PaidForSubstandardWork, PossibleSubstituteRejection, ScheduleOfWorkingHours, WorkerMainIncome, WorkerSentActualSubstitute}
 import uk.gov.hmrc.decisionservice.models.{Control, FinancialRisk, PartAndParcel, PersonalService}
 import uk.gov.hmrc.helpers._
 
 class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
-  with Status with IntegrationPatience with CreateRequestHelper with WiremockHelper with CaseTestData {
+  with Status with IntegrationPatience with CreateRequestHelper with WiremockHelper {
 
 
   s"For Case 1 a POST /decide}" should {
@@ -39,7 +39,7 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
       val jsonBody = Json.toJson(DecisionRequest("1.5.0-final","session-12345",
         Map("setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),
-          "personalService" -> Map("workerSentActualSubstitute" -> "noSubstitutionHappened",PersonalService.possibleSubstituteRejection -> "wouldReject","wouldWorkerPayHelper" -> "No"))))
+          "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,PersonalService.wouldWorkerPayHelper -> "No"))))
 
       lazy val res = postRequest("/decide", jsonBody)
 
@@ -54,7 +54,7 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
     "return a 200 and continue response given a control request" in {
 
       val jsonBody = Json.toJson(DecisionRequest("1.5.0-final","session-12345",
-        Map("setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),"control" -> Map(Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",Control.workerDecidingHowWorkIsDone -> "workerAgreeWithOthers",Control.whenWorkHasToBeDone -> "workerAgreeSchedule",Control.workerDecideWhere -> "workerCannotChoose"))))
+        Map("setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),"control" -> Map(Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose))))
 
       lazy val res = postRequest("/decide",jsonBody)
 
@@ -72,7 +72,7 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
       val jsonBody = Json.toJson(
         DecisionRequest("1.5.0-final","session-12345",Map(
           "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),
-          "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"))))
+          "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours))))
 
       lazy val res = postRequest("/decide",jsonBody)
 
@@ -90,9 +90,9 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
       val jsonBody = Json.toJson(DecisionRequest("1.5.0-final","session-12345",
         Map("setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),
           "exit" -> Map ("officeHolder" -> "No"),
-          "personalService" -> Map("workerSentActualSubstitute" -> "noSubstitutionHappened",PersonalService.possibleSubstituteRejection -> "wouldReject","wouldWorkerPayHelper" -> "No"),
-          "control" -> Map(Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",Control.workerDecidingHowWorkIsDone -> "workerAgreeWithOthers",Control.whenWorkHasToBeDone -> "workerAgreeSchedule",Control.workerDecideWhere -> "workerCannotChoose"),
-          "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"),
+          "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,PersonalService.wouldWorkerPayHelper -> "No"),
+          "control" -> Map(Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose),
+          "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours),
           "partAndParcel" -> Map(PartAndParcel.workerReceivesBenefits -> "No",PartAndParcel.workerAsLineManager -> "No",PartAndParcel.contactWithEngagerCustomer -> "Yes",PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent))))
 
       lazy val res = postRequest("/decide",jsonBody)
@@ -134,7 +134,7 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
       val decisionCase2b = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
         "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "personalService" -> Map("workerSentActualSubstitute" -> "noSubstitutionHappened",PersonalService.possibleSubstituteRejection -> "wouldReject","wouldWorkerPayHelper" -> "No"))))
+        "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,PersonalService.wouldWorkerPayHelper -> "No"))))
 
       val decisionRespone2b = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"HIGH","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
 
@@ -150,7 +150,7 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
       val decisionCase2c = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
         "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "control" -> Map(Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",Control.workerDecidingHowWorkIsDone -> "workerDecidesWithoutInput",Control.whenWorkHasToBeDone -> "workerAgreeSchedule",Control.workerDecideWhere -> "workerCannotChoose"))))
+        "control" -> Map(Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose))))
 
       val decisionRespone2c = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"MEDIUM","setup":"CONTINUE"},"result":"Not Matched"}"""
 
@@ -166,7 +166,7 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
       val decisionCase2d = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
         "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"))))
+        "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours))))
 
       val decisionRespone2d = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"LOW","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
 
@@ -183,9 +183,9 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
       val decisionCase2e = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
         "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
         "exit" -> Map ("officeHolder" -> "No"),
-        "personalService" -> Map("workerSentActualSubstitute" -> "noSubstitutionHappened",PersonalService.possibleSubstituteRejection -> "wouldReject","wouldWorkerPayHelper" -> "No"),
-        "control" -> Map(Control.engagerMovingWorker -> "canMoveWorkerWithoutPermission",Control.workerDecidingHowWorkIsDone -> "workerDecidesWithoutInput",Control.whenWorkHasToBeDone -> "workerAgreeSchedule",Control.workerDecideWhere -> "workerCannotChoose"),
-        "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"),
+        "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,PersonalService.wouldWorkerPayHelper -> "No"),
+        "control" -> Map(Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose),
+        "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours),
         "partAndParcel" -> Map(PartAndParcel.workerReceivesBenefits -> "No",PartAndParcel.workerAsLineManager -> "No",PartAndParcel.contactWithEngagerCustomer -> "Yes",PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent))))
 
       val decisionRespone2e = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"LOW","financialRisk":"LOW","personalService":"HIGH","exit":"CONTINUE","control":"MEDIUM","setup":"CONTINUE"},"result":"Inside IR35"}"""
@@ -227,7 +227,7 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
       val decisionCase3b = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
         "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "personalService" -> Map("workerSentActualSubstitute" -> "noSubstitutionHappened",PersonalService.possibleSubstituteRejection -> "wouldNotReject",PersonalService.possibleSubstituteWorkerPay -> "No","wouldWorkerPayHelper" -> "No"))))
+        "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,PersonalService.possibleSubstituteWorkerPay -> "No",PersonalService.wouldWorkerPayHelper -> "No"))))
 
       val decisionRespone3b = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"NotValidUseCase","personalService":"MEDIUM","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
 
@@ -243,7 +243,7 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
       val decisionCase3c = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
         "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "control" -> Map(Control.engagerMovingWorker -> "cannotMoveWorkerWithoutNewAgreement",Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",Control.whenWorkHasToBeDone -> "workerDecideSchedule",Control.workerDecideWhere -> "noLocationRequired"))))
+        "control" -> Map(Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired))))
 
       val decisionRespone3c = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"exit":"NotValidUseCase","control":"OUTOFIR35","setup":"CONTINUE"},"result":"Outside IR35"}"""
 
@@ -259,7 +259,7 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
       val decisionCase3d = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
         "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "soleTrader"),
-        "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"))))
+        "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours))))
 
       val decisionRespone3d = """{"version":"1.5.0-final","correlationID":"session-12345","score":{"partAndParcel":"NotValidUseCase","financialRisk":"LOW","personalService":"NotValidUseCase","exit":"NotValidUseCase","control":"NotValidUseCase","setup":"CONTINUE"},"result":"Not Matched"}"""
 
@@ -276,9 +276,9 @@ class CaseDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
       val decisionCase3e = Json.toJson(DecisionRequest("1.5.0-final","session-12345",Map(
         "setup" -> Map("endUserRole" -> "personDoingWork","hasContractStarted" -> "Yes","provideServices" -> "limitedCompany"),
         "exit" -> Map ("officeHolder" -> "No"),
-        "personalService" -> Map("workerSentActualSubstitute" -> "noSubstitutionHappened",PersonalService.possibleSubstituteRejection -> "wouldNotReject",PersonalService.possibleSubstituteWorkerPay -> "No","wouldWorkerPayHelper" -> "Yes"),
-        "control" -> Map(Control.engagerMovingWorker -> "cannotMoveWorkerWithoutNewAgreement",Control.workerDecidingHowWorkIsDone -> "workerFollowStrictEmployeeProcedures",Control.whenWorkHasToBeDone -> "workerDecideSchedule",Control.workerDecideWhere -> "noLocationRequired"),
-        "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"),
+        "personalService" -> Map(PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,PersonalService.possibleSubstituteWorkerPay -> "No",PersonalService.wouldWorkerPayHelper -> "Yes"),
+        "control" -> Map(Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired),
+        "financialRisk" -> Map(FinancialRisk.workerProvidedMaterials -> "No",FinancialRisk.workerProvidedEquipment -> "No",FinancialRisk.workerUsedVehicle -> "No",FinancialRisk.workerHadOtherExpenses -> "No",FinancialRisk.expensesAreNotRelevantForRole -> "Yes",FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours),
         "partAndParcel" -> Map(PartAndParcel.workerReceivesBenefits -> "No",PartAndParcel.workerAsLineManager -> "No",PartAndParcel.contactWithEngagerCustomer -> "Yes",PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent))))
 
 

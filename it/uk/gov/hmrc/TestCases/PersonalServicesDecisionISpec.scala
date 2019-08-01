@@ -2,6 +2,7 @@ package uk.gov.hmrc.TestCases
 
 import play.api.libs.json.Json.obj
 import uk.gov.hmrc.decisionservice.models.PersonalService
+import uk.gov.hmrc.decisionservice.models.enums.{PossibleSubstituteRejection, WorkerSentActualSubstitute}
 
 class PersonalServicesDecisionISpec extends BaseISpec {
 
@@ -15,8 +16,8 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              "workerSentActualSubstitute" -> "yesClientAgreed",
-              "workerPayActualSubstitute" -> true
+              PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.yesClientAgreed,
+              PersonalService.workerPayActualSubstitute -> true
             ))
           )
 
@@ -31,8 +32,8 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              "workerSentActualSubstitute" -> "noSubstitutionHappened",
-              PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+              PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
+              PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
               PersonalService.possibleSubstituteWorkerPay -> true
             ))
           )
@@ -48,9 +49,9 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              "workerSentActualSubstitute" -> "yesClientAgreed",
-              "workerPayActualSubstitute" -> false,
-              "wouldWorkerPayHelper" -> true
+              PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.yesClientAgreed,
+              PersonalService.workerPayActualSubstitute -> false,
+              PersonalService.wouldWorkerPayHelper -> true
             ))
           )
 
@@ -64,9 +65,9 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              "workerSentActualSubstitute" -> "yesClientAgreed",
-              "workerPayActualSubstitute" -> false,
-              "wouldWorkerPayHelper" -> false
+              PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.yesClientAgreed,
+              PersonalService.workerPayActualSubstitute -> false,
+              PersonalService.wouldWorkerPayHelper -> false
             ))
           )
 
@@ -80,10 +81,10 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              "workerSentActualSubstitute" -> "noSubstitutionHappened",
-              PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+              PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
+              PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
               PersonalService.possibleSubstituteWorkerPay -> false,
-              "wouldWorkerPayHelper" -> true
+              PersonalService.wouldWorkerPayHelper -> true
             ))
           )
 
@@ -97,10 +98,10 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              "workerSentActualSubstitute" -> "noSubstitutionHappened",
-              PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+              PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
+              PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
               PersonalService.possibleSubstituteWorkerPay -> false,
-              "wouldWorkerPayHelper" -> false
+              PersonalService.wouldWorkerPayHelper -> false
             ))
           )
 
@@ -114,9 +115,9 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              "workerSentActualSubstitute" -> "noSubstitutionHappened",
-              PersonalService.possibleSubstituteRejection -> "wouldReject",
-              "wouldWorkerPayHelper" -> true
+              PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
+              PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,
+              PersonalService.wouldWorkerPayHelper -> true
             ))
           )
 
@@ -131,9 +132,9 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              "workerSentActualSubstitute" -> "noSubstitutionHappened",
-              PersonalService.possibleSubstituteRejection -> "wouldReject",
-              "wouldWorkerPayHelper" -> false
+              PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
+              PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject,
+              PersonalService.wouldWorkerPayHelper -> false
             ))
           )
 
@@ -147,8 +148,8 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              "workerSentActualSubstitute" -> "notAgreedWithClient",
-              "wouldWorkerPayHelper" -> true
+              PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
+              PersonalService.wouldWorkerPayHelper -> true
             ))
           )
 
@@ -162,8 +163,8 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              "workerSentActualSubstitute" -> "notAgreedWithClient",
-              "wouldWorkerPayHelper" -> false
+              PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
+              PersonalService.wouldWorkerPayHelper -> false
             ))
           )
 
@@ -178,7 +179,7 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+              PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
               PersonalService.possibleSubstituteWorkerPay -> true
             ))
           )
@@ -194,7 +195,7 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(personalService = obj(
-              PersonalService.possibleSubstituteRejection -> "wouldNotReject",
+              PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
               PersonalService.possibleSubstituteWorkerPay -> false
             ))
           )
@@ -208,7 +209,7 @@ class PersonalServicesDecisionISpec extends BaseISpec {
         "Scenario 13: return a 200, a HIGH for personal services" in {
 
           lazy val res = postRequest(engine.path,
-            interview(personalService = obj(PersonalService.possibleSubstituteRejection -> "wouldReject"))
+            interview(personalService = obj(PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldReject))
           )
 
           whenReady(res) { result =>

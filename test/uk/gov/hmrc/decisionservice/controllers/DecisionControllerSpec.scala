@@ -77,8 +77,8 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Mock
   def sampleInterviewForVersion(version:String) = {
     val iVersion3 = Map(
       "personalService" -> Map(
-        "workerSentActualSubstitute" -> "yesClientAgreed",
-        "workerPayActualSubstitute" -> "Yes"
+        PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.yesClientAgreed,
+        PersonalService.workerPayActualSubstitute -> "Yes"
       ))
     Map(DecisionServiceVersions.VERSION110_FINAL -> iVersion3,
         DecisionServiceVersions.VERSION111_FINAL -> iVersion3,

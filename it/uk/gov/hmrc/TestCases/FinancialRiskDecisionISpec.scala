@@ -2,6 +2,7 @@ package uk.gov.hmrc.TestCases
 
 import play.api.libs.json.Json.obj
 import uk.gov.hmrc.decisionservice.models.FinancialRisk
+import uk.gov.hmrc.decisionservice.models.enums.{PaidForSubstandardWork, WorkerMainIncome}
 
 class FinancialRiskDecisionISpec extends BaseISpec {
 
@@ -20,8 +21,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -41,8 +42,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -62,8 +63,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -83,8 +84,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -104,8 +105,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -125,8 +126,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -146,8 +147,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -167,8 +168,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -188,8 +189,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -209,8 +210,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -230,8 +231,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -251,8 +252,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -272,8 +273,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -293,8 +294,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -314,8 +315,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -335,8 +336,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -355,8 +356,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -376,8 +377,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -397,8 +398,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -418,8 +419,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -439,8 +440,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -460,8 +461,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -480,8 +481,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -501,8 +502,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -522,8 +523,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -542,8 +543,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -563,8 +564,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -584,8 +585,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -605,8 +606,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -625,8 +626,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -645,8 +646,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -665,8 +666,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -685,8 +686,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -705,8 +706,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -725,8 +726,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -745,8 +746,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -765,8 +766,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -785,8 +786,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -805,8 +806,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -825,8 +826,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -846,8 +847,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -866,8 +867,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -886,8 +887,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -906,8 +907,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -926,8 +927,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -946,8 +947,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -966,8 +967,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -986,8 +987,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1006,8 +1007,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1026,8 +1027,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1046,8 +1047,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1066,8 +1067,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1086,8 +1087,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1106,8 +1107,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1126,8 +1127,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1146,8 +1147,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1166,8 +1167,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1186,8 +1187,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1206,8 +1207,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1226,8 +1227,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1246,8 +1247,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1266,8 +1267,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1286,8 +1287,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1306,8 +1307,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1326,8 +1327,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1346,8 +1347,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1366,8 +1367,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1386,8 +1387,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1406,8 +1407,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1426,8 +1427,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeCalendarPeriods",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1446,8 +1447,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1466,8 +1467,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1486,8 +1487,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeFixed",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1506,8 +1507,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1526,8 +1527,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1546,8 +1547,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomePieceRate",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1566,8 +1567,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1586,8 +1587,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1606,8 +1607,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> true,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1626,8 +1627,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> false,
               FinancialRisk.expensesAreNotRelevantForRole -> true,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1646,8 +1647,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -1666,8 +1667,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1686,8 +1687,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1706,8 +1707,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeCommission",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1726,8 +1727,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -1746,8 +1747,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1766,8 +1767,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "cannotBeCorrected"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1786,8 +1787,8 @@ class FinancialRiskDecisionISpec extends BaseISpec {
               FinancialRisk.workerUsedVehicle -> false,
               FinancialRisk.workerHadOtherExpenses -> true,
               FinancialRisk.expensesAreNotRelevantForRole -> false,
-              FinancialRisk.workerMainIncome -> "incomeProfitOrLosses",
-              FinancialRisk.paidForSubstandardWork -> "noObligationToCorrect"
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
