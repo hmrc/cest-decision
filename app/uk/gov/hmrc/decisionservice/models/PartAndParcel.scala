@@ -17,11 +17,12 @@
 package uk.gov.hmrc.decisionservice.models
 
 import play.api.libs.json.{Format, Json}
+import uk.gov.hmrc.decisionservice.models.enums.WorkerRepresentsEngagerBusiness
 
 case class PartAndParcel(workerReceivesBenefits: Option[Boolean],
                          workerAsLineManager: Option[Boolean],
                          contactWithEngagerCustomer: Option[Boolean],
-                         workerRepresentsEngagerBusiness: Option[String]) extends Section
+                         workerRepresentsEngagerBusiness: Option[WorkerRepresentsEngagerBusiness.Value]) extends Section
 
 object PartAndParcel {
   implicit val format: Format[PartAndParcel] = Json.format[PartAndParcel]

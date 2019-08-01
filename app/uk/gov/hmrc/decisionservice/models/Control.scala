@@ -17,11 +17,12 @@
 package uk.gov.hmrc.decisionservice.models
 
 import play.api.libs.json.{Format, Json}
+import uk.gov.hmrc.decisionservice.models.enums.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
 
-case class Control(engagerMovingWorker: Option[String],
-                   workerDecidingHowWorkIsDone: Option[String],
-                   whenWorkHasToBeDone: Option[String],
-                   workerDecideWhere: Option[String]) extends Section
+case class Control(engagerMovingWorker: Option[MoveWorker.Value],
+                   workerDecidingHowWorkIsDone: Option[HowWorkIsDone.Value],
+                   whenWorkHasToBeDone: Option[ScheduleOfWorkingHours.Value],
+                   workerDecideWhere: Option[ChooseWhereWork.Value]) extends Section
 
 object Control {
   implicit val format: Format[Control] = Json.format[Control]

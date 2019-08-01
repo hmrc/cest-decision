@@ -28,7 +28,7 @@ class KibanaModelSpec extends UnitSpec {
   }
   "kibana row Scala object" should {
     "be correctly converted to kibana row line" in {
-      val kibanaRow = KibanaRow(Map("a"->"a1", "b"->"b1"))
+      val kibanaRow = KibanaRow(Map("a" -> "a1", "b" -> "b1"))
       kibanaRow.asLogLine shouldBe "{\"a\":\"a1\",\"b\":\"b1\"}"
     }
   }

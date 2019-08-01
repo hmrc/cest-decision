@@ -1,6 +1,8 @@
 package uk.gov.hmrc.TestCases
 
 import play.api.libs.json.Json.obj
+import uk.gov.hmrc.decisionservice.models.PartAndParcel
+import uk.gov.hmrc.decisionservice.models.enums.IdentifyToStakeholders
 
 class PartAndParcelDecisionISpec extends BaseISpec {
 
@@ -14,10 +16,10 @@ class PartAndParcelDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(partAndParcel = obj(
-              "workerReceivesBenefits" -> false,
-              "workerAsLineManager" -> true,
-              "contactWithEngagerCustomer" -> false,
-              "workerRepresentsEngagerBusiness" -> "workerRepresentsEngagerBusiness"
+              PartAndParcel.workerReceivesBenefits -> false,
+              PartAndParcel.workerAsLineManager -> true,
+              PartAndParcel.contactWithEngagerCustomer -> false,
+              PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
             ))
           )
 
@@ -31,10 +33,10 @@ class PartAndParcelDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(partAndParcel = obj(
-              "workerReceivesBenefits" -> true,
-              "workerAsLineManager" -> false,
-              "contactWithEngagerCustomer" -> false,
-              "workerRepresentsEngagerBusiness" -> "workerRepresentsEngagerBusiness"
+              PartAndParcel.workerReceivesBenefits -> true,
+              PartAndParcel.workerAsLineManager -> false,
+              PartAndParcel.contactWithEngagerCustomer -> false,
+              PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
             ))
           )
 
@@ -48,10 +50,10 @@ class PartAndParcelDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(partAndParcel = obj(
-              "workerReceivesBenefits" -> false,
-              "workerAsLineManager" -> false,
-              "contactWithEngagerCustomer" -> true,
-              "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+              PartAndParcel.workerReceivesBenefits -> false,
+              PartAndParcel.workerAsLineManager -> false,
+              PartAndParcel.contactWithEngagerCustomer -> true,
+              PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
             ))
           )
 
@@ -65,10 +67,10 @@ class PartAndParcelDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(partAndParcel = obj(
-              "workerReceivesBenefits" -> false,
-              "workerAsLineManager" -> false,
-              "contactWithEngagerCustomer" -> true,
-              "workerRepresentsEngagerBusiness" -> "workForEndClient"
+              PartAndParcel.workerReceivesBenefits -> false,
+              PartAndParcel.workerAsLineManager -> false,
+              PartAndParcel.contactWithEngagerCustomer -> true,
+              PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workForEndClient
             ))
           )
 
@@ -82,10 +84,10 @@ class PartAndParcelDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(partAndParcel = obj(
-              "workerReceivesBenefits" -> false,
-              "workerAsLineManager" -> false,
-              "contactWithEngagerCustomer" -> false,
-              "workerRepresentsEngagerBusiness" -> "workAsBusiness"
+              PartAndParcel.workerReceivesBenefits -> false,
+              PartAndParcel.workerAsLineManager -> false,
+              PartAndParcel.contactWithEngagerCustomer -> false,
+              PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsBusiness
             ))
           )
 
@@ -99,10 +101,10 @@ class PartAndParcelDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(partAndParcel = obj(
-              "workerReceivesBenefits" -> false,
-              "workerAsLineManager" -> false,
-              "contactWithEngagerCustomer" -> true,
-              "workerRepresentsEngagerBusiness" -> "workAsBusiness"
+              PartAndParcel.workerReceivesBenefits -> false,
+              PartAndParcel.workerAsLineManager -> false,
+              PartAndParcel.contactWithEngagerCustomer -> true,
+              PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsBusiness
             ))
           )
 

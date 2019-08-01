@@ -18,12 +18,11 @@ package uk.gov.hmrc.decisionservice.models.enums
 
 import play.api.libs.json.Format
 
-object TransferRights extends Enumeration with EnumFormats {
+object WorkerSentActualSubstitute extends Enumeration with EnumFormats {
 
-  val rightsTransferredToClient: TransferRights.Value = Value("rightsTransferredToClient")
-  val ableToTransferRights: TransferRights.Value = Value("ableToTransferRights")
-  val retainOwnershipRights: TransferRights.Value = Value("retainOwnershipRights")
-  val noRightsArise: TransferRights.Value = Value("noRightsArise")
+  val yesClientAgreed: WorkerSentActualSubstitute.Value = Value("yesClientAgreed")
+  val notAgreedWithClient: WorkerSentActualSubstitute.Value = Value("notAgreedWithClient")
+  val noSubstitutionHappened: WorkerSentActualSubstitute.Value = Value("noSubstitutionHappened")
 
-  implicit val format: Format[TransferRights.Value] = enumFormat(TransferRights)
+  implicit val format: Format[WorkerSentActualSubstitute.Value] = enumFormat(WorkerSentActualSubstitute)
 }

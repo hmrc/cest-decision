@@ -17,14 +17,15 @@
 package uk.gov.hmrc.decisionservice.models
 
 import play.api.libs.json.{Format, Json}
+import uk.gov.hmrc.decisionservice.models.enums.{PaidForSubstandardWork, WorkerMainIncome}
 
 case class FinancialRisk(workerProvidedMaterials: Option[Boolean],
                          workerProvidedEquipment: Option[Boolean],
                          workerUsedVehicle: Option[Boolean],
                          workerHadOtherExpenses: Option[Boolean],
                          expensesAreNotRelevantForRole: Option[Boolean],
-                         workerMainIncome: Option[String],
-                         paidForSubstandardWork: Option[String]) extends Section
+                         workerMainIncome: Option[WorkerMainIncome.Value],
+                         paidForSubstandardWork: Option[PaidForSubstandardWork.Value]) extends Section
 
 object FinancialRisk {
   implicit val format: Format[FinancialRisk] = Json.format[FinancialRisk]

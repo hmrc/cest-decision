@@ -1,6 +1,8 @@
 package uk.gov.hmrc.TestCases
 
 import play.api.libs.json.Json.obj
+import uk.gov.hmrc.decisionservice.models.FinancialRisk
+import uk.gov.hmrc.decisionservice.models.enums.{PaidForSubstandardWork, WorkerMainIncome}
 
 class FinancialRiskDecisionISpec extends BaseISpec {
 
@@ -14,13 +16,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> true,
-              "workerProvidedEquipment" -> true,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> true,
+              FinancialRisk.workerProvidedEquipment -> true,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -35,13 +37,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> true,
-              "workerProvidedEquipment" -> true,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> true,
+              FinancialRisk.workerProvidedEquipment -> true,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -56,13 +58,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> true,
-              "workerProvidedEquipment" -> true,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> true,
+              FinancialRisk.workerProvidedEquipment -> true,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -77,13 +79,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> true,
-              "workerProvidedEquipment" -> true,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> true,
+              FinancialRisk.workerProvidedEquipment -> true,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -98,13 +100,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> true,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> true,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -119,13 +121,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> true,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> true,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -140,13 +142,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> true,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> true,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -161,13 +163,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> true,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> true,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -182,13 +184,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> true,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> true,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -203,13 +205,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> true,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> true,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -224,13 +226,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> true,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> true,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -245,13 +247,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> true,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> true,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -266,13 +268,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -287,13 +289,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -308,13 +310,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -329,13 +331,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -349,13 +351,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -370,13 +372,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -391,13 +393,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -412,13 +414,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -433,13 +435,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -454,13 +456,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -474,13 +476,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -495,13 +497,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -516,13 +518,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -536,13 +538,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -557,13 +559,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -578,13 +580,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCharge"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCharge
             ))
           )
 
@@ -599,13 +601,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -619,13 +621,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -639,13 +641,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -659,13 +661,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -679,13 +681,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -699,13 +701,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -719,13 +721,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -739,13 +741,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -759,13 +761,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -779,13 +781,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -799,13 +801,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -819,13 +821,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -840,13 +842,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -860,13 +862,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -880,13 +882,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -900,13 +902,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -920,13 +922,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -940,13 +942,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -960,13 +962,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -980,13 +982,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1000,13 +1002,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1020,13 +1022,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1040,13 +1042,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1060,13 +1062,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1080,13 +1082,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1100,13 +1102,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1120,13 +1122,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1140,13 +1142,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1160,13 +1162,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1180,13 +1182,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1200,13 +1202,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1220,13 +1222,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1240,13 +1242,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1260,13 +1262,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1280,13 +1282,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1300,13 +1302,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1320,13 +1322,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1340,13 +1342,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1360,13 +1362,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1380,13 +1382,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1400,13 +1402,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1420,13 +1422,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeCalendarPeriods",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1440,13 +1442,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1460,13 +1462,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1480,13 +1482,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeFixed",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeFixed,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1500,13 +1502,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1520,13 +1522,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1540,13 +1542,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomePieceRate",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomePieceRate,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1560,13 +1562,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1580,13 +1582,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1600,13 +1602,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> true,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> true,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1620,13 +1622,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> false,
-              "expensesAreNotRelevantForRole" -> true,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> false,
+              FinancialRisk.expensesAreNotRelevantForRole -> true,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1640,13 +1642,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -1660,13 +1662,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1680,13 +1682,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1700,13 +1702,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeCommission",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCommission,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 
@@ -1720,13 +1722,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "outsideOfHoursNoCosts"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.outsideOfHoursNoCosts
             ))
           )
 
@@ -1740,13 +1742,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.asPartOfUsualRateInWorkingHours
             ))
           )
 
@@ -1760,13 +1762,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "cannotBeCorrected"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
             ))
           )
 
@@ -1780,13 +1782,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(financialRisk = obj(
-              "workerProvidedMaterials" -> false,
-              "workerProvidedEquipment" -> false,
-              "workerUsedVehicle" -> false,
-              "workerHadOtherExpenses" -> true,
-              "expensesAreNotRelevantForRole" -> false,
-              "workerMainIncome" -> "incomeProfitOrLosses",
-              "paidForSubstandardWork" -> "noObligationToCorrect"
+              FinancialRisk.workerProvidedMaterials -> false,
+              FinancialRisk.workerProvidedEquipment -> false,
+              FinancialRisk.workerUsedVehicle -> false,
+              FinancialRisk.workerHadOtherExpenses -> true,
+              FinancialRisk.expensesAreNotRelevantForRole -> false,
+              FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeProfitOrLosses,
+              FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.noObligationToCorrect
             ))
           )
 

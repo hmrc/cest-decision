@@ -1,6 +1,8 @@
 package uk.gov.hmrc.TestCases
 
 import play.api.libs.json.Json.obj
+import uk.gov.hmrc.decisionservice.models.Control
+import uk.gov.hmrc.decisionservice.models.enums.{ChooseWhereWork, HowWorkIsDone, MoveWorker, ScheduleOfWorkingHours}
 
 class ControlDecisionISpec extends BaseISpec {
 
@@ -14,10 +16,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -31,10 +33,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -48,10 +50,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -65,10 +67,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -82,10 +84,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -99,10 +101,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -116,10 +118,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -133,10 +135,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -150,10 +152,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -167,10 +169,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -184,10 +186,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -201,10 +203,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -218,10 +220,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -235,10 +237,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -252,10 +254,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -269,10 +271,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -286,10 +288,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -303,10 +305,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -320,10 +322,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -337,10 +339,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -354,10 +356,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -371,10 +373,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -388,10 +390,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -405,10 +407,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -422,10 +424,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -439,10 +441,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -456,10 +458,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -473,10 +475,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -490,10 +492,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -507,10 +509,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -524,10 +526,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -541,10 +543,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -558,10 +560,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -575,10 +577,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -592,10 +594,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -609,10 +611,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -626,10 +628,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -643,10 +645,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -660,10 +662,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -677,10 +679,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -694,10 +696,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -711,10 +713,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -728,10 +730,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -745,10 +747,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -762,10 +764,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -779,10 +781,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -796,10 +798,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -813,10 +815,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -830,10 +832,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -847,10 +849,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -864,10 +866,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -881,10 +883,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -898,10 +900,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -915,10 +917,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -932,10 +934,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -949,10 +951,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -966,10 +968,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -983,10 +985,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1000,10 +1002,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1017,10 +1019,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1034,10 +1036,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1051,10 +1053,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1068,10 +1070,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1085,10 +1087,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1102,10 +1104,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1119,10 +1121,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1136,10 +1138,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1153,10 +1155,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1170,10 +1172,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1187,10 +1189,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1204,10 +1206,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1221,10 +1223,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1244,10 +1246,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1261,10 +1263,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1278,10 +1280,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1295,10 +1297,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1312,10 +1314,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1329,10 +1331,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1346,10 +1348,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1363,10 +1365,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1385,10 +1387,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1402,10 +1404,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1419,10 +1421,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1436,10 +1438,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1453,10 +1455,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1470,10 +1472,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1487,10 +1489,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1504,10 +1506,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1526,10 +1528,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1543,10 +1545,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1560,10 +1562,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1577,10 +1579,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1594,10 +1596,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1611,10 +1613,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1628,10 +1630,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1645,10 +1647,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1662,10 +1664,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1679,10 +1681,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1696,10 +1698,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1713,10 +1715,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1730,10 +1732,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1747,10 +1749,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1764,10 +1766,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1781,10 +1783,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1798,10 +1800,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1815,10 +1817,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1832,10 +1834,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1849,10 +1851,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1866,10 +1868,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1883,10 +1885,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1900,10 +1902,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1917,10 +1919,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -1934,10 +1936,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -1951,10 +1953,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1968,10 +1970,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1985,10 +1987,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2002,10 +2004,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2019,10 +2021,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2036,10 +2038,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2053,10 +2055,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2070,10 +2072,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2087,10 +2089,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2104,10 +2106,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2121,10 +2123,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2138,10 +2140,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2155,10 +2157,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2172,10 +2174,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2189,10 +2191,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "canMoveWorkerWithoutPermission",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2206,10 +2208,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2223,10 +2225,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2240,10 +2242,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2257,10 +2259,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2274,10 +2276,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2291,10 +2293,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2308,10 +2310,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2325,10 +2327,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2342,10 +2344,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2360,10 +2362,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2377,10 +2379,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2395,10 +2397,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2412,10 +2414,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2430,10 +2432,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2447,10 +2449,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2465,10 +2467,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2482,10 +2484,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2499,10 +2501,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2516,10 +2518,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2533,10 +2535,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2550,10 +2552,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2567,10 +2569,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2584,10 +2586,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2601,10 +2603,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2618,10 +2620,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2635,10 +2637,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2652,10 +2654,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2669,10 +2671,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2686,10 +2688,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2703,10 +2705,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2720,10 +2722,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2737,10 +2739,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2754,10 +2756,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2771,10 +2773,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2788,10 +2790,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2805,10 +2807,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2822,10 +2824,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2839,10 +2841,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2856,10 +2858,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2873,10 +2875,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2890,10 +2892,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2907,10 +2909,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2924,10 +2926,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2941,10 +2943,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -2958,10 +2960,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -2975,10 +2977,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2992,10 +2994,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3009,10 +3011,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -3026,10 +3028,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -3043,10 +3045,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -3060,10 +3062,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3077,10 +3079,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "scheduleDecidedForWorker",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -3094,10 +3096,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -3111,10 +3113,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -3128,10 +3130,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3145,10 +3147,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -3162,10 +3164,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -3180,10 +3182,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -3197,10 +3199,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3215,10 +3217,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "workerDecideSchedule",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 
@@ -3232,10 +3234,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerChooses"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerChooses
             ))
           )
 
@@ -3250,10 +3252,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerCannotChoose"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -3267,10 +3269,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "noLocationRequired"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3285,10 +3287,10 @@ class ControlDecisionISpec extends BaseISpec {
 
           lazy val res = postRequest(engine.path,
             interview(control = obj(
-              "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-              "workerDecidingHowWorkIsDone" -> "workerFollowStrictEmployeeProcedures",
-              "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
-              "workerDecideWhere" -> "workerAgreeWithOthers"
+              Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+              Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
+              Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
+              Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
             ))
           )
 

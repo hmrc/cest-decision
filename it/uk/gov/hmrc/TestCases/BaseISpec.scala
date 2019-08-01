@@ -3,6 +3,8 @@ package uk.gov.hmrc.TestCases
 import play.api.http.Status
 import play.api.libs.json.Json.obj
 import play.api.libs.json.{JsValue, Json}
+import uk.gov.hmrc.decisionservice.models.{Control, FinancialRisk, PartAndParcel, PersonalService}
+import uk.gov.hmrc.decisionservice.models.enums.{ChooseWhereWork, HowWorkIsDone, IdentifyToStakeholders, MoveWorker, PaidForSubstandardWork, ScheduleOfWorkingHours, WorkerMainIncome, WorkerSentActualSubstitute}
 import uk.gov.hmrc.helpers.{CreateRequestHelper, IntegrationSpecBase, TestData}
 
 trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status with TestData {
@@ -20,32 +22,32 @@ trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status
   val defaultExit = obj("officeHolder" -> false)
 
   val defaultPersonalService = obj(
-    "workerSentActualSubstitute" -> "yesClientAgreed",
-    "workerPayActualSubstitute" -> false,
-    "wouldWorkerPayHelper" -> false
+    PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.yesClientAgreed,
+    PersonalService.workerPayActualSubstitute -> false,
+    PersonalService.wouldWorkerPayHelper -> false
   )
   val defaultControl = obj(
-    "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
-    "workerDecidingHowWorkIsDone" -> "workerAgreeWithOthers",
-    "whenWorkHasToBeDone" -> "workerAgreeSchedule",
-    "workerDecideWhere" -> "workerAgreeWithOthers"
+    Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
+    Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
+    Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
+    Control.workerDecideWhere -> ChooseWhereWork.workerAgreeWithOthers
   )
 
   val defaultFinancialRisk = obj(
-    "workerProvidedMaterials" -> false,
-    "workerProvidedEquipment" -> false,
-    "workerUsedVehicle" -> false,
-    "workerHadOtherExpenses" -> false,
-    "expensesAreNotRelevantForRole" -> true,
-    "workerMainIncome" -> "incomeCalendarPeriods",
-    "paidForSubstandardWork" -> "cannotBeCorrected"
+    FinancialRisk.workerProvidedMaterials -> false,
+    FinancialRisk.workerProvidedEquipment -> false,
+    FinancialRisk.workerUsedVehicle -> false,
+    FinancialRisk.workerHadOtherExpenses -> false,
+    FinancialRisk.expensesAreNotRelevantForRole -> true,
+    FinancialRisk.workerMainIncome -> WorkerMainIncome.incomeCalendarPeriods,
+    FinancialRisk.paidForSubstandardWork -> PaidForSubstandardWork.cannotBeCorrected
   )
 
   val defaultPartAndParcel = obj(
-    "workerReceivesBenefits" -> false,
-    "workerAsLineManager" -> false,
-    "contactWithEngagerCustomer" -> true,
-    "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+    PartAndParcel.workerReceivesBenefits -> false,
+    PartAndParcel.workerAsLineManager -> false,
+    PartAndParcel.contactWithEngagerCustomer -> true,
+    PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
   )
 
   def interview(exit: JsValue = defaultExit,

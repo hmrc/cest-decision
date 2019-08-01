@@ -30,12 +30,4 @@ trait CreateRequestHelper extends ServerProvider {
       .post(formJson)
   }
 
-  def postFullJsonRequest(path: String, Json: String, follow: Boolean = true): Future[WSResponse] = {
-    ws.url(s"http://localhost:$port/cest-decision$path")
-      .withCookies(defaultCookie)
-      .withFollowRedirects(follow)
-      .withHttpHeaders("Content-Type" -> "application/json")
-      .post(Json)
-  }
-
 }

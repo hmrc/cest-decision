@@ -17,10 +17,11 @@
 package uk.gov.hmrc.decisionservice.models
 
 import play.api.libs.json.{Format, Json}
+import uk.gov.hmrc.decisionservice.models.enums.{PossibleSubstituteRejection, WorkerSentActualSubstitute}
 
-case class PersonalService(workerSentActualSubstitute: Option[String] = None,
+case class PersonalService(workerSentActualSubstitute: Option[WorkerSentActualSubstitute.Value] = None,
                            workerPayActualSubstitute: Option[Boolean] = None,
-                           possibleSubstituteRejection: Option[String] = None,
+                           possibleSubstituteRejection: Option[PossibleSubstituteRejection.Value] = None,
                            possibleSubstituteWorkerPay: Option[Boolean] = None,
                            wouldWorkerPayHelper: Option[Boolean] = None) extends Section
 

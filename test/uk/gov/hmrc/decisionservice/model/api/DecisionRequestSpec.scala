@@ -69,7 +69,7 @@ class DecisionRequestSpec extends UnitSpec {
         "personalService" -> Map(
           "contractualRightForSubstitute" -> "Yes",
           "contractrualObligationForSubstitute" -> "No",
-          "possibleSubstituteRejection" -> "Yes"
+          PersonalService.possibleSubstituteRejection -> "Yes"
         ))
       val decisionRequest = DecisionRequest("0.0.1-alpha", "12345", interview)
       val jsValue:JsValue = Json.toJson(decisionRequest)
@@ -86,7 +86,7 @@ class DecisionRequestSpec extends UnitSpec {
         "personalService" -> Map(
           "contractualRightForSubstitute" -> "Yes",
           "contractrualObligationForSubstitute" -> "No",
-          "possibleSubstituteRejection" -> "Yes"
+          PersonalService.possibleSubstituteRejection -> "Yes"
         ))
       val decisionResponse = DecisionResponse("0.0.1-alpha", "12345", Score.createRaw(Map("aa" -> "bb")), "result")
       val response = Json.toJson(decisionResponse)
