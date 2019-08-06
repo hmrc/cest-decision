@@ -20,7 +20,7 @@ import org.mockito.ArgumentMatchers
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
 import uk.gov.hmrc.decisionservice.models._
-import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, SetupEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.ruleEngines._
 import uk.gov.hmrc.play.test.UnitSpec
 
@@ -68,7 +68,7 @@ class NewDecisionServiceSpec extends UnitSpec {
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
           "1.0.0-beta", "coral", Score(
-            None,Some(ExitEnum.CONTINUE),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH)
+            Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH)
           ), ResultEnum.INSIDE_IR35
         )
       }
