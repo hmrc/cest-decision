@@ -34,6 +34,7 @@ class NewDecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
   def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[DecisionResponse] = {
 
     val interview = request.interview
+    val setup = if(interview.setup.isDefined) Some(SetupEnum.CONTINUE) else None
 
     for {
       exit <- earlyExitRuleEngine.decide(interview.exit)
@@ -41,7 +42,7 @@ class NewDecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
       control <- controlRuleEngine.decide(interview.control)
       financialRisk <- financialRiskRuleEngine.decide(interview.financialRisk)
       partAndParcel <- partAndParcelRuleEngine.decide(interview.partAndParcel)
-      score = Score(None, exit, personalService, control, financialRisk, partAndParcel)
+      score = Score(setup, exit, personalService, control, financialRisk, partAndParcel)
       result <- resultRuleEngine.decide(score)
 
     } yield DecisionResponse(request.version, request.correlationID, score, result)
