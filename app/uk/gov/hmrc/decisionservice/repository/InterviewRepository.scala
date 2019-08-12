@@ -60,7 +60,8 @@ class ReactiveMongoRepository(mongo: () => DefaultDB)
 
   def count(search: AnalyticsSearch): Future[Int] = {
     val query = Json.obj("decision" -> search.decision,  "completed" ->
-      Json.obj("$gte" -> search.start.getMillis, "$lt" -> search.end.getMillis))
+      Json.obj("$gte" -> search.start, "$lt" -> search.end))
+    Logger.info(s"[InterviewRepository][count] $query")
     collection.count(Some(query))
   }
 
