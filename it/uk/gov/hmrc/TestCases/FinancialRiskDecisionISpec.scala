@@ -8,7 +8,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
   "Financial Risk Section" should {
 
-    Seq(OldRuleEngine, NewRuleEngine).foreach { implicit engine =>
+    Seq(NewRuleEngine).foreach { implicit engine =>
 
       s"POST ${engine.path}" should {
 

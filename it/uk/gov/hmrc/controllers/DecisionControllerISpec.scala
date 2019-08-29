@@ -19,15 +19,6 @@ class DecisionControllerISpec extends IntegrationSpecBase with DefaultBodyWritab
       }
     }
 
-    "return a 400 given an invalid version" in {
-
-      lazy val res = postRequest("/decide",decisionBadVersion)
-
-      whenReady(res) { result =>
-        result.status shouldBe BAD_REQUEST
-      }
-    }
-
     "return a 200 given a 1.1.0-final version" in {
 
       lazy val res = postRequest("/decide",decisionVersion1)

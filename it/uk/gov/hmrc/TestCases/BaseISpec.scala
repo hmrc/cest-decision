@@ -13,9 +13,6 @@ trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status
     val path: String
   }
   case object NewRuleEngine extends DecisionEngine {
-    override val path = "/decide/new"
-  }
-  case object OldRuleEngine extends DecisionEngine {
     override val path = "/decide"
   }
 
@@ -75,10 +72,6 @@ trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status
 
     engine match {
       case NewRuleEngine => interview
-      case OldRuleEngine => Json.parse(interview.toString
-        .replace("true", "\"Yes\"")
-        .replace("false", "\"No\"")
-      )
     }
   }
 }

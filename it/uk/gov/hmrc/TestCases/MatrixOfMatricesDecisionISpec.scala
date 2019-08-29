@@ -8,7 +8,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
   "Matrix of Matrices" should {
 
-    Seq(OldRuleEngine, NewRuleEngine).foreach { implicit engine =>
+    Seq(NewRuleEngine).foreach { implicit engine =>
 
       s"POST ${engine.path}" should {
 
