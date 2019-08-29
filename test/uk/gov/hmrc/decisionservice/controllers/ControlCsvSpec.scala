@@ -1,19 +1,3 @@
-/*
- * Copyright 2019 HM Revenue & Customs
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 ///*
 // * Copyright 2019 HM Revenue & Customs
 // *
@@ -21,7 +5,23 @@
 // * you may not use this file except in compliance with the License.
 // * You may obtain a copy of the License at
 // *
-// *     http://www.apache.org/licenses/LICENSE-2.0
+// *     http:www.apache.orglicensesLICENSE-2.0
+// *
+// * Unless required by applicable law or agreed to in writing, software
+// * distributed under the License is distributed on an "AS IS" BASIS,
+// * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// * See the License for the specific language governing permissions and
+// * limitations under the License.
+// *
+//
+//*
+// * Copyright 2019 HM Revenue & Customs
+// *
+// * Licensed under the Apache License, Version 2.0 (the "License");
+// * you may not use this file except in compliance with the License.
+// * You may obtain a copy of the License at
+// *
+// *     http:www.apache.orglicensesLICENSE-2.0
 // *
 // * Unless required by applicable law or agreed to in writing, software
 // * distributed under the License is distributed on an "AS IS" BASIS,
@@ -40,25 +40,25 @@
 //  val clusterName = "control"
 //  override def bindModules = Seq(new PlayModule)
 //
-//  val CONTROL_SCENARIOS_VERSION110_FINAL = s"/test-scenarios/${DecisionServiceVersions.VERSION110_FINAL}/control/scenarios.csv"
-//  val CONTROL_SCENARIOS_VERSION110_SCENARIO_0 = s"/test-scenarios/${DecisionServiceVersions.VERSION110_FINAL}/control/scenario_0.csv"
+//  val CONTROL_SCENARIOS_VERSION110_FINAL = s"test-scenarios${DecisionServiceVersions.VERSION110_FINAL}controlscenarios.csv"
+//  val CONTROL_SCENARIOS_VERSION110_SCENARIO_0 = s"test-scenarios${DecisionServiceVersions.VERSION110_FINAL}controlscenario_0.csv"
 //
-//  val CONTROL_SCENARIOS_VERSION111_FINAL = s"/test-scenarios/${DecisionServiceVersions.VERSION111_FINAL}/control/scenarios.csv"
-//  val CONTROL_SCENARIOS_VERSION111_SCENARIO_0 = s"/test-scenarios/${DecisionServiceVersions.VERSION111_FINAL}/control/scenario_0.csv"
+//  val CONTROL_SCENARIOS_VERSION111_FINAL = s"test-scenarios${DecisionServiceVersions.VERSION111_FINAL}controlscenarios.csv"
+//  val CONTROL_SCENARIOS_VERSION111_SCENARIO_0 = s"test-scenarios${DecisionServiceVersions.VERSION111_FINAL}controlscenario_0.csv"
 //
-//  val CONTROL_SCENARIOS_VERSION120_FINAL = s"/test-scenarios/${DecisionServiceVersions.VERSION120_FINAL}/control/scenarios.csv"
-//  val CONTROL_SCENARIOS_VERSION120_SCENARIO_0 = s"/test-scenarios/${DecisionServiceVersions.VERSION120_FINAL}/control/scenario_0.csv"
+//  val CONTROL_SCENARIOS_VERSION120_FINAL = s"test-scenarios${DecisionServiceVersions.VERSION120_FINAL}controlscenarios.csv"
+//  val CONTROL_SCENARIOS_VERSION120_SCENARIO_0 = s"test-scenarios${DecisionServiceVersions.VERSION120_FINAL}controlscenario_0.csv"
 //
-//  val CONTROL_SCENARIOS_VERSION130_FINAL = s"/test-scenarios/${DecisionServiceVersions.VERSION130_FINAL}/control/scenarios.csv"
-//  val CONTROL_SCENARIOS_VERSION130_SCENARIO_0 = s"/test-scenarios/${DecisionServiceVersions.VERSION130_FINAL}/control/scenario_0.csv"
+//  val CONTROL_SCENARIOS_VERSION130_FINAL = s"test-scenarios${DecisionServiceVersions.VERSION130_FINAL}controlscenarios.csv"
+//  val CONTROL_SCENARIOS_VERSION130_SCENARIO_0 = s"test-scenarios${DecisionServiceVersions.VERSION130_FINAL}controlscenario_0.csv"
 //
-//  val CONTROL_SCENARIOS_VERSION140_FINAL = s"/test-scenarios/${DecisionServiceVersions.VERSION140_FINAL}/control/scenarios.csv"
-//  val CONTROL_SCENARIOS_VERSION140_SCENARIO_0 = s"/test-scenarios/${DecisionServiceVersions.VERSION140_FINAL}/control/scenario_0.csv"
+//  val CONTROL_SCENARIOS_VERSION140_FINAL = s"test-scenarios${DecisionServiceVersions.VERSION140_FINAL}controlscenarios.csv"
+//  val CONTROL_SCENARIOS_VERSION140_SCENARIO_0 = s"test-scenarios${DecisionServiceVersions.VERSION140_FINAL}controlscenario_0.csv"
 //
-//  val CONTROL_SCENARIOS_VERSION150_FINAL = s"/test-scenarios/${DecisionServiceVersions.VERSION150_FINAL}/control/scenarios.csv"
-//  val CONTROL_SCENARIOS_VERSION150_SCENARIO_0 = s"/test-scenarios/${DecisionServiceVersions.VERSION150_FINAL}/control/scenario_0.csv"
+//  val CONTROL_SCENARIOS_VERSION150_FINAL = s"test-scenarios${DecisionServiceVersions.VERSION150_FINAL}controlscenarios.csv"
+//  val CONTROL_SCENARIOS_VERSION150_SCENARIO_0 = s"test-scenarios${DecisionServiceVersions.VERSION150_FINAL}controlscenario_0.csv"
 //
-//  "POST /decide" should {
+//  "POST decide" should {
 //
 //    s"return 200 and correct response control scenario 0 for version ${DecisionServiceVersions.VERSION110_FINAL}" in {
 //      createRequestSendVerifyDecision(CONTROL_SCENARIOS_VERSION110_SCENARIO_0, DecisionServiceVersions.VERSION110_FINAL)

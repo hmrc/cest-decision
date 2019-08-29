@@ -41,19 +41,19 @@ object FileTokenizer {
     }
   }
 
-  def tokenizeWithTrailingSeparator(path:String): Try[List[List[String]]] = {
-    def handleTrailingSeparator(l:String):String = if (l.last == SEPARATOR) l + " " else l
-    val is = getClass.getResourceAsStream(path)
-    if (is == null) {
-      Failure(new IOException(s"resource not found: ${path}"))
-    }
-    else {
-      Try(using(Source.fromInputStream(is)) { source =>
-        source.getLines.filter(l => {
-          !l.trim.isEmpty && l.charAt(0) != COMMENT_CHAR
-        }).map(handleTrailingSeparator(_).split(SEPARATOR).map(_.trim).toList).toList
-      })
-    }
-  }
+//  def tokenizeWithTrailingSeparator(path:String): Try[List[List[String]]] = {
+//    def handleTrailingSeparator(l:String):String = if (l.last == SEPARATOR) l + " " else l
+//    val is = getClass.getResourceAsStream(path)
+//    if (is == null) {
+//      Failure(new IOException(s"resource not found: ${path}"))
+//    }
+//    else {
+//      Try(using(Source.fromInputStream(is)) { source =>
+//        source.getLines.filter(l => {
+//          !l.trim.isEmpty && l.charAt(0) != COMMENT_CHAR
+//        }).map(handleTrailingSeparator(_).split(SEPARATOR).map(_.trim).toList).toList
+//      })
+//    }
+//  }
 
 }
