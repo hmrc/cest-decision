@@ -8,7 +8,7 @@ class ControlDecisionISpec extends BaseISpec {
 
   "Control Section" should {
 
-    Seq(NewRuleEngine).foreach { implicit engine =>
+    implicit val engine = NewRuleEngine
 
       s"POST ${engine.path}" should {
 
@@ -36,7 +36,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -53,7 +53,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -104,7 +104,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -121,7 +121,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -172,7 +172,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -189,7 +189,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -240,7 +240,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -257,7 +257,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -308,7 +308,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -325,7 +325,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -376,7 +376,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -393,7 +393,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -444,7 +444,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -461,7 +461,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -512,7 +512,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -529,7 +529,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -580,7 +580,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -597,7 +597,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -648,7 +648,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -665,7 +665,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -716,7 +716,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -733,7 +733,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -784,7 +784,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -801,7 +801,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -852,7 +852,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -869,7 +869,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -920,7 +920,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -937,7 +937,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -988,7 +988,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1005,7 +1005,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1056,7 +1056,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1073,7 +1073,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1124,7 +1124,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1141,7 +1141,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1192,7 +1192,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1209,7 +1209,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1241,7 +1241,6 @@ class ControlDecisionISpec extends BaseISpec {
         /////
 
 
-
         "Scenario 73: return a 200, a MEDIUM for control" in {
 
           lazy val res = postRequest(engine.path,
@@ -1266,7 +1265,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1283,7 +1282,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1334,7 +1333,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1351,7 +1350,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1382,7 +1381,6 @@ class ControlDecisionISpec extends BaseISpec {
         /////
 
 
-
         "Scenario 81: return a 200, a HIGH for control" in {
 
           lazy val res = postRequest(engine.path,
@@ -1407,7 +1405,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1424,7 +1422,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1475,7 +1473,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1492,7 +1490,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1523,7 +1521,6 @@ class ControlDecisionISpec extends BaseISpec {
         /////
 
 
-
         "Scenario 89: return a 200, a MEDIUM for control" in {
 
           lazy val res = postRequest(engine.path,
@@ -1548,7 +1545,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1565,7 +1562,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1616,7 +1613,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1633,7 +1630,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1684,7 +1681,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1701,7 +1698,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1752,7 +1749,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1769,7 +1766,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1820,7 +1817,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1837,7 +1834,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1888,7 +1885,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1905,7 +1902,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1956,7 +1953,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1973,7 +1970,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2024,7 +2021,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2041,7 +2038,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2092,7 +2089,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2109,7 +2106,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2160,7 +2157,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2177,7 +2174,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2228,7 +2225,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2245,7 +2242,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2296,7 +2293,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2313,7 +2310,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2365,7 +2362,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2382,7 +2379,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2435,7 +2432,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2452,7 +2449,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2504,7 +2501,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2521,7 +2518,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2572,7 +2569,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2589,7 +2586,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2640,7 +2637,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2657,7 +2654,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2708,7 +2705,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2725,7 +2722,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2776,7 +2773,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2793,7 +2790,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2844,7 +2841,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2861,7 +2858,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2912,7 +2909,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2929,7 +2926,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2980,7 +2977,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2997,7 +2994,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3048,7 +3045,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -3065,7 +3062,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3116,7 +3113,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -3133,7 +3130,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3185,7 +3182,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -3202,7 +3199,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3255,7 +3252,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -3272,7 +3269,7 @@ class ControlDecisionISpec extends BaseISpec {
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3302,4 +3299,3 @@ class ControlDecisionISpec extends BaseISpec {
       }
     }
   }
-}

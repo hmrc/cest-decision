@@ -8,7 +8,7 @@ class PartAndParcelDecisionISpec extends BaseISpec {
 
   "Part and Parcel Section" should {
 
-    Seq(NewRuleEngine).foreach { implicit engine =>
+    implicit val engine = NewRuleEngine
 
       s"POST ${engine.path}" should {
 
@@ -116,4 +116,4 @@ class PartAndParcelDecisionISpec extends BaseISpec {
       }
     }
   }
-}
+

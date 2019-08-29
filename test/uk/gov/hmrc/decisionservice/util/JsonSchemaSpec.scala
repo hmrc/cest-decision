@@ -17,13 +17,9 @@
 package uk.gov.hmrc.decisionservice.util
 
 
-import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.DecisionServiceVersions
-import uk.gov.hmrc.decisionservice.testutil.RequestAndDecision
 import uk.gov.hmrc.play.test.UnitSpec
 import cats.syntax.either._
-
-import scala.util.Try
 
 class JsonSchemaSpec extends UnitSpec {
 
@@ -144,42 +140,6 @@ class JsonSchemaSpec extends UnitSpec {
   it should {
     s"validate a full response with the strict Schema for version ${DecisionServiceVersions.VERSION140_FINAL}" in {
       validateResponseWithStrictSchema(DecisionServiceVersions.VERSION140_FINAL)
-    }
-  }
-
-  it should {
-    s"validate request created from a flattened test case for version ${DecisionServiceVersions.VERSION130_FINAL}" in {
-      val testCasesTry = RequestAndDecision.readFlattenedTransposed(
-        s"/schema/${DecisionServiceVersions.VERSION130_FINAL}/schema-checking-testcase.csv", DecisionServiceVersions.VERSION130_FINAL)
-      testCasesTry.isSuccess shouldBe true
-      val testCase = testCasesTry.get
-      val request = testCase.request
-      val requestJson = Json.toJson(request)
-      val requestJsonString = Json.prettyPrint(requestJson)
-      val maybeValidator = JsonRequestValidatorFactory(DecisionServiceVersions.VERSION130_FINAL)
-      maybeValidator.isDefined shouldBe true
-      val validationResult = maybeValidator.get.validate(requestJsonString)
-      println(validationResult)
-      printValidationResult(validationResult)
-      validationResult.isRight shouldBe true
-    }
-  }
-
-  it should {
-    s"validate request created from a flattened test case for version ${DecisionServiceVersions.VERSION140_FINAL}" in {
-      val testCasesTry = RequestAndDecision.readFlattenedTransposed(
-        s"/schema/${DecisionServiceVersions.VERSION140_FINAL}/schema-checking-testcase.csv", DecisionServiceVersions.VERSION140_FINAL)
-      testCasesTry.isSuccess shouldBe true
-      val testCase = testCasesTry.get
-      val request = testCase.request
-      val requestJson = Json.toJson(request)
-      val requestJsonString = Json.prettyPrint(requestJson)
-      val maybeValidator = JsonRequestValidatorFactory(DecisionServiceVersions.VERSION140_FINAL)
-      maybeValidator.isDefined shouldBe true
-      val validationResult = maybeValidator.get.validate(requestJsonString)
-      println(validationResult)
-      printValidationResult(validationResult)
-      validationResult.isRight shouldBe true
     }
   }
 
