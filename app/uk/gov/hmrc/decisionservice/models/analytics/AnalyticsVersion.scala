@@ -14,21 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc
+package uk.gov.hmrc.decisionservice.models.analytics
 
-package object decisionservice {
+import play.api.libs.json.Format
+import uk.gov.hmrc.decisionservice.models.enums.EnumFormats
 
-  object DecisionServiceVersions {
-    val VERSION110_FINAL = "1.1.0-final"
-    val VERSION111_FINAL = "1.1.1-final"
-    val VERSION120_FINAL = "1.2.0-final"
-    val VERSION130_FINAL = "1.3.0-final"
-    val VERSION140_FINAL = "1.4.0-final"
-    val VERSION150_FINAL = "1.5.0-final"
-  }
+object AnalyticsVersion extends Enumeration with EnumFormats {
 
-  object AnalyticsVersions {
-    val VERSION150_FINAL = "1.5.0-final"
-  }
+  val VERSION150_FINAL: AnalyticsVersion.Value = Value("1.5.0-final")
 
+  implicit val format: Format[AnalyticsVersion.Value] = enumFormat(AnalyticsVersion)
 }

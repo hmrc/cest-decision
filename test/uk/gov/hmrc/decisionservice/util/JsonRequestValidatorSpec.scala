@@ -16,14 +16,14 @@
 
 package uk.gov.hmrc.decisionservice.util
 
-import uk.gov.hmrc.decisionservice.DecisionServiceVersions
-import uk.gov.hmrc.play.test.UnitSpec
 import cats.syntax.either._
+import uk.gov.hmrc.decisionservice.models.enums.DecisionServiceVersion
+import uk.gov.hmrc.play.test.UnitSpec
 
 
 class JsonRequestValidatorSpec extends UnitSpec {
 
-  val jsonRequestValidator = JsonRequestValidatorFactory(DecisionServiceVersions.VERSION110_FINAL).get
+  val jsonRequestValidator = JsonRequestValidatorFactory(DecisionServiceVersion.VERSION110_FINAL).get
 
   val  valid_twoSections = """
    |{
@@ -174,8 +174,8 @@ class JsonRequestValidatorSpec extends UnitSpec {
       validateWithInfo(valid_twoSections, jsonRequestValidator) shouldBe true
     }
 
-    s"validate a full request when using the strict validator for version ${DecisionServiceVersions.VERSION110_FINAL}" in {
-      validateWithInfo(valid_twoSections, JsonRequestStrictValidatorFactory(DecisionServiceVersions.VERSION110_FINAL).get) shouldBe false
+    s"validate a full request when using the strict validator for version ${DecisionServiceVersion.VERSION110_FINAL}" in {
+      validateWithInfo(valid_twoSections, JsonRequestStrictValidatorFactory(DecisionServiceVersion.VERSION110_FINAL).get) shouldBe false
     }
 
     "return true for valid json - no answers" in {

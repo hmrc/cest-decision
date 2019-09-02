@@ -17,140 +17,140 @@
 package uk.gov.hmrc.decisionservice.util
 
 
-import uk.gov.hmrc.decisionservice.DecisionServiceVersions
-import uk.gov.hmrc.play.test.UnitSpec
 import cats.syntax.either._
+import uk.gov.hmrc.decisionservice.models.enums.DecisionServiceVersion
+import uk.gov.hmrc.play.test.UnitSpec
 
 class JsonSchemaSpec extends UnitSpec {
 
   " A Json Schema" should {
-    s"validate correctly full example request json with the loose schema for version ${DecisionServiceVersions.VERSION110_FINAL}" in {
-      validateRequestWithSchema(DecisionServiceVersions.VERSION110_FINAL)
+    s"validate correctly full example request json with the loose schema for version ${DecisionServiceVersion.VERSION110_FINAL.toString}" in {
+      validateRequestWithSchema(DecisionServiceVersion.VERSION110_FINAL)
     }
   }
 
   it should {
-    s"validate correctly full example request json with the loose schema for version ${DecisionServiceVersions.VERSION111_FINAL}" in {
-      validateRequestWithSchema(DecisionServiceVersions.VERSION111_FINAL)
+    s"validate correctly full example request json with the loose schema for version ${DecisionServiceVersion.VERSION111_FINAL.toString}" in {
+      validateRequestWithSchema(DecisionServiceVersion.VERSION111_FINAL)
     }
   }
 
   it should {
-    s"validate correctly full example request json with the loose schema for version ${DecisionServiceVersions.VERSION120_FINAL}" in {
-      validateRequestWithSchema(DecisionServiceVersions.VERSION120_FINAL)
+    s"validate correctly full example request json with the loose schema for version ${DecisionServiceVersion.VERSION120_FINAL.toString}" in {
+      validateRequestWithSchema(DecisionServiceVersion.VERSION120_FINAL)
     }
   }
 
   it should {
-    s"validate correctly full example request json with the loose schema for version ${DecisionServiceVersions.VERSION130_FINAL}" in {
-      validateRequestWithSchema(DecisionServiceVersions.VERSION130_FINAL)
+    s"validate correctly full example request json with the loose schema for version ${DecisionServiceVersion.VERSION130_FINAL.toString}" in {
+      validateRequestWithSchema(DecisionServiceVersion.VERSION130_FINAL)
     }
   }
 
   it should {
-    s"validate correctly full example request json with the loose schema for version ${DecisionServiceVersions.VERSION140_FINAL}" in {
-      validateRequestWithSchema(DecisionServiceVersions.VERSION140_FINAL)
+    s"validate correctly full example request json with the loose schema for version ${DecisionServiceVersion.VERSION140_FINAL.toString}" in {
+      validateRequestWithSchema(DecisionServiceVersion.VERSION140_FINAL)
     }
   }
 
   it should {
-    s"validate a request with the Strict Schema for version ${DecisionServiceVersions.VERSION110_FINAL}" in {
-      validateRequestWithStrictSchema(DecisionServiceVersions.VERSION110_FINAL)
+    s"validate a request with the Strict Schema for version ${DecisionServiceVersion.VERSION110_FINAL.toString}" in {
+      validateRequestWithStrictSchema(DecisionServiceVersion.VERSION110_FINAL)
     }
   }
 
   it should {
-    s"validate a request with the Strict Schema for version ${DecisionServiceVersions.VERSION111_FINAL}" in {
-      validateRequestWithStrictSchema(DecisionServiceVersions.VERSION111_FINAL)
+    s"validate a request with the Strict Schema for version ${DecisionServiceVersion.VERSION111_FINAL.toString}" in {
+      validateRequestWithStrictSchema(DecisionServiceVersion.VERSION111_FINAL)
     }
   }
 
   it should {
-    s"validate a request with the Strict Schema for version ${DecisionServiceVersions.VERSION120_FINAL}" in {
-      validateRequestWithStrictSchema(DecisionServiceVersions.VERSION120_FINAL)
+    s"validate a request with the Strict Schema for version ${DecisionServiceVersion.VERSION120_FINAL.toString}" in {
+      validateRequestWithStrictSchema(DecisionServiceVersion.VERSION120_FINAL)
     }
   }
 
   it should {
-    s"validate a request with the Strict Schema for version ${DecisionServiceVersions.VERSION130_FINAL}" in {
-      validateRequestWithStrictSchema(DecisionServiceVersions.VERSION130_FINAL)
+    s"validate a request with the Strict Schema for version ${DecisionServiceVersion.VERSION130_FINAL.toString}" in {
+      validateRequestWithStrictSchema(DecisionServiceVersion.VERSION130_FINAL)
     }
   }
 
   it should {
-    s"validate a request with the Strict Schema for version ${DecisionServiceVersions.VERSION140_FINAL}" in {
-      validateRequestWithStrictSchema(DecisionServiceVersions.VERSION140_FINAL)
+    s"validate a request with the Strict Schema for version ${DecisionServiceVersion.VERSION140_FINAL.toString}" in {
+      validateRequestWithStrictSchema(DecisionServiceVersion.VERSION140_FINAL)
     }
   }
 
   it should {
-    s"validate a full response with the loose schema for version ${DecisionServiceVersions.VERSION110_FINAL}" in {
-      validateResponseWithSchema(DecisionServiceVersions.VERSION110_FINAL)
+    s"validate a full response with the loose schema for version ${DecisionServiceVersion.VERSION110_FINAL.toString}" in {
+      validateResponseWithSchema(DecisionServiceVersion.VERSION110_FINAL)
     }
   }
 
   it should {
-    s"validate a full response with the loose schema for version ${DecisionServiceVersions.VERSION111_FINAL}" in {
-      validateResponseWithSchema(DecisionServiceVersions.VERSION111_FINAL)
+    s"validate a full response with the loose schema for version ${DecisionServiceVersion.VERSION111_FINAL.toString}" in {
+      validateResponseWithSchema(DecisionServiceVersion.VERSION111_FINAL)
     }
   }
 
   it should {
-    s"validate a full response with the loose schema for version ${DecisionServiceVersions.VERSION120_FINAL}" in {
-      validateResponseWithSchema(DecisionServiceVersions.VERSION120_FINAL)
+    s"validate a full response with the loose schema for version ${DecisionServiceVersion.VERSION120_FINAL.toString}" in {
+      validateResponseWithSchema(DecisionServiceVersion.VERSION120_FINAL)
     }
   }
 
   it should {
-    s"validate a full response with the loose schema for version ${DecisionServiceVersions.VERSION130_FINAL}" in {
-      validateResponseWithSchema(DecisionServiceVersions.VERSION130_FINAL)
+    s"validate a full response with the loose schema for version ${DecisionServiceVersion.VERSION130_FINAL.toString}" in {
+      validateResponseWithSchema(DecisionServiceVersion.VERSION130_FINAL)
     }
   }
 
   it should {
-    s"validate a full response with the loose schema for version ${DecisionServiceVersions.VERSION140_FINAL}" in {
-      validateResponseWithSchema(DecisionServiceVersions.VERSION140_FINAL)
+    s"validate a full response with the loose schema for version ${DecisionServiceVersion.VERSION140_FINAL.toString}" in {
+      validateResponseWithSchema(DecisionServiceVersion.VERSION140_FINAL)
     }
   }
 
   it should {
-    s"validate a full response with the strict Schema for version ${DecisionServiceVersions.VERSION110_FINAL}" in {
-      validateResponseWithStrictSchema(DecisionServiceVersions.VERSION110_FINAL)
+    s"validate a full response with the strict Schema for version ${DecisionServiceVersion.VERSION110_FINAL.toString}" in {
+      validateResponseWithStrictSchema(DecisionServiceVersion.VERSION110_FINAL)
     }
   }
 
   it should {
-    s"validate a full response with the strict Schema for version ${DecisionServiceVersions.VERSION111_FINAL}" in {
-      validateResponseWithStrictSchema(DecisionServiceVersions.VERSION111_FINAL)
+    s"validate a full response with the strict Schema for version ${DecisionServiceVersion.VERSION111_FINAL.toString}" in {
+      validateResponseWithStrictSchema(DecisionServiceVersion.VERSION111_FINAL)
     }
   }
 
   it should {
-    s"validate a full response with the strict Schema for version ${DecisionServiceVersions.VERSION120_FINAL}" in {
-      validateResponseWithStrictSchema(DecisionServiceVersions.VERSION120_FINAL)
+    s"validate a full response with the strict Schema for version ${DecisionServiceVersion.VERSION120_FINAL.toString}" in {
+      validateResponseWithStrictSchema(DecisionServiceVersion.VERSION120_FINAL)
     }
   }
 
   it should {
-    s"validate a full response with the strict Schema for version ${DecisionServiceVersions.VERSION130_FINAL}" in {
-      validateResponseWithStrictSchema(DecisionServiceVersions.VERSION130_FINAL)
+    s"validate a full response with the strict Schema for version ${DecisionServiceVersion.VERSION130_FINAL.toString}" in {
+      validateResponseWithStrictSchema(DecisionServiceVersion.VERSION130_FINAL)
     }
   }
 
   it should {
-    s"validate a full response with the strict Schema for version ${DecisionServiceVersions.VERSION140_FINAL}" in {
-      validateResponseWithStrictSchema(DecisionServiceVersions.VERSION140_FINAL)
+    s"validate a full response with the strict Schema for version ${DecisionServiceVersion.VERSION140_FINAL.toString}" in {
+      validateResponseWithStrictSchema(DecisionServiceVersion.VERSION140_FINAL)
     }
   }
 
-  private def readExampleRequestJson(version: String): String = {
+  private def readExampleRequestJson(version: DecisionServiceVersion.Value): String = {
     val exampleRequestPath = s"/schema/${version}/off-payroll-request-sample.json"
     val tryJson = FileReader.read(exampleRequestPath)
     tryJson.isSuccess shouldBe true
     tryJson.get
   }
 
-  private def readExampleResponseJson(version: String): String = {
+  private def readExampleResponseJson(version: DecisionServiceVersion.Value): String = {
     val exampleResponsePath = s"/schema/${version}/off-payroll-response-sample.json"
     val tryJson = FileReader.read(exampleResponsePath)
     tryJson.isSuccess shouldBe true
@@ -164,11 +164,11 @@ class JsonSchemaSpec extends UnitSpec {
 
 
 
-  def validateRequestWithSchema(version: String): Unit = validateRequestWithSchema(version, JsonRequestValidatorFactory(version))
+  def validateRequestWithSchema(version: DecisionServiceVersion.Value): Unit = validateRequestWithSchema(version, JsonRequestValidatorFactory(version))
 
-  def validateRequestWithStrictSchema(version: String): Unit = validateRequestWithSchema(version, JsonRequestStrictValidatorFactory(version))
+  def validateRequestWithStrictSchema(version: DecisionServiceVersion.Value): Unit = validateRequestWithSchema(version, JsonRequestStrictValidatorFactory(version))
 
-  def validateRequestWithSchema(version: String, maybeValidator: Option[JsonSchemaValidator]): Unit = {
+  def validateRequestWithSchema(version: DecisionServiceVersion.Value, maybeValidator: Option[JsonSchemaValidator]): Unit = {
     val requestJsonString = readExampleRequestJson(version)
     maybeValidator.isDefined shouldBe true
     maybeValidator.map { validator =>
@@ -178,11 +178,11 @@ class JsonSchemaSpec extends UnitSpec {
     }
   }
 
-  def validateResponseWithSchema(version: String): Unit = validateResponseWithSchema(version, JsonResponseValidatorFactory(version))
+  def validateResponseWithSchema(version: DecisionServiceVersion.Value): Unit = validateResponseWithSchema(version, JsonResponseValidatorFactory(version))
 
-  def validateResponseWithStrictSchema(version: String): Unit = validateResponseWithSchema(version, JsonResponseStrictValidatorFactory(version))
+  def validateResponseWithStrictSchema(version: DecisionServiceVersion.Value): Unit = validateResponseWithSchema(version, JsonResponseStrictValidatorFactory(version))
 
-  def validateResponseWithSchema(version: String, maybeValidator: Option[JsonSchemaValidator]): Unit = {
+  def validateResponseWithSchema(version: DecisionServiceVersion.Value, maybeValidator: Option[JsonSchemaValidator]): Unit = {
     val requestJsonString = readExampleResponseJson(version)
     maybeValidator.isDefined shouldBe true
     val validationResult = maybeValidator.get.validate(requestJsonString)

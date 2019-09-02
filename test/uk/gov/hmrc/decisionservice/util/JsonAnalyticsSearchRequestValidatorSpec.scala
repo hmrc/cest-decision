@@ -17,13 +17,13 @@
 package uk.gov.hmrc.decisionservice.util
 
 import cats.syntax.either._
-import uk.gov.hmrc.decisionservice.AnalyticsVersions
+import uk.gov.hmrc.decisionservice.models.analytics.AnalyticsVersion
 import uk.gov.hmrc.play.test.UnitSpec
 
 
 class JsonAnalyticsSearchRequestValidatorSpec extends UnitSpec {
 
-  val jsonRequestValidator = JsonAnalyticsSearchRequestValidatorFactory(AnalyticsVersions.VERSION150_FINAL).get
+  val jsonRequestValidator = JsonAnalyticsSearchRequestValidatorFactory(AnalyticsVersion.VERSION150_FINAL).get
 
   val  valid = """
    |{
