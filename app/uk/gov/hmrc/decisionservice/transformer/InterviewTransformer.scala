@@ -16,11 +16,8 @@
 
 package uk.gov.hmrc.decisionservice.transformer
 
-import uk.gov.hmrc.decisionservice.model.analytics.{FinancialRisk, Interview, InterviewSearchResponse}
+import uk.gov.hmrc.decisionservice.models.analytics.{FinancialRisk, Interview, InterviewSearchResponse}
 
-/**
-  * Created by work on 28/06/2017.
-  */
 object InterviewTransformer {
 
   def toResponse(interviews: List[Interview]) : List[InterviewSearchResponse]= {

@@ -14,21 +14,12 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc
+package uk.gov.hmrc.decisionservice.models
 
-package object decisionservice {
+import play.api.libs.json.{Format, Json}
 
-  object DecisionServiceVersions {
-    val VERSION110_FINAL = "1.1.0-final"
-    val VERSION111_FINAL = "1.1.1-final"
-    val VERSION120_FINAL = "1.2.0-final"
-    val VERSION130_FINAL = "1.3.0-final"
-    val VERSION140_FINAL = "1.4.0-final"
-    val VERSION150_FINAL = "1.5.0-final"
-  }
+case class ErrorResponse(code:Int, message:String)
 
-  object AnalyticsVersions {
-    val VERSION150_FINAL = "1.5.0-final"
-  }
-
+object ErrorResponse {
+  implicit val errorResponseFormat: Format[ErrorResponse] = Json.format[ErrorResponse]
 }

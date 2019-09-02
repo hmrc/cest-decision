@@ -26,12 +26,12 @@ import play.api.libs.json.Json._
 import play.api.libs.json.JsValue
 import play.api.test.{FakeRequest, Helpers}
 import reactivemongo.api.commands.{DefaultWriteResult, WriteError}
-import uk.gov.hmrc.decisionservice.model.analytics._
+import uk.gov.hmrc.decisionservice.models.analytics._
 import uk.gov.hmrc.decisionservice.repository.{InterviewRepository, ReactiveMongoRepository}
 import uk.gov.hmrc.play.test.UnitSpec
 import org.mockito.Mockito._
 import play.api.mvc.MessagesControllerComponents
-import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
+import uk.gov.hmrc.decisionservice.models.analytics.InterviewFormat._
 import uk.gov.hmrc.decisionservice.util.TestFixture
 
 import scala.concurrent.ExecutionContext.Implicits.global

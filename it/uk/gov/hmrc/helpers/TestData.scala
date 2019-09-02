@@ -2,8 +2,8 @@ package uk.gov.hmrc.helpers
 
 import org.joda.time.DateTime
 import play.api.libs.json.Json
-import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
-import uk.gov.hmrc.decisionservice.model.analytics.{Exit, Interview, InterviewSearch, Setup}
+import uk.gov.hmrc.decisionservice.models.analytics.InterviewFormat._
+import uk.gov.hmrc.decisionservice.models.analytics.{Exit, Interview, InterviewSearch, Setup}
 
 trait TestData {
 
