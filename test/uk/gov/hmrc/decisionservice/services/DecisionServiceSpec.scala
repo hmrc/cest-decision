@@ -20,7 +20,7 @@ import org.mockito.ArgumentMatchers
 import org.mockito.Mockito._
 import org.scalatestplus.mockito.MockitoSugar
 import uk.gov.hmrc.decisionservice.models._
-import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, SetupEnum, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.models.enums._
 import uk.gov.hmrc.decisionservice.ruleEngines._
 import uk.gov.hmrc.play.test.UnitSpec
 
@@ -47,7 +47,7 @@ class DecisionServiceSpec extends UnitSpec {
       "calculate the result" in new Setup {
 
         val request = DecisionRequest(
-          "1.0.0-beta", "coral", Interview(
+          DecisionServiceVersion.VERSION110_FINAL, "coral", Interview(
             setup = Some(Setup(None, None, None)),
             exit = Some(Exit(None)),
             personalService = Some(PersonalService(None, None, None, None, None)),
@@ -67,7 +67,7 @@ class DecisionServiceSpec extends UnitSpec {
         when(result.decide(ArgumentMatchers.any())).thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
-          "1.0.0-beta", "coral", Score(
+          DecisionServiceVersion.VERSION110_FINAL, "coral", Score(
             Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH)
           ), ResultEnum.INSIDE_IR35
         )

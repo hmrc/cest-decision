@@ -19,23 +19,15 @@ package uk.gov.hmrc.decisionservice.controllers
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import com.kenshoo.play.metrics.PlayModule
-import org.scalatest.mockito.MockitoSugar
+import play.api.http.Status.{BAD_REQUEST, OK}
 import play.api.libs.json.Json.toJson
 import play.api.libs.json.{JsValue, Json}
 import play.api.test.{FakeRequest, Helpers}
-import uk.gov.hmrc.decisionservice.models
 import uk.gov.hmrc.decisionservice.models._
-import uk.gov.hmrc.decisionservice.services.{DecisionService, _}
-import uk.gov.hmrc.decisionservice.util.TestFixture
-import play.api.http.Status.OK
-import play.api.http.Status.BAD_REQUEST
-import org.mockito.Mockito.{verify, when}
-import org.mockito.ArgumentMatchers.any
-import uk.gov.hmrc.decisionservice.models.enums.ResultEnum
+import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, ResultEnum}
 import uk.gov.hmrc.decisionservice.services.mocks.MockDecisionService
+import uk.gov.hmrc.decisionservice.util.TestFixture
 import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
-
-import scala.concurrent.Future
 
 class DecisionControllerSpec extends UnitSpec with WithFakeApplication with TestFixture with MockDecisionService {
   override def bindModules = Seq(new PlayModule)
@@ -54,7 +46,7 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
 
     "return a OK with a decision" in {
 
-      val decisionRequest = DecisionRequest("","", Interview(
+      val decisionRequest = DecisionRequest(DecisionServiceVersion.VERSION110_FINAL,"", Interview(
         setup = Some(Setup(None, None, None)),
         exit = Some(Exit(None)),
         personalService = Some(PersonalService(None, None, None, None, None)),
@@ -64,7 +56,7 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
         businessOnOwnAccount = Some(BusinessOnOwnAccount(None, None, None, None, None))
       ))
 
-      mockCalculateResult(decisionRequest)(DecisionResponse("1.0.0-beta", "", Score(), ResultEnum.UNKNOWN))
+      mockCalculateResult(decisionRequest)(DecisionResponse(DecisionServiceVersion.VERSION110_FINAL, "", Score(), ResultEnum.UNKNOWN))
 
       val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(toJson(decisionRequest))
 
@@ -72,7 +64,7 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
 
       status(response) shouldBe OK
       jsonBodyOf(response) shouldBe Json.parse(
-        """{"version":"1.0.0-beta","correlationID":"","score":{},"result":"Unknown"}""".stripMargin
+        """{"version":"1.1.0-final","correlationID":"","score":{},"result":"Unknown"}""".stripMargin
       )
     }
 
