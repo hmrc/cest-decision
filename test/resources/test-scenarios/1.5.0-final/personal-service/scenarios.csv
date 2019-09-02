@@ -1,6 +1,0 @@
-personalService,workerSentActualSubstitute,yesClientAgreed,noSubstitutionHappened,yesClientAgreed,yesClientAgreed,noSubstitutionHappened,noSubstitutionHappened,noSubstitutionHappened,noSubstitutionHappened,notAgreedWithClient,notAgreedWithClient,,,
-personalService,workerPayActualSubstitute,Yes,,No,No,,,,,,,,,
-personalService,possibleSubstituteRejection,,wouldNotReject,,,wouldNotReject,wouldNotReject,wouldReject,wouldReject,,,wouldNotReject,wouldNotReject,wouldReject
-personalService,possibleSubstituteWorkerPay,,Yes,,,No,No,,,,,Yes,No,
-personalService,wouldWorkerPayHelper,,,Yes,No,Yes,No,Yes,No,Yes,No,,,
-,,OutOfIR35,OutOfIR35,MEDIUM,MEDIUM,MEDIUM,MEDIUM,MEDIUM,HIGH,MEDIUM,HIGH,OutOfIR35,MEDIUM,HIGH
