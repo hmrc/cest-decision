@@ -3,10 +3,13 @@ package uk.gov.hmrc.controllers
 import org.scalatest.concurrent.IntegrationPatience
 import play.api.http.Status
 import play.api.libs.ws.DefaultBodyWritables
+import uk.gov.hmrc.TestCases.BaseISpec
 import uk.gov.hmrc.helpers.{CreateRequestHelper, IntegrationSpecBase, TestData, WiremockHelper}
+import play.api.libs.json.Json.obj
+
 
 class AnalyticsControllerISpec extends IntegrationSpecBase with DefaultBodyWritables
-  with Status with IntegrationPatience with CreateRequestHelper with WiremockHelper with TestData {
+  with Status with IntegrationPatience with CreateRequestHelper with WiremockHelper with BaseISpec with TestData {
 
   s"POST /log" should {
 

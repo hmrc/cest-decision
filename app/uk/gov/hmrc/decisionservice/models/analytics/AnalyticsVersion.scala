@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models
+package uk.gov.hmrc.decisionservice.models.analytics
 
-import play.api.libs.json.{Json, OFormat}
-import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, ResultEnum}
+import play.api.libs.json.Format
+import uk.gov.hmrc.decisionservice.models.enums.EnumFormats
 
-case class DecisionResponse(version: DecisionServiceVersion.Value, correlationID: String, score: Score, result: ResultEnum.Value)
+object AnalyticsVersion extends Enumeration with EnumFormats {
 
-object DecisionResponse {
-  implicit val formats: OFormat[DecisionResponse] = Json.format[DecisionResponse]
+  val VERSION150_FINAL: AnalyticsVersion.Value = Value("1.5.0-final")
+
+  implicit val format: Format[AnalyticsVersion.Value] = enumFormat(AnalyticsVersion)
 }

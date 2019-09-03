@@ -16,11 +16,10 @@
 
 package uk.gov.hmrc.decisionservice.models
 
-import play.api.libs.json.{Json, OFormat}
-import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, ResultEnum}
+import play.api.libs.json.{Format, Json}
 
-case class DecisionResponse(version: DecisionServiceVersion.Value, correlationID: String, score: Score, result: ResultEnum.Value)
+case class ErrorResponse(code:Int, message:String)
 
-object DecisionResponse {
-  implicit val formats: OFormat[DecisionResponse] = Json.format[DecisionResponse]
+object ErrorResponse {
+  implicit val errorResponseFormat: Format[ErrorResponse] = Json.format[ErrorResponse]
 }

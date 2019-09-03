@@ -20,8 +20,8 @@ import javax.inject.Inject
 import play.api.Logger
 import play.api.libs.json._
 import play.api.mvc.{Action, MessagesControllerComponents}
-import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
-import uk.gov.hmrc.decisionservice.model.analytics.{AnalyticsResponse, Interview, InterviewSearch}
+import uk.gov.hmrc.decisionservice.models.analytics.InterviewFormat._
+import uk.gov.hmrc.decisionservice.models.analytics.{AnalyticsResponse, Interview, InterviewSearch}
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 import uk.gov.hmrc.decisionservice.transformer.InterviewTransformer._
 

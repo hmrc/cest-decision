@@ -16,117 +16,35 @@
 
 package uk.gov.hmrc.decisionservice.services
 
-import cats.Semigroup
-import cats.data.Validated
-import uk.gov.hmrc.decisionservice.Validation
-import uk.gov.hmrc.decisionservice.model.api.ErrorCodes._
-import uk.gov.hmrc.decisionservice.model.rules._
-import uk.gov.hmrc.decisionservice.model.{DecisionServiceError, RulesFileError}
-import uk.gov.hmrc.decisionservice.ruleengine._
+import com.google.inject.Inject
+import uk.gov.hmrc.decisionservice.models.{DecisionRequest, DecisionResponse}
+import uk.gov.hmrc.decisionservice.models.enums.SetupEnum
 
-object ErrorListSemigroup extends Semigroup[List[DecisionServiceError]] {
-  override def combine(x: List[DecisionServiceError], y: List[DecisionServiceError]): List[DecisionServiceError] = x ::: y
-}
+import scala.concurrent.{ExecutionContext, Future}
+import uk.gov.hmrc.decisionservice.models.{DecisionResponse, Score}
+import uk.gov.hmrc.decisionservice.ruleEngines._
 
-trait DecisionService {
-  implicit val errorListSemigroup = Semigroup(ErrorListSemigroup)
-  implicit val sectionRuleSetSemigroup = Semigroup(SectionRuleSet("", List(), List()))
+class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
+                                earlyExitRuleEngine: ExitRuleEngine,
+                                financialRiskRuleEngine: FinancialRiskRuleEngine,
+                                personalServiceRuleEngine: PersonalServiceRuleEngine,
+                                partAndParcelRuleEngine: PartAndParcelRuleEngine,
+                                resultRuleEngine: ResultRuleEngine) {
 
-  val ruleEngine:RuleEngine = RuleEngineInstance
+  def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[DecisionResponse] = {
 
-  lazy val extraRules:List[SectionRuleSet] = List()
+    val interview = request.interview
+    val setup = if(interview.setup.isDefined) Some(SetupEnum.CONTINUE) else None
 
-  val maybeSectionRules:Validation[List[SectionRuleSet]]
+    for {
+      exit <- earlyExitRuleEngine.decide(interview.exit)
+      personalService <- personalServiceRuleEngine.decide(interview.personalService)
+      control <- controlRuleEngine.decide(interview.control)
+      financialRisk <- financialRiskRuleEngine.decide(interview.financialRisk)
+      partAndParcel <- partAndParcelRuleEngine.decide(interview.partAndParcel)
+      score = Score(setup, exit, personalService, control, financialRisk, partAndParcel)
+      result <- resultRuleEngine.decide(score)
 
-  val csvSectionMetadata:List[RulesFileMetaData]
-
-  def loadSectionRules():Validation[List[SectionRuleSet]] = {
-    val maybeRules = extraRules.map(Validated.valid) ::: csvSectionMetadata.map(RulesLoaderInstance.load(_))
-    val combined = if (maybeRules.isEmpty)
-      Validated.invalid(List(RulesFileError(MISSING_RULE_FILES, "missing rule files")))
-    else
-      maybeRules.reduceLeft(_ combine _)
-    combined match {
-      case Validated.Valid(_) => Validated.valid(maybeRules.collect {case Validated.Valid(a) => a})
-      case Validated.Invalid(e) => Validated.invalid(e)
-    }
+    } yield DecisionResponse(request.version, request.correlationID, score, result)
   }
-
-  def ==>:(facts:Facts):Validation[RuleEngineDecision] = {
-    maybeSectionRules match {
-      case Validated.Valid(sectionRules) =>
-        ruleEngine.processRules(Rules(sectionRules),facts)
-      case Validated.Invalid(e) => Validated.invalid(e)
-    }
-  }
-}
-
-object DecisionServiceInstance110Final extends DecisionService {
-  lazy val maybeSectionRules = loadSectionRules()
-  lazy val csvSectionMetadata = List(
-    (4, "/tables/1.1.0-final/control.csv", "control"),
-    (7, "/tables/1.1.0-final/financial-risk.csv", "financialRisk"),
-    (4, "/tables/1.1.0-final/part-and-parcel.csv", "partAndParcel"),
-    (5, "/tables/1.1.0-final/personal-service.csv", "personalService"),
-    (4, "/tables/1.1.0-final/matrix-of-matrices.csv", "matrix")
-  ).collect{case (q,f,n) => RulesFileMetaData(q,f,n)}
-}
-
-object DecisionServiceInstance111Final extends DecisionService {
-  lazy val maybeSectionRules = loadSectionRules()
-  lazy val csvSectionMetadata = List(
-    (4, "/tables/1.1.1-final/control.csv", "control"),
-    (7, "/tables/1.1.1-final/financial-risk.csv", "financialRisk"),
-    (4, "/tables/1.1.1-final/part-and-parcel.csv", "partAndParcel"),
-    (5, "/tables/1.1.1-final/personal-service.csv", "personalService"),
-    (4, "/tables/1.1.1-final/matrix-of-matrices.csv", "matrix")
-  ).collect{case (q,f,n) => RulesFileMetaData(q,f,n)}
-}
-
-object DecisionServiceInstance120Final extends DecisionService {
-  lazy val maybeSectionRules = loadSectionRules()
-  lazy val csvSectionMetadata = List(
-    (4, "/tables/1.2.0-final/control.csv", "control"),
-    (7, "/tables/1.2.0-final/financial-risk.csv", "financialRisk"),
-    (4, "/tables/1.2.0-final/part-and-parcel.csv", "partAndParcel"),
-    (5, "/tables/1.2.0-final/personal-service.csv", "personalService"),
-    (4, "/tables/1.2.0-final/matrix-of-matrices.csv", "matrix")
-  ).collect{case (q,f,n) => RulesFileMetaData(q,f,n)}
-}
-
-object DecisionServiceInstance130Final extends DecisionService {
-  lazy val maybeSectionRules = loadSectionRules()
-  lazy val csvSectionMetadata = List(
-    (4, "/tables/1.3.0-final/control.csv", "control"),
-    (7, "/tables/1.3.0-final/financial-risk.csv", "financialRisk"),
-    (4, "/tables/1.3.0-final/part-and-parcel.csv", "partAndParcel"),
-    (5, "/tables/1.3.0-final/personal-service.csv", "personalService"),
-    (4, "/tables/1.3.0-final/matrix-of-matrices.csv", "matrix")
-  ).collect{case (q,f,n) => RulesFileMetaData(q,f,n)}
-}
-
-object DecisionServiceInstance140Final extends DecisionService {
-  lazy val maybeSectionRules = loadSectionRules()
-  lazy val csvSectionMetadata = List(
-    (3, "/tables/1.4.0-final/setup.csv", "setup"),
-    (1, "/tables/1.4.0-final/exit.csv", "exit"),
-    (4, "/tables/1.4.0-final/control.csv", "control"),
-    (7, "/tables/1.4.0-final/financial-risk.csv", "financialRisk"),
-    (4, "/tables/1.4.0-final/part-and-parcel.csv", "partAndParcel"),
-    (5, "/tables/1.4.0-final/personal-service.csv", "personalService"),
-    (4, "/tables/1.4.0-final/matrix-of-matrices.csv", "matrix")
-  ).collect{case (q,f,n) => RulesFileMetaData(q,f,n)}
-}
-
-object DecisionServiceInstance150Final extends DecisionService {
-  lazy val maybeSectionRules = loadSectionRules()
-  lazy val csvSectionMetadata = List(
-    (3, "/tables/1.5.0-final/setup.csv", "setup"),
-    (1, "/tables/1.5.0-final/exit.csv", "exit"),
-    (4, "/tables/1.5.0-final/control.csv", "control"),
-    (7, "/tables/1.5.0-final/financial-risk.csv", "financialRisk"),
-    (4, "/tables/1.5.0-final/part-and-parcel.csv", "partAndParcel"),
-    (5, "/tables/1.5.0-final/personal-service.csv", "personalService"),
-    (4, "/tables/1.5.0-final/matrix-of-matrices.csv", "matrix")
-  ).collect{case (q,f,n) => RulesFileMetaData(q,f,n)}
 }

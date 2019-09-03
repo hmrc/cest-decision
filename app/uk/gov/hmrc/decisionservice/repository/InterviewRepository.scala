@@ -26,12 +26,12 @@ import reactivemongo.api.{Cursor, DefaultDB}
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.bson.{BSONDocument, _}
 import reactivemongo.play.json.ImplicitBSONHandlers._
-import uk.gov.hmrc.decisionservice.model.analytics._
+import uk.gov.hmrc.decisionservice.models.analytics._
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.ReactiveRepository
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import uk.gov.hmrc.decisionservice.model.analytics.InterviewFormat._
+import uk.gov.hmrc.decisionservice.models.analytics.InterviewFormat._
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],

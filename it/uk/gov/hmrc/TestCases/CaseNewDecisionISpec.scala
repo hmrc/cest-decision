@@ -10,7 +10,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
   with Status with IntegrationPatience with CreateRequestHelper with WiremockHelper {
 
 
-  s"For Case 1 a POST /decide/new}" should {
+  s"For Case 1 a POST /decide}" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -48,7 +48,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase1a)
+      lazy val res = postRequest("/decide",decisionCase1a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -112,7 +112,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase1e)
+      lazy val res = postRequest("/decide",decisionCase1e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -127,7 +127,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   }
 
-  s"For Case 2 a POST /decide/new" should {
+  s"For Case 2 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -165,7 +165,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase2a)
+      lazy val res = postRequest("/decide",decisionCase2a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -229,7 +229,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase2e)
+      lazy val res = postRequest("/decide",decisionCase2e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -244,7 +244,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   }
 
-  s"For Case 3 a POST /decide/new" should {
+  s"For Case 3 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -282,7 +282,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase3a)
+      lazy val res = postRequest("/decide",decisionCase3a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -345,7 +345,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase3e)
+      lazy val res = postRequest("/decide",decisionCase3e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -361,7 +361,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
   }
 
 
-  s"For Case 4 a POST /decide/new" should {
+  s"For Case 4 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -399,7 +399,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase4a)
+      lazy val res = postRequest("/decide",decisionCase4a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -464,7 +464,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase4e)
+      lazy val res = postRequest("/decide",decisionCase4e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -480,7 +480,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
   }
 
 
-  s"For Case 5 a POST /decide/new" should {
+  s"For Case 5 a POST /decide" should {
 
     val decisionCase5a = Json.obj(
       "version" -> "1.5.0-final",
@@ -523,7 +523,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
     "return a 200 and continue response given a early exit request" in {
 
-      lazy val res = postRequest("/decide/new",decisionCase5a)
+      lazy val res = postRequest("/decide",decisionCase5a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -584,7 +584,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase5e)
+      lazy val res = postRequest("/decide",decisionCase5e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -600,7 +600,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
   }
 
 
-  s"For Case 6 a POST /decide/new" should {
+  s"For Case 6 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -638,7 +638,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase6a)
+      lazy val res = postRequest("/decide",decisionCase6a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -700,7 +700,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase6e)
+      lazy val res = postRequest("/decide",decisionCase6e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -716,7 +716,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
   }
 
 
-  s"For Case 7 a POST /decide/new" should {
+  s"For Case 7 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -754,7 +754,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase7a)
+      lazy val res = postRequest("/decide",decisionCase7a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -819,7 +819,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase7e)
+      lazy val res = postRequest("/decide",decisionCase7e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -835,7 +835,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
   }
 
 
-  s"For Case 8 a POST /decide/new" should {
+  s"For Case 8 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -873,7 +873,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase8a)
+      lazy val res = postRequest("/decide",decisionCase8a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -937,7 +937,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase8e)
+      lazy val res = postRequest("/decide",decisionCase8e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -953,7 +953,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
   }
 
 
-  s"For Case 9 a POST /decide/new" should {
+  s"For Case 9 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -991,7 +991,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase9a)
+      lazy val res = postRequest("/decide",decisionCase9a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1056,7 +1056,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase9e)
+      lazy val res = postRequest("/decide",decisionCase9e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1072,7 +1072,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
   }
 
 
-  s"For Case 10 a POST /decide/new" should {
+  s"For Case 10 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -1110,7 +1110,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase10a)
+      lazy val res = postRequest("/decide",decisionCase10a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1172,7 +1172,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase10e)
+      lazy val res = postRequest("/decide",decisionCase10e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1190,7 +1190,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
   //TODO still requires the last case
 
   /*
-  s"For Case 11 a POST /decide/new" should {
+  s"For Case 11 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -1208,7 +1208,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 ),
 "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase11a)
+      lazy val res = postRequest("/decide",decisionCase11a)
 
       whenReady(res) { result =>
  result.status shouldBe OK
@@ -1234,7 +1234,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 ),
 "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase11e)
+      lazy val res = postRequest("/decide",decisionCase11e)
 
       whenReady(res) { result =>
  result.status shouldBe OK
@@ -1252,7 +1252,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
 
 
-  s"For Case 12 a POST /decide/new" should {
+  s"For Case 12 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -1290,7 +1290,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase12a)
+      lazy val res = postRequest("/decide",decisionCase12a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1354,7 +1354,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase12e)
+      lazy val res = postRequest("/decide",decisionCase12e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1369,7 +1369,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   }
 
-  s"For Case 13 a POST /decide/new" should {
+  s"For Case 13 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -1407,7 +1407,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase13a)
+      lazy val res = postRequest("/decide",decisionCase13a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1471,7 +1471,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase13e)
+      lazy val res = postRequest("/decide",decisionCase13e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1486,7 +1486,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   }
 
-  s"For Case 14 a POST /decide/new" should {
+  s"For Case 14 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -1524,7 +1524,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase14a)
+      lazy val res = postRequest("/decide",decisionCase14a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1587,7 +1587,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase14e)
+      lazy val res = postRequest("/decide",decisionCase14e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1603,7 +1603,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
   }
 
 
-  s"For Case 15 a POST /decide/new" should {
+  s"For Case 15 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -1641,7 +1641,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase15a)
+      lazy val res = postRequest("/decide",decisionCase15a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1702,7 +1702,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase15e)
+      lazy val res = postRequest("/decide",decisionCase15e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1718,7 +1718,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
   }
 
 
-  s"For Case 16 a POST /decide/new" should {
+  s"For Case 16 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -1756,7 +1756,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase16a)
+      lazy val res = postRequest("/decide",decisionCase16a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1820,7 +1820,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase16e)
+      lazy val res = postRequest("/decide",decisionCase16e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1835,7 +1835,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   }
 
-  s"For Case 17 a POST /decide/new" should {
+  s"For Case 17 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -1873,7 +1873,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase17a)
+      lazy val res = postRequest("/decide",decisionCase17a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1937,7 +1937,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase17e)
+      lazy val res = postRequest("/decide",decisionCase17e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1952,7 +1952,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   }
 
-  s"For Case 18 a POST /decide/new" should {
+  s"For Case 18 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -1990,7 +1990,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase18a)
+      lazy val res = postRequest("/decide",decisionCase18a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2052,7 +2052,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase18e)
+      lazy val res = postRequest("/decide",decisionCase18e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2067,7 +2067,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   }
 
-  s"For Case 19 a POST /decide/new" should {
+  s"For Case 19 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -2105,7 +2105,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase19a)
+      lazy val res = postRequest("/decide",decisionCase19a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2168,7 +2168,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase19e)
+      lazy val res = postRequest("/decide",decisionCase19e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2183,7 +2183,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   }
 
-  s"For Case 20 a POST /decide/new" should {
+  s"For Case 20 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -2221,7 +2221,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase20a)
+      lazy val res = postRequest("/decide",decisionCase20a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2287,7 +2287,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Unknown")
 
-      lazy val res = postRequest("/decide/new",decisionCase20e)
+      lazy val res = postRequest("/decide",decisionCase20e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2302,7 +2302,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   }
 
-  s"For Case 21 a POST /decide/new" should {
+  s"For Case 21 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -2340,7 +2340,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase21a)
+      lazy val res = postRequest("/decide",decisionCase21a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2404,7 +2404,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase21e)
+      lazy val res = postRequest("/decide",decisionCase21e)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2420,7 +2420,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
   }
 
 
-  s"For Case 22 a POST /decide/new" should {
+  s"For Case 22 a POST /decide" should {
 
     "return a 200 and continue response given a early exit request" in {
 
@@ -2458,7 +2458,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Not Matched")
 
-      lazy val res = postRequest("/decide/new",decisionCase22a)
+      lazy val res = postRequest("/decide",decisionCase22a)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2524,7 +2524,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         ),
         "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide/new",decisionCase22e)
+      lazy val res = postRequest("/decide",decisionCase22e)
 
       whenReady(res) { result =>
         result.status shouldBe OK

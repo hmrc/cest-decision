@@ -1,5 +1,0 @@
-setup,endUserRole            ,personDoingWork,personDoingWork,endClient,placingAgency,endClient
-setup,hasContractStarted     ,Yes,No,No,No,Yes
-setup,provideServices        ,limitedCompany,partnership,intermediary,soleTrader,partnership
-,,CONTINUE,CONTINUE,CONTINUE,CONTINUE,CONTINUE
-
