@@ -1,0 +1,17 @@
+8a,8b,8c,8d,8e,8f,8g
+Yes ,Yes,Yes,Yes,Yes,Yes,Yes,   High   ,false
+Yes ,Yes,Yes,Yes,Yes,Yes,No ,   High   ,false
+Yes ,Yes,Yes,Yes,Yes,No ,No ,   High   ,false, a
+Yes ,Yes,Yes,Yes,No ,No ,No ,   High   ,false
+Yes ,Yes,Yes,No ,No ,No ,No ,   Low    ,false
+Yes ,Yes,No ,No ,No ,No ,No ,   Low    ,false
+Yes ,No ,No ,No ,No ,No ,No ,   Low    ,false, a
+No  ,No ,No ,No ,No ,No ,No ,   Low    ,false
+No  ,No ,No ,No ,No ,No ,Yes,   Low    ,false
+No  ,No ,No ,No ,No ,Yes,Yes,   Low    ,false
+No  ,No ,No ,No ,Yes,Yes,Yes,   Low    ,false, a
+No  ,No ,No ,Yes,Yes,Yes,Yes,   High   ,false
+No  ,No ,Yes,Yes,Yes,Yes,Yes,   High   ,false
+No  ,Yes,Yes,Yes,Yes,Yes
+No  ,Yes,Yes,Yes,Yes,Yes,   ,          ,
+

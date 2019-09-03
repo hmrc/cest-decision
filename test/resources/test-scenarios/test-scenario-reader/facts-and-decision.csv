@@ -1,0 +1,6 @@
+Tag1,tag2,tag3,tag4,tag5,Tag6,Tag7,CarryOver,Exit,carryOverFactName
+no,,,yes,,No,yes,HIGH,FALSE,
+yes,no,no,yes,yes,,yes,LOW,FALSE,
+yes,no,no,no,No,yes,yes,,TRUE,
+no,,,,Yes,No,,MEDIUM,FALSE,
+,yes,yes,No,No,yes,No,LOW,FALSE,hasOwnMachine

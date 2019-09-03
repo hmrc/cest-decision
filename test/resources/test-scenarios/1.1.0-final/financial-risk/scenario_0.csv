@@ -1,0 +1,9 @@
+financialRisk,   workerProvidedMaterials         ,  Yes
+financialRisk,   workerProvidedEquipment         ,
+financialRisk,   workerUsedVehicle               ,
+financialRisk,   workerHadOtherExpenses          ,
+financialRisk,   expensesAreNotRelevantForRole   ,
+financialRisk,   workerMainIncome                ,  incomeCalendarPeriods
+financialRisk,   paidForSubstandardWork          ,  asPartOfUsualRateInWorkingHours
+OUTOFIR35
+

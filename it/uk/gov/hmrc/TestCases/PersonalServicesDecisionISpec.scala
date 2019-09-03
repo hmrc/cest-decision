@@ -8,7 +8,7 @@ class PersonalServicesDecisionISpec extends BaseISpec {
 
   "Personal Service Section" should {
 
-    implicit val engine = NewRuleEngine
+    Seq(OldRuleEngine, NewRuleEngine).foreach { implicit engine =>
 
       s"POST ${engine.path}" should {
 
@@ -229,4 +229,4 @@ class PersonalServicesDecisionISpec extends BaseISpec {
       }
     }
   }
-
+}

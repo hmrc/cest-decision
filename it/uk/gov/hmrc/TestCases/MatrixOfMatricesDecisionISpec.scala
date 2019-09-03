@@ -8,7 +8,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
   "Matrix of Matrices" should {
 
-    implicit val engine = NewRuleEngine
+    Seq(OldRuleEngine, NewRuleEngine).foreach { implicit engine =>
 
       s"POST ${engine.path}" should {
 
@@ -24,7 +24,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-                Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
+                Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -45,10 +45,6 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
           )
 
           whenReady(res) { result =>
-            println(res)
-            println("**************")
-            println(result.body)
-            println("**************")
             result.status shouldBe OK
             result.body should include(""""personalService":"MEDIUM"""")
             result.body should include(""""control":"MEDIUM"""")
@@ -70,7 +66,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-                Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
+                Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -112,7 +108,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-                Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
+                Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -154,7 +150,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
+                Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -196,7 +192,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
+                Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -238,7 +234,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
+                Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -406,7 +402,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+                Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -448,7 +444,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+                Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -490,7 +486,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+                Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -532,7 +528,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+                Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -574,7 +570,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
+                Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -1028,5 +1024,6 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
           }
         }
       }
+    }
   }
 }

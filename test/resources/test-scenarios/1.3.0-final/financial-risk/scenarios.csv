@@ -1,0 +1,8 @@
+financialRisk,workerProvidedMaterials,Yes,,,,,,,,,,,,,,,,,,,,,,,
+financialRisk,workerProvidedEquipment,,Yes,,,,,,,,,,,,,,,,,,,,,,
+financialRisk,workerUsedVehicle,,,Yes,Yes,,,,,,,,,,,,,,,,,,,,
+financialRisk,workerHadOtherExpenses,,,,Yes,,Yes,,,,Yes,Yes,Yes,Yes,,,,,,,,,,,
+financialRisk,expensesAreNotRelevantForRole,,,,,Yes,,Yes,Yes,Yes,,,,,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes,Yes
+financialRisk,workerMainIncome,,,,,incomeCommission,incomeCommission,incomeFixed,incomeFixed,incomeProfitOrLosses,incomeProfitOrLosses,incomeCalendarPeriods,incomeFixed,incomePieceRate,incomeCalendarPeriods,incomePieceRate,incomeCalendarPeriods,incomeCalendarPeriods,incomePieceRate,incomePieceRate,incomePieceRate,incomeCalendarPeriods,incomePieceRate,incomeFixed,incomeFixed
+financialRisk,paidForSubstandardWork,,,outsideOfHoursNoCharge,,outsideOfHoursNoCharge,,asPartOfUsualRateInWorkingHours,outsideOfHoursNoCharge,outsideOfHoursNoCharge,,outsideOfHoursNoCharge,outsideOfHoursNoCharge,outsideOfHoursNoCharge,noObligationToCorrect,noObligationToCorrect,asPartOfUsualRateInWorkingHours,,asPartOfUsualRateInWorkingHours,,cannotBeCorrected,cannotBeCorrected,outsideOfHoursNoCosts,cannotBeCorrected,noObligationToCorrect
+,,OutOfIR35,OutOfIR35,OutOfIR35,OutOfIR35,OutOfIR35,OutOfIR35,LOW,OutOfIR35,OutOfIR35,OutOfIR35,OutOfIR35,OutOfIR35,OutOfIR35,LOW,LOW,LOW,LOW,LOW,LOW,LOW,LOW,LOW,LOW,LOW

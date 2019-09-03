@@ -1,0 +1,5 @@
+Q1 , Q2  , Q3
+yes, yes , yes , high   , true
+yes, no  , no  , medium , true
+yes, no  , yes , low    , true
+no ,     , yes , low    , false

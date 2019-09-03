@@ -1,0 +1,5 @@
+partAndParcel,   workerReceivesBenefits                ,    No  ,Yes ,No                ,No                 ,No  ,No                ,No
+partAndParcel,   workerAsLineManager                   ,    Yes ,    ,No                ,No                 ,No  ,No                ,No
+partAndParcel,   contactWithEngagerCustomer            ,        ,    ,Yes               ,Yes                ,No  ,Yes               ,Yes
+partAndParcel,   workerRepresentsEngagerBusiness       ,        ,    ,workAsIndependent ,workForEndClient   ,    ,workAsIndependent ,workAsBusiness
+             ,                                         ,    High,High,Low               ,Medium             ,Low ,Low               ,Medium

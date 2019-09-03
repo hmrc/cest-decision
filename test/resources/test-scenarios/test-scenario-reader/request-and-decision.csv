@@ -1,0 +1,7 @@
+control,control,control,control,financial_risk,financial_risk,financial_risk,personal_service,personal_service,expected_decision
+Tag1,Tag2,Tag3,Tag4,Tag1,tag2,tag3,tag4,tag5,
+yes,,no,yes,no,,,yes,,inir35
+No,yes,,,yes,no,no,yes,yes,unknown
+,no,yes,,yes,no,no,no,,outofir35
+no,no,no,yes,no,,,,Yes,inir35
+Yes,no,yes,,,yes,yes,,No,inir35

@@ -1,0 +1,10 @@
+{
+	"title":"hello world schema",
+	"type":"object",
+		"properties":{
+				"hello": {
+					"type": "string"
+						}
+					},
+	"required":["hello"]
+}

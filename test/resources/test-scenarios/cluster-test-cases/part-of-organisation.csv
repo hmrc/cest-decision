@@ -1,0 +1,8 @@
+workerReceivesBenefits,workerAsLineManager,contactWithEngagerCustomer,workerRepresentsEngagerBusiness.independant,workerRepresentsEngagerBusiness.engager,CarryOverValue,Exit,CarryOverFactName
+Yes,,,,,High,FALSE,
+,Yes,,,,High,FALSE,
+No,No,No,,,Low,FALSE,
+No,No,Yes,Yes,,Low,FALSE,
+Yes,Yes,Yes,Yes,Yes,High,FALSE,
+Yes,No,No,No,No,High,FALSE,
+Yes,No,Yes,No,Yes,High,FALSE,

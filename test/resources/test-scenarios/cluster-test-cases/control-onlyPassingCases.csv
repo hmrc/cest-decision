@@ -1,0 +1,8 @@
+toldWhatToDo,engagerMovingWorker,workerDecidingHowWorkIsDone,workerLevelOfExpertise.notToldByEnagagerHowToWork,workerLevelOfExpertise.couldBeToldByEngagerHowToWork,workerLevelOfExpertise.toldByEngagerHowToWork,whenWorkHasToBeDone.workingPatternStipulated,whenWorkHasToBeDone.noDefinedWorkingPattern,whenWorkHasToBeDone.workingPatternAgreed,whenWorkHasToBeDone.workinPatternAgreedDeadlines,workerDecideWhere.couldFixWorkerLocation,workerDecideWhere.cannotFixWorkerLocation,workerDecideWhere.workerDecideWhere,CarryOverValue,Exit,CarryOverFactName
+Yes,Yes,No,,,,,,,,,,,InIR35,TRUE,
+No,No,Yes,,,,,,,,,,,InIR35,TRUE,
+No,No,,Yes,,,,,Yes,,,Yes,Yes,OutOfIR35,TRUE,
+,Yes,No,Yes,,,Yes,Yes,,,,Yes,,HIGH,FALSE,
+,Yes,No,,Yes,Yes,Yes,Yes,,,,Yes,,HIGH,FALSE,
+,,,,,,,,Yes,,,,,HIGH,FALSE,workPatternImpact
+,,,,,,,,,Yes,,,,HIGH,FALSE,workPatternImpact

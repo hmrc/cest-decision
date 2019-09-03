@@ -1,0 +1,11 @@
+2  ,3  ,4  ,5  ,6  ,7  ,8  ,9  ,10
+Yes,Yes,   ,   ,Yes,Yes,   ,   ,   ,outofIR35  ,true
+   ,Yes,   ,   ,Yes,Yes,   ,   ,   ,outofIR35  ,true
+Yes,no ,No ,   ,yes,Yes,   ,   ,   ,outofIR35  ,true
+Yes,no ,Yes,   ,yes,No ,   ,   ,   ,high         ,false
+Yes,   ,yes,   ,No ,No ,   ,   ,   ,Low          ,false
+No ,   ,Yes,   ,   ,yes,   ,   ,   ,Low          ,false
+Yes,   ,No ,   ,Yes,No ,   ,   ,   ,Medium       ,false
+no ,no ,no ,   ,   ,   ,   ,   ,   ,medium       ,false
+no ,no ,yes,   ,   ,   ,   ,   ,   ,medium       ,false
+   ,   ,   ,   ,   ,yes,   ,   ,   ,medium       ,false
