@@ -18,14 +18,17 @@ package uk.gov.hmrc.decisionservice.ruleEngines
 
 import javax.inject.Inject
 import uk.gov.hmrc.decisionservice.models.Control
-import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.ruleSets.ControlRules
 
 import scala.concurrent.Future
 
-class ControlRuleEngine @Inject()(rules: ControlRules) extends RuleEngine {
+class ControlRuleEngine @Inject() extends RuleEngine {
 
-  def decide(control: Option[Control]): Future[Option[WeightedAnswerEnum.Value]] =
+  def decide(control: Option[Control], version: DecisionServiceVersion.Value): Future[Option[WeightedAnswerEnum.Value]] = {
+
+    val rules = ControlRules(version)
+
     Future.successful(control flatMap {
       case Control(None, None, None, None) => None
       case section => {
@@ -33,4 +36,5 @@ class ControlRuleEngine @Inject()(rules: ControlRules) extends RuleEngine {
         Some(WeightedAnswerEnum.withName(result))
       }
     })
+  }
 }
