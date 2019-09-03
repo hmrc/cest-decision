@@ -8,13 +8,13 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
   "Financial Risk Section" should {
 
-    implicit val engine = NewRuleEngine
+    
 
-      s"POST ${engine.path}" should {
+      s"POST $path" should {
 
         "Scenario 1: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> true,
               FinancialRisk.workerProvidedEquipment -> true,
@@ -35,7 +35,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 2: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> true,
               FinancialRisk.workerProvidedEquipment -> true,
@@ -56,7 +56,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 3: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> true,
               FinancialRisk.workerProvidedEquipment -> true,
@@ -77,7 +77,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 4: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> true,
               FinancialRisk.workerProvidedEquipment -> true,
@@ -98,7 +98,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 5: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> true,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -119,7 +119,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 6: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> true,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -140,7 +140,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 7: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> true,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -161,7 +161,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 8: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> true,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -182,7 +182,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 9: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> true,
@@ -203,7 +203,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 10: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> true,
@@ -224,7 +224,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 11: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> true,
@@ -245,7 +245,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 12: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> true,
@@ -266,7 +266,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 13: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -287,7 +287,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 14: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -308,7 +308,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 15: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -329,7 +329,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 16: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -349,7 +349,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 17: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -370,7 +370,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 18: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -391,7 +391,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 19: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -412,7 +412,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 20: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -433,7 +433,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 21: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -454,7 +454,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 22: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -474,7 +474,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 23: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -495,7 +495,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 24: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -516,7 +516,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 25: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -536,7 +536,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 26: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -557,7 +557,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 27: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -578,7 +578,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 28: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -599,7 +599,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 29: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -619,7 +619,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 30: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -639,7 +639,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 31: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -659,7 +659,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 32: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -679,7 +679,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 33: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -699,7 +699,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 34: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -719,7 +719,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 35: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -739,7 +739,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 36: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -759,7 +759,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 37: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -779,7 +779,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 38: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -799,7 +799,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 39: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -819,7 +819,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 40: return a 200, a OUTOFIR35 for financial risk and Outside IR35 result" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -840,7 +840,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 41: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -860,7 +860,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 42: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -880,7 +880,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 43: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -900,7 +900,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 44: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -920,7 +920,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 45: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -940,7 +940,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 46: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -960,7 +960,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 47: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -980,7 +980,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 48: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1000,7 +1000,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 49: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1020,7 +1020,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 50: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1040,7 +1040,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 51: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1060,7 +1060,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 52: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1080,7 +1080,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 53: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1100,7 +1100,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 54: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1120,7 +1120,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 55: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1140,7 +1140,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 56: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1160,7 +1160,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 57: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1180,7 +1180,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 58: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1200,7 +1200,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 59: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1220,7 +1220,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 60: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1240,7 +1240,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 61: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1260,7 +1260,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 62: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1280,7 +1280,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 63: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1300,7 +1300,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 64: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1320,7 +1320,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 65: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1340,7 +1340,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 66: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1360,7 +1360,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 67: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1380,7 +1380,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 68: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1400,7 +1400,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 69: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1420,7 +1420,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 70: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1440,7 +1440,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 71: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1460,7 +1460,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 72: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1480,7 +1480,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 73: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1500,7 +1500,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 74: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1520,7 +1520,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 75: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1540,7 +1540,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 76: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1560,7 +1560,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 77: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1580,7 +1580,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 78: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1600,7 +1600,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 79: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1620,7 +1620,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 80: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1640,7 +1640,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 81: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1660,7 +1660,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 82: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1680,7 +1680,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 83: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1700,7 +1700,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 84: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1720,7 +1720,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 85: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1740,7 +1740,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 86: return a 200, a LOW for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1760,7 +1760,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 86: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,
@@ -1780,7 +1780,7 @@ class FinancialRiskDecisionISpec extends BaseISpec {
 
         "Scenario 87: return a 200, a MEDIUM for financial risk" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(financialRisk = obj(
               FinancialRisk.workerProvidedMaterials -> false,
               FinancialRisk.workerProvidedEquipment -> false,

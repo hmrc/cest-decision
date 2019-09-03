@@ -9,12 +9,10 @@ import uk.gov.hmrc.helpers.{CreateRequestHelper, IntegrationSpecBase}
 
 trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status {
 
-  sealed trait DecisionEngine {
-    val path: String
-  }
-  case object NewRuleEngine extends DecisionEngine {
-    override val path = "/decide"
-  }
+
+
+  val path = "/decide"
+
 
   val defaultVersion = "1.5.0-final"
 
