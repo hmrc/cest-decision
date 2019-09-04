@@ -23,7 +23,7 @@ import org.scalatestplus.play.OneAppPerSuite
 import uk.gov.hmrc.play.test.UnitSpec
 import play.api.Configuration
 import uk.gov.hmrc.decisionservice.config.AppConfig
-import uk.gov.hmrc.decisionservice.model.analytics.AnalyticsSearch
+import uk.gov.hmrc.decisionservice.models.analytics.AnalyticsSearch
 import uk.gov.hmrc.decisionservice.repository.{InterviewRepository, ReactiveMongoRepository}
 
 import scala.concurrent.Future

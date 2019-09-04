@@ -8,13 +8,13 @@ class ControlDecisionISpec extends BaseISpec {
 
   "Control Section" should {
 
-    Seq(OldRuleEngine, NewRuleEngine).foreach { implicit engine =>
 
-      s"POST ${engine.path}" should {
+
+      s"POST $path" should {
 
         "Scenario 1: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -31,12 +31,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 2: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -48,12 +48,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 3: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -65,7 +65,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 4: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -82,7 +82,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 5: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -99,12 +99,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 6: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -116,12 +116,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 7: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -133,7 +133,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 8: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -150,7 +150,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 9: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -167,12 +167,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 10: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -184,12 +184,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 11: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -201,7 +201,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 12: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -218,7 +218,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 13: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -235,12 +235,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 14: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -252,12 +252,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 15: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -269,7 +269,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 16: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -286,7 +286,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 17: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -303,12 +303,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 18: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -320,12 +320,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 19: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -337,7 +337,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 20: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -354,7 +354,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 21: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -371,12 +371,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 22: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -388,12 +388,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 23: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -405,7 +405,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 24: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -422,7 +422,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 25: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -439,12 +439,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 26: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -456,12 +456,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 27: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -473,7 +473,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 28: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -490,7 +490,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 29: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -507,12 +507,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 30: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -524,12 +524,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 31: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -541,7 +541,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 32: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -558,7 +558,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 33: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -575,12 +575,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 34: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -592,12 +592,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 35: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -609,7 +609,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 36: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -626,7 +626,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 37: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -643,12 +643,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 38: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -660,12 +660,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 39: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -677,7 +677,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 40: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -694,7 +694,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 41: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -711,12 +711,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 42: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -728,12 +728,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 43: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -745,7 +745,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 44: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -762,7 +762,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 45: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -779,12 +779,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 46: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -796,12 +796,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 47: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -813,7 +813,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 48: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -830,7 +830,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 49: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -847,12 +847,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 50: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -864,12 +864,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 51: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -881,7 +881,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 52: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -898,7 +898,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 53: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -915,12 +915,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 54: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -932,12 +932,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 55: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -949,7 +949,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 56: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -966,7 +966,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 57: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -983,12 +983,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 58: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1000,12 +1000,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 59: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1017,7 +1017,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 60: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -1034,7 +1034,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 61: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -1051,12 +1051,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 62: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1068,12 +1068,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 63: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1085,7 +1085,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 64: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -1102,7 +1102,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 65: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -1119,12 +1119,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 66: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1136,12 +1136,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 67: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1153,7 +1153,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 68: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -1170,7 +1170,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 69: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -1187,12 +1187,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 70: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1204,12 +1204,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 71: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1221,7 +1221,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 72: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -1241,10 +1241,9 @@ class ControlDecisionISpec extends BaseISpec {
         /////
 
 
-
         "Scenario 73: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -1261,12 +1260,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 74: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1278,12 +1277,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 75: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1295,7 +1294,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 76: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -1312,7 +1311,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 77: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -1329,12 +1328,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 78: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1346,12 +1345,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 79: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1363,7 +1362,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 80: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -1382,10 +1381,9 @@ class ControlDecisionISpec extends BaseISpec {
         /////
 
 
-
         "Scenario 81: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -1402,12 +1400,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 82: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1419,12 +1417,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 83: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1436,7 +1434,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 84: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -1453,7 +1451,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 85: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -1470,12 +1468,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 86: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1487,12 +1485,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 87: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1504,7 +1502,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 88: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -1523,10 +1521,9 @@ class ControlDecisionISpec extends BaseISpec {
         /////
 
 
-
         "Scenario 89: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -1543,12 +1540,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 90: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1560,12 +1557,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 91: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1577,7 +1574,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 92: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -1594,7 +1591,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 93: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -1611,12 +1608,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 94: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1628,12 +1625,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 95: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1645,7 +1642,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 96: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -1662,7 +1659,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 97: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -1679,12 +1676,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 98: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1696,12 +1693,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 99: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1713,7 +1710,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 100: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -1730,7 +1727,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 101: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -1747,12 +1744,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 102: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1764,12 +1761,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 103: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1781,7 +1778,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 104: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -1798,7 +1795,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 105: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -1815,12 +1812,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 106: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1832,12 +1829,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 107: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1849,7 +1846,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 108: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -1866,7 +1863,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 109: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -1883,12 +1880,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 110: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1900,12 +1897,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 111: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1917,7 +1914,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 112: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -1934,7 +1931,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 113: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -1951,12 +1948,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 114: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -1968,12 +1965,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 115: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -1985,7 +1982,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 116: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -2002,7 +1999,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 117: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -2019,12 +2016,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 118: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2036,12 +2033,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 119: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2053,7 +2050,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 120: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -2070,7 +2067,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 121: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -2087,12 +2084,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 122: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2104,12 +2101,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 123: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2121,7 +2118,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 124: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -2138,7 +2135,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 125: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -2155,12 +2152,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 126: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2172,12 +2169,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 127: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2189,7 +2186,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 128: return a 200, a HIGH for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -2206,7 +2203,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 129: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -2223,12 +2220,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 130: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2240,12 +2237,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 131: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2257,7 +2254,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 132: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -2274,7 +2271,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 133: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -2291,12 +2288,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 134: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2308,12 +2305,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 135: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2325,7 +2322,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 136: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -2342,7 +2339,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 137: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -2360,12 +2357,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 138: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2377,12 +2374,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 139: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2395,7 +2392,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 140: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -2412,7 +2409,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 141: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -2430,12 +2427,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 142: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2447,12 +2444,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 143: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2465,7 +2462,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 144: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
@@ -2482,7 +2479,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 145: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -2499,12 +2496,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 146: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2516,12 +2513,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 147: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2533,7 +2530,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 148: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -2550,7 +2547,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 149: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -2567,12 +2564,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 150: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2584,12 +2581,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 151: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2601,7 +2598,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 152: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -2618,7 +2615,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 153: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -2635,12 +2632,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 154: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2652,12 +2649,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 155: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2669,7 +2666,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 156: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -2686,7 +2683,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 157: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -2703,12 +2700,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 158: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2720,12 +2717,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 159: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2737,7 +2734,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 160: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerAgreeWithOthers,
@@ -2754,7 +2751,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 161: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -2771,12 +2768,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 162: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2788,12 +2785,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 163: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2805,7 +2802,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 164: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -2822,7 +2819,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 165: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -2839,12 +2836,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 166: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2856,12 +2853,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 167: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2873,7 +2870,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 168: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -2890,7 +2887,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 169: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -2907,12 +2904,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 170: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2924,12 +2921,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 171: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -2941,7 +2938,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 172: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -2958,7 +2955,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 173: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -2975,12 +2972,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 174: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -2992,12 +2989,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 175: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3009,7 +3006,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 176: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.noWorkerInputAllowed,
@@ -3026,7 +3023,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 177: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -3043,12 +3040,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 178: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -3060,12 +3057,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 179: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3077,7 +3074,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 180: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -3094,7 +3091,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 181: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -3111,12 +3108,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 182: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -3128,12 +3125,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 183: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerAgreeSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3145,7 +3142,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 184: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -3162,7 +3159,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 185: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -3180,12 +3177,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 186: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -3197,12 +3194,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 187: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.workerDecideSchedule,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3215,7 +3212,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 188: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -3232,7 +3229,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 189: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -3250,12 +3247,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 190: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+              Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
             ))
           )
 
@@ -3267,12 +3264,12 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 191: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
               Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-              Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+              Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
             ))
           )
 
@@ -3285,7 +3282,7 @@ class ControlDecisionISpec extends BaseISpec {
 
         "Scenario 192: return a 200, a MEDIUM for control" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(control = obj(
               Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
               Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
@@ -3302,4 +3299,3 @@ class ControlDecisionISpec extends BaseISpec {
       }
     }
   }
-}

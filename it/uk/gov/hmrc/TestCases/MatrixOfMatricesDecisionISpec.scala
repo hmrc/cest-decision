@@ -8,13 +8,13 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
   "Matrix of Matrices" should {
 
-    Seq(OldRuleEngine, NewRuleEngine).foreach { implicit engine =>
 
-      s"POST ${engine.path}" should {
+
+      s"POST $path" should {
 
         "Scenario 1: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
@@ -24,7 +24,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-                Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+                Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -56,7 +56,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 2: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
@@ -66,7 +66,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-                Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+                Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -98,7 +98,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 3: return a 200 and a determination of Unknown" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
@@ -108,7 +108,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.cannotMoveWorkerWithoutNewAgreement,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerDecidesWithoutInput,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.scheduleDecidedForWorker,
-                Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+                Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -140,7 +140,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 4: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
@@ -150,7 +150,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+                Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -182,7 +182,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 5: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
@@ -192,7 +192,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+                Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -224,7 +224,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 6: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
@@ -234,7 +234,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere-> ChooseWhereWork.noLocationRequired
+                Control.workerDecideWhere -> ChooseWhereWork.noLocationRequired
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -266,7 +266,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 7: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -308,7 +308,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 8: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -350,7 +350,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 9: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -392,7 +392,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 10: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -402,7 +402,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+                Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -434,7 +434,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 11: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -444,7 +444,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+                Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -476,7 +476,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 12: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -486,7 +486,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+                Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -518,7 +518,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 13: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -528,7 +528,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+                Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -560,7 +560,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 14: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -570,7 +570,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
                 Control.engagerMovingWorker -> MoveWorker.canMoveWorkerWithoutPermission,
                 Control.workerDecidingHowWorkIsDone -> HowWorkIsDone.workerFollowStrictEmployeeProcedures,
                 Control.whenWorkHasToBeDone -> ScheduleOfWorkingHours.noScheduleRequiredOnlyDeadlines,
-                Control.workerDecideWhere-> ChooseWhereWork.workerCannotChoose
+                Control.workerDecideWhere -> ChooseWhereWork.workerCannotChoose
               ),
               financialRisk = obj(
                 FinancialRisk.workerProvidedMaterials -> false,
@@ -602,7 +602,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 15: return a 200 and a determination of Unknown" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -644,7 +644,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 16: return a 200 and a determination of Unknown" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -686,7 +686,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 17: return a 200 and a determination of Unknown" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -728,7 +728,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 18: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -770,7 +770,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 19: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -812,7 +812,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 20: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -854,7 +854,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 21: return a 200 and a determination of Unknown" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
@@ -897,7 +897,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 22: return a 200 and a determination of Unknown" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
@@ -940,7 +940,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 23: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
@@ -983,7 +983,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 24: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
@@ -1024,6 +1024,5 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
           }
         }
       }
-    }
   }
 }

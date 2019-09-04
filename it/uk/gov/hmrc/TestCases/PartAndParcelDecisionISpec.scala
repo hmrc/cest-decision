@@ -7,14 +7,13 @@ import uk.gov.hmrc.decisionservice.models.enums.IdentifyToStakeholders
 class PartAndParcelDecisionISpec extends BaseISpec {
 
   "Part and Parcel Section" should {
+    
 
-    Seq(OldRuleEngine, NewRuleEngine).foreach { implicit engine =>
-
-      s"POST ${engine.path}" should {
+      s"POST $path" should {
 
         "Scenario 1: return a 200, a HIGH for part and parcel" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(partAndParcel = obj(
               PartAndParcel.workerReceivesBenefits -> false,
               PartAndParcel.workerAsLineManager -> true,
@@ -31,7 +30,7 @@ class PartAndParcelDecisionISpec extends BaseISpec {
 
         "Scenario 2: return a 200, a HIGH for part and parcel" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(partAndParcel = obj(
               PartAndParcel.workerReceivesBenefits -> true,
               PartAndParcel.workerAsLineManager -> false,
@@ -48,7 +47,7 @@ class PartAndParcelDecisionISpec extends BaseISpec {
 
         "Scenario 3: return a 200, a LOW for part and parcel" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(partAndParcel = obj(
               PartAndParcel.workerReceivesBenefits -> false,
               PartAndParcel.workerAsLineManager -> false,
@@ -65,7 +64,7 @@ class PartAndParcelDecisionISpec extends BaseISpec {
 
         "Scenario 4: return a 200, a MEDIUM for part and parcel" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(partAndParcel = obj(
               PartAndParcel.workerReceivesBenefits -> false,
               PartAndParcel.workerAsLineManager -> false,
@@ -82,7 +81,7 @@ class PartAndParcelDecisionISpec extends BaseISpec {
 
         "Scenario 5: return a 200, a LOW for part and parcel" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(partAndParcel = obj(
               PartAndParcel.workerReceivesBenefits -> false,
               PartAndParcel.workerAsLineManager -> false,
@@ -99,7 +98,7 @@ class PartAndParcelDecisionISpec extends BaseISpec {
 
         "Scenario 6: return a 200, a LOW for part and parcel" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(partAndParcel = obj(
               PartAndParcel.workerReceivesBenefits -> false,
               PartAndParcel.workerAsLineManager -> false,
@@ -116,4 +115,4 @@ class PartAndParcelDecisionISpec extends BaseISpec {
       }
     }
   }
-}
+

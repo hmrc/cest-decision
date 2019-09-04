@@ -17,7 +17,7 @@
 package uk.gov.hmrc.decisionservice.transformer
 
 import org.joda.time.DateTime
-import uk.gov.hmrc.decisionservice.model.analytics._
+import uk.gov.hmrc.decisionservice.models.analytics._
 import uk.gov.hmrc.decisionservice.transformer.InterviewTransformer.toResponse
 import uk.gov.hmrc.play.test.UnitSpec
 
