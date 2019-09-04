@@ -20,7 +20,7 @@ import play.api.libs.json.Format
 
 object DecisionServiceVersion extends Enumeration with EnumFormats {
 
-  val VERSION160: DecisionServiceVersion.Value = Value("1.6.0")
+  val v1_5_0: DecisionServiceVersion.Value = Value("1.5.0-final")
 
   implicit val format: Format[DecisionServiceVersion.Value] = enumFormat(DecisionServiceVersion)
 }

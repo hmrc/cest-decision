@@ -53,7 +53,7 @@ class PartAndParcelRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
       "return a WeightedAnswer" in {
 
-        val actualAnswer = TestPartAndParcelRuleEngine.decide(Some(PartAndParcel(None, None, None, None)))(DecisionServiceVersion.VERSION160)
+        val actualAnswer = TestPartAndParcelRuleEngine.decide(Some(PartAndParcel(None, None, None, None)))(DecisionServiceVersion.v1_5_0)
 
         await(actualAnswer) shouldBe None
       }

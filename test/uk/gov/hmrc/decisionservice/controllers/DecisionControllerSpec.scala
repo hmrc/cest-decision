@@ -46,7 +46,7 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
 
     "return a OK with a decision" in {
 
-      val decisionRequest = DecisionRequest(DecisionServiceVersion.VERSION160,"", Interview(
+      val decisionRequest = DecisionRequest(DecisionServiceVersion.v1_5_0,"", Interview(
         setup = Some(Setup(None, None, None)),
         exit = Some(Exit(None)),
         personalService = Some(PersonalService(None, None, None, None, None)),
@@ -56,7 +56,7 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
         businessOnOwnAccount = Some(BusinessOnOwnAccount(None, None, None, None, None))
       ))
 
-      mockCalculateResult(decisionRequest)(DecisionResponse(DecisionServiceVersion.VERSION160, "", Score(), ResultEnum.UNKNOWN))
+      mockCalculateResult(decisionRequest)(DecisionResponse(DecisionServiceVersion.v1_5_0, "", Score(), ResultEnum.UNKNOWN))
 
       val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(toJson(decisionRequest))
 
@@ -64,7 +64,7 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
 
       status(response) shouldBe OK
       jsonBodyOf(response) shouldBe Json.parse(
-        s"""{"version":"${DecisionServiceVersion.VERSION160}","correlationID":"","score":{},"result":"Unknown"}""".stripMargin
+        s"""{"version":"${DecisionServiceVersion.v1_5_0}","correlationID":"","score":{},"result":"Unknown"}""".stripMargin
       )
     }
 

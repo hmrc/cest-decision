@@ -23,12 +23,12 @@ sealed trait PartAndParcelRules extends BaseRules {
   def parseRuleSet(version: DecisionServiceVersion.Value): Seq[RuleSet] = parseRules("part-and-parcel", version)
 }
 
-object PartAndParcelRules_V160 extends PartAndParcelRules {
-  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.VERSION160)
+object PartAndParcelRules_v150 extends PartAndParcelRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v1_5_0)
 }
 
 object PartAndParcelRules {
   def apply(version: DecisionServiceVersion.Value): PartAndParcelRules = version match {
-    case DecisionServiceVersion.VERSION160 => PartAndParcelRules_V160
+    case DecisionServiceVersion.v1_5_0 => PartAndParcelRules_v150
   }
 }

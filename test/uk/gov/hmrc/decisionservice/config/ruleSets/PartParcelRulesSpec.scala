@@ -20,11 +20,11 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.PartAndParcel._
 import uk.gov.hmrc.decisionservice.models.enums.{IdentifyToStakeholders, WeightedAnswerEnum}
-import uk.gov.hmrc.decisionservice.ruleSets.{PartAndParcelRules, PartAndParcelRules_V160}
+import uk.gov.hmrc.decisionservice.ruleSets.{PartAndParcelRules, PartAndParcelRules_v150}
 
 class PartParcelRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  implicit val ruleSet = PartAndParcelRules_V160.ruleSet
+  implicit val ruleSet = PartAndParcelRules_v150.ruleSet
 
   "For all the expected HIGH rules" should {
 

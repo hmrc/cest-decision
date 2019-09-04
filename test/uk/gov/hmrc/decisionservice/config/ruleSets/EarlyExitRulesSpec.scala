@@ -20,11 +20,11 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.Exit
 import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
-import uk.gov.hmrc.decisionservice.ruleSets.EarlyExitRules_V160
+import uk.gov.hmrc.decisionservice.ruleSets.EarlyExitRules_v150
 
 class EarlyExitRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  implicit val ruleSet = EarlyExitRules_V160.ruleSet
+  implicit val ruleSet = EarlyExitRules_v150.ruleSet
 
   "For the IN rules" should {
 

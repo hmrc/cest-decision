@@ -24,7 +24,7 @@ import uk.gov.hmrc.play.test.UnitSpec
 
 class ResultRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
-  implicit val defaultDecisionServiceVersion: DecisionServiceVersion.Value = DecisionServiceVersion.VERSION160
+  implicit val defaultDecisionServiceVersion: DecisionServiceVersion.Value = DecisionServiceVersion.v1_5_0
 
   object TestResultDecisionService extends ResultRuleEngine
 
@@ -55,7 +55,7 @@ class ResultRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
       "return a result" in {
 
         val expectedAnswer = ResultEnum.NOT_MATCHED
-        val actualAnswer = TestResultDecisionService.decide(Score())(DecisionServiceVersion.VERSION160)
+        val actualAnswer = TestResultDecisionService.decide(Score())(DecisionServiceVersion.v1_5_0)
 
         await(actualAnswer) shouldBe expectedAnswer
 

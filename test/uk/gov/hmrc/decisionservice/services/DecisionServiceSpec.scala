@@ -47,7 +47,7 @@ class DecisionServiceSpec extends UnitSpec {
       "calculate the result" in new Setup {
 
         val request = DecisionRequest(
-          DecisionServiceVersion.VERSION160, "coral", Interview(
+          DecisionServiceVersion.v1_5_0, "coral", Interview(
             setup = Some(Setup(None, None, None)),
             exit = Some(Exit(None)),
             personalService = Some(PersonalService(None, None, None, None, None)),
@@ -67,7 +67,7 @@ class DecisionServiceSpec extends UnitSpec {
         when(result.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
-          DecisionServiceVersion.VERSION160, "coral", Score(
+          DecisionServiceVersion.v1_5_0, "coral", Score(
             Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH)
           ), ResultEnum.INSIDE_IR35
         )

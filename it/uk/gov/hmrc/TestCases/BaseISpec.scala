@@ -16,7 +16,7 @@ trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status
     override val path = "/decide"
   }
 
-  val defaultVersion = "1.6.0"
+  val defaultVersion = "1.5.0-final"
 
   val defaultExit = obj("officeHolder" -> false)
 

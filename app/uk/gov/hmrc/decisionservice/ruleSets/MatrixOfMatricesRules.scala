@@ -23,12 +23,12 @@ sealed trait MatrixOfMatricesRules extends BaseRules {
   def parseRuleSet(version: DecisionServiceVersion.Value): Seq[RuleSet] = parseRules("matrix-of-matrices", version)
 }
 
-object MatrixOfMatricesRules_V160 extends MatrixOfMatricesRules {
-  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.VERSION160)
+object MatrixOfMatricesRules_v150 extends MatrixOfMatricesRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v1_5_0)
 }
 
 object MatrixOfMatricesRules {
   def apply(version: DecisionServiceVersion.Value): MatrixOfMatricesRules = version match {
-    case DecisionServiceVersion.VERSION160 => MatrixOfMatricesRules_V160
+    case DecisionServiceVersion.v1_5_0 => MatrixOfMatricesRules_v150
   }
 }

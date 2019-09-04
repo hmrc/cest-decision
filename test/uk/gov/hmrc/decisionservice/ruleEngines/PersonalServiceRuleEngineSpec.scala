@@ -55,7 +55,7 @@ class PersonalServiceRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
       "return a WeightedAnswer" in {
 
         val expectedAnswer = None
-        val actualAnswer = TestControlDecisionServiceRuleEngine.decide(Some(PersonalService(None, None, None, None, None)))(DecisionServiceVersion.VERSION160)
+        val actualAnswer = TestControlDecisionServiceRuleEngine.decide(Some(PersonalService(None, None, None, None, None)))(DecisionServiceVersion.v1_5_0)
 
         await(actualAnswer) shouldBe expectedAnswer
       }

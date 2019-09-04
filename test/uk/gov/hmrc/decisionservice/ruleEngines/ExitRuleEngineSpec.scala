@@ -52,7 +52,7 @@ class ExitRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
       "return a WeightedAnswer" in {
 
-        val actualAnswer = TestExitRuleEngine.decide(Some(Exit(None)))(DecisionServiceVersion.VERSION160)
+        val actualAnswer = TestExitRuleEngine.decide(Some(Exit(None)))(DecisionServiceVersion.v1_5_0)
 
         await(actualAnswer) shouldBe None
 

@@ -20,13 +20,13 @@ import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.enums.Section._
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
-import uk.gov.hmrc.decisionservice.ruleSets.{MatrixOfMatricesRules, MatrixOfMatricesRules_V160}
+import uk.gov.hmrc.decisionservice.ruleSets.{MatrixOfMatricesRules, MatrixOfMatricesRules_v150}
 
 class MatrixOfMatricesRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
   implicit def enumTuple[E <: Enumeration, B <: Enumeration](x: (E#Value, B#Value)): (String, Json.JsValueWrapper) = (x._1.toString, x._2)
 
-  val ruleSet = MatrixOfMatricesRules_V160.ruleSet
+  val ruleSet = MatrixOfMatricesRules_v150.ruleSet
 
   "For all the expected InIR35 rules" should {
 

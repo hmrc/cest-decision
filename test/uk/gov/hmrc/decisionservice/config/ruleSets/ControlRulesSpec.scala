@@ -21,11 +21,11 @@ import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.Control._
 import uk.gov.hmrc.decisionservice.models.enums.MoveWorker._
 import uk.gov.hmrc.decisionservice.models.enums._
-import uk.gov.hmrc.decisionservice.ruleSets.ControlRules_V160
+import uk.gov.hmrc.decisionservice.ruleSets.ControlRules_v150
 
 class ControlRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  implicit val ruleSet = ControlRules_V160.ruleSet
+  implicit val ruleSet = ControlRules_v150.ruleSet
 
   "For the OUT rules" should {
 

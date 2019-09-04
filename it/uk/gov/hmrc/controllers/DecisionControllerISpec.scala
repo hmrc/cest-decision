@@ -81,7 +81,7 @@ class DecisionControllerISpec extends IntegrationSpecBase with DefaultBodyWritab
     "return a 200 given a 1.5.0-final version" in {
 
       lazy val res = postRequest("/decide", interview(personalService = obj(
-        "version" -> "1.6.0"
+        "version" -> "1.5.0-final"
       )))
 
       whenReady(res) { result =>

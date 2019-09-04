@@ -23,12 +23,12 @@ sealed trait FinancialRiskRules extends BaseRules {
   def parseRuleSet(version: DecisionServiceVersion.Value): Seq[RuleSet] = parseRules("financial-risk", version)
 }
 
-object FinancialRiskRules_V160 extends FinancialRiskRules {
-  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.VERSION160)
+object FinancialRiskRules_v150 extends FinancialRiskRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v1_5_0)
 }
 
 object FinancialRiskRules {
   def apply(version: DecisionServiceVersion.Value): FinancialRiskRules = version match {
-    case DecisionServiceVersion.VERSION160 => FinancialRiskRules_V160
+    case DecisionServiceVersion.v1_5_0 => FinancialRiskRules_v150
   }
 }

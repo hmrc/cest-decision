@@ -1,3 +1,3 @@
-officeHolder,,
-No,CONTINUE,FALSE
-Yes,InIR35,TRUE
+officeHolder,result
+false,CONTINUE
+true,INIR35

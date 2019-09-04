@@ -52,7 +52,7 @@ class FinancialRiskRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
       "return a WeightedAnswer" in {
 
-        val actualAnswer = TestFinancialRiskRuleEngine.decide(Some(FinancialRisk(None, None, None, None, None, None, None)))(DecisionServiceVersion.VERSION160)
+        val actualAnswer = TestFinancialRiskRuleEngine.decide(Some(FinancialRisk(None, None, None, None, None, None, None)))(DecisionServiceVersion.v1_5_0)
 
         await(actualAnswer) shouldBe None
 
