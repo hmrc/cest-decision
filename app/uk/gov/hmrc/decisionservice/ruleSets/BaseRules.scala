@@ -16,9 +16,7 @@
 
 package uk.gov.hmrc.decisionservice.ruleSets
 
-import javax.inject.Inject
 import play.api.libs.json._
-import uk.gov.hmrc.decisionservice.config.AppConfig
 import uk.gov.hmrc.decisionservice.models.RuleSet
 import uk.gov.hmrc.decisionservice.models.enums.DecisionServiceVersion
 

@@ -18,50 +18,35 @@ package uk.gov.hmrc.decisionservice.ruleEngines
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.models.PersonalService
-import uk.gov.hmrc.decisionservice.models.enums.{PossibleSubstituteRejection, WeightedAnswerEnum, WorkerSentActualSubstitute}
+import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.ruleSets.PersonalServiceRules
 import uk.gov.hmrc.play.test.UnitSpec
 
 class PersonalServiceRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
-  lazy val personalServiceRules = app.injector.instanceOf[PersonalServiceRules]
-
-  object TestControlDecisionServiceRuleEngine extends PersonalServiceRuleEngine(personalServiceRules)
+  object TestControlDecisionServiceRuleEngine extends PersonalServiceRuleEngine
 
   "PersonalServiceDecisionServiceSpec" when {
 
-    "decide is called with a PersonalService section with every value provided" should {
-
-      "return a WeightedAnswer" in {
-
-        val expectedAnswer = WeightedAnswerEnum.OUTSIDE_IR35
-        val actualAnswer = TestControlDecisionServiceRuleEngine.decide(Some(PersonalService(
-          Some(WorkerSentActualSubstitute.yesClientAgreed),
-          Some(true),
-          Some(PossibleSubstituteRejection.wouldNotReject),
-          Some(true),
-          Some(true)
-        )))
-
-        await(actualAnswer) shouldBe Some(expectedAnswer)
-
-      }
-    }
 
     "decide is called with a PersonalService section with out scenarios populated" should {
 
-      personalServiceRules.ruleSet.zipWithIndex.foreach { item =>
+        DecisionServiceVersion.values.foreach { version =>
 
-        val (ruleSet, index) = item
+          s"for rule engine version $version" should {
 
-        s"return an answer for scenario ${index + 1}" in {
+              s"return the correct expected response" in {
 
-          val actualAnswer = TestControlDecisionServiceRuleEngine.decide(Some(ruleSet.rules.as[PersonalService]))
-          val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
+                PersonalServiceRules(version).ruleSet.foreach { ruleSet =>
 
-          await(actualAnswer) shouldBe Some(expectedAnswer)
+                val actualAnswer = TestControlDecisionServiceRuleEngine.decide(Some(ruleSet.rules.as[PersonalService]))(version)
+                val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
 
-        }
+                await(actualAnswer) shouldBe Some(expectedAnswer)
+
+              }
+            }
+          }
       }
     }
 
@@ -70,12 +55,10 @@ class PersonalServiceRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
       "return a WeightedAnswer" in {
 
         val expectedAnswer = None
-        val actualAnswer = TestControlDecisionServiceRuleEngine.decide(Some(PersonalService(None, None, None, None, None)))
+        val actualAnswer = TestControlDecisionServiceRuleEngine.decide(Some(PersonalService(None, None, None, None, None)))(DecisionServiceVersion.VERSION160)
 
         await(actualAnswer) shouldBe expectedAnswer
-
       }
     }
   }
-
 }

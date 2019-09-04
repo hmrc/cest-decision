@@ -18,48 +18,34 @@ package uk.gov.hmrc.decisionservice.ruleEngines
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.models.PartAndParcel
-import uk.gov.hmrc.decisionservice.models.enums.{WeightedAnswerEnum, WorkerRepresentsEngagerBusiness}
+import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.ruleSets.PartAndParcelRules
 import uk.gov.hmrc.play.test.UnitSpec
 
 class PartAndParcelRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
-  lazy val partAndParcelRules = app.injector.instanceOf[PartAndParcelRules]
-
-  object TestPartAndParcelRuleEngine extends PartAndParcelRuleEngine(partAndParcelRules)
+  object TestPartAndParcelRuleEngine extends PartAndParcelRuleEngine
 
   "PartAndParcelDecisionServiceSpec" when {
 
-    "decide is called with a PartAndParcel section with every value provided" should {
-
-      "return a WeightedAnswer" in {
-
-        val expectedAnswer = WeightedAnswerEnum.MEDIUM
-        val actualAnswer = TestPartAndParcelRuleEngine.decide(Some(PartAndParcel(
-          Some(false),
-          Some(false),
-          Some(true),
-          Some(WorkerRepresentsEngagerBusiness.workForEndClient)
-        )))
-
-        await(actualAnswer) shouldBe Some(expectedAnswer)
-      }
-    }
-
     "decide is called with a PartAndParcel section with triggered rules populated" should {
 
-      partAndParcelRules.ruleSet.zipWithIndex.foreach { item =>
+      DecisionServiceVersion.values.foreach { version =>
 
-          val (ruleSet, index) = item
+        s"for rule engine version $version" should {
 
-          s"return an answer for scenario ${index + 1}" in {
+            s"return the correct expected result" in {
 
-            val actualAnswer = TestPartAndParcelRuleEngine.decide(Some(ruleSet.rules.as[PartAndParcel]))
-            val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
+              PartAndParcelRules(version).ruleSet.foreach { ruleSet =>
 
-            await(actualAnswer) shouldBe Some(expectedAnswer)
+              val actualAnswer = TestPartAndParcelRuleEngine.decide(Some(ruleSet.rules.as[PartAndParcel]))(version)
+              val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
 
+              await(actualAnswer) shouldBe Some(expectedAnswer)
+
+            }
           }
+        }
       }
     }
 
@@ -67,13 +53,10 @@ class PartAndParcelRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
       "return a WeightedAnswer" in {
 
-        val expectedAnswer = None
-        val actualAnswer = TestPartAndParcelRuleEngine.decide(Some(PartAndParcel(None, None, None, None)))
+        val actualAnswer = TestPartAndParcelRuleEngine.decide(Some(PartAndParcel(None, None, None, None)))(DecisionServiceVersion.VERSION160)
 
-        await(actualAnswer) shouldBe expectedAnswer
-
+        await(actualAnswer) shouldBe None
       }
     }
   }
-
 }

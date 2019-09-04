@@ -18,15 +18,14 @@ package uk.gov.hmrc.decisionservice.config.ruleSets
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
-import uk.gov.hmrc.decisionservice.config.AppConfig
 import uk.gov.hmrc.decisionservice.models.Control._
 import uk.gov.hmrc.decisionservice.models.enums.MoveWorker._
 import uk.gov.hmrc.decisionservice.models.enums._
-import uk.gov.hmrc.decisionservice.ruleSets.ControlRules
+import uk.gov.hmrc.decisionservice.ruleSets.ControlRules_V160
 
 class ControlRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  implicit val ruleSet = app.injector.instanceOf[ControlRules].ruleSet
+  implicit val ruleSet = ControlRules_V160.ruleSet
 
   "For the OUT rules" should {
 

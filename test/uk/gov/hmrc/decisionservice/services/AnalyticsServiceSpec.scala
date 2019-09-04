@@ -19,7 +19,7 @@ package uk.gov.hmrc.decisionservice.services
 import org.joda.time.DateTime
 import org.mockito.Mockito.{times, verify, when}
 import org.scalatest.mockito.MockitoSugar
-import org.scalatestplus.play.OneAppPerSuite
+import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.play.test.UnitSpec
 import play.api.Configuration
 import uk.gov.hmrc.decisionservice.config.AppConfig
@@ -28,7 +28,7 @@ import uk.gov.hmrc.decisionservice.repository.{InterviewRepository, ReactiveMong
 
 import scala.concurrent.Future
 
-class AnalyticsServiceSpec extends UnitSpec with MockitoSugar with OneAppPerSuite{
+class AnalyticsServiceSpec extends UnitSpec with MockitoSugar with GuiceOneAppPerSuite {
 
   private val config = app.injector.instanceOf[Configuration]
   private val INSIDE_IR35 = "Inside IR35"

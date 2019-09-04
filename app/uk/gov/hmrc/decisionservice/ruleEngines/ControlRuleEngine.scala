@@ -23,9 +23,9 @@ import uk.gov.hmrc.decisionservice.ruleSets.ControlRules
 
 import scala.concurrent.Future
 
-class ControlRuleEngine @Inject() extends RuleEngine {
+class ControlRuleEngine @Inject()() extends RuleEngine {
 
-  def decide(control: Option[Control], version: DecisionServiceVersion.Value): Future[Option[WeightedAnswerEnum.Value]] = {
+  def decide(control: Option[Control])(implicit version: DecisionServiceVersion.Value): Future[Option[WeightedAnswerEnum.Value]] = {
 
     val rules = ControlRules(version)
 

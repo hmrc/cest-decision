@@ -34,6 +34,8 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
   def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[DecisionResponse] = {
 
     val interview = request.interview
+    implicit val version = request.version
+
     val setup = if(interview.setup.isDefined) Some(SetupEnum.CONTINUE) else None
 
     for {
