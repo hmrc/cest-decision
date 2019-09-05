@@ -29,7 +29,8 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
                                 financialRiskRuleEngine: FinancialRiskRuleEngine,
                                 personalServiceRuleEngine: PersonalServiceRuleEngine,
                                 partAndParcelRuleEngine: PartAndParcelRuleEngine,
-                                resultRuleEngine: ResultRuleEngine) {
+                                resultRuleEngine: ResultRuleEngine,
+                                businessOnOwnAccountRuleEngine: BusinessOnOwnAccountRuleEngine) {
 
   def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[DecisionResponse] = {
 
@@ -44,7 +45,8 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
       control <- controlRuleEngine.decide(interview.control)
       financialRisk <- financialRiskRuleEngine.decide(interview.financialRisk)
       partAndParcel <- partAndParcelRuleEngine.decide(interview.partAndParcel)
-      score = Score(setup, exit, personalService, control, financialRisk, partAndParcel)
+      businessOnOwnAccount <- businessOnOwnAccountRuleEngine.decide(interview.businessOnOwnAccount)
+      score = Score(setup, exit, personalService, control, financialRisk, partAndParcel, businessOnOwnAccount)
       result <- resultRuleEngine.decide(score)
 
     } yield DecisionResponse(request.version, request.correlationID, score, result)

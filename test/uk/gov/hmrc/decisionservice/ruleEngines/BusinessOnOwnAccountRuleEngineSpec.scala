@@ -17,7 +17,8 @@
 package uk.gov.hmrc.decisionservice.ruleEngines
 
 import uk.gov.hmrc.decisionservice.models.BusinessOnOwnAccount
-import uk.gov.hmrc.decisionservice.models.enums.DecisionServiceVersion
+import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.ruleSets.BusinessOnOwnAccountRules
 import uk.gov.hmrc.play.test.UnitSpec
 
 class BusinessOnOwnAccountRuleEngineSpec extends UnitSpec {
@@ -26,11 +27,31 @@ class BusinessOnOwnAccountRuleEngineSpec extends UnitSpec {
 
   "BusinessOnOwnAccountDecisionService" when {
 
+    "decide is called with a BoOA section that triggers rules" should {
+
+      DecisionServiceVersion.values.filterNot(_ == DecisionServiceVersion.v1_5_0).foreach { version =>
+
+        s"for rule engine version $version" should {
+
+          s"return the correct expected result" in {
+
+            BusinessOnOwnAccountRules(version).ruleSet.foreach { ruleSet =>
+
+              val actualAnswer = TestBusinessOnOwnAccountRuleEngine.decide(Some(ruleSet.rules.as[BusinessOnOwnAccount]))(version)
+              val expectedAnswer = WeightedAnswerEnum.withName(ruleSet.result)
+
+              await(actualAnswer) shouldBe Some(expectedAnswer)
+            }
+          }
+        }
+      }
+    }
+
     "decide is called" should {
 
       "return a None" in {
 
-        val actualResult = TestBusinessOnOwnAccountRuleEngine.decide(BusinessOnOwnAccount(None, None, None, None, None))(DecisionServiceVersion.v1_5_0)
+        val actualResult = TestBusinessOnOwnAccountRuleEngine.decide(Some(BusinessOnOwnAccount(None, None, None, None, None)))(DecisionServiceVersion.v2_0)
         val expectedResult = None
 
         await(actualResult) shouldBe expectedResult

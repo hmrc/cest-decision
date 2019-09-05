@@ -17,7 +17,7 @@
 package uk.gov.hmrc.decisionservice.models
 
 import play.api.libs.json.Json
-import uk.gov.hmrc.decisionservice.models.enums.{ExclusiveContract, MultipleEngagements, SeriesOfContracts, TransferRights}
+import uk.gov.hmrc.decisionservice.models.enums._
 import uk.gov.hmrc.play.test.UnitSpec
 
 class BusinessOnOwnAccountSpec extends UnitSpec {
@@ -26,7 +26,7 @@ class BusinessOnOwnAccountSpec extends UnitSpec {
     exclusiveContract = Some(ExclusiveContract.ableToProvideServices),
     transferRights = Some(TransferRights.ableToTransferRights),
     multipleEngagements = Some(MultipleEngagements.noKnowledgeOfExternalActivity),
-    significantWorkingTime = Some(true),
+    significantWorkingTime = Some(SignificantWorkingTime.consumesSignificantAmount),
     seriesOfContracts = Some(SeriesOfContracts.contractCouldBeExtended)
   )
 
@@ -34,7 +34,7 @@ class BusinessOnOwnAccountSpec extends UnitSpec {
     "exclusiveContract" -> ExclusiveContract.ableToProvideServices,
     "transferRights" -> TransferRights.ableToTransferRights,
     "multipleEngagements" -> MultipleEngagements.noKnowledgeOfExternalActivity,
-    "significantWorkingTime" -> true,
+    "significantWorkingTime" -> SignificantWorkingTime.consumesSignificantAmount,
     "seriesOfContracts" -> SeriesOfContracts.contractCouldBeExtended
   )
 

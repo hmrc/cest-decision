@@ -17,12 +17,12 @@
 package uk.gov.hmrc.decisionservice.models
 
 import play.api.libs.json.{Format, Json}
-import uk.gov.hmrc.decisionservice.models.enums.{ExclusiveContract, MultipleEngagements, SeriesOfContracts, TransferRights}
+import uk.gov.hmrc.decisionservice.models.enums._
 
 case class BusinessOnOwnAccount(exclusiveContract: Option[ExclusiveContract.Value] = None,
                                 transferRights: Option[TransferRights.Value] = None,
                                 multipleEngagements: Option[MultipleEngagements.Value] = None,
-                                significantWorkingTime: Option[Boolean] = None,
+                                significantWorkingTime: Option[SignificantWorkingTime.Value] = None,
                                 seriesOfContracts: Option[SeriesOfContracts.Value] = None) extends Section
 
 object BusinessOnOwnAccount {

@@ -5,7 +5,8 @@ This μ-service is the backend decision rule engine for the Check Employment Sta
 ## Supported versions 
 | Version | Description |
 |:--------|:------------|
-|`1.5.0-final`|Current version. [More...](./docs/api_1.5.0-final.md)|
+|`2.0`|Future version, includes Business On Own Account questions. [More...](./docs/api_1.5.0-final.md)|
+|`1.5.0-final`|Current version. [More...](./docs/api_2.0.md)|
 
 
 ## API

@@ -18,10 +18,12 @@ package uk.gov.hmrc.decisionservice.models.enums
 
 import play.api.libs.json.Format
 
-object DecisionServiceVersion extends Enumeration with EnumFormats {
+object SignificantWorkingTime extends Enumeration with EnumFormats {
 
-  val v1_5_0: DecisionServiceVersion.Value = Value("1.5.0-final")
-  val v2_0: DecisionServiceVersion.Value = Value("2.0")
+  val consumesSignificantAmount: SignificantWorkingTime.Value = Value("consumesSignificantAmount")
+  val noSignificantAmount: SignificantWorkingTime.Value = Value("noSignificantAmount")
+  val timeButNotMoney: SignificantWorkingTime.Value = Value("timeButNotMoney")
+  val moneyButNotTime: SignificantWorkingTime.Value = Value("moneyButNotTime")
 
-  implicit val format: Format[DecisionServiceVersion.Value] = enumFormat(DecisionServiceVersion)
+  implicit val format: Format[SignificantWorkingTime.Value] = enumFormat(SignificantWorkingTime)
 }

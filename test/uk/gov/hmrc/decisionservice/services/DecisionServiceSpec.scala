@@ -35,9 +35,10 @@ class DecisionServiceSpec extends UnitSpec {
     val personalService = mock[PersonalServiceRuleEngine]
     val financialRisk = mock[FinancialRiskRuleEngine]
     val partAndParcel = mock[PartAndParcelRuleEngine]
+    val businessOnOwnAccount = mock[BusinessOnOwnAccountRuleEngine]
     val result = mock[ResultRuleEngine]
 
-    val target = new DecisionService(control,exit,financialRisk,personalService,partAndParcel,result)
+    val target = new DecisionService(control,exit,financialRisk,personalService,partAndParcel,result,businessOnOwnAccount)
   }
 
   "DecisionService" when {
@@ -47,7 +48,7 @@ class DecisionServiceSpec extends UnitSpec {
       "calculate the result" in new Setup {
 
         val request = DecisionRequest(
-          DecisionServiceVersion.v1_5_0, "coral", Interview(
+          DecisionServiceVersion.v2_0, "coral", Interview(
             setup = Some(Setup(None, None, None)),
             exit = Some(Exit(None)),
             personalService = Some(PersonalService(None, None, None, None, None)),
@@ -64,11 +65,18 @@ class DecisionServiceSpec extends UnitSpec {
         when(personalService.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
         when(financialRisk.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
         when(partAndParcel.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(businessOnOwnAccount.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
         when(result.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
-          DecisionServiceVersion.v1_5_0, "coral", Score(
-            Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH)
+          DecisionServiceVersion.v2_0, "coral", Score(
+            setup = Some(SetupEnum.CONTINUE),
+            exit = Some(ExitEnum.CONTINUE),
+            personalService = Some(WeightedAnswerEnum.HIGH),
+            control = Some(WeightedAnswerEnum.HIGH),
+            financialRisk = Some(WeightedAnswerEnum.HIGH),
+            partAndParcel = Some(WeightedAnswerEnum.HIGH),
+            businessOnOwnAccount = Some(WeightedAnswerEnum.HIGH)
           ), ResultEnum.INSIDE_IR35
         )
       }

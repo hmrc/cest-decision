@@ -1,5 +1,5 @@
 
-# CEST API v1.5.0-final
+# CEST API v2.0 (Future API, includes Business On Own Account)
 
 ## Endpoint URL
 `POST` /decide
@@ -19,8 +19,8 @@ Requests use the HTTP `POST` method
 ## Request
 
 * Body contains an __Interview__ JSON
-- A [JSON Schema](../test/resources/schema/1.5.0-final/off-payroll-request-schema.json) defines this __Interview__.
-- [Example](../test/resources/schema/1.5.0-final/off-payroll-request-sample.json) JSON with all fields populated.
+- A [JSON Schema](../test/resources/schema/2.0/off-payroll-request-schema.json) defines this __Interview__.
+- [Example](../test/resources/schema/2.0/off-payroll-request-sample.json) JSON with all fields populated.
 
 
 | Attribute        | Required           | Description                                                          |
@@ -34,14 +34,15 @@ Requests use the HTTP `POST` method
 | control          | false              | Working arrangements Section |
 | financialRisk    | false              | Worker’s financial risk Section |
 | partAndParcel    | false              | Worker’s involvement Section |
+| businessOnOwnAccount | false          | Worker's Contracts Section |
 
 
 ## Response
 
 * HTTP 200 OK
 * Body contains __Decision__ JSON
-- A [JSON Schema](../test/resources/schema/1.5.0-final/off-payroll-response-schema.json) defines this __Decision__.
-- [Example](../test/resources/schema/1.5.0-final/off-payroll-response-sample.json) JSON with all fields populated.
+- A [JSON Schema](../test/resources/schema/2.0/off-payroll-response-schema.json) defines this __Decision__.
+- [Example](../test/resources/schema/2.0/off-payroll-response-sample.json) JSON with all fields populated.
 
 
 | Attribute            | Required           | Description                                                                                                    |
