@@ -18,14 +18,17 @@ package uk.gov.hmrc.decisionservice.ruleEngines
 
 import javax.inject.Inject
 import uk.gov.hmrc.decisionservice.models.PersonalService
-import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
+import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.ruleSets.PersonalServiceRules
 
 import scala.concurrent.Future
 
-class PersonalServiceRuleEngine @Inject()(rules: PersonalServiceRules) extends RuleEngine {
+class PersonalServiceRuleEngine @Inject()() extends RuleEngine {
 
-  def decide(personalService: Option[PersonalService]): Future[Option[WeightedAnswerEnum.Value]] =
+  def decide(personalService: Option[PersonalService])(implicit version: DecisionServiceVersion.Value): Future[Option[WeightedAnswerEnum.Value]] = {
+
+    val rules = PersonalServiceRules(version)
+
     Future.successful(personalService flatMap {
       case PersonalService(None, None, None, None, None) => None
       case section => {
@@ -33,4 +36,5 @@ class PersonalServiceRuleEngine @Inject()(rules: PersonalServiceRules) extends R
         Some(WeightedAnswerEnum.withName(result))
       }
     })
+  }
 }

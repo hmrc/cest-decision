@@ -18,42 +18,44 @@ package uk.gov.hmrc.decisionservice.ruleEngines
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.models.Exit
-import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
+import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, ExitEnum}
 import uk.gov.hmrc.decisionservice.ruleSets.EarlyExitRules
 import uk.gov.hmrc.play.test.UnitSpec
 
 class ExitRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
-  lazy val earlyExitRules = app.injector.instanceOf[EarlyExitRules]
-
-  object TestExitRuleEngine extends ExitRuleEngine(earlyExitRules)
+  object TestExitRuleEngine extends ExitRuleEngine
 
   "ExitDecisionService" when {
 
-    "decide is called with an Exit section" should {
+    "decide is called with a Exit section with triggered rules" should {
 
-      "returns an INSIDE_IR35" in {
+      DecisionServiceVersion.values.foreach { version =>
 
-        val actualResult = TestExitRuleEngine.decide(Some(Exit(Some(false))))
-        val expectedResult = ExitEnum.CONTINUE
+        s"for rule engine version $version" should {
 
-        await(actualResult) shouldBe Some(expectedResult)
+          s"return the correct expected result" in {
+
+            EarlyExitRules(version).ruleSet.foreach { ruleSet =>
+
+              val actualAnswer = TestExitRuleEngine.decide(Some(ruleSet.rules.as[Exit]))(version)
+              val expectedAnswer = ExitEnum.withName(ruleSet.result)
+
+              await(actualAnswer) shouldBe Some(expectedAnswer)
+            }
+          }
+        }
       }
     }
 
-    "decide is called with a Exit section with triggered rules" should {
+    "decide is called with a Exit section with None for every value" should {
 
-      earlyExitRules.ruleSet.zipWithIndex.foreach { item =>
+      "return a WeightedAnswer" in {
 
-        val (ruleSet, index) = item
+        val actualAnswer = TestExitRuleEngine.decide(Some(Exit(None)))(DecisionServiceVersion.v1_5_0)
 
-        s"return an answer for scenario ${index + 1}" in {
+        await(actualAnswer) shouldBe None
 
-          val actualAnswer = TestExitRuleEngine.decide(Some(ruleSet.rules.as[Exit]))
-          val expectedAnswer = ExitEnum.withName(ruleSet.result)
-
-          await(actualAnswer) shouldBe Some(expectedAnswer)
-        }
       }
     }
   }

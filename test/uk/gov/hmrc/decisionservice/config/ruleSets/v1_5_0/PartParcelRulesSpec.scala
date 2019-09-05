@@ -14,17 +14,18 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.config.ruleSets
+package uk.gov.hmrc.decisionservice.config.ruleSets.v1_5_0
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
+import uk.gov.hmrc.decisionservice.config.ruleSets.BaseRuleSpec
 import uk.gov.hmrc.decisionservice.models.PartAndParcel._
 import uk.gov.hmrc.decisionservice.models.enums.{IdentifyToStakeholders, WeightedAnswerEnum}
-import uk.gov.hmrc.decisionservice.ruleSets.PartAndParcelRules
+import uk.gov.hmrc.decisionservice.ruleSets.PartAndParcelRules_v150
 
 class PartParcelRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  implicit val ruleSet = app.injector.instanceOf[PartAndParcelRules].ruleSet
+  implicit val ruleSet = PartAndParcelRules_v150.ruleSet
 
   "For all the expected HIGH rules" should {
 

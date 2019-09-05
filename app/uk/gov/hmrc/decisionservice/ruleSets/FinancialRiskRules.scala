@@ -16,11 +16,19 @@
 
 package uk.gov.hmrc.decisionservice.ruleSets
 
-import javax.inject.{Inject, Singleton}
-import uk.gov.hmrc.decisionservice.config.AppConfig
 import uk.gov.hmrc.decisionservice.models.RuleSet
+import uk.gov.hmrc.decisionservice.models.enums.DecisionServiceVersion
 
-@Singleton()
-class FinancialRiskRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
-  override lazy val ruleSet: Seq[RuleSet] = parseRules("financial-risk")
+sealed trait FinancialRiskRules extends BaseRules {
+  def parseRuleSet(version: DecisionServiceVersion.Value): Seq[RuleSet] = parseRules("financial-risk", version)
+}
+
+object FinancialRiskRules_v150 extends FinancialRiskRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v1_5_0)
+}
+
+object FinancialRiskRules {
+  def apply(version: DecisionServiceVersion.Value): FinancialRiskRules = version match {
+    case DecisionServiceVersion.v1_5_0 => FinancialRiskRules_v150
+  }
 }

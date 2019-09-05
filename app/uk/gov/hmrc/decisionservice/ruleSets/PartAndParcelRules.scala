@@ -16,11 +16,19 @@
 
 package uk.gov.hmrc.decisionservice.ruleSets
 
-import javax.inject.{Inject, Singleton}
-import uk.gov.hmrc.decisionservice.config.AppConfig
 import uk.gov.hmrc.decisionservice.models.RuleSet
+import uk.gov.hmrc.decisionservice.models.enums.DecisionServiceVersion
 
-@Singleton()
-class PartAndParcelRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
-  override lazy val ruleSet: Seq[RuleSet] = parseRules("part-and-parcel")
+sealed trait PartAndParcelRules extends BaseRules {
+  def parseRuleSet(version: DecisionServiceVersion.Value): Seq[RuleSet] = parseRules("part-and-parcel", version)
+}
+
+object PartAndParcelRules_v150 extends PartAndParcelRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v1_5_0)
+}
+
+object PartAndParcelRules {
+  def apply(version: DecisionServiceVersion.Value): PartAndParcelRules = version match {
+    case DecisionServiceVersion.v1_5_0 => PartAndParcelRules_v150
+  }
 }

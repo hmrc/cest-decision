@@ -18,30 +18,34 @@ package uk.gov.hmrc.decisionservice.ruleEngines
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.models.Score
-import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, ExitEnum, ResultEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.ruleSets.MatrixOfMatricesRules
 import uk.gov.hmrc.play.test.UnitSpec
 
 class ResultRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
 
-  lazy val matrixOfMatricesRules = app.injector.instanceOf[MatrixOfMatricesRules]
+  implicit val defaultDecisionServiceVersion: DecisionServiceVersion.Value = DecisionServiceVersion.v1_5_0
 
-  object TestResultDecisionService extends ResultRuleEngine(matrixOfMatricesRules)
+  object TestResultDecisionService extends ResultRuleEngine
 
   "ResultService" when {
 
-    "decide is called with all sections populated for a in determination" should {
+    "decide is called with all sections populated for a determination" should {
 
-      matrixOfMatricesRules.ruleSet.zipWithIndex.foreach { item =>
+      DecisionServiceVersion.values.foreach { version =>
 
-        val (ruleSet, index) = item
+        s"for rule engine version $version" should {
 
-        s"return a result for scenario ${index + 1}" in {
+          s"return the correct expected result" in {
 
-          val actualAnswer = TestResultDecisionService.decide(ruleSet.rules.as[Score])
-          val expectedAnswer = ResultEnum(ruleSet.result)
+            MatrixOfMatricesRules(version).ruleSet.foreach { ruleSet =>
 
-          await(actualAnswer) shouldBe expectedAnswer
+              val actualAnswer = TestResultDecisionService.decide(ruleSet.rules.as[Score])(version)
+              val expectedAnswer = ResultEnum(ruleSet.result)
+
+              await(actualAnswer) shouldBe expectedAnswer
+            }
+          }
         }
       }
     }
@@ -51,7 +55,7 @@ class ResultRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
       "return a result" in {
 
         val expectedAnswer = ResultEnum.NOT_MATCHED
-        val actualAnswer = TestResultDecisionService.decide(Score())
+        val actualAnswer = TestResultDecisionService.decide(Score())(DecisionServiceVersion.v1_5_0)
 
         await(actualAnswer) shouldBe expectedAnswer
 

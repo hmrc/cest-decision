@@ -18,14 +18,17 @@ package uk.gov.hmrc.decisionservice.ruleEngines
 
 import javax.inject.Inject
 import uk.gov.hmrc.decisionservice.models.Exit
-import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
+import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, ExitEnum}
 import uk.gov.hmrc.decisionservice.ruleSets.EarlyExitRules
 
 import scala.concurrent.Future
 
-class ExitRuleEngine @Inject()(rules: EarlyExitRules) extends RuleEngine {
+class ExitRuleEngine @Inject()() extends RuleEngine {
 
-  def decide(exit: Option[Exit]): Future[Option[ExitEnum.Value]] =
+  def decide(exit: Option[Exit])(implicit version: DecisionServiceVersion.Value): Future[Option[ExitEnum.Value]] = {
+
+    val rules = EarlyExitRules(version)
+
     Future.successful(exit flatMap {
       case Exit(None) => None
       case section => {
@@ -33,4 +36,5 @@ class ExitRuleEngine @Inject()(rules: EarlyExitRules) extends RuleEngine {
         Some(ExitEnum.withName(result))
       }
     })
+  }
 }

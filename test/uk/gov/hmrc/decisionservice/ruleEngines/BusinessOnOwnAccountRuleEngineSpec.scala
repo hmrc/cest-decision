@@ -17,6 +17,7 @@
 package uk.gov.hmrc.decisionservice.ruleEngines
 
 import uk.gov.hmrc.decisionservice.models.BusinessOnOwnAccount
+import uk.gov.hmrc.decisionservice.models.enums.DecisionServiceVersion
 import uk.gov.hmrc.play.test.UnitSpec
 
 class BusinessOnOwnAccountRuleEngineSpec extends UnitSpec {
@@ -29,7 +30,7 @@ class BusinessOnOwnAccountRuleEngineSpec extends UnitSpec {
 
       "return a None" in {
 
-        val actualResult = TestBusinessOnOwnAccountRuleEngine.decide(BusinessOnOwnAccount(None, None, None, None, None))
+        val actualResult = TestBusinessOnOwnAccountRuleEngine.decide(BusinessOnOwnAccount(None, None, None, None, None))(DecisionServiceVersion.v1_5_0)
         val expectedResult = None
 
         await(actualResult) shouldBe expectedResult

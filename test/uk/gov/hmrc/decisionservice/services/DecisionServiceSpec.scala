@@ -47,7 +47,7 @@ class DecisionServiceSpec extends UnitSpec {
       "calculate the result" in new Setup {
 
         val request = DecisionRequest(
-          DecisionServiceVersion.VERSION110_FINAL, "coral", Interview(
+          DecisionServiceVersion.v1_5_0, "coral", Interview(
             setup = Some(Setup(None, None, None)),
             exit = Some(Exit(None)),
             personalService = Some(PersonalService(None, None, None, None, None)),
@@ -59,15 +59,15 @@ class DecisionServiceSpec extends UnitSpec {
           )
         )
 
-        when(exit.decide(ArgumentMatchers.any())).thenReturn(Future.successful(Some(ExitEnum.CONTINUE)))
-        when(control.decide(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
-        when(personalService.decide(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
-        when(financialRisk.decide(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
-        when(partAndParcel.decide(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
-        when(result.decide(ArgumentMatchers.any())).thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
+        when(exit.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(ExitEnum.CONTINUE)))
+        when(control.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(personalService.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(financialRisk.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(partAndParcel.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(result.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
-          DecisionServiceVersion.VERSION110_FINAL, "coral", Score(
+          DecisionServiceVersion.v1_5_0, "coral", Score(
             Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH)
           ), ResultEnum.INSIDE_IR35
         )

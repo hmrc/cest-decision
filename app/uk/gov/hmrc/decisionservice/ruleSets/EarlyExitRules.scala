@@ -16,11 +16,19 @@
 
 package uk.gov.hmrc.decisionservice.ruleSets
 
-import javax.inject.{Inject, Singleton}
-import uk.gov.hmrc.decisionservice.config.AppConfig
 import uk.gov.hmrc.decisionservice.models.RuleSet
+import uk.gov.hmrc.decisionservice.models.enums.DecisionServiceVersion
 
-@Singleton()
-class EarlyExitRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
-  override lazy val ruleSet: Seq[RuleSet] = parseRules("exit")
+sealed trait EarlyExitRules extends BaseRules {
+  def parseRuleSet(version: DecisionServiceVersion.Value): Seq[RuleSet] = parseRules("exit", version)
+}
+
+object EarlyExitRules_v150 extends EarlyExitRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v1_5_0)
+}
+
+object EarlyExitRules {
+  def apply(version: DecisionServiceVersion.Value): EarlyExitRules = version match {
+    case DecisionServiceVersion.v1_5_0 => EarlyExitRules_v150
+  }
 }

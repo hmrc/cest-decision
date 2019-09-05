@@ -16,11 +16,19 @@
 
 package uk.gov.hmrc.decisionservice.ruleSets
 
-import javax.inject.{Inject, Singleton}
-import uk.gov.hmrc.decisionservice.config.AppConfig
 import uk.gov.hmrc.decisionservice.models.RuleSet
+import uk.gov.hmrc.decisionservice.models.enums.DecisionServiceVersion
 
-@Singleton()
-class PersonalServiceRules @Inject()(appConfig: AppConfig) extends BaseRules(appConfig) {
-  override lazy val ruleSet: Seq[RuleSet] = parseRules("personal-service")
+sealed trait PersonalServiceRules extends BaseRules {
+  def parseRuleSet(version: DecisionServiceVersion.Value): Seq[RuleSet] = parseRules("personal-service", version)
+}
+
+object PersonalServiceRules_v150 extends PersonalServiceRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v1_5_0)
+}
+
+object PersonalServiceRules {
+  def apply(version: DecisionServiceVersion.Value): PersonalServiceRules = version match {
+    case DecisionServiceVersion.v1_5_0 => PersonalServiceRules_v150
+  }
 }

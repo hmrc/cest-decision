@@ -1,27 +1,27 @@
-# cest-decision
+# Check Employment Status for Tax (CEST/Off-Payroll) Decision Rule Engine
 
+This μ-service is the backend decision rule engine for the Check Employment Status for Tax frontend μ-service.
 
 ## Supported versions 
 | Version | Description |
 |:--------|:------------|
-|1.1.0-final|Public Beta version. [More...](./docs/api_1.1.0-final.md)|
-|1.1.1-final|Previous version. [More...](./docs/api_1.1.1-final.md)|
-|1.2.0-final|Previous version. [More...](./docs/api_1.2.0-final.md)|
-|1.3.0-final|Previous version. [More...](./docs/api_1.3.0-final.md)|
-|1.4.0-final|Previous version. [More...](./docs/api_1.4.0-final.md)|
-|1.5.0-final|Current version. [More...](./docs/api_1.5.0-final.md)|
-
+|`1.5.0-final`|Current version. [More...](./docs/api_1.5.0-final.md)|
 
 
 ## API
 | Task    | Http Method | Version   | Description |
 |:--------|:------------|-----------|-------------|
-|/decide/ | POST        |1.1.0-final|Returns a 'decision' on your Employment Status for Tax Purposes (previous version). [More...](./docs/api_1.1.0-final.md)|
-|/decide/ | POST        |1.1.1-final|Returns a 'decision' on your Employment Status for Tax Purposes (previous version). [More...](./docs/api_1.1.1-final.md)|
-|/decide/ | POST        |1.2.0-final|Returns a 'decision' on Employment Status for Tax Purposes (previous version). [More...](./docs/api_1.2.0-final.md)|
-|/decide/ | POST        |1.3.0-final|Returns a 'decision' on Employment Status for Tax Purposes (previous version). [More...](./docs/api_1.3.0-final.md)|
-|/decide/ | POST        |1.4.0-final|Returns a 'decision' on Employment Status for Tax Purposes (previous version). [More...](./docs/api_1.4.0-final.md)|
-|/decide/ | POST        |1.5.0-final|Returns a 'decision' on Employment Status for Tax Purposes (current version). [More...](./docs/api_1.5.0-final.md)|
+|`/decide`  | `POST`    |`1.5.0-final`|Returns a 'decision' on Employment Status for Tax Purposes (current version). [More...](./docs/api_1.5.0-final.md)|
+
+
+## Deprecated Versions
+| Version | Description |
+|:--------|:------------|
+|`1.4.0-final`|Previous version, now deprecated. [More...](./docs/api_1.4.0-final.md)|
+|`1.3.0-final`|Previous version, now deprecated. [More...](./docs/api_1.3.0-final.md)|
+|`1.2.0-final`|Previous version, now deprecated. [More...](./docs/api_1.2.0-final.md)|
+|`1.1.1-final`|Previous version, now deprecated. [More...](./docs/api_1.1.1-final.md)|
+|`1.1.0-final`|Public Beta version, now deprecated. [More...](./docs/api_1.1.0-final.md)|
 
 
 ## Running the application locally
