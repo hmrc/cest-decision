@@ -11,13 +11,12 @@ import play.api.libs.json.Json.obj
 class DecisionControllerISpec extends IntegrationSpecBase with DefaultBodyWritables
   with Status with IntegrationPatience with CreateRequestHelper with WiremockHelper with BaseISpec with TestData {
 
-  s"POST /decide" should {
+  s"POST $path" should {
 
-    implicit val engine = NewRuleEngine
 
     "return a 400 given an invalid request" in {
 
-      lazy val res = postRequest("/decide", defaultInterview)
+      lazy val res = postRequest(path, defaultInterview)
 
       whenReady(res) { result =>
         result.status shouldBe BAD_REQUEST
@@ -26,7 +25,7 @@ class DecisionControllerISpec extends IntegrationSpecBase with DefaultBodyWritab
 
     "return a 200 given a 1.1.0-final version" in {
 
-      lazy val res = postRequest("/decide", interview(personalService = obj(
+      lazy val res = postRequest(path, interview(personalService = obj(
         "version" -> "1.1.0-final"
       )))
 
@@ -37,7 +36,7 @@ class DecisionControllerISpec extends IntegrationSpecBase with DefaultBodyWritab
 
     "return a 200 given a 1.1.1-final version" in {
 
-      lazy val res = postRequest("/decide", interview(personalService = obj(
+      lazy val res = postRequest(path, interview(personalService = obj(
         "version" -> "1.1.1-final"
       )))
 
@@ -48,7 +47,7 @@ class DecisionControllerISpec extends IntegrationSpecBase with DefaultBodyWritab
 
     "return a 200 given a 1.2.0-final version" in {
 
-      lazy val res = postRequest("/decide", interview(personalService = obj(
+      lazy val res = postRequest(path, interview(personalService = obj(
         "version" -> "1.2.0-final"
       )))
       whenReady(res) { result =>
@@ -58,7 +57,7 @@ class DecisionControllerISpec extends IntegrationSpecBase with DefaultBodyWritab
 
     "return a 200 given a 1.3.0-final version" in {
 
-      lazy val res = postRequest("/decide", interview(personalService = obj(
+      lazy val res = postRequest(path, interview(personalService = obj(
         "version" -> "1.3.0-final"
       )))
 
@@ -69,7 +68,7 @@ class DecisionControllerISpec extends IntegrationSpecBase with DefaultBodyWritab
 
     "return a 200 given a 1.4.0-final version" in {
 
-      lazy val res = postRequest("/decide", interview(personalService = obj(
+      lazy val res = postRequest(path, interview(personalService = obj(
         "version" -> "1.4.0-final"
       )))
 
@@ -80,7 +79,7 @@ class DecisionControllerISpec extends IntegrationSpecBase with DefaultBodyWritab
 
     "return a 200 given a 1.5.0-final version" in {
 
-      lazy val res = postRequest("/decide", interview(personalService = obj(
+      lazy val res = postRequest(path, interview(personalService = obj(
         "version" -> "1.5.0-final"
       )))
 

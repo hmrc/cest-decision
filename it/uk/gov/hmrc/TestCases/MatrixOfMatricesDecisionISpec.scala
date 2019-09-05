@@ -8,13 +8,13 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
   "Matrix of Matrices" should {
 
-    implicit val engine = NewRuleEngine
 
-      s"POST ${engine.path}" should {
+
+      s"POST $path" should {
 
         "Scenario 1: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
@@ -45,10 +45,6 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
           )
 
           whenReady(res) { result =>
-            println(res)
-            println("**************")
-            println(result.body)
-            println("**************")
             result.status shouldBe OK
             result.body should include(""""personalService":"MEDIUM"""")
             result.body should include(""""control":"MEDIUM"""")
@@ -60,7 +56,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 2: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
@@ -102,7 +98,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 3: return a 200 and a determination of Unknown" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
@@ -144,7 +140,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 4: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
@@ -186,7 +182,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 5: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
@@ -228,7 +224,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 6: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.possibleSubstituteRejection -> PossibleSubstituteRejection.wouldNotReject,
@@ -270,7 +266,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 7: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -312,7 +308,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 8: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -354,7 +350,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 9: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -396,7 +392,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 10: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -438,7 +434,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 11: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -480,7 +476,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 12: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -522,7 +518,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 13: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -564,7 +560,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 14: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -606,7 +602,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 15: return a 200 and a determination of Unknown" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -648,7 +644,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 16: return a 200 and a determination of Unknown" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -690,7 +686,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 17: return a 200 and a determination of Unknown" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -732,7 +728,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 18: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -774,7 +770,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 19: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -816,7 +812,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 20: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.notAgreedWithClient,
@@ -858,7 +854,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 21: return a 200 and a determination of Unknown" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
@@ -901,7 +897,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 22: return a 200 and a determination of Unknown" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
@@ -944,7 +940,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 23: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
@@ -987,7 +983,7 @@ class MatrixOfMatricesDecisionISpec extends BaseISpec {
 
         "Scenario 24: return a 200 and a determination of Inside IR35" in {
 
-          lazy val res = postRequest(engine.path,
+          lazy val res = postRequest(path,
             interview(
               personalService = obj(
                 PersonalService.workerSentActualSubstitute -> WorkerSentActualSubstitute.noSubstitutionHappened,
