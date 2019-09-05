@@ -1,9 +1,10 @@
 
-# cest-decision
+# CEST API v1.3.0-final (DEPRECATED)
 
+This version of the decision service is no longer supported and is now deprecated. This documentation remains for reference only.
 
-## Endpoint URLs
-POST /decide/
+## Endpoint URL
+`POST` /decide
 
 ## Service Definitions
 

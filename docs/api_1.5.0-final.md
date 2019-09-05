@@ -1,9 +1,8 @@
 
-# cest-decision
+# CEST API v1.5.0-final
 
-
-## Endpoint URLs
-POST /decide/
+## Endpoint URL
+`POST` /decide
 
 ## Service Definitions
 
