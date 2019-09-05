@@ -14,13 +14,14 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.config.ruleSets
+package uk.gov.hmrc.decisionservice.config.ruleSets.v1_5_0
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
+import uk.gov.hmrc.decisionservice.config.ruleSets.BaseRuleSpec
 import uk.gov.hmrc.decisionservice.models.enums.Section._
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
-import uk.gov.hmrc.decisionservice.ruleSets.{MatrixOfMatricesRules, MatrixOfMatricesRules_v150}
+import uk.gov.hmrc.decisionservice.ruleSets.MatrixOfMatricesRules_v150
 
 class MatrixOfMatricesRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 

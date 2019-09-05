@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.config.ruleSets
+package uk.gov.hmrc.decisionservice.config.ruleSets.v1_5_0
 
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
+import uk.gov.hmrc.decisionservice.config.ruleSets.BaseRuleSpec
 import uk.gov.hmrc.decisionservice.models.Exit
 import uk.gov.hmrc.decisionservice.models.enums.ExitEnum
 import uk.gov.hmrc.decisionservice.ruleSets.EarlyExitRules_v150
