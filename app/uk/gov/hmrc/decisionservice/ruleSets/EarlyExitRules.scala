@@ -27,8 +27,13 @@ object EarlyExitRules_v150 extends EarlyExitRules {
   override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v1_5_0)
 }
 
+object EarlyExitRules_v20 extends EarlyExitRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_0)
+}
+
 object EarlyExitRules {
   def apply(version: DecisionServiceVersion.Value): EarlyExitRules = version match {
     case DecisionServiceVersion.v1_5_0 => EarlyExitRules_v150
+    case DecisionServiceVersion.v2_0 => EarlyExitRules_v20
   }
 }

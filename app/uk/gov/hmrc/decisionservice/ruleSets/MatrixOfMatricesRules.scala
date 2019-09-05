@@ -27,8 +27,13 @@ object MatrixOfMatricesRules_v150 extends MatrixOfMatricesRules {
   override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v1_5_0)
 }
 
+object MatrixOfMatricesRules_v20 extends MatrixOfMatricesRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_0)
+}
+
 object MatrixOfMatricesRules {
   def apply(version: DecisionServiceVersion.Value): MatrixOfMatricesRules = version match {
     case DecisionServiceVersion.v1_5_0 => MatrixOfMatricesRules_v150
+    case DecisionServiceVersion.v2_0 => MatrixOfMatricesRules_v20
   }
 }

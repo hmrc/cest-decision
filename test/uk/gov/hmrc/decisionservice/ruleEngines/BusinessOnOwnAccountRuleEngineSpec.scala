@@ -30,7 +30,7 @@ class BusinessOnOwnAccountRuleEngineSpec extends UnitSpec {
 
       "return a None" in {
 
-        val actualResult = TestBusinessOnOwnAccountRuleEngine.decide(BusinessOnOwnAccount(None, None, None, None, None))(DecisionServiceVersion.v1_5_0)
+        val actualResult = TestBusinessOnOwnAccountRuleEngine.decide(Some(BusinessOnOwnAccount(None, None, None, None, None)))(DecisionServiceVersion.v2_0)
         val expectedResult = None
 
         await(actualResult) shouldBe expectedResult

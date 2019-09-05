@@ -19,21 +19,16 @@ package uk.gov.hmrc.decisionservice.ruleSets
 import uk.gov.hmrc.decisionservice.models.RuleSet
 import uk.gov.hmrc.decisionservice.models.enums.DecisionServiceVersion
 
-sealed trait PartAndParcelRules extends BaseRules {
-  def parseRuleSet(version: DecisionServiceVersion.Value): Seq[RuleSet] = parseRules("part-and-parcel", version)
+sealed trait BusinessOnOwnAccountRules extends BaseRules {
+  def parseRuleSet(version: DecisionServiceVersion.Value): Seq[RuleSet] = parseRules("business-on-own-account", version)
 }
 
-object PartAndParcelRules_v150 extends PartAndParcelRules {
-  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v1_5_0)
-}
-
-object PartAndParcelRules_v20 extends PartAndParcelRules {
+object BusinessOnOwnAccountRules_v20 extends BusinessOnOwnAccountRules {
   override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_0)
 }
 
-object PartAndParcelRules {
-  def apply(version: DecisionServiceVersion.Value): PartAndParcelRules = version match {
-    case DecisionServiceVersion.v1_5_0 => PartAndParcelRules_v150
-    case DecisionServiceVersion.v2_0 => PartAndParcelRules_v20
+object BusinessOnOwnAccountRules {
+  def apply(version: DecisionServiceVersion.Value): BusinessOnOwnAccountRules = version match {
+    case DecisionServiceVersion.v2_0 => BusinessOnOwnAccountRules_v20
   }
 }

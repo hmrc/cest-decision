@@ -27,7 +27,7 @@ class ResultRuleEngine @Inject()() extends RuleEngine {
 
   def decide(score: Score)(implicit version: DecisionServiceVersion.Value): Future[ResultEnum.Value] = {
     Future.successful(score match {
-      case Score(None, None, None, None, None, None) => ResultEnum.NOT_MATCHED
+      case Score(None, None, None, None, None, None, None) => ResultEnum.NOT_MATCHED
       case _ => checkResults(score) match {
         case Some(result) => result
         case _ => checkMatrixOfMatrices(score, version)
