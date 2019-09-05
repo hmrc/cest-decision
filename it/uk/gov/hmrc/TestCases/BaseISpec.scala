@@ -3,8 +3,8 @@ package uk.gov.hmrc.TestCases
 import play.api.http.Status
 import play.api.libs.json.Json.obj
 import play.api.libs.json.{JsObject, JsString, JsValue, Json}
-import uk.gov.hmrc.decisionservice.models.{Control, FinancialRisk, PartAndParcel, PersonalService}
-import uk.gov.hmrc.decisionservice.models.enums.{ChooseWhereWork, HowWorkIsDone, IdentifyToStakeholders, MoveWorker, PaidForSubstandardWork, ScheduleOfWorkingHours, WorkerMainIncome, WorkerSentActualSubstitute}
+import uk.gov.hmrc.decisionservice.models._
+import uk.gov.hmrc.decisionservice.models.enums._
 import uk.gov.hmrc.helpers.{CreateRequestHelper, IntegrationSpecBase}
 
 trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status {
@@ -13,8 +13,7 @@ trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status
 
   val path = "/decide"
 
-
-  val defaultVersion = "1.5.0-final"
+  val defaultVersion = "2.0"
 
   val defaultExit = obj("officeHolder" -> false)
 
@@ -47,14 +46,23 @@ trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status
     PartAndParcel.workerRepresentsEngagerBusiness -> IdentifyToStakeholders.workAsIndependent
   )
 
+  val defaultBusinessOnOwnAccount = obj(
+    BusinessOnOwnAccount.exclusiveContract -> ExclusiveContract.unableToProvideServices,
+    BusinessOnOwnAccount.transferRights -> TransferRights.rightsTransferredToClient,
+    BusinessOnOwnAccount.multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+    BusinessOnOwnAccount.significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+    BusinessOnOwnAccount.seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+  )
+
   def interview(version: String = defaultVersion,
                 exit: JsValue = defaultExit,
                 personalService: JsValue = defaultPersonalService,
                 control: JsValue = defaultControl,
                 financialRisk: JsValue = defaultFinancialRisk,
-                partAndParcel: JsValue = defaultPartAndParcel) = {
+                partAndParcel: JsValue = defaultPartAndParcel,
+                businessOnOwnAccount: JsValue = defaultBusinessOnOwnAccount) = {
 
-    val interview = obj(
+    obj(
        "version" -> version,
       "correlationID" -> "session-12345",
       "interview" -> obj(
@@ -67,9 +75,9 @@ trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status
         "personalService" -> personalService,
         "control" -> control,
         "financialRisk" -> financialRisk,
-        "partAndParcel" -> partAndParcel
+        "partAndParcel" -> partAndParcel,
+        "businessOnOwnAccount" -> businessOnOwnAccount
       )
     )
-    interview
   }
 }

@@ -43,7 +43,7 @@ class ResultRuleEngine @Inject()() extends RuleEngine {
 
   def checkResults(score: Score): Option[ResultEnum.Value] = {
 
-    val sectionAnswers = Seq(score.personalService, score.control, score.financialRisk, score.partAndParcel).flatten
+    val sectionAnswers = Seq(score.personalService, score.control, score.financialRisk, score.partAndParcel, score.businessOnOwnAccount).flatten
 
     if (score.exit.contains(ExitEnum.INSIDE_IR35)) {
       Some(ResultEnum.INSIDE_IR35)

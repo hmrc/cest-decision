@@ -8,8 +8,6 @@ class ControlDecisionISpec extends BaseISpec {
 
   "Control Section" should {
 
-
-
       s"POST $path" should {
 
         "Scenario 1: return a 200, a MEDIUM for control" in {
