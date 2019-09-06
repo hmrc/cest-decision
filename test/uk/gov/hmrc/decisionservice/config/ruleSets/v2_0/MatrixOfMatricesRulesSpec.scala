@@ -38,109 +38,239 @@ class MatrixOfMatricesRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
         personalService -> MEDIUM,
         control -> MEDIUM,
         financialRisk -> LOW,
-        partAndParcel -> HIGH
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> LOW
       ),
       Json.obj(
         personalService -> MEDIUM,
         control -> MEDIUM,
         financialRisk -> LOW,
-        partAndParcel -> MEDIUM
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> MEDIUM,
+        financialRisk -> LOW,
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> MEDIUM,
+        financialRisk -> LOW,
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> MEDIUM,
         control -> HIGH,
         financialRisk -> LOW,
-        partAndParcel -> LOW
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> LOW
       ),
       Json.obj(
         personalService -> MEDIUM,
         control -> HIGH,
         financialRisk -> LOW,
-        partAndParcel -> MEDIUM
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> MEDIUM,
         control -> HIGH,
         financialRisk -> LOW,
-        partAndParcel -> HIGH
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> HIGH,
+        financialRisk -> LOW,
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> HIGH,
+        financialRisk -> LOW,
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> HIGH,
+        financialRisk -> LOW,
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> HIGH,
         control -> MEDIUM,
         financialRisk -> LOW,
-        partAndParcel -> LOW
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> LOW
       ),
       Json.obj(
         personalService -> HIGH,
         control -> MEDIUM,
         financialRisk -> LOW,
-        partAndParcel -> MEDIUM
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> HIGH,
         control -> MEDIUM,
         financialRisk -> LOW,
-        partAndParcel -> HIGH
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
+        financialRisk -> LOW,
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
+        financialRisk -> LOW,
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
+        financialRisk -> LOW,
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> HIGH,
         control -> HIGH,
         financialRisk -> LOW,
-        partAndParcel -> LOW
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> LOW
       ),
       Json.obj(
         personalService -> HIGH,
         control -> HIGH,
         financialRisk -> LOW,
-        partAndParcel -> MEDIUM
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> HIGH,
         control -> HIGH,
         financialRisk -> LOW,
-        partAndParcel -> HIGH
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> HIGH,
+        financialRisk -> LOW,
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> HIGH,
+        financialRisk -> LOW,
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> HIGH,
+        financialRisk -> LOW,
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> HIGH,
         control -> HIGH,
         financialRisk -> MEDIUM,
-        partAndParcel -> LOW
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> LOW
       ),
       Json.obj(
         personalService -> HIGH,
         control -> HIGH,
         financialRisk -> MEDIUM,
-        partAndParcel -> MEDIUM
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> MEDIUM,
         control -> HIGH,
         financialRisk -> MEDIUM,
-        partAndParcel -> LOW
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> LOW
       ),
       Json.obj(
         personalService -> MEDIUM,
         control -> HIGH,
         financialRisk -> MEDIUM,
-        partAndParcel -> MEDIUM
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> MEDIUM,
         control -> HIGH,
         financialRisk -> MEDIUM,
-        partAndParcel -> HIGH
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> HIGH,
         control -> MEDIUM,
         financialRisk -> MEDIUM,
-        partAndParcel -> HIGH
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
+        financialRisk -> MEDIUM,
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> HIGH,
         control -> HIGH,
         financialRisk -> MEDIUM,
-        partAndParcel -> HIGH
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> MEDIUM
       )
     )
 
@@ -156,37 +286,99 @@ class MatrixOfMatricesRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
         personalService -> MEDIUM,
         control -> MEDIUM,
         financialRisk -> LOW,
-        partAndParcel -> LOW
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> MEDIUM,
+        financialRisk -> LOW,
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> MEDIUM,
         control -> MEDIUM,
         financialRisk -> MEDIUM,
-        partAndParcel -> LOW
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> LOW
       ),
       Json.obj(
         personalService -> MEDIUM,
         control -> MEDIUM,
         financialRisk -> MEDIUM,
-        partAndParcel -> MEDIUM
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> MEDIUM,
         control -> MEDIUM,
         financialRisk -> MEDIUM,
-        partAndParcel -> HIGH
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> MEDIUM,
+        financialRisk -> MEDIUM,
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> MEDIUM,
+        financialRisk -> MEDIUM,
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> MEDIUM,
+        financialRisk -> MEDIUM,
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> MEDIUM,
+        control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> MEDIUM
       ),
       Json.obj(
         personalService -> HIGH,
         control -> MEDIUM,
         financialRisk -> MEDIUM,
-        partAndParcel -> LOW
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> LOW
       ),
       Json.obj(
         personalService -> HIGH,
         control -> MEDIUM,
         financialRisk -> MEDIUM,
-        partAndParcel -> MEDIUM
+        partAndParcel -> LOW,
+        businessOnOwnAccount -> MEDIUM
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
+        financialRisk -> MEDIUM,
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> LOW
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
+        financialRisk -> MEDIUM,
+        partAndParcel -> MEDIUM,
+        businessOnOwnAccount -> MEDIUM
       )
     )
 
