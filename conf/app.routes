@@ -2,6 +2,3 @@
 
 POST       /decide                  uk.gov.hmrc.decisionservice.controllers.DecisionController.decide
 
-POST       /log                     uk.gov.hmrc.decisionservice.controllers.AnalyticsController.logInterview
-POST       /search                  uk.gov.hmrc.decisionservice.controllers.AnalyticsController.searchInterview
-

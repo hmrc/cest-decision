@@ -14,14 +14,19 @@
  * limitations under the License.
  */
 
-package uk.gov.hmrc.decisionservice.models.analytics
+package uk.gov.hmrc.decisionservice.models
 
-import play.api.libs.json.Format
-import uk.gov.hmrc.decisionservice.models.enums.EnumFormats
+import org.joda.time.DateTime
+import play.api.libs.json._
 
-object AnalyticsVersion extends Enumeration with EnumFormats {
 
-  val VERSION150_FINAL: AnalyticsVersion.Value = Value("1.5.0-final")
+case class AnalyticsSearch(start: DateTime, end: DateTime, decision: String)
 
-  implicit val format: Format[AnalyticsVersion.Value] = enumFormat(AnalyticsVersion)
+
+object AnalyticsSearch {
+
+  val dateFormat = "yyyy-MM-dd HH:mm:ss"
+
+  implicit val dateWrites = Writes.jodaDateWrites(dateFormat)
+  implicit val dateReads = Reads.jodaDateReads(dateFormat)
 }
