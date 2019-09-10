@@ -20,7 +20,6 @@ private object AppDependencies {
   val compile = Seq(
     "uk.gov.hmrc" %% "simple-reactivemongo" % "7.20.0-play-26",
     "uk.gov.hmrc" %% "http-caching-client" % "8.5.0-play-26",
-    "org.reactivemongo" %% "reactivemongo-akkastream" % "0.16.5",
     "uk.gov.hmrc" %% "bootstrap-play-26" % "1.0.0",
     ws
   )
@@ -62,6 +61,11 @@ private object AppDependencies {
     }.test
   }
 
-  def apply() = compile ++ Test() ++ IntegrationTest()
+  def tmpMacWorkaround(): Seq[ModuleID] =
+    if (sys.props.get("os.name").exists(_.toLowerCase.contains("mac")))
+      Seq("org.reactivemongo" % "reactivemongo-shaded-native" % "0.17.1-osx-x86-64" % "runtime,test,it")
+    else Seq()
+
+  def apply() = compile ++ Test() ++ IntegrationTest() ++ tmpMacWorkaround
 }
 
