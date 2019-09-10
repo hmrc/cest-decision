@@ -34,7 +34,7 @@ class BusinessOnOwnAccountRuleEngine @Inject()() extends RuleEngine {
         val rules = BusinessOnOwnAccountRules(version)
 
         businessOnOwnAccount flatMap {
-          case BusinessOnOwnAccount(None, None, None, None, None) => None
+          case BusinessOnOwnAccount(None, None, None, None, None) => Some(WeightedAnswerEnum.MEDIUM)
           case section => {
             val result = checkRules(section, rules.ruleSet)
             Some(WeightedAnswerEnum.withName(result))

@@ -47,12 +47,12 @@ class BusinessOnOwnAccountRuleEngineSpec extends UnitSpec {
       }
     }
 
-    "decide is called" should {
+    "decide is called with no input values supplied" should {
 
-      "return a None" in {
+      "return a default score of medium" in {
 
         val actualResult = TestBusinessOnOwnAccountRuleEngine.decide(Some(BusinessOnOwnAccount(None, None, None, None, None)))(DecisionServiceVersion.v2_0)
-        val expectedResult = None
+        val expectedResult = Some(WeightedAnswerEnum.MEDIUM)
 
         await(actualResult) shouldBe expectedResult
       }
