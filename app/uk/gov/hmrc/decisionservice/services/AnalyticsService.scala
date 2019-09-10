@@ -20,7 +20,7 @@ import javax.inject.{Inject, Singleton}
 import org.joda.time.DateTime
 import play.api.Logger
 import uk.gov.hmrc.decisionservice.config.AppConfig
-import uk.gov.hmrc.decisionservice.models.analytics.AnalyticsSearch
+import uk.gov.hmrc.decisionservice.models.AnalyticsSearch
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 
 import scala.concurrent.ExecutionContext.Implicits.global
