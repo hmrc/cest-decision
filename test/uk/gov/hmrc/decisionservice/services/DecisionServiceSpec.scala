@@ -18,6 +18,7 @@ package uk.gov.hmrc.decisionservice.services
 
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito._
+import org.scalamock.scalatest.MockFactory
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.models._
@@ -27,9 +28,9 @@ import uk.gov.hmrc.decisionservice.ruleEngines._
 import uk.gov.hmrc.play.test.UnitSpec
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.Future
+import scala.concurrent.{ExecutionContext, Future}
 
-class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
+class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite with MockFactory {
 
   private trait Setup extends MockitoSugar {
     val exit = mock[ExitRuleEngine]
@@ -68,7 +69,61 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
         when(financialRisk.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
         when(partAndParcel.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
         when(businessOnOwnAccount.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
-        when(result.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
+
+
+        when(result.decide(ArgumentMatchers.eq(Score(Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH))))(ArgumentMatchers.any()))
+          .thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
+
+        when(result.decide(ArgumentMatchers.eq(Score(Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),
+          Some(WeightedAnswerEnum.HIGH),None)))(ArgumentMatchers.any()))
+          .thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
+
+        await(target.calculateResult(request)) shouldBe DecisionResponse(
+          DecisionServiceVersion.v2_0, "coral", Score(
+            setup = Some(SetupEnum.CONTINUE),
+            exit = Some(ExitEnum.CONTINUE),
+            personalService = Some(WeightedAnswerEnum.HIGH),
+            control = Some(WeightedAnswerEnum.HIGH),
+            financialRisk = Some(WeightedAnswerEnum.HIGH),
+            partAndParcel = Some(WeightedAnswerEnum.HIGH),
+            businessOnOwnAccount = Some(WeightedAnswerEnum.HIGH)
+          ), ResultEnum.INSIDE_IR35
+        )
+      }
+
+      "not fail if compare result logs an error" in new Setup {
+
+        val request = DecisionRequest(
+          DecisionServiceVersion.v2_0, "coral", Interview(
+            setup = Some(Setup(None, None, None)),
+            exit = Some(Exit(None)),
+            personalService = Some(PersonalService(None, None, None, None, None)),
+            control = Some(Control(None, None, None, None)),
+            financialRisk = Some(FinancialRisk(None, None, None, None, None, None, None)),
+            partAndParcel = Some(PartAndParcel(None, None, None, None)),
+            businessOnOwnAccount = Some(BusinessOnOwnAccount(None, None, None, None, None))
+          )
+        )
+
+        when(exit.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(ExitEnum.CONTINUE)))
+        when(control.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(personalService.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(financialRisk.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(partAndParcel.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(businessOnOwnAccount.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+
+        when(result.decide(ArgumentMatchers.eq(Score(Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH))))(ArgumentMatchers.any()))
+          .thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
+
+        when(result.decide(ArgumentMatchers.eq(Score(Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),
+          Some(WeightedAnswerEnum.HIGH),None)))(ArgumentMatchers.any()))
+          .thenReturn(Future.successful(ResultEnum.OUTSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
           DecisionServiceVersion.v2_0, "coral", Score(

@@ -20,10 +20,12 @@ import java.time.LocalDateTime
 
 import com.google.inject.Inject
 import play.api.Logger
+import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.enums.{ResultEnum, SetupEnum}
-import uk.gov.hmrc.decisionservice.models.{DecisionRequest, DecisionResponse, LogInterview, Score}
+import uk.gov.hmrc.decisionservice.models._
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 import uk.gov.hmrc.decisionservice.ruleEngines._
+import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -51,24 +53,38 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
       partAndParcel <- partAndParcelRuleEngine.decide(interview.partAndParcel)
       businessOnOwnAccount <- businessOnOwnAccountRuleEngine.decide(interview.businessOnOwnAccount)
       score = Score(setup, exit, personalService, control, financialRisk, partAndParcel, businessOnOwnAccount)
+      scoreWithoutBooa = Score(setup, exit, personalService, control, financialRisk, partAndParcel)
       result <- resultRuleEngine.decide(score)
+      resultWithoutBooa <- resultRuleEngine.decide(scoreWithoutBooa)
       response = DecisionResponse(request.version, request.correlationID, score, result)
+      _ <- compareBooaResult(result, resultWithoutBooa, businessOnOwnAccount, interview.businessOnOwnAccount)
       _ <- logResult(request, response)
     } yield response
   }
 
+  private def compareBooaResult(result: ResultEnum.Value, resultWithoutBooa: ResultEnum.Value,
+                                booaWeighting: Option[WeightedAnswerEnum.Value],
+                                booaAnswers: Option[BusinessOnOwnAccount]): Future[Boolean] = Future.successful {
+    if(result == resultWithoutBooa) true else {
+      Logger.error(s"[DecisionService][compareBooaResult] Found mismatching results.\n" +
+        s"User result was: ${result.toString}, Result without BOOA was: ${resultWithoutBooa.toString}, " +
+        s"BOOA weighting was: ${booaWeighting.fold("Not supplied": String){weighting => weighting.toString}}, " +
+        s"BOOA answers were: ${booaAnswers.fold("Not supplied": String){answers => Json.prettyPrint(Json.toJson(answers))}}")
+      true
+    }
+  }
 
   private def logResult(request: DecisionRequest, response: DecisionResponse)(implicit ec: ExecutionContext): Future[Boolean] =
     if (response.result != ResultEnum.NOT_MATCHED) {
       repository().save(LogInterview(request, response.result.toString, response.score, LocalDateTime.now)).map {
         case result if result.ok => true
         case result => {
-          Logger.error(s"[DecisionController][logResult] Failed to log result, ${result.writeErrors}")
+          Logger.error(s"[DecisionService][logResult] Failed to log result, ${result.writeErrors}")
           false
         }
       }.recover {
         case e => {
-          Logger.error(s"[DecisionController][logResult] Failed to write to Mongo, ${e.getMessage}")
+          Logger.error(s"[DecisionService][logResult] Failed to write to Mongo, ${e.getMessage}")
           false
         }
       }
