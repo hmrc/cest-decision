@@ -18,7 +18,6 @@ package uk.gov.hmrc.decisionservice.services
 
 import org.mockito.ArgumentMatchers
 import org.mockito.Mockito._
-import org.scalamock.scalatest.MockFactory
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.models._
@@ -28,9 +27,9 @@ import uk.gov.hmrc.decisionservice.ruleEngines._
 import uk.gov.hmrc.play.test.UnitSpec
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.{ExecutionContext, Future}
+import scala.concurrent.Future
 
-class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite with MockFactory {
+class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
 
   private trait Setup extends MockitoSugar {
     val exit = mock[ExitRuleEngine]
