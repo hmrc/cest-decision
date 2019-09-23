@@ -1,5 +1,5 @@
 
-# CEST API v2.0 (Initial Release with Business On Own Account)
+# CEST API v2.1 (Revised Business On Own Account)
 
 ## Endpoint URL
 `POST` /decide

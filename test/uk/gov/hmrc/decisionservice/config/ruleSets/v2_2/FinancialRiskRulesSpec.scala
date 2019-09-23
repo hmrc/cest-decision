@@ -23,11 +23,11 @@ import uk.gov.hmrc.decisionservice.models.FinancialRisk._
 import uk.gov.hmrc.decisionservice.models.enums.HowWorkerIsPaid._
 import uk.gov.hmrc.decisionservice.models.enums.PutRightAtOwnCost._
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
-import uk.gov.hmrc.decisionservice.ruleSets.FinancialRiskRules_v20
+import uk.gov.hmrc.decisionservice.ruleSets.FinancialRiskRules_v22
 
 class FinancialRiskRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  implicit val ruleSet = FinancialRiskRules_v20.ruleSet
+  implicit val ruleSet = FinancialRiskRules_v22.ruleSet
 
   "For the OUT rules" should {
 
