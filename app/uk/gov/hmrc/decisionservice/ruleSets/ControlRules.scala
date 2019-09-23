@@ -27,13 +27,13 @@ object ControlRules_v150 extends ControlRules {
   override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v1_5_0)
 }
 
-object ControlRules_v20 extends ControlRules {
-  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_0)
+object ControlRules_v22 extends ControlRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_2)
 }
 
 object ControlRules {
   def apply(version: DecisionServiceVersion.Value): ControlRules = version match {
-    case DecisionServiceVersion.v1_5_0 => ControlRules_v150
-    case DecisionServiceVersion.v2_0 => ControlRules_v20
+    case DecisionServiceVersion.`v1_5_0` => ControlRules_v150
+    case DecisionServiceVersion.`v2_2` => ControlRules_v22
   }
 }

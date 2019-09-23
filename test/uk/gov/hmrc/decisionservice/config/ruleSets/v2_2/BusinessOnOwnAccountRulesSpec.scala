@@ -21,11 +21,11 @@ import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.config.ruleSets.BaseRuleSpec
 import uk.gov.hmrc.decisionservice.models.enums._
 import uk.gov.hmrc.decisionservice.models.BusinessOnOwnAccount._
-import uk.gov.hmrc.decisionservice.ruleSets.BusinessOnOwnAccountRules_v20
+import uk.gov.hmrc.decisionservice.ruleSets.BusinessOnOwnAccountRules_v22
 
 class BusinessOnOwnAccountRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  implicit val ruleSet = BusinessOnOwnAccountRules_v20.ruleSet
+  implicit val ruleSet = BusinessOnOwnAccountRules_v22.ruleSet
 
   "For the OUT rules" should {
 

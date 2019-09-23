@@ -21,11 +21,11 @@ import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.config.ruleSets.BaseRuleSpec
 import uk.gov.hmrc.decisionservice.models.PersonalService._
 import uk.gov.hmrc.decisionservice.models.enums.{ArrangedSubstitute, RejectSubstitute, WeightedAnswerEnum}
-import uk.gov.hmrc.decisionservice.ruleSets.PersonalServiceRules_v20
+import uk.gov.hmrc.decisionservice.ruleSets.PersonalServiceRules_v22
 
 class PersonalServiceRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  implicit val ruleSet = PersonalServiceRules_v20.ruleSet
+  implicit val ruleSet = PersonalServiceRules_v22.ruleSet
 
   "For all the expected OUT rules" should {
 

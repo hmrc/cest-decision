@@ -22,11 +22,11 @@ import uk.gov.hmrc.decisionservice.config.ruleSets.BaseRuleSpec
 import uk.gov.hmrc.decisionservice.models.Control._
 import uk.gov.hmrc.decisionservice.models.enums.MoveWorker._
 import uk.gov.hmrc.decisionservice.models.enums._
-import uk.gov.hmrc.decisionservice.ruleSets.ControlRules_v20
+import uk.gov.hmrc.decisionservice.ruleSets.ControlRules_v22
 
 class ControlRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  implicit val ruleSet = ControlRules_v20.ruleSet
+  implicit val ruleSet = ControlRules_v22.ruleSet
 
   "For the OUT rules" should {
 

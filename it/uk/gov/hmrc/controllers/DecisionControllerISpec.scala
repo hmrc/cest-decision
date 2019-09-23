@@ -66,9 +66,9 @@ class DecisionControllerISpec extends IntegrationSpecBase with DefaultBodyWritab
       }
     }
 
-    "return a 200 given a 2.0 version" in {
+    "return a 200 given a 2.2 version" in {
 
-      lazy val res = postRequest(path, interview(version = "2.0"))
+      lazy val res = postRequest(path, interview(version = "2.2"))
 
       whenReady(res) { result =>
         result.status shouldBe OK
