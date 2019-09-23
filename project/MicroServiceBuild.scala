@@ -12,20 +12,15 @@ private object AppDependencies {
   import play.sbt.PlayImport._
 
 
-  private val hmrcTestVersion = "3.6.0-play-26"
+  private val hmrcTestVersion = "3.9.0-play-26"
   private val scalaTestVersion = "3.0.7"
   private val pegdownVersion = "1.6.0"
   private val scalaTestPlayPlusVersion = "3.1.2"
 
   val compile = Seq(
-    "uk.gov.hmrc" %% "simple-reactivemongo" % "7.16.0-play-26",
-    "uk.gov.hmrc" %% "http-caching-client" % "8.2.0",
-    "org.reactivemongo" %% "reactivemongo-akkastream" % "0.16.5",
-    "ai.x" %% "play-json-extensions" % "0.30.1",
-    "uk.gov.hmrc" %% "bootstrap-play-26" % "0.38.0",
-    "uk.gov.hmrc" %% "domain" % "5.3.0",
-    "org.typelevel" %% "cats" % "0.9.0",
-    "com.github.fge" % "json-schema-validator" % "2.2.6",
+    "uk.gov.hmrc" %% "simple-reactivemongo" % "7.20.0-play-26",
+    "uk.gov.hmrc" %% "http-caching-client" % "8.5.0-play-26",
+    "uk.gov.hmrc" %% "bootstrap-play-26" % "1.0.0",
     ws
   )
 
@@ -66,6 +61,11 @@ private object AppDependencies {
     }.test
   }
 
-  def apply() = compile ++ Test() ++ IntegrationTest()
+  def tmpMacWorkaround(): Seq[ModuleID] =
+    if (sys.props.get("os.name").exists(_.toLowerCase.contains("mac")))
+      Seq("org.reactivemongo" % "reactivemongo-shaded-native" % "0.17.1-osx-x86-64" % "runtime,test,it")
+    else Seq()
+
+  def apply() = compile ++ Test() ++ IntegrationTest() ++ tmpMacWorkaround
 }
 

@@ -22,16 +22,17 @@ import play.api.Logger
 import play.api.libs.json.Writes.StringWrites
 import play.api.libs.json.{JsValue, Json}
 import play.modules.reactivemongo.ReactiveMongoComponent
-import reactivemongo.api.{Cursor, DefaultDB}
+import reactivemongo.api.DefaultDB
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.bson.{BSONDocument, _}
+import reactivemongo.bson._
 import reactivemongo.play.json.ImplicitBSONHandlers._
-import uk.gov.hmrc.decisionservice.models.analytics._
+import uk.gov.hmrc.decisionservice.models.AnalyticsSearch._
+import uk.gov.hmrc.decisionservice.models.{AnalyticsSearch, LogInterview}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.ReactiveRepository
+
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
-import uk.gov.hmrc.decisionservice.models.analytics.InterviewFormat._
 
 case class DatedCacheMap(id: String,
                          data: Map[String, JsValue],
@@ -46,17 +47,7 @@ object DatedCacheMap {
 class ReactiveMongoRepository(mongo: () => DefaultDB)
   extends ReactiveRepository[DatedCacheMap, BSONObjectID]("Off-Payroll-Interview", mongo, DatedCacheMap.formats) {
 
-  def save(i:Interview) : Future[WriteResult] = collection.insert(i)
-
-  val logOnError = Cursor.ContOnError[List[Interview]]((_, ex) =>
-    Logger.error(s"[removeStaleDocuments] Mongo failed, problem occured in collect - ex: ${ex.getMessage}")
-  )
-
-  def get(search: InterviewSearch): Future[List[Interview]] = {
-    val query = BSONDocument("completed" ->
-      BSONDocument("$gte" -> search.start.getMillis, "$lt" -> search.end.getMillis))
-    collection.find(query).batchSize(Int.MaxValue).cursor[Interview]().collect[List](Int.MaxValue, logOnError)
-  }
+  def save(i: LogInterview) : Future[WriteResult] = collection.insert(i)
 
   def count(search: AnalyticsSearch): Future[Int] = {
     val query = Json.obj("decision" -> search.decision,  "completed" ->
