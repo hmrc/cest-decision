@@ -23,12 +23,12 @@ sealed trait BusinessOnOwnAccountRules extends BaseRules {
   def parseRuleSet(version: DecisionServiceVersion.Value): Seq[RuleSet] = parseRules("business-on-own-account", version)
 }
 
-object BusinessOnOwnAccountRules_v20 extends BusinessOnOwnAccountRules {
-  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_0)
+object BusinessOnOwnAccountRules_v22 extends BusinessOnOwnAccountRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_2)
 }
 
 object BusinessOnOwnAccountRules {
   def apply(version: DecisionServiceVersion.Value): BusinessOnOwnAccountRules = version match {
-    case DecisionServiceVersion.v2_0 => BusinessOnOwnAccountRules_v20
+    case DecisionServiceVersion.v2_2 => BusinessOnOwnAccountRules_v22
   }
 }

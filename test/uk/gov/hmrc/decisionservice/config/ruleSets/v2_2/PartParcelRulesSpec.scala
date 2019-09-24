@@ -21,11 +21,11 @@ import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.config.ruleSets.BaseRuleSpec
 import uk.gov.hmrc.decisionservice.models.PartAndParcel._
 import uk.gov.hmrc.decisionservice.models.enums.{IdentifyToStakeholders, WeightedAnswerEnum}
-import uk.gov.hmrc.decisionservice.ruleSets.PartAndParcelRules_v20
+import uk.gov.hmrc.decisionservice.ruleSets.PartAndParcelRules_v22
 
 class PartParcelRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 
-  implicit val ruleSet = PartAndParcelRules_v20.ruleSet
+  implicit val ruleSet = PartAndParcelRules_v22.ruleSet
 
   "For all the expected HIGH rules" should {
 

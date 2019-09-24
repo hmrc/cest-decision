@@ -51,7 +51,7 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
       "calculate the result" in new Setup {
 
         val request = DecisionRequest(
-          DecisionServiceVersion.v2_0, "coral", Interview(
+          DecisionServiceVersion.v2_2, "coral", Interview(
             setup = Some(Setup(None, None, None)),
             exit = Some(Exit(None)),
             personalService = Some(PersonalService(None, None, None, None, None)),
@@ -126,7 +126,7 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
           .thenReturn(Future.successful(ResultEnum.OUTSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
-          DecisionServiceVersion.v2_0, "coral", Score(
+          DecisionServiceVersion.v2_2, "coral", Score(
             setup = Some(SetupEnum.CONTINUE),
             exit = Some(ExitEnum.CONTINUE),
             personalService = Some(WeightedAnswerEnum.HIGH),
