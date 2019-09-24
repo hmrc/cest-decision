@@ -66,8 +66,6 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
   private def compareBooaResult(result: ResultEnum.Value, resultWithoutBooa: ResultEnum.Value,
                                 booaWeighting: Option[WeightedAnswerEnum.Value], request: DecisionRequest,
                                 score: Score, scoreWithoutBooa: Score)(implicit ec: ExecutionContext): Future[Boolean] = {
-    println(result.toString)
-    println(resultWithoutBooa.toString)
     if(result == resultWithoutBooa) Future.successful(true) else {
       resultRepository().save(LogResult(request,result.toString,resultWithoutBooa.toString,booaWeighting.fold("N/A": String){ weighting => weighting.toString},
         score,scoreWithoutBooa,DateTime.now(DateTimeZone.UTC))).map(_ => true)

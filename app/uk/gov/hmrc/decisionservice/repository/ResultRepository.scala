@@ -57,13 +57,6 @@ class ReactiveMongoRepositoryResult(mongo: () => DefaultDB, appConfig: AppConfig
 
   def save(i: LogResult) : Future[WriteResult] = collection.insert(i)
 
-  def count(search: AnalyticsSearch): Future[Int] = {
-    collection.count().map { numberOfDifferentResults =>
-      Logger.info(s"[ResultRepository][Different Results] $numberOfDifferentResults")
-      numberOfDifferentResults
-    }
-  }
-
   implicit object BSONDateTimeHandler extends BSONHandler[BSONDateTime, DateTime] {
     def read(time: BSONDateTime) = new DateTime(time.value)
     def write(time: DateTime) = BSONDateTime(time.getMillis)
