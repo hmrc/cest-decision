@@ -19,7 +19,9 @@ package uk.gov.hmrc.decisionservice.models
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
+import org.joda.time.DateTime
 import play.api.libs.json._
+import uk.gov.hmrc.mongo.json.ReactiveMongoFormats
 
 case class LogResult(interview: DecisionRequest,
                      decision: String,
@@ -27,14 +29,11 @@ case class LogResult(interview: DecisionRequest,
                      booaWeighting: String,
                      score: Score,
                      scoreWithoutBOOA: Score,
-                     completed: LocalDateTime)
+                     completed: DateTime)
 
 object LogResult {
 
-  implicit val writesLocalDateTime: Writes[LocalDateTime] = Writes { date =>
-    val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
-    JsString(date.format(formatter))
-  }
+  implicit val dateFormat = ReactiveMongoFormats.dateTimeFormats
 
   implicit val writes: OWrites[LogResult] = OWrites { model =>
     Json.obj(

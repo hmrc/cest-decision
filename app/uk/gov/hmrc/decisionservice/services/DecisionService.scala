@@ -19,6 +19,7 @@ package uk.gov.hmrc.decisionservice.services
 import java.time.{Instant, LocalDateTime, ZoneOffset}
 
 import com.google.inject.Inject
+import org.joda.time.{DateTime, DateTimeZone}
 import play.api.Logger
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, SetupEnum, WeightedAnswerEnum}
@@ -53,7 +54,7 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
       partAndParcel <- partAndParcelRuleEngine.decide(interview.partAndParcel)
       businessOnOwnAccount <- businessOnOwnAccountRuleEngine.decide(interview.businessOnOwnAccount)
       score = Score(setup, exit, personalService, control, financialRisk, partAndParcel, businessOnOwnAccount)
-      scoreWithoutBooa = Score(setup, Some(ExitEnum.CONTINUE), Some(WeightedAnswerEnum.OUTSIDE_IR35), Some(WeightedAnswerEnum.OUTSIDE_IR35), Some(WeightedAnswerEnum.OUTSIDE_IR35), Some(WeightedAnswerEnum.OUTSIDE_IR35))
+      scoreWithoutBooa = Score(setup, exit, personalService, control, financialRisk, partAndParcel, None)
       result <- resultRuleEngine.decide(score)
       resultWithoutBooa <- resultRuleEngine.decide(scoreWithoutBooa)
       response = DecisionResponse(request.version, request.correlationID, score, result)
@@ -69,7 +70,7 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
     println(resultWithoutBooa.toString)
     if(result == resultWithoutBooa) Future.successful(true) else {
       resultRepository().save(LogResult(request,result.toString,resultWithoutBooa.toString,booaWeighting.fold("N/A": String){ weighting => weighting.toString},
-        score,scoreWithoutBooa,Instant.now().atOffset(ZoneOffset.UTC).toLocalDateTime)).map(_ => true)
+        score,scoreWithoutBooa,DateTime.now(DateTimeZone.UTC))).map(_ => true)
     }
   }
 

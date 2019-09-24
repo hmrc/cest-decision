@@ -51,29 +51,8 @@ object DatedCacheMap {
 }
 
 
-class ReactiveMongoRepository(mongo: () => DefaultDB, appConfig: AppConfig)
+class ReactiveMongoRepository(mongo: () => DefaultDB)
   extends ReactiveRepository[DatedCacheMap, BSONObjectID]("Off-Payroll-Interview", mongo, DatedCacheMap.formats) {
-
-  val fieldName = "lastUpdated"
-  val createdIndexName = "userAnswersExpiry"
-  val expireAfterSeconds = "expireAfterSeconds"
-  val timeToLiveInSeconds: Int = appConfig.mongoTtl
-
-  createIndex(fieldName, createdIndexName, timeToLiveInSeconds)
-
-  private def createIndex(field: String, indexName: String, ttl: Int): Future[Boolean] = {
-    collection.indexesManager.ensure(Index(Seq((field, IndexType.Ascending)), Some(indexName),
-      options = BSONDocument(expireAfterSeconds -> ttl))) map {
-      result => {
-        Logger.debug(s"set [$indexName] with value $ttl -> result : $result")
-        result
-      }
-    } recover {
-      case e => Logger.error("Failed to set TTL index", e)
-        false
-    }
-  }
-
 
   def save(i: LogInterview) : Future[WriteResult] = collection.insert(i)
 
@@ -91,9 +70,9 @@ class ReactiveMongoRepository(mongo: () => DefaultDB, appConfig: AppConfig)
 }
 
 @Singleton
-class InterviewRepository @Inject()(mongo: ReactiveMongoComponent, appConfig: AppConfig) {
+class InterviewRepository @Inject()(mongo: ReactiveMongoComponent) {
 
-  private lazy val interviewRepository = new ReactiveMongoRepository(mongo.mongoConnector.db, appConfig)
+  private lazy val interviewRepository = new ReactiveMongoRepository(mongo.mongoConnector.db)
 
   def apply(): ReactiveMongoRepository = interviewRepository
 }
