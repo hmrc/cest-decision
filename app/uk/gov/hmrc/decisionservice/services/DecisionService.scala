@@ -21,11 +21,10 @@ import java.time.{Instant, LocalDateTime, ZoneOffset}
 import com.google.inject.Inject
 import play.api.Logger
 import play.api.libs.json.Json
-import uk.gov.hmrc.decisionservice.models.enums.{ResultEnum, SetupEnum}
+import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, SetupEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.models._
 import uk.gov.hmrc.decisionservice.repository.{InterviewRepository, ResultRepository}
 import uk.gov.hmrc.decisionservice.ruleEngines._
-import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 
 import scala.concurrent.{ExecutionContext, Future}
 
@@ -54,7 +53,7 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
       partAndParcel <- partAndParcelRuleEngine.decide(interview.partAndParcel)
       businessOnOwnAccount <- businessOnOwnAccountRuleEngine.decide(interview.businessOnOwnAccount)
       score = Score(setup, exit, personalService, control, financialRisk, partAndParcel, businessOnOwnAccount)
-      scoreWithoutBooa = Score(setup, exit, personalService, control, financialRisk, partAndParcel)
+      scoreWithoutBooa = Score(setup, Some(ExitEnum.CONTINUE), Some(WeightedAnswerEnum.OUTSIDE_IR35), Some(WeightedAnswerEnum.OUTSIDE_IR35), Some(WeightedAnswerEnum.OUTSIDE_IR35), Some(WeightedAnswerEnum.OUTSIDE_IR35))
       result <- resultRuleEngine.decide(score)
       resultWithoutBooa <- resultRuleEngine.decide(scoreWithoutBooa)
       response = DecisionResponse(request.version, request.correlationID, score, result)
@@ -66,6 +65,8 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
   private def compareBooaResult(result: ResultEnum.Value, resultWithoutBooa: ResultEnum.Value,
                                 booaWeighting: Option[WeightedAnswerEnum.Value], request: DecisionRequest,
                                 score: Score, scoreWithoutBooa: Score)(implicit ec: ExecutionContext): Future[Boolean] = {
+    println(result.toString)
+    println(resultWithoutBooa.toString)
     if(result == resultWithoutBooa) Future.successful(true) else {
       resultRepository().save(LogResult(request,result.toString,resultWithoutBooa.toString,booaWeighting.fold("N/A": String){ weighting => weighting.toString},
         score,scoreWithoutBooa,Instant.now().atOffset(ZoneOffset.UTC).toLocalDateTime)).map(_ => true)
