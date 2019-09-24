@@ -31,7 +31,6 @@ class DecisionController @Inject()(mcc: MessagesControllerComponents,
   def decide(): Action[JsValue] = Action.async(parse.json) { implicit request =>
     request.body.validate[DecisionRequest] match {
       case JsSuccess(validRequest, _) =>
-
         Logger.info("Valid interview request to decide API")
         service.calculateResult(validRequest).map {
           response =>

@@ -42,7 +42,7 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
     implicit val version = request.version
 
     val setup = if(interview.setup.isDefined) Some(SetupEnum.CONTINUE) else None
-
+    println("***************************")
     for {
       exit <- earlyExitRuleEngine.decide(interview.exit)
       personalService <- personalServiceRuleEngine.decide(interview.personalService)
