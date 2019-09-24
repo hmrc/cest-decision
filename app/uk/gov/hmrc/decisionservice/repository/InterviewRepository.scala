@@ -17,6 +17,7 @@
 package uk.gov.hmrc.decisionservice.repository
 
 import javax.inject.{Inject, Singleton}
+
 import org.joda.time.{DateTime, DateTimeZone}
 import play.api.Logger
 import play.api.libs.json.Writes.StringWrites
@@ -24,12 +25,16 @@ import play.api.libs.json.{JsValue, Json}
 import play.modules.reactivemongo.ReactiveMongoComponent
 import reactivemongo.api.DefaultDB
 import reactivemongo.api.commands.WriteResult
+import reactivemongo.api.indexes.{Index, IndexType}
 import reactivemongo.bson._
 import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.decisionservice.models.AnalyticsSearch._
 import uk.gov.hmrc.decisionservice.models.{AnalyticsSearch, LogInterview}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.ReactiveRepository
+import javax.inject.{Inject, Named, Singleton}
+
+import uk.gov.hmrc.decisionservice.config.AppConfig
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
@@ -39,13 +44,36 @@ case class DatedCacheMap(id: String,
                          lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC))
 
 object DatedCacheMap {
+
   implicit val formats = Json.format[DatedCacheMap]
 
   def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 }
 
-class ReactiveMongoRepository(mongo: () => DefaultDB)
+
+class ReactiveMongoRepository(mongo: () => DefaultDB, appConfig: AppConfig)
   extends ReactiveRepository[DatedCacheMap, BSONObjectID]("Off-Payroll-Interview", mongo, DatedCacheMap.formats) {
+
+  val fieldName = "lastUpdated"
+  val createdIndexName = "userAnswersExpiry"
+  val expireAfterSeconds = "expireAfterSeconds"
+  val timeToLiveInSeconds: Int = appConfig.mongoTtl
+
+  createIndex(fieldName, createdIndexName, timeToLiveInSeconds)
+
+  private def createIndex(field: String, indexName: String, ttl: Int): Future[Boolean] = {
+    collection.indexesManager.ensure(Index(Seq((field, IndexType.Ascending)), Some(indexName),
+      options = BSONDocument(expireAfterSeconds -> ttl))) map {
+      result => {
+        Logger.debug(s"set [$indexName] with value $ttl -> result : $result")
+        result
+      }
+    } recover {
+      case e => Logger.error("Failed to set TTL index", e)
+        false
+    }
+  }
+
 
   def save(i: LogInterview) : Future[WriteResult] = collection.insert(i)
 
@@ -63,9 +91,9 @@ class ReactiveMongoRepository(mongo: () => DefaultDB)
 }
 
 @Singleton
-class InterviewRepository @Inject()(mongo: ReactiveMongoComponent) {
+class InterviewRepository @Inject()(mongo: ReactiveMongoComponent, appConfig: AppConfig) {
 
-  private lazy val interviewRepository = new ReactiveMongoRepository(mongo.mongoConnector.db)
+  private lazy val interviewRepository = new ReactiveMongoRepository(mongo.mongoConnector.db, appConfig)
 
   def apply(): ReactiveMongoRepository = interviewRepository
 }
