@@ -56,15 +56,19 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
         businessOnOwnAccount = Some(BusinessOnOwnAccount(None, None, None, None, None))
       ))
 
-      mockCalculateResult(decisionRequest)(DecisionResponse(DecisionServiceVersion.v1_5_0, "", Score(), ResultEnum.UNKNOWN))
+      mockCalculateResult(decisionRequest)(DecisionResponse(DecisionServiceVersion.v1_5_0, "", Score(), ResultEnum.UNKNOWN, ResultEnum.UNKNOWN))
 
       val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(toJson(decisionRequest))
 
       val response = await(TestDecisionController.decide()(fakeRequest))
 
       status(response) shouldBe OK
-      jsonBodyOf(response) shouldBe Json.parse(
-        s"""{"version":"${DecisionServiceVersion.v1_5_0}","correlationID":"","score":{},"result":"Unknown"}""".stripMargin
+      jsonBodyOf(response) shouldBe Json.obj(
+        "version" -> DecisionServiceVersion.v1_5_0,
+        "correlationID" -> "",
+        "score" -> Json.obj(),
+        "result" -> ResultEnum.UNKNOWN,
+        "resultWithoutBooa" -> ResultEnum.UNKNOWN
       )
     }
 

@@ -16,15 +16,13 @@
 
 package uk.gov.hmrc.decisionservice.services
 
-import java.time.{Instant, LocalDateTime, ZoneOffset}
+import java.time.LocalDateTime
 
 import com.google.inject.Inject
-import org.joda.time.{DateTime, DateTimeZone}
 import play.api.Logger
-import play.api.libs.json.Json
-import uk.gov.hmrc.decisionservice.models.enums.{ExitEnum, ResultEnum, SetupEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.models._
-import uk.gov.hmrc.decisionservice.repository.{InterviewRepository, ResultRepository}
+import uk.gov.hmrc.decisionservice.models.enums.{ResultEnum, SetupEnum}
+import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 import uk.gov.hmrc.decisionservice.ruleEngines._
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -36,8 +34,7 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
                                 partAndParcelRuleEngine: PartAndParcelRuleEngine,
                                 resultRuleEngine: ResultRuleEngine,
                                 businessOnOwnAccountRuleEngine: BusinessOnOwnAccountRuleEngine,
-                                val repository: InterviewRepository,
-                                val resultRepository: ResultRepository) {
+                                val repository: InterviewRepository) {
 
   def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[DecisionResponse] = {
 
@@ -57,19 +54,9 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
       scoreWithoutBooa = Score(setup, exit, personalService, control, financialRisk, partAndParcel, None)
       result <- resultRuleEngine.decide(score)
       resultWithoutBooa <- resultRuleEngine.decide(scoreWithoutBooa)
-      response = DecisionResponse(request.version, request.correlationID, score, result)
-      _ <- compareBooaResult(result, resultWithoutBooa, businessOnOwnAccount,request,score,scoreWithoutBooa)
+      response = DecisionResponse(request.version, request.correlationID, score, result, resultWithoutBooa)
       _ <- logResult(request, response)
     } yield response
-  }
-
-  private def compareBooaResult(result: ResultEnum.Value, resultWithoutBooa: ResultEnum.Value,
-                                booaWeighting: Option[WeightedAnswerEnum.Value], request: DecisionRequest,
-                                score: Score, scoreWithoutBooa: Score)(implicit ec: ExecutionContext): Future[Boolean] = {
-    if(result == resultWithoutBooa) Future.successful(true) else {
-      resultRepository().save(LogResult(request,result.toString,resultWithoutBooa.toString,booaWeighting.fold("N/A": String){ weighting => weighting.toString},
-        score,scoreWithoutBooa,DateTime.now(DateTimeZone.UTC))).map(_ => true)
-    }
   }
 
   private def logResult(request: DecisionRequest, response: DecisionResponse)(implicit ec: ExecutionContext): Future[Boolean] =

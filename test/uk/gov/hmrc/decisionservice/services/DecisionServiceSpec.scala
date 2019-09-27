@@ -22,7 +22,7 @@ import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.models._
 import uk.gov.hmrc.decisionservice.models.enums._
-import uk.gov.hmrc.decisionservice.repository.{InterviewRepository, ResultRepository}
+import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 import uk.gov.hmrc.decisionservice.ruleEngines._
 import uk.gov.hmrc.play.test.UnitSpec
 
@@ -41,7 +41,7 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
     val result = mock[ResultRuleEngine]
 
     val target = new DecisionService(control,exit,financialRisk,personalService,partAndParcel,result,businessOnOwnAccount,
-      app.injector.instanceOf[InterviewRepository],app.injector.instanceOf[ResultRepository])
+      app.injector.instanceOf[InterviewRepository])
   }
 
   "DecisionService" when {
@@ -82,7 +82,7 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
           .thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
-          DecisionServiceVersion.v2_2, "coral", Score(
+          version = DecisionServiceVersion.v2_2, correlationID = "coral", score = Score(
             setup = Some(SetupEnum.CONTINUE),
             exit = Some(ExitEnum.CONTINUE),
             personalService = Some(WeightedAnswerEnum.HIGH),
@@ -90,7 +90,9 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
             financialRisk = Some(WeightedAnswerEnum.HIGH),
             partAndParcel = Some(WeightedAnswerEnum.HIGH),
             businessOnOwnAccount = Some(WeightedAnswerEnum.HIGH)
-          ), ResultEnum.INSIDE_IR35
+          ),
+          result = ResultEnum.INSIDE_IR35,
+          resultWithoutBooa = ResultEnum.INSIDE_IR35
         )
       }
 
@@ -126,7 +128,7 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
           .thenReturn(Future.successful(ResultEnum.OUTSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
-          DecisionServiceVersion.v2_2, "coral", Score(
+          version = DecisionServiceVersion.v2_2, correlationID = "coral", score = Score(
             setup = Some(SetupEnum.CONTINUE),
             exit = Some(ExitEnum.CONTINUE),
             personalService = Some(WeightedAnswerEnum.HIGH),
@@ -134,7 +136,9 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
             financialRisk = Some(WeightedAnswerEnum.HIGH),
             partAndParcel = Some(WeightedAnswerEnum.HIGH),
             businessOnOwnAccount = Some(WeightedAnswerEnum.HIGH)
-          ), ResultEnum.INSIDE_IR35
+          ),
+          result = ResultEnum.INSIDE_IR35,
+          resultWithoutBooa = ResultEnum.OUTSIDE_IR35
         )
       }
     }
