@@ -17,7 +17,6 @@
 package uk.gov.hmrc.decisionservice.repository
 
 import javax.inject.{Inject, Singleton}
-
 import org.joda.time.{DateTime, DateTimeZone}
 import play.api.Logger
 import play.api.libs.json.Writes.StringWrites
@@ -25,16 +24,12 @@ import play.api.libs.json.{JsValue, Json}
 import play.modules.reactivemongo.ReactiveMongoComponent
 import reactivemongo.api.DefaultDB
 import reactivemongo.api.commands.WriteResult
-import reactivemongo.api.indexes.{Index, IndexType}
 import reactivemongo.bson._
 import reactivemongo.play.json.ImplicitBSONHandlers._
 import uk.gov.hmrc.decisionservice.models.AnalyticsSearch._
 import uk.gov.hmrc.decisionservice.models.{AnalyticsSearch, LogInterview}
 import uk.gov.hmrc.http.cache.client.CacheMap
 import uk.gov.hmrc.mongo.ReactiveRepository
-import javax.inject.{Inject, Named, Singleton}
-
-import uk.gov.hmrc.decisionservice.config.AppConfig
 
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.concurrent.Future
