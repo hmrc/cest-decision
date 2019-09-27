@@ -26,6 +26,5 @@ class AppConfig @Inject()(env: Environment, val runModeConfiguration: Configurat
   val mode: Mode = env.mode
   val gatherAnalytics: Boolean = runModeConfiguration.getOptional[Boolean]("analytics.gatherAnalytics").getOrElse(false)
   val reportingPeriod = runModeConfiguration.getOptional[Int]("analytics.reportingPeriod").getOrElse(0)
-  lazy val mongoTtl: Int = servicesConfig.getInt("mongodb.timeToLiveInHours") * 60 * 60
 
 }
