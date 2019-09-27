@@ -40,7 +40,8 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
     val businessOnOwnAccount = mock[BusinessOnOwnAccountRuleEngine]
     val result = mock[ResultRuleEngine]
 
-    val target = new DecisionService(control,exit,financialRisk,personalService,partAndParcel,result,businessOnOwnAccount, app.injector.instanceOf[InterviewRepository])
+    val target = new DecisionService(control,exit,financialRisk,personalService,partAndParcel,result,businessOnOwnAccount,
+      app.injector.instanceOf[InterviewRepository])
   }
 
   "DecisionService" when {
@@ -68,10 +69,20 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
         when(financialRisk.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
         when(partAndParcel.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
         when(businessOnOwnAccount.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
-        when(result.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
+
+
+        when(result.decide(ArgumentMatchers.eq(Score(Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH))))(ArgumentMatchers.any()))
+          .thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
+
+        when(result.decide(ArgumentMatchers.eq(Score(Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),
+          Some(WeightedAnswerEnum.HIGH),None)))(ArgumentMatchers.any()))
+          .thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
-          DecisionServiceVersion.v2_2, "coral", Score(
+          version = DecisionServiceVersion.v2_2, correlationID = "coral", score = Score(
             setup = Some(SetupEnum.CONTINUE),
             exit = Some(ExitEnum.CONTINUE),
             personalService = Some(WeightedAnswerEnum.HIGH),
@@ -79,7 +90,55 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
             financialRisk = Some(WeightedAnswerEnum.HIGH),
             partAndParcel = Some(WeightedAnswerEnum.HIGH),
             businessOnOwnAccount = Some(WeightedAnswerEnum.HIGH)
-          ), ResultEnum.INSIDE_IR35
+          ),
+          result = ResultEnum.INSIDE_IR35,
+          resultWithoutBooa = ResultEnum.INSIDE_IR35
+        )
+      }
+
+      "not fail if compare result logs an error" in new Setup {
+
+        val request = DecisionRequest(
+          DecisionServiceVersion.v2_2, "coral", Interview(
+            setup = Some(Setup(None, None, None)),
+            exit = Some(Exit(None)),
+            personalService = Some(PersonalService(None, None, None, None, None)),
+            control = Some(Control(None, None, None, None)),
+            financialRisk = Some(FinancialRisk(None, None, None, None, None, None, None)),
+            partAndParcel = Some(PartAndParcel(None, None, None, None)),
+            businessOnOwnAccount = Some(BusinessOnOwnAccount(None, None, None, None, None))
+          )
+        )
+
+        when(exit.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(ExitEnum.CONTINUE)))
+        when(control.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(personalService.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(financialRisk.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(partAndParcel.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+        when(businessOnOwnAccount.decide(ArgumentMatchers.any())(ArgumentMatchers.any())).thenReturn(Future.successful(Some(WeightedAnswerEnum.HIGH)))
+
+        when(result.decide(ArgumentMatchers.eq(Score(Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH))))(ArgumentMatchers.any()))
+          .thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
+
+        when(result.decide(ArgumentMatchers.eq(Score(Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),
+          Some(WeightedAnswerEnum.HIGH),None)))(ArgumentMatchers.any()))
+          .thenReturn(Future.successful(ResultEnum.OUTSIDE_IR35))
+
+        await(target.calculateResult(request)) shouldBe DecisionResponse(
+          version = DecisionServiceVersion.v2_2, correlationID = "coral", score = Score(
+            setup = Some(SetupEnum.CONTINUE),
+            exit = Some(ExitEnum.CONTINUE),
+            personalService = Some(WeightedAnswerEnum.HIGH),
+            control = Some(WeightedAnswerEnum.HIGH),
+            financialRisk = Some(WeightedAnswerEnum.HIGH),
+            partAndParcel = Some(WeightedAnswerEnum.HIGH),
+            businessOnOwnAccount = Some(WeightedAnswerEnum.HIGH)
+          ),
+          result = ResultEnum.INSIDE_IR35,
+          resultWithoutBooa = ResultEnum.OUTSIDE_IR35
         )
       }
     }

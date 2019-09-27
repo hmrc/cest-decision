@@ -20,8 +20,8 @@ import java.time.LocalDateTime
 
 import com.google.inject.Inject
 import play.api.Logger
+import uk.gov.hmrc.decisionservice.models._
 import uk.gov.hmrc.decisionservice.models.enums.{ResultEnum, SetupEnum}
-import uk.gov.hmrc.decisionservice.models.{DecisionRequest, DecisionResponse, LogInterview, Score}
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 import uk.gov.hmrc.decisionservice.ruleEngines._
 
@@ -51,24 +51,25 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
       partAndParcel <- partAndParcelRuleEngine.decide(interview.partAndParcel)
       businessOnOwnAccount <- businessOnOwnAccountRuleEngine.decide(interview.businessOnOwnAccount)
       score = Score(setup, exit, personalService, control, financialRisk, partAndParcel, businessOnOwnAccount)
+      scoreWithoutBooa = Score(setup, exit, personalService, control, financialRisk, partAndParcel, None)
       result <- resultRuleEngine.decide(score)
-      response = DecisionResponse(request.version, request.correlationID, score, result)
+      resultWithoutBooa <- resultRuleEngine.decide(scoreWithoutBooa)
+      response = DecisionResponse(request.version, request.correlationID, score, result, resultWithoutBooa)
       _ <- logResult(request, response)
     } yield response
   }
-
 
   private def logResult(request: DecisionRequest, response: DecisionResponse)(implicit ec: ExecutionContext): Future[Boolean] =
     if (response.result != ResultEnum.NOT_MATCHED) {
       repository().save(LogInterview(request, response.result.toString, response.score, LocalDateTime.now)).map {
         case result if result.ok => true
         case result => {
-          Logger.error(s"[DecisionController][logResult] Failed to log result, ${result.writeErrors}")
+          Logger.error(s"[DecisionService][logResult] Failed to log result, ${result.writeErrors}")
           false
         }
       }.recover {
         case e => {
-          Logger.error(s"[DecisionController][logResult] Failed to write to Mongo, ${e.getMessage}")
+          Logger.error(s"[DecisionService][logResult] Failed to write to Mongo, ${e.getMessage}")
           false
         }
       }
