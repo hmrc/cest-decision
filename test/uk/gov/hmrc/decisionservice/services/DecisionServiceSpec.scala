@@ -78,7 +78,7 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
 
         when(result.decide(ArgumentMatchers.eq(Score(Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),
           Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),
-          Some(WeightedAnswerEnum.HIGH),None)))(ArgumentMatchers.any()))
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.MEDIUM))))(ArgumentMatchers.any()))
           .thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
@@ -124,7 +124,7 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
 
         when(result.decide(ArgumentMatchers.eq(Score(Some(SetupEnum.CONTINUE),Some(ExitEnum.CONTINUE),
           Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.HIGH),
-          Some(WeightedAnswerEnum.HIGH),None)))(ArgumentMatchers.any()))
+          Some(WeightedAnswerEnum.HIGH),Some(WeightedAnswerEnum.MEDIUM))))(ArgumentMatchers.any()))
           .thenReturn(Future.successful(ResultEnum.OUTSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(

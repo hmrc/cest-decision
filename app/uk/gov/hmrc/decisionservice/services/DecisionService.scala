@@ -21,7 +21,7 @@ import java.time.LocalDateTime
 import com.google.inject.Inject
 import play.api.Logger
 import uk.gov.hmrc.decisionservice.models._
-import uk.gov.hmrc.decisionservice.models.enums.{ResultEnum, SetupEnum}
+import uk.gov.hmrc.decisionservice.models.enums.{ResultEnum, SetupEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 import uk.gov.hmrc.decisionservice.ruleEngines._
 
@@ -51,7 +51,7 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
       partAndParcel <- partAndParcelRuleEngine.decide(interview.partAndParcel)
       businessOnOwnAccount <- businessOnOwnAccountRuleEngine.decide(interview.businessOnOwnAccount)
       score = Score(setup, exit, personalService, control, financialRisk, partAndParcel, businessOnOwnAccount)
-      scoreWithoutBooa = Score(setup, exit, personalService, control, financialRisk, partAndParcel, None)
+      scoreWithoutBooa = Score(setup, exit, personalService, control, financialRisk, partAndParcel, Some(WeightedAnswerEnum.MEDIUM))
       result <- resultRuleEngine.decide(score)
       resultWithoutBooa <- resultRuleEngine.decide(scoreWithoutBooa)
       response = DecisionResponse(request.version, request.correlationID, score, result, resultWithoutBooa)
