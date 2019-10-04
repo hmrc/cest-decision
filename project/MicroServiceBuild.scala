@@ -19,7 +19,7 @@ private object AppDependencies {
 
   val compile = Seq(
     "uk.gov.hmrc" %% "simple-reactivemongo" % "7.20.0-play-26",
-    "uk.gov.hmrc" %% "http-caching-client" % "8.5.0-play-26",
+    "uk.gov.hmrc" %% "http-caching-client" % "9.0.0-play-26",
     "uk.gov.hmrc" %% "bootstrap-play-26" % "1.0.0",
     ws
   )
@@ -36,7 +36,7 @@ private object AppDependencies {
         "org.scalatest" %% "scalatest" % scalaTestVersion % scope,
         "org.pegdown" % "pegdown" % pegdownVersion % scope,
         "com.typesafe.play" %% "play-test" % PlayVersion.current % scope,
-        "uk.gov.hmrc" %% "play-reactivemongo" % "6.5.0" % scope,
+        "uk.gov.hmrc" %% "play-reactivemongo" % "6.7.0" % scope,
         "uk.gov.hmrc" %% "http-caching-client" % "8.2.0" % scope,
         "org.mockito" % "mockito-core" % "2.26.0" % scope,
         "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlayPlusVersion % scope,
