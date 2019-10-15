@@ -39,9 +39,9 @@ class DecisionController @Inject()(mcc: MessagesControllerComponents,
         }
 
       case JsError(jsonErrors) =>
-        Logger.info("{\"incorrectRequest\":" + jsonErrors + "}")
+        Logger.error("{\"incorrectRequest\":" + jsonErrors + "}")
         val errorResponseBody = Json.toJson(ErrorResponse(ErrorCodes.REQUEST_FORMAT, JsError.toJson(jsonErrors).toString()))
-        Logger.info(s"incorrect request response: $errorResponseBody")
+        Logger.error(s"incorrect request response: $errorResponseBody")
         Future.successful(BadRequest(errorResponseBody))
 
     }
