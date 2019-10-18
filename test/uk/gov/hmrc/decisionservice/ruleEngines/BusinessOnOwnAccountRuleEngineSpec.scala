@@ -51,7 +51,7 @@ class BusinessOnOwnAccountRuleEngineSpec extends UnitSpec {
 
       "return a default score of medium" in {
 
-        val actualResult = TestBusinessOnOwnAccountRuleEngine.decide(Some(BusinessOnOwnAccount(None, None, None, None, None)))(DecisionServiceVersion.v2_2)
+        val actualResult = TestBusinessOnOwnAccountRuleEngine.decide(Some(BusinessOnOwnAccount(None, None, None, None, None)))(DecisionServiceVersion.v2_4)
         val expectedResult = Some(WeightedAnswerEnum.MEDIUM)
         
         await(actualResult) shouldBe expectedResult

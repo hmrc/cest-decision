@@ -31,9 +31,14 @@ object FinancialRiskRules_v22 extends FinancialRiskRules {
   override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_2)
 }
 
+object FinancialRiskRules_v24 extends FinancialRiskRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_4)
+}
+
 object FinancialRiskRules {
   def apply(version: DecisionServiceVersion.Value): FinancialRiskRules = version match {
     case DecisionServiceVersion.`v1_5_0` => FinancialRiskRules_v150
     case DecisionServiceVersion.`v2_2` => FinancialRiskRules_v22
+    case DecisionServiceVersion.`v2_4` => FinancialRiskRules_v24
   }
 }

@@ -51,7 +51,7 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
       "calculate the result" in new Setup {
 
         val request = DecisionRequest(
-          DecisionServiceVersion.v2_2, "coral", Interview(
+          DecisionServiceVersion.v2_4, "coral", Interview(
             setup = Some(Setup(None, None, None)),
             exit = Some(Exit(None)),
             personalService = Some(PersonalService(None, None, None, None, None)),
@@ -82,7 +82,7 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
           .thenReturn(Future.successful(ResultEnum.INSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
-          version = DecisionServiceVersion.v2_2, correlationID = "coral", score = Score(
+          version = DecisionServiceVersion.v2_4, correlationID = "coral", score = Score(
             setup = Some(SetupEnum.CONTINUE),
             exit = Some(ExitEnum.CONTINUE),
             personalService = Some(WeightedAnswerEnum.HIGH),
@@ -99,7 +99,7 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
       "not fail if compare result logs an error" in new Setup {
 
         val request = DecisionRequest(
-          DecisionServiceVersion.v2_2, "coral", Interview(
+          DecisionServiceVersion.v2_4, "coral", Interview(
             setup = Some(Setup(None, None, None)),
             exit = Some(Exit(None)),
             personalService = Some(PersonalService(None, None, None, None, None)),
@@ -128,7 +128,7 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
           .thenReturn(Future.successful(ResultEnum.OUTSIDE_IR35))
 
         await(target.calculateResult(request)) shouldBe DecisionResponse(
-          version = DecisionServiceVersion.v2_2, correlationID = "coral", score = Score(
+          version = DecisionServiceVersion.v2_4, correlationID = "coral", score = Score(
             setup = Some(SetupEnum.CONTINUE),
             exit = Some(ExitEnum.CONTINUE),
             personalService = Some(WeightedAnswerEnum.HIGH),
