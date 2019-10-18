@@ -1,13 +1,6 @@
 import sbt._
 
-object MicroServiceBuild extends Build with MicroService {
-
-  val appName = "cest-decision"
-
-  override lazy val appDependencies: Seq[ModuleID] = AppDependencies()
-}
-
-private object AppDependencies {
+object AppDependencies {
   import play.core.PlayVersion
   import play.sbt.PlayImport._
 
