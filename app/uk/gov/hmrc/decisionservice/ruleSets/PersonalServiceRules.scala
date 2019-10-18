@@ -31,9 +31,14 @@ object PersonalServiceRules_v22 extends PersonalServiceRules {
   override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_2)
 }
 
+object PersonalServiceRules_v24 extends PersonalServiceRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_4)
+}
+
 object PersonalServiceRules {
   def apply(version: DecisionServiceVersion.Value): PersonalServiceRules = version match {
     case DecisionServiceVersion.`v1_5_0` => PersonalServiceRules_v150
     case DecisionServiceVersion.`v2_2` => PersonalServiceRules_v22
+    case DecisionServiceVersion.`v2_4` => PersonalServiceRules_v24
   }
 }

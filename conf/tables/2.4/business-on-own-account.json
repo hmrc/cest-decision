@@ -1,0 +1,1558 @@
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.onlyContractForPeriod,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+Json.obj(
+exclusiveContract -> ExclusiveContract.unableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.rightsTransferredToClient,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.ableToTransferRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractIsPartOfASeries
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.contractCouldBeExtended
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.retainOwnershipRights,
+multipleEngagements -> MultipleEngagements.noKnowledgeOfExternalActivity,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+),
+Json.obj(
+exclusiveContract -> ExclusiveContract.ableToProvideServices,
+transferRights -> TransferRights.noRightsArise,
+multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+significantWorkingTime -> SignificantWorkingTime.noSignificantAmount,
+seriesOfContracts -> SeriesOfContracts.standAloneContract
+)
+
+
+
+

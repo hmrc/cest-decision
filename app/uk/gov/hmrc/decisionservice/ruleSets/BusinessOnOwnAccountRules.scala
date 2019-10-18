@@ -27,8 +27,13 @@ object BusinessOnOwnAccountRules_v22 extends BusinessOnOwnAccountRules {
   override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_2)
 }
 
+object BusinessOnOwnAccountRules_v24 extends BusinessOnOwnAccountRules {
+  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_4)
+}
+
 object BusinessOnOwnAccountRules {
   def apply(version: DecisionServiceVersion.Value): BusinessOnOwnAccountRules = version match {
     case DecisionServiceVersion.v2_2 => BusinessOnOwnAccountRules_v22
+    case DecisionServiceVersion.v2_4 => BusinessOnOwnAccountRules_v24
   }
 }
