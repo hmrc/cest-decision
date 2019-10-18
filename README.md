@@ -5,7 +5,7 @@ This μ-service is the backend decision rule engine for the Check Employment Sta
 ## Supported versions 
 | Version | Description |
 |:--------|:------------|
-|`2.2`|Future version, includes Business On Own Account questions. [More...](./docs/api_2.2.md)|
+|`2.4`|Future version, revised Business on Own Account. [More...](./docs/api_2.4.md)|
 |`1.5.0-final`|Current version. [More...](./docs/api_1.5.0-final.md)|
 
 
@@ -18,6 +18,7 @@ This μ-service is the backend decision rule engine for the Check Employment Sta
 ## Deprecated Versions
 | Version | Description |
 |:--------|:------------|
+|`2.2`|Includes Business On Own Account questions. [More...](./docs/api_2.2.md)|
 |`2.1`|Revised Business on Own Account. [More...](./docs/api_2.1.md)|
 |`2.0`|Draft with Business on Own Account. [More...](./docs/api_2.0.md)|
 |`1.4.0-final`|Previous version, now deprecated. [More...](./docs/api_1.4.0-final.md)|
