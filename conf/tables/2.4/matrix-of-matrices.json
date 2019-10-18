@@ -1,0 +1,523 @@
+
+
+
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> HIGH
+)
+
+
+
+
+
+
+
+
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> HIGH
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> HIGH
+)
+
+
+
+
+
+
+
+
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> LOW,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> LOW,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> LOW,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> MEDIUM,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> MEDIUM
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> MEDIUM,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> MEDIUM,
+  financialRisk -> MEDIUM,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> LOW
+),
+Json.obj(
+  personalService -> HIGH,
+  control -> HIGH,
+  financialRisk -> MEDIUM,
+  partAndParcel -> HIGH,
+  businessOnOwnAccount -> MEDIUM
+)
