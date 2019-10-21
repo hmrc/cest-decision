@@ -18,8 +18,9 @@ package uk.gov.hmrc.decisionservice.models
 
 import play.api.libs.json.{Format, Json}
 
-case class ErrorResponse(code:Int, message:String)
+case class ErrorResponse(code: Int, message: String, details: String)
 
 object ErrorResponse {
   implicit val errorResponseFormat: Format[ErrorResponse] = Json.format[ErrorResponse]
+  val REQUEST_FORMAT: Int = 4001
 }

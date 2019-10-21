@@ -17,12 +17,13 @@
 package uk.gov.hmrc.decisionservice.repository
 
 import javax.inject.{Inject, Singleton}
+
 import org.joda.time.{DateTime, DateTimeZone}
 import play.api.Logger
 import play.api.libs.json.Writes.StringWrites
-import play.api.libs.json.{JsValue, Json}
+import play.api.libs.json.{JsValue, Json, OFormat}
 import play.modules.reactivemongo.ReactiveMongoComponent
-import reactivemongo.api.DefaultDB
+import reactivemongo.api.{DefaultDB, ReadConcern}
 import reactivemongo.api.commands.WriteResult
 import reactivemongo.bson._
 import reactivemongo.play.json.ImplicitBSONHandlers._
@@ -40,11 +41,10 @@ case class DatedCacheMap(id: String,
 
 object DatedCacheMap {
 
-  implicit val formats = Json.format[DatedCacheMap]
+  implicit val formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
 
   def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 }
-
 
 class ReactiveMongoRepository(mongo: () => DefaultDB)
   extends ReactiveRepository[DatedCacheMap, BSONObjectID]("Off-Payroll-Interview", mongo, DatedCacheMap.formats) {
@@ -55,7 +55,7 @@ class ReactiveMongoRepository(mongo: () => DefaultDB)
     val query = Json.obj("decision" -> search.decision,  "completed" ->
       Json.obj("$gte" -> search.start, "$lt" -> search.end))
     Logger.info(s"[InterviewRepository][count] $query")
-    collection.count(Some(query))
+    collection.count(selector = Some(query), readConcern = ReadConcern.Majority, limit = None, skip = 0, hint = None).map(_.toInt)
   }
 
   implicit object BSONDateTimeHandler extends BSONHandler[BSONDateTime, DateTime] {

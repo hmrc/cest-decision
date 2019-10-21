@@ -21,7 +21,7 @@ import java.time.LocalDateTime
 import com.google.inject.Inject
 import play.api.Logger
 import uk.gov.hmrc.decisionservice.models._
-import uk.gov.hmrc.decisionservice.models.enums.{ResultEnum, SetupEnum, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, ResultEnum, SetupEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 import uk.gov.hmrc.decisionservice.ruleEngines._
 
@@ -39,7 +39,7 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
   def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[DecisionResponse] = {
 
     val interview = request.interview
-    implicit val version = request.version
+    implicit val version: DecisionServiceVersion.Value = request.version
 
     val setup = if(interview.setup.isDefined) Some(SetupEnum.CONTINUE) else None
 
