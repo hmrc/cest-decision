@@ -32,6 +32,7 @@ object ResultEnum extends Enumeration with EnumFormats {
 
   def apply(value: String): ResultEnum.Value = value match {
     case "INIR35" => ResultEnum.INSIDE_IR35
+    case "OUTOFIR35" => ResultEnum.OUTSIDE_IR35
     case "UNKNOWN" => ResultEnum.UNKNOWN
     case _ => ResultEnum.NOT_MATCHED
   }
