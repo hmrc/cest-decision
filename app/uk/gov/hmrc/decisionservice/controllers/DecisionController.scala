@@ -37,8 +37,8 @@ class DecisionController @Inject()(mcc: MessagesControllerComponents,
         Logger.info("Valid interview request to decide API")
         service.calculateResult(validRequest).map(response => Ok(Json.toJson(response)))
       case JsError(jsonErrors) =>
-        val errorDetails = "{\"incorrectRequest\":" + jsonErrors + "}"
-        val errorResponseBody = Json.toJson(ErrorResponse(ErrorResponse.REQUEST_FORMAT, JsError.toJson(jsonErrors).toString(),errorDetails))
+        val errorDetails = s"""{"incorrectRequest":$jsonErrors}"""
+        val errorResponseBody = Json.toJson(ErrorResponse(BAD_REQUEST, JsError.toJson(jsonErrors).toString(),errorDetails))
         Logger.error(s"incorrect request response: $errorResponseBody")
         Future.successful(BadRequest(errorResponseBody))
     }

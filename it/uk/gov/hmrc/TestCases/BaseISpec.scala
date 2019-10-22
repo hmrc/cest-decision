@@ -13,7 +13,7 @@ trait BaseISpec extends IntegrationSpecBase with CreateRequestHelper with Status
 
   val path = "/decide"
 
-  val defaultVersion = "2.2"
+  val defaultVersion = "2.4"
 
   val defaultExit = obj("officeHolder" -> false)
 

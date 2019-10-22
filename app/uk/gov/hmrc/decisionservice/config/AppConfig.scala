@@ -25,6 +25,6 @@ class AppConfig @Inject()(env: Environment, val runModeConfiguration: Configurat
 
   val mode: Mode = env.mode
   val gatherAnalytics: Boolean = runModeConfiguration.getOptional[Boolean]("analytics.gatherAnalytics").getOrElse(false)
-  val reportingPeriod = runModeConfiguration.getOptional[Int]("analytics.reportingPeriod").getOrElse(0)
+  val reportingPeriod: Int = runModeConfiguration.getOptional[Int]("analytics.reportingPeriod").getOrElse(0)
 
 }

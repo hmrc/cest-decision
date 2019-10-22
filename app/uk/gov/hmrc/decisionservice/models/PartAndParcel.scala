@@ -22,7 +22,7 @@ import uk.gov.hmrc.decisionservice.models.enums.WorkerRepresentsEngagerBusiness
 case class PartAndParcel(workerReceivesBenefits: Option[Boolean],
                          workerAsLineManager: Option[Boolean],
                          contactWithEngagerCustomer: Option[Boolean],
-                         workerRepresentsEngagerBusiness: Option[WorkerRepresentsEngagerBusiness.Value]) extends Section
+                         workerRepresentsEngagerBusiness: Option[WorkerRepresentsEngagerBusiness.Value])
 
 object PartAndParcel {
   implicit val format: Format[PartAndParcel] = Json.format[PartAndParcel]

@@ -1,6 +1,6 @@
 package uk.gov.hmrc.TestCases
 
-import uk.gov.hmrc.decisionservice.ruleSets.BusinessOnOwnAccountRules_v22
+import uk.gov.hmrc.decisionservice.ruleSets.BusinessOnOwnAccountRules_v24
 
 class BusinessOnOwnAccountISpec extends BaseISpec {
 
@@ -10,7 +10,7 @@ class BusinessOnOwnAccountISpec extends BaseISpec {
 
       "Return the correct section result in the response for all rules" in {
 
-        BusinessOnOwnAccountRules_v22.ruleSet.foreach { rule =>
+        BusinessOnOwnAccountRules_v24.ruleSet.foreach { rule =>
 
           val res = postRequest(path, interview(businessOnOwnAccount = rule.rules))
 

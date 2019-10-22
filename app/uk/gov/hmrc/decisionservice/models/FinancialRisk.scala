@@ -25,7 +25,7 @@ case class FinancialRisk(workerProvidedMaterials: Option[Boolean],
                          workerHadOtherExpenses: Option[Boolean],
                          expensesAreNotRelevantForRole: Option[Boolean],
                          workerMainIncome: Option[WorkerMainIncome.Value],
-                         paidForSubstandardWork: Option[PaidForSubstandardWork.Value]) extends Section
+                         paidForSubstandardWork: Option[PaidForSubstandardWork.Value])
 
 object FinancialRisk {
   implicit val format: Format[FinancialRisk] = Json.format[FinancialRisk]

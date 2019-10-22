@@ -24,7 +24,6 @@ import uk.gov.hmrc.decisionservice.services.AnalyticsService
 
 class Module extends AbstractModule {
 
-  Logger.info("\n\nStarting service...\n\n")
   override def configure(): Unit = {
     bind(classOf[ReactiveMongoComponent]).asEagerSingleton()
     bind(classOf[InterviewRepository]).asEagerSingleton()
