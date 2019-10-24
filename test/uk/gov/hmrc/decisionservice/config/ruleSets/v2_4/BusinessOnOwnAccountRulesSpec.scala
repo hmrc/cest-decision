@@ -33,13 +33,6 @@ class BusinessOnOwnAccountRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuit
 
     val expected = List(
       Json.obj(
-        exclusiveContract -> ExclusiveContract.unableToProvideServices,
-        transferRights -> TransferRights.retainOwnershipRights,
-        multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
-        significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
-        seriesOfContracts -> SeriesOfContracts.standAloneContract
-      ),
-      Json.obj(
         exclusiveContract -> ExclusiveContract.ableToProvideServicesWithPermission,
         transferRights -> TransferRights.retainOwnershipRights,
         multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
@@ -140,6 +133,13 @@ class BusinessOnOwnAccountRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuit
     val actual = getRules(WeightedAnswerEnum.MEDIUM)
 
     val expected = List(
+      Json.obj(
+        exclusiveContract -> ExclusiveContract.unableToProvideServices,
+        transferRights -> TransferRights.retainOwnershipRights,
+        multipleEngagements -> MultipleEngagements.providedServicesToOtherEngagers,
+        significantWorkingTime -> SignificantWorkingTime.consumesSignificantAmount,
+        seriesOfContracts -> SeriesOfContracts.standAloneContract
+      ),
       Json.obj(
         exclusiveContract -> ExclusiveContract.unableToProvideServices,
         transferRights -> TransferRights.rightsTransferredToClient,
