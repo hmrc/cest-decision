@@ -40,27 +40,19 @@ case class DatedCacheMap(id: String,
                          lastUpdated: DateTime = DateTime.now(DateTimeZone.UTC))
 
 object DatedCacheMap {
-
   implicit val formats: OFormat[DatedCacheMap] = Json.format[DatedCacheMap]
-
-  def apply(cacheMap: CacheMap): DatedCacheMap = DatedCacheMap(cacheMap.id, cacheMap.data)
 }
 
 class ReactiveMongoRepository(mongo: () => DefaultDB)
   extends ReactiveRepository[DatedCacheMap, BSONObjectID]("Off-Payroll-Interview", mongo, DatedCacheMap.formats) {
 
-  def save(i: LogInterview) : Future[WriteResult] = collection.insert(i)
+  def save(i: LogInterview) : Future[WriteResult] = collection.insert(ordered = false).one(i)
 
   def count(search: AnalyticsSearch): Future[Int] = {
     val query = Json.obj("decision" -> search.decision,  "completed" ->
       Json.obj("$gte" -> search.start, "$lt" -> search.end))
     Logger.info(s"[InterviewRepository][count] $query")
     collection.count(selector = Some(query), readConcern = ReadConcern.Majority, limit = None, skip = 0, hint = None).map(_.toInt)
-  }
-
-  implicit object BSONDateTimeHandler extends BSONHandler[BSONDateTime, DateTime] {
-    def read(time: BSONDateTime) = new DateTime(time.value)
-    def write(time: DateTime) = BSONDateTime(time.getMillis)
   }
 }
 
