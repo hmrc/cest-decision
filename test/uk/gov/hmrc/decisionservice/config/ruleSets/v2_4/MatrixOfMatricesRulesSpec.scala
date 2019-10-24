@@ -310,13 +310,6 @@ class MatrixOfMatricesRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
         financialRisk -> MEDIUM,
         partAndParcel -> MEDIUM,
         businessOnOwnAccount -> HIGH
-      ),
-      Json.obj(
-        personalService -> HIGH,
-        control -> MEDIUM,
-        financialRisk -> MEDIUM,
-        partAndParcel -> HIGH,
-        businessOnOwnAccount -> HIGH
       )
     )
 
@@ -555,6 +548,13 @@ class MatrixOfMatricesRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
       Json.obj(
         personalService -> HIGH,
         control -> HIGH,
+        financialRisk -> MEDIUM,
+        partAndParcel -> HIGH,
+        businessOnOwnAccount -> HIGH
+      ),
+      Json.obj(
+        personalService -> HIGH,
+        control -> MEDIUM,
         financialRisk -> MEDIUM,
         partAndParcel -> HIGH,
         businessOnOwnAccount -> HIGH
