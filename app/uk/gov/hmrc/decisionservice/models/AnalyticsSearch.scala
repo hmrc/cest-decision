@@ -27,6 +27,6 @@ object AnalyticsSearch {
 
   val dateFormat = "yyyy-MM-dd HH:mm:ss"
 
-  implicit val dateWrites = Writes.jodaDateWrites(dateFormat)
-  implicit val dateReads = Reads.jodaDateReads(dateFormat)
+  implicit val dateWrites = JodaWrites.jodaDateWrites(dateFormat)
+  implicit val dateReads = JodaReads.jodaDateReads(dateFormat)
 }

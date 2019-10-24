@@ -21,7 +21,7 @@ import java.time.LocalDateTime
 import com.google.inject.Inject
 import play.api.Logger
 import uk.gov.hmrc.decisionservice.models._
-import uk.gov.hmrc.decisionservice.models.enums.{ResultEnum, SetupEnum, WeightedAnswerEnum}
+import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, ResultEnum, SetupEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 import uk.gov.hmrc.decisionservice.ruleEngines._
 
@@ -39,9 +39,7 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
   def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[DecisionResponse] = {
 
     val interview = request.interview
-    implicit val version = request.version
-
-    val setup = if(interview.setup.isDefined) Some(SetupEnum.CONTINUE) else None
+    implicit val version: DecisionServiceVersion.Value = request.version
 
     for {
       exit <- earlyExitRuleEngine.decide(interview.exit)
@@ -50,8 +48,8 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
       financialRisk <- financialRiskRuleEngine.decide(interview.financialRisk)
       partAndParcel <- partAndParcelRuleEngine.decide(interview.partAndParcel)
       businessOnOwnAccount <- businessOnOwnAccountRuleEngine.decide(interview.businessOnOwnAccount)
-      score = Score(setup, exit, personalService, control, financialRisk, partAndParcel, businessOnOwnAccount)
-      scoreWithoutBooa = Score(setup, exit, personalService, control, financialRisk, partAndParcel, Some(WeightedAnswerEnum.MEDIUM))
+      score = Score(Some(SetupEnum.CONTINUE), exit, personalService, control, financialRisk, partAndParcel, businessOnOwnAccount)
+      scoreWithoutBooa = Score(Some(SetupEnum.CONTINUE), exit, personalService, control, financialRisk, partAndParcel, Some(WeightedAnswerEnum.MEDIUM))
       result <- resultRuleEngine.decide(score)
       resultWithoutBooa <- resultRuleEngine.decide(scoreWithoutBooa)
       response = DecisionResponse(request.version, request.correlationID, score, result, resultWithoutBooa)

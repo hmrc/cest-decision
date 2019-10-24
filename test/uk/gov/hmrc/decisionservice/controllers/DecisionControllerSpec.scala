@@ -37,10 +37,7 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
   val fakeRequest = FakeRequest()
   val json: JsValue = Json.parse("{}")
 
-  object TestDecisionController extends DecisionController(
-    stubMessagesControllerComponents(),
-    mockDecisionService
-  )
+  val testDecisionController = new DecisionController(stubMessagesControllerComponents(),mockDecisionService)
 
   "Decision Controller" must {
 
@@ -60,7 +57,7 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
 
       val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(toJson(decisionRequest))
 
-      val response = await(TestDecisionController.decide()(fakeRequest))
+      val response = await(testDecisionController.decide()(fakeRequest))
 
       status(response) shouldBe OK
       jsonBodyOf(response) shouldBe Json.obj(
@@ -72,15 +69,27 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
       )
     }
 
-    "return a 400 error" in {
+    "return a 400 error for invalid json" in {
 
-      val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(toJson("{}"))
+      val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(Json.parse("{}"))
 
-      val response = await(TestDecisionController.decide()(fakeRequest))
+      val response = await(testDecisionController.decide()(fakeRequest))
 
       status(response) shouldBe BAD_REQUEST
       jsonBodyOf(response) shouldBe Json.parse(
-        """{"code":4001,"message":"{\"obj\":[{\"msg\":[\"error.expected.jsobject\"],\"args\":[]}]}"}""".stripMargin
+        """{"code":400,"message":"{\"obj.version\":[{\"msg\":[\"error.path.missing\"],\"args\":[]}],\"obj.interview\":[{\"msg\":[\"error.path.missing\"],\"args\":[]}],\"obj.correlationID\":[{\"msg\":[\"error.path.missing\"],\"args\":[]}]}","details":"{\"incorrectRequest\":List((/interview,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/version,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/correlationID,List(JsonValidationError(List(error.path.missing),WrappedArray()))))}"}"""
+      )
+    }
+
+    "return a 400 error for a non json response" in {
+
+      val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(toJson("{}"))
+
+      val response = await(testDecisionController.decide()(fakeRequest))
+
+      status(response) shouldBe BAD_REQUEST
+      jsonBodyOf(response) shouldBe Json.parse(
+        """{"code":400,"message":"{\"obj\":[{\"msg\":[\"error.expected.jsobject\"],\"args\":[]}]}","details":"{\"incorrectRequest\":List((,List(JsonValidationError(List(error.expected.jsobject),WrappedArray()))))}"}"""
       )
     }
   }

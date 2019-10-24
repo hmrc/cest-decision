@@ -23,7 +23,7 @@ case class PersonalService(workerSentActualSubstitute: Option[WorkerSentActualSu
                            workerPayActualSubstitute: Option[Boolean] = None,
                            possibleSubstituteRejection: Option[PossibleSubstituteRejection.Value] = None,
                            possibleSubstituteWorkerPay: Option[Boolean] = None,
-                           wouldWorkerPayHelper: Option[Boolean] = None) extends Section
+                           wouldWorkerPayHelper: Option[Boolean] = None)
 
 object PersonalService {
   implicit val format: Format[PersonalService] = Json.format[PersonalService]

@@ -23,7 +23,7 @@ case class BusinessOnOwnAccount(exclusiveContract: Option[ExclusiveContract.Valu
                                 transferRights: Option[TransferRights.Value] = None,
                                 multipleEngagements: Option[MultipleEngagements.Value] = None,
                                 significantWorkingTime: Option[SignificantWorkingTime.Value] = None,
-                                seriesOfContracts: Option[SeriesOfContracts.Value] = None) extends Section
+                                seriesOfContracts: Option[SeriesOfContracts.Value] = None)
 
 object BusinessOnOwnAccount {
   implicit val format: Format[BusinessOnOwnAccount] = Json.format[BusinessOnOwnAccount]

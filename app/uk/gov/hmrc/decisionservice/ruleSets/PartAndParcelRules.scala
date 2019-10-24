@@ -27,10 +27,6 @@ object PartAndParcelRules_v150 extends PartAndParcelRules {
   override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v1_5_0)
 }
 
-object PartAndParcelRules_v22 extends PartAndParcelRules {
-  override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_2)
-}
-
 object PartAndParcelRules_v24 extends PartAndParcelRules {
   override lazy val ruleSet: Seq[RuleSet] = parseRuleSet(DecisionServiceVersion.v2_4)
 }
@@ -38,7 +34,6 @@ object PartAndParcelRules_v24 extends PartAndParcelRules {
 object PartAndParcelRules {
   def apply(version: DecisionServiceVersion.Value): PartAndParcelRules = version match {
     case DecisionServiceVersion.`v1_5_0` => PartAndParcelRules_v150
-    case DecisionServiceVersion.`v2_2` => PartAndParcelRules_v22
     case DecisionServiceVersion.`v2_4` => PartAndParcelRules_v24
   }
 }

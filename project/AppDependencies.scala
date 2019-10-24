@@ -14,6 +14,7 @@ object AppDependencies {
     "uk.gov.hmrc" %% "simple-reactivemongo" % "7.20.0-play-26",
     "uk.gov.hmrc" %% "http-caching-client" % "9.0.0-play-26",
     "uk.gov.hmrc" %% "bootstrap-play-26" % "1.0.0",
+    "com.typesafe.play" %% "play-json-joda" % "2.6.13",
     ws
   )
 

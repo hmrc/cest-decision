@@ -22,7 +22,7 @@ import uk.gov.hmrc.decisionservice.models.enums.{ChooseWhereWork, HowWorkIsDone,
 case class Control(engagerMovingWorker: Option[MoveWorker.Value],
                    workerDecidingHowWorkIsDone: Option[HowWorkIsDone.Value],
                    whenWorkHasToBeDone: Option[ScheduleOfWorkingHours.Value],
-                   workerDecideWhere: Option[ChooseWhereWork.Value]) extends Section
+                   workerDecideWhere: Option[ChooseWhereWork.Value])
 
 object Control {
   implicit val format: Format[Control] = Json.format[Control]
