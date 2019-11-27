@@ -17,18 +17,11 @@
 package uk.gov.hmrc.decisionservice.config
 
 import com.google.inject.AbstractModule
-import play.api.Logger
-import play.modules.reactivemongo.ReactiveMongoComponent
-import uk.gov.hmrc.decisionservice.repository.InterviewRepository
-import uk.gov.hmrc.decisionservice.services.AnalyticsService
 
 class Module extends AbstractModule {
 
   override def configure(): Unit = {
-    bind(classOf[ReactiveMongoComponent]).asEagerSingleton()
-    bind(classOf[InterviewRepository]).asEagerSingleton()
     bind(classOf[AppConfig]).asEagerSingleton()
-    bind(classOf[AnalyticsService]).asEagerSingleton()
   }
 
 }
