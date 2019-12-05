@@ -22,7 +22,6 @@ import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import uk.gov.hmrc.decisionservice.models._
 import uk.gov.hmrc.decisionservice.models.enums._
-import uk.gov.hmrc.decisionservice.repository.InterviewRepository
 import uk.gov.hmrc.decisionservice.ruleEngines._
 import uk.gov.hmrc.play.test.UnitSpec
 
@@ -40,8 +39,7 @@ class DecisionServiceSpec extends UnitSpec with GuiceOneAppPerSuite {
     val businessOnOwnAccount = mock[BusinessOnOwnAccountRuleEngine]
     val result = mock[ResultRuleEngine]
 
-    val target = new DecisionService(control,exit,financialRisk,personalService,partAndParcel,result,businessOnOwnAccount,
-      app.injector.instanceOf[InterviewRepository])
+    val target = new DecisionService(control,exit,financialRisk,personalService,partAndParcel,result,businessOnOwnAccount)
   }
 
   "DecisionService" when {

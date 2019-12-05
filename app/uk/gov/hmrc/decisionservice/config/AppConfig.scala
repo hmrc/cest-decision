@@ -24,7 +24,5 @@ import uk.gov.hmrc.play.bootstrap.config.ServicesConfig
 class AppConfig @Inject()(env: Environment, val runModeConfiguration: Configuration, servicesConfig: ServicesConfig) {
 
   val mode: Mode = env.mode
-  val gatherAnalytics: Boolean = runModeConfiguration.getOptional[Boolean]("analytics.gatherAnalytics").getOrElse(false)
-  val reportingPeriod: Int = runModeConfiguration.getOptional[Int]("analytics.reportingPeriod").getOrElse(0)
 
 }

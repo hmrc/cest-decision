@@ -16,13 +16,9 @@
 
 package uk.gov.hmrc.decisionservice.services
 
-import java.time.LocalDateTime
-
 import com.google.inject.Inject
-import play.api.Logger
 import uk.gov.hmrc.decisionservice.models._
-import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, ResultEnum, SetupEnum, WeightedAnswerEnum}
-import uk.gov.hmrc.decisionservice.repository.InterviewRepository
+import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, SetupEnum, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.ruleEngines._
 
 import scala.concurrent.{ExecutionContext, Future}
@@ -33,8 +29,7 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
                                 personalServiceRuleEngine: PersonalServiceRuleEngine,
                                 partAndParcelRuleEngine: PartAndParcelRuleEngine,
                                 resultRuleEngine: ResultRuleEngine,
-                                businessOnOwnAccountRuleEngine: BusinessOnOwnAccountRuleEngine,
-                                val repository: InterviewRepository) {
+                                businessOnOwnAccountRuleEngine: BusinessOnOwnAccountRuleEngine) {
 
   def calculateResult(request: DecisionRequest)(implicit ec: ExecutionContext): Future[DecisionResponse] = {
 
@@ -52,24 +47,6 @@ class DecisionService @Inject()(controlRuleEngine: ControlRuleEngine,
       scoreWithoutBooa = Score(Some(SetupEnum.CONTINUE), exit, personalService, control, financialRisk, partAndParcel, Some(WeightedAnswerEnum.MEDIUM))
       result <- resultRuleEngine.decide(score)
       resultWithoutBooa <- resultRuleEngine.decide(scoreWithoutBooa)
-      response = DecisionResponse(request.version, request.correlationID, score, result, resultWithoutBooa)
-      _ <- logResult(request, response)
-    } yield response
+    } yield DecisionResponse(request.version, request.correlationID, score, result, resultWithoutBooa)
   }
-
-  private def logResult(request: DecisionRequest, response: DecisionResponse)(implicit ec: ExecutionContext): Future[Boolean] =
-    if (response.result != ResultEnum.NOT_MATCHED) {
-      repository().save(LogInterview(request, response.result.toString, response.score, LocalDateTime.now)).map {
-        case result if result.ok => true
-        case result => {
-          Logger.error(s"[DecisionService][logResult] Failed to log result, ${result.writeErrors}")
-          false
-        }
-      }.recover {
-        case e => {
-          Logger.error(s"[DecisionService][logResult] Failed to write to Mongo, ${e.getMessage}")
-          false
-        }
-      }
-    } else Future.successful(true)
 }
