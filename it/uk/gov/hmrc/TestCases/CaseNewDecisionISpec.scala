@@ -12,55 +12,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 1 a POST /decide}" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase1a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-149274dd-0261-4da9-8b68-6131932bb6dd",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone1 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-12345",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase1a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase1e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase1 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-149274dd-0261-4da9-8b68-6131932bb6dd",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -95,24 +50,20 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workAsIndependent")
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"unableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"providedServicesToOtherEngagers",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"contractIsPartOfASeries"
+          )
         )
       )
 
-      val decisionRespone1e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-12345",
-        "score" -> Json.obj(
-          "partAndParcel" -> "LOW",
-          "financialRisk" -> "LOW",
-          "personalService" -> "HIGH",
-          "exit" -> "CONTINUE",
-          "control" -> "HIGH",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide",decisionCase1e)
+    lazy val res = postRequest("/decide",decisionCase1)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -121,6 +72,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"HIGH"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Inside IR35"""")
       }
     }
@@ -129,55 +81,11 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 2 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase2a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-829e8d15-3699-4988-b825-94c59db392a7",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "soleTrader"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone2 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-12345",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase2a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase2e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase2 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-829e8d15-3699-4988-b825-94c59db392a7",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -212,24 +120,19 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workAsIndependent")
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone2e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-12345",
-        "score" -> Json.obj(
-          "partAndParcel" -> "LOW",
-          "financialRisk" -> "LOW",
-          "personalService" -> "HIGH",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Inside IR35")
-
-      lazy val res = postRequest("/decide",decisionCase2e)
+      lazy val res = postRequest("/decide",decisionCase2)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -238,6 +141,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Inside IR35"""")
       }
     }
@@ -246,56 +150,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 3 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase3a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-829e8d15-12345-4988-b825-94c59db392a7",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone3 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-829e8d15-12345-4988-b825-94c59db392a7",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase3a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase3e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase3 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-829e8d15-12345-4988-b825-94c59db392a7",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -331,21 +189,19 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workAsIndependent")
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone3e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-829e8d15-12345-4988-b825-94c59db392a7",
-        "score" -> Json.obj(
-          "exit" -> "CONTINUE",
-          "control" -> "OUTOFIR35",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Outside IR35")
-
-      lazy val res = postRequest("/decide",decisionCase3e)
+      lazy val res = postRequest("/decide",decisionCase3)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -354,6 +210,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"MEDIUM"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"OUTOFIR35"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Outside IR35"""")
       }
     }
@@ -363,56 +220,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 4 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase4a =  Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone4 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase4a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase4e =  Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase4 =  Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -447,24 +258,20 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workAsIndependent")
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone4e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
-        "score" -> Json.obj(
-          "partAndParcel" -> "LOW",
-          "financialRisk" -> "MEDIUM",
-          "personalService" -> "HIGH",
-          "exit" -> "CONTINUE",
-          "control" -> "HIGH",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide",decisionCase4e)
+      lazy val res = postRequest("/decide",decisionCase4)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -473,6 +280,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"HIGH"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Inside IR35"""")
       }
     }
@@ -482,60 +290,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 5 a POST /decide" should {
 
-    val decisionCase5a = Json.obj(
-      "version" -> "1.5.0-final",
-      "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
-      "interview" -> Json.obj(
-        "setup" -> Json.obj(
-          "endUserRole" -> "personDoingWork",
-          "hasContractStarted" -> true,
-          "provideServices" -> "limitedCompany"
-        ),
-        "exit" -> Json.obj(
-          "officeHolder" -> false
-        ),
-        "personalService" -> Json.obj(
-
-        ),
-        "control" -> Json.obj(
-
-        ),
-        "financialRisk" -> Json.obj(
-          "expensesAreNotRelevantForRole" -> false
-        ),
-        "partAndParcel" -> Json.obj(
-        )
-      )
-    )
-
-    val decisionRespone5 = Json.obj(
-      "version" -> "1.5.0-final",
-      "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
-      "score" -> Json.obj(
-        "partAndParcel" -> "NotValidUseCase",
-        "financialRisk" -> "NotValidUseCase",
-        "personalService" -> "NotValidUseCase",
-        "exit" -> "CONTINUE",
-        "control" -> "NotValidUseCase",
-        "setup" -> "CONTINUE"
-      ),
-      "result" -> "Not Matched")
-
-    "return a 200 and continue response given a early exit request" in {
-
-      lazy val res = postRequest("/decide",decisionCase5a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase5e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase5 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -570,21 +328,20 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workAsIndependent")
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone5e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-4ab87a6b-2dea-49db-a519-650a12ae06b1",
-        "score" -> Json.obj(
-          "exit" -> "CONTINUE",
-          "control" -> "OUTOFIR35",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide",decisionCase5e)
+      lazy val res = postRequest("/decide",decisionCase5)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -593,6 +350,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"OUTOFIR35"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Outside IR35"""")
       }
     }
@@ -602,56 +360,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 6 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase6a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone6 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase6a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase6e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase6 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -685,22 +397,19 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
           "partAndParcel" -> Json.obj(
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
-            "contactWithEngagerCustomer" -> false)
+            "contactWithEngagerCustomer" -> false
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone6e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-425437df-24ce-4e97-8537-d521697277d5",
-        "score" -> Json.obj(
-          "financialRisk" -> "OUTOFIR35",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Outside IR35")
-
-      lazy val res = postRequest("/decide",decisionCase6e)
+      lazy val res = postRequest("/decide",decisionCase6)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -709,6 +418,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Outside IR35"""")
       }
     }
@@ -718,56 +428,11 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 7 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase7a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone7 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase7a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase7e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase7 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -802,24 +467,19 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workAsIndependent")
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone7e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-3015fd77-c21b-4b49-b166-ff6170b834c8",
-        "score" -> Json.obj(
-          "partAndParcel" -> "LOW",
-          "financialRisk" -> "LOW",
-          "personalService" -> "HIGH",
-          "exit" -> "CONTINUE",
-          "control" -> "HIGH",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Inside IR35")
-
-      lazy val res = postRequest("/decide",decisionCase7e)
+      lazy val res = postRequest("/decide",decisionCase7)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -828,6 +488,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"HIGH"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Inside IR35"""")
       }
     }
@@ -837,56 +498,11 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 8 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase8a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone8 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase8a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase8e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase8 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -920,24 +536,20 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
           "partAndParcel" -> Json.obj(
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> true,
-            "contactWithEngagerCustomer" -> false)
+            "contactWithEngagerCustomer" -> false
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone8e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-8cbd115f-d486-46d8-ba89-1d7531c96479",
-        "score" -> Json.obj(
-          "partAndParcel" -> "HIGH",
-          "financialRisk" -> "LOW",
-          "personalService" -> "HIGH",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide",decisionCase8e)
+      lazy val res = postRequest("/decide",decisionCase8)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -946,6 +558,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Inside IR35"""")
       }
     }
@@ -955,56 +568,11 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 9 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase9a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone9 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase9a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase9e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase9 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -1039,24 +607,20 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workAsIndependent")
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone9e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-a9aed912-33b1-49ad-b972-72b5d8c65be0",
-        "score" -> Json.obj(
-          "partAndParcel" -> "LOW",
-          "financialRisk" -> "LOW",
-          "personalService" -> "HIGH",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide",decisionCase9e)
+      lazy val res = postRequest("/decide",decisionCase9)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1065,6 +629,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Inside IR35"""")
       }
     }
@@ -1074,56 +639,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 10 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase10a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "soleTrader"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone10 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase10a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase10e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase10 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -1157,22 +676,19 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
           "partAndParcel" -> Json.obj(
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
-            "contactWithEngagerCustomer" -> false)
+            "contactWithEngagerCustomer" -> false
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone10e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-30128ec4-15e1-4ff0-a487-3dc866f8d25d",
-        "score" -> Json.obj(
-          "financialRisk" -> "OUTOFIR35",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Outside IR35")
-
-      lazy val res = postRequest("/decide",decisionCase10e)
+      lazy val res = postRequest("/decide",decisionCase10)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1181,84 +697,21 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"MEDIUM"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Outside IR35"""")
       }
     }
 
   }
 
-  //TODO still requires the last case
-
-  /*
   s"For Case 11 a POST /decide" should {
-
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase11a = """"""
-      val decisionRespone11 = Json.obj(
-"version" -> "1.5.0-final",
-"correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
-"score" -> Json.obj(
-"partAndParcel" -> "NotValidUseCase",
-"financialRisk" -> "NotValidUseCase",
-"personalService" -> "NotValidUseCase",
-"exit" -> "CONTINUE",
-"control" -> "NotValidUseCase",
-"setup" -> "CONTINUE"
-),
-"result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase11a)
-
-      whenReady(res) { result =>
- result.status shouldBe OK
- result.body should include(""""exit":"CONTINUE"""")
- result.body should include(""""result":"Not Matched"""")
-      }
-    }
 
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase11e = """"""
-      val decisionRespone11e = Json.obj(
-"version" -> "1.5.0-final",
-"correlationID" -> "session-72dc03fc-c41e-49be-bee3-f207fb21e8ec",
-"score" -> Json.obj(
-"partAndParcel" -> "LOW",
-"financialRisk" -> "MEDIUM",
-"personalService" -> "HIGH",
-"exit" -> "CONTINUE",
-"control" -> "HIGH",
-"setup" -> "CONTINUE"
-),
-"result" -> "Inside IR35")
-
-      lazy val res = postRequest("/decide",decisionCase11e)
-
-      whenReady(res) { result =>
- result.status shouldBe OK
- result.body should include(""""partAndParcel":"MEDIUM"""")
- result.body should include(""""financialRisk":"LOW"""")
- result.body should include(""""personalService":"MEDIUM"""")
- result.body should include(""""exit":"CONTINUE"""")
- result.body should include(""""control":"MEDIUM"""")
- result.body should include(""""result":"Inside IR35"""")
-      }
-    }
-
-  }
-  */
-
-
-
-  s"For Case 12 a POST /decide" should {
-
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase12a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
+      val decisionCase11 = Json.obj(
+        "version" -> "2.4",
+        "correlationID" -> "session-2cf487a1-1186-4ab4-adbc-39c4203d3a57",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
             "endUserRole" -> "personDoingWork",
@@ -1268,42 +721,65 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
           "exit" -> Json.obj(
             "officeHolder" -> false
           ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> false
           ),
-          "partAndParcel" -> Json.obj()
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "cannotMoveWorkerWithoutNewAgreement",
+            "workerDecidingHowWorkIsDone" -> "workerDecidesWithoutInput",
+            "whenWorkHasToBeDone" -> "workerAgreeSchedule",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> false,
+            "workerProvidedEquipment" -> false,
+            "workerUsedVehicle" -> false,
+            "workerHadOtherExpenses" -> false,
+            "expensesAreNotRelevantForRole" -> true,
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "asPartOfUsualRateInWorkingHours"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> false,
+            "workerAsLineManager" -> false,
+            "contactWithEngagerCustomer" -> true,
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"contractIsPartOfASeries"
+          )
         )
       )
 
-      val decisionRespone12 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase12a)
+      lazy val res = postRequest("/decide",decisionCase11)
 
       whenReady(res) { result =>
         result.status shouldBe OK
+        result.body should include(""""partAndParcel":"LOW"""")
+        result.body should include(""""financialRisk":"LOW"""")
+        result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
+        result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
+        result.body should include(""""result":"Inside IR35"""")
       }
     }
 
+  }
+
+
+  s"For Case 12 a POST /decide" should {
 
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase12e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase12 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -1339,22 +815,19 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workAsIndependent")
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone12e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-8975db1b-80d7-4c76-85d6-03a25c558925",
-        "score" -> Json.obj(
-          "financialRisk" -> "OUTOFIR35",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Outside IR35")
-
-      lazy val res = postRequest("/decide",decisionCase12e)
+      lazy val res = postRequest("/decide",decisionCase12)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1363,6 +836,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"MEDIUM"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Outside IR35"""")
       }
     }
@@ -1371,56 +845,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 13 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase13a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "soleTrader"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone13 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase13a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase13e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase13 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -1456,22 +884,19 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workForEndClient")
+            "workerRepresentsEngagerBusiness" -> "workForEndClient"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone13e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-f49e56a6-b690-4c06-a0d8-f82f836a58d7",
-        "score" -> Json.obj(
-          "financialRisk" -> "OUTOFIR35",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Outside IR35")
-
-      lazy val res = postRequest("/decide",decisionCase13e)
+      lazy val res = postRequest("/decide",decisionCase13)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1480,6 +905,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"MEDIUM"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Outside IR35"""")
       }
     }
@@ -1488,56 +914,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 14 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase14a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone14 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase14a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase14e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase14 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -1572,22 +952,19 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workAsIndependent")
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone14e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-7ff64104-e39b-4e75-8960-3bccbcb7df23",
-        "score" -> Json.obj(
-          "financialRisk" -> "OUTOFIR35",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Outside IR35")
-
-      lazy val res = postRequest("/decide",decisionCase14e)
+      lazy val res = postRequest("/decide",decisionCase14)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1596,6 +973,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Outside IR35"""")
       }
     }
@@ -1605,55 +983,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 15 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase15a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone15 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase15a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase15e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase15 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -1687,22 +1020,20 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
           "partAndParcel" -> Json.obj(
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
-            "contactWithEngagerCustomer" -> false)
+            "contactWithEngagerCustomer" -> false
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone15e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-b2d2388f-b241-4957-8141-2d0c5c0836a2",
-        "score" -> Json.obj(
-          "financialRisk" -> "OUTOFIR35",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide",decisionCase15e)
+      lazy val res = postRequest("/decide",decisionCase15)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1711,6 +1042,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Outside IR35"""")
       }
     }
@@ -1720,56 +1052,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 16 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase16a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone16 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase16a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase16e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase16 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -1803,24 +1089,19 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
           "partAndParcel" -> Json.obj(
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
-            "contactWithEngagerCustomer" -> false)
+            "contactWithEngagerCustomer" -> false
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone16e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-f757b601-7eec-46db-8024-652e6d425957",
-        "score" -> Json.obj(
-          "partAndParcel" -> "LOW",
-          "financialRisk" -> "LOW",
-          "personalService" -> "HIGH",
-          "exit" -> "CONTINUE",
-          "control" -> "HIGH",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Inside IR35")
-
-      lazy val res = postRequest("/decide",decisionCase16e)
+      lazy val res = postRequest("/decide",decisionCase16)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1829,6 +1110,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"HIGH"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Inside IR35"""")
       }
     }
@@ -1837,55 +1119,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 17 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase17a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone17 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase17a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase17e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase17 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -1920,24 +1157,20 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workAsIndependent")
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone17e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-4d138f6f-3656-4044-ba7d-6a8540e094dc",
-        "score" -> Json.obj(
-          "partAndParcel" -> "LOW",
-          "financialRisk" -> "MEDIUM",
-          "personalService" -> "HIGH",
-          "exit" -> "CONTINUE",
-          "control" -> "HIGH",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Inside IR35")
 
-      lazy val res = postRequest("/decide",decisionCase17e)
+      lazy val res = postRequest("/decide",decisionCase17)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -1946,6 +1179,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"HIGH"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Inside IR35"""")
       }
     }
@@ -1954,56 +1188,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 18 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase18a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "soleTrader"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone18 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase18a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase18e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase18 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -2037,22 +1225,20 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
           "partAndParcel" -> Json.obj(
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
-            "contactWithEngagerCustomer" -> false)
+            "contactWithEngagerCustomer" -> false
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone18e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-e7d07a17-3cfe-4ff6-bcca-cda7d0eb651e",
-        "score" -> Json.obj(
-          "financialRisk" -> "OUTOFIR35",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide",decisionCase18e)
+      lazy val res = postRequest("/decide",decisionCase18)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2061,6 +1247,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Outside IR35"""")
       }
     }
@@ -2069,56 +1256,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 19 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase19a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "soleTrader"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone19 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase19a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase19e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase19 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -2153,22 +1294,20 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workAsIndependent")
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone19e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-6dc80962-346a-4c25-b5a6-7d08cabee4c9",
-        "score" -> Json.obj(
-          "financialRisk" -> "OUTOFIR35",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Outside IR35")
 
-      lazy val res = postRequest("/decide",decisionCase19e)
+      lazy val res = postRequest("/decide",decisionCase19)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2177,6 +1316,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Outside IR35"""")
       }
     }
@@ -2185,56 +1325,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 20 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase20a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone20 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase20a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase20e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase20 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -2270,24 +1364,19 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workAsIndependent")
+            "workerRepresentsEngagerBusiness" -> "workAsIndependent"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone20e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-685d7f4f-92c3-49c2-9520-09836fa0390b",
-        "score" -> Json.obj(
-          "partAndParcel" -> "LOW",
-          "financialRisk" -> "MEDIUM",
-          "personalService" -> "MEDIUM",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Unknown")
-
-      lazy val res = postRequest("/decide",decisionCase20e)
+      lazy val res = postRequest("/decide",decisionCase20)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2296,6 +1385,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"MEDIUM"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Unknown"""")
       }
     }
@@ -2304,56 +1394,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 21 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase21a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "limitedCompany"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone21 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase21a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase21e = Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase21 = Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -2387,24 +1431,19 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
           "partAndParcel" -> Json.obj(
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
-            "contactWithEngagerCustomer" -> false)
+            "contactWithEngagerCustomer" -> false
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone21e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-bb2b9dee-2599-4494-9c4d-324709e81adc",
-        "score" -> Json.obj(
-          "partAndParcel" -> "LOW",
-          "financialRisk" -> "LOW",
-          "personalService" -> "HIGH",
-          "exit" -> "CONTINUE",
-          "control" -> "HIGH",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Inside IR35")
-
-      lazy val res = postRequest("/decide",decisionCase21e)
+      lazy val res = postRequest("/decide",decisionCase21)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2413,6 +1452,7 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"HIGH"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"HIGH"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Inside IR35"""")
       }
     }
@@ -2422,56 +1462,10 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
 
   s"For Case 22 a POST /decide" should {
 
-    "return a 200 and continue response given a early exit request" in {
-
-      val decisionCase22a = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
-        "interview" -> Json.obj(
-          "setup" -> Json.obj(
-            "endUserRole" -> "personDoingWork",
-            "hasContractStarted" -> true,
-            "provideServices" -> "soleTrader"
-          ),
-          "exit" -> Json.obj(
-            "officeHolder" -> false
-          ),
-          "personalService" -> Json.obj(),
-          "control" -> Json.obj(),
-          "financialRisk" -> Json.obj(
-            "expensesAreNotRelevantForRole" -> false
-          ),
-          "partAndParcel" -> Json.obj()
-        )
-      )
-
-      val decisionRespone22 = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
-        "score" -> Json.obj(
-          "partAndParcel" -> "NotValidUseCase",
-          "financialRisk" -> "NotValidUseCase",
-          "personalService" -> "NotValidUseCase",
-          "exit" -> "CONTINUE",
-          "control" -> "NotValidUseCase",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Not Matched")
-
-      lazy val res = postRequest("/decide",decisionCase22a)
-
-      whenReady(res) { result =>
-        result.status shouldBe OK
-        result.body should include(""""exit":"CONTINUE"""")
-        result.body should include(""""result":"Not Matched"""")
-      }
-    }
-
-
     "return a 200 and continue response given a All sections request" in {
 
-      val decisionCase22e =  Json.obj(
-        "version" -> "1.5.0-final",
+      val decisionCase22 =  Json.obj(
+        "version" -> "2.4",
         "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
         "interview" -> Json.obj(
           "setup" -> Json.obj(
@@ -2507,24 +1501,19 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
             "workerReceivesBenefits" -> false,
             "workerAsLineManager" -> false,
             "contactWithEngagerCustomer" -> true,
-            "workerRepresentsEngagerBusiness" -> "workForEndClient")
+            "workerRepresentsEngagerBusiness" -> "workForEndClient"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
         )
       )
 
-      val decisionRespone22e = Json.obj(
-        "version" -> "1.5.0-final",
-        "correlationID" -> "session-72f6b69a-018e-4ad7-8589-a04658801d32",
-        "score" -> Json.obj(
-          "partAndParcel" -> "MEDIUM",
-          "financialRisk" -> "LOW",
-          "personalService" -> "MEDIUM",
-          "exit" -> "CONTINUE",
-          "control" -> "MEDIUM",
-          "setup" -> "CONTINUE"
-        ),
-        "result" -> "Inside IR35")
-
-      lazy val res = postRequest("/decide",decisionCase22e)
+      lazy val res = postRequest("/decide",decisionCase22)
 
       whenReady(res) { result =>
         result.status shouldBe OK
@@ -2533,12 +1522,83 @@ class CaseNewDecisionISpec extends IntegrationSpecBase with DefaultBodyWritables
         result.body should include(""""personalService":"MEDIUM"""")
         result.body should include(""""exit":"CONTINUE"""")
         result.body should include(""""control":"MEDIUM"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
         result.body should include(""""result":"Inside IR35"""")
 
       }
     }
 
   }
+
+  s"For Case 23 a POST /decide" should {
+
+    "return a 200 and continue response given a All sections request" in {
+
+      val decisionCase23 =  Json.obj(
+        "version" -> "2.4",
+        "correlationID" -> "session-5ddf914b-89f4-4669-a4b1-ba20af7bcf6f",
+        "interview" -> Json.obj(
+          "setup" -> Json.obj(
+            "endUserRole" -> "endClient",
+            "hasContractStarted" -> true,
+            "provideServices" -> "soleTrader"
+          ),
+          "exit" -> Json.obj(
+            "officeHolder" -> false
+          ),
+          "personalService" -> Json.obj(
+            "workerSentActualSubstitute" -> "noSubstitutionHappened",
+            "possibleSubstituteRejection" -> "wouldReject",
+            "wouldWorkerPayHelper" -> false
+          ),
+          "control" -> Json.obj(
+            "engagerMovingWorker" -> "canMoveWorkerWithPermission",
+            "workerDecidingHowWorkIsDone" -> "noWorkerInputAllowed",
+            "whenWorkHasToBeDone" -> "noScheduleRequiredOnlyDeadlines",
+            "workerDecideWhere" -> "noLocationRequired"
+          ),
+          "financialRisk" -> Json.obj(
+            "workerProvidedMaterials" -> false,
+            "workerProvidedEquipment" -> false,
+            "workerUsedVehicle" -> false,
+            "workerHadOtherExpenses" -> false,
+            "expensesAreNotRelevantForRole" -> true,
+            "workerMainIncome" -> "incomeCalendarPeriods",
+            "paidForSubstandardWork" -> "cannotBeCorrected"
+          ),
+          "partAndParcel" -> Json.obj(
+            "workerReceivesBenefits" -> false,
+            "workerAsLineManager" -> false,
+            "contactWithEngagerCustomer" -> true,
+            "workerRepresentsEngagerBusiness" -> "workForEndClient"
+          ),
+          "businessOnOwnAccount"-> Json.obj(
+            "exclusiveContract"->"ableToProvideServices",
+            "transferRights"->"noRightsArise",
+            "multipleEngagements"->"onlyContractForPeriod",
+            "significantWorkingTime"->"consumesSignificantAmount",
+            "seriesOfContracts"->"standAloneContract"
+          )
+        )
+      )
+
+      lazy val res = postRequest("/decide",decisionCase23)
+
+      whenReady(res) { result =>
+        result.status shouldBe OK
+        result.body should include(""""partAndParcel":"MEDIUM"""")
+        result.body should include(""""financialRisk":"LOW"""")
+        result.body should include(""""personalService":"HIGH"""")
+        result.body should include(""""exit":"CONTINUE"""")
+        result.body should include(""""control":"HIGH"""")
+        result.body should include(""""businessOnOwnAccount":"LOW"""")
+        result.body should include(""""result":"Inside IR35"""")
+
+      }
+    }
+
+  }
+
 
 
 }
