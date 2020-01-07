@@ -53,11 +53,6 @@ object AppDependencies {
     }.test
   }
 
-  def tmpMacWorkaround(): Seq[ModuleID] =
-    if (sys.props.get("os.name").exists(_.toLowerCase.contains("mac")))
-      Seq("org.reactivemongo" % "reactivemongo-shaded-native" % "0.18.8-osx-x86-64" % "runtime,test,it")
-    else Seq()
-
-  def apply() = compile ++ Test() ++ IntegrationTest() ++ tmpMacWorkaround
+  def apply() = compile ++ Test() ++ IntegrationTest()
 }
 
