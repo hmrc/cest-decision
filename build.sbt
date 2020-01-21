@@ -31,6 +31,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(scalaSettings: _*)
   .settings(playSettings ++ scoverageSettings : _*)
   .settings(publishingSettings: _*)
+  .settings(SbtAutoBuildPlugin.forceLicenceHeader := true)
   .settings(defaultSettings(): _*)
   .settings(
     libraryDependencies ++= appDependencies,
