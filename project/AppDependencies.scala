@@ -29,8 +29,7 @@ object AppDependencies {
         "org.scalatest" %% "scalatest" % scalaTestVersion % scope,
         "org.pegdown" % "pegdown" % pegdownVersion % scope,
         "com.typesafe.play" %% "play-test" % PlayVersion.current % scope,
-        "uk.gov.hmrc" %% "http-caching-client" % "8.3.0" % scope,
-        "org.mockito" % "mockito-core" % "2.26.0" % scope,
+        "org.mockito" % "mockito-core" % "3.3.3" % scope,
         "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlayPlusVersion % scope,
         "org.scalamock" %% "scalamock-scalatest-support" % "3.6.0" % scope
       )
