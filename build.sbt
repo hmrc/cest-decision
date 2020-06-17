@@ -9,9 +9,15 @@ import uk.gov.hmrc.{SbtArtifactory, SbtAutoBuildPlugin}
 
 val appName = "cest-decision"
 
-lazy val appDependencies: Seq[ModuleID] = AppDependencies()
+val appDependencies: Seq[ModuleID] = AppDependencies()
 
-lazy val plugins : Seq[Plugins] = Seq.empty
+lazy val plugins : Seq[Plugins] = Seq(
+  play.sbt.PlayScala,
+  SbtAutoBuildPlugin,
+  SbtGitVersioning,
+  SbtDistributablesPlugin,
+  SbtArtifactory)
+
 lazy val playSettings : Seq[Setting[_]] = Seq.empty
 
 lazy val scoverageSettings = {
@@ -21,28 +27,41 @@ lazy val scoverageSettings = {
     ScoverageKeys.coverageExcludedPackages := "<empty>;Reverse.*;config.*;.*(AuthService|BuildInfo|Routes).*",
     ScoverageKeys.coverageMinimum := 80,
     ScoverageKeys.coverageFailOnMinimum := false,
-    ScoverageKeys.coverageHighlighting := true
+    ScoverageKeys.coverageHighlighting := true,
+    parallelExecution in Test := false
   )
 }
 
 lazy val microservice = Project(appName, file("."))
-  .enablePlugins(Seq(play.sbt.PlayScala,SbtAutoBuildPlugin, SbtGitVersioning, SbtDistributablesPlugin, SbtArtifactory) ++ plugins : _*)
-  .settings(playSettings : _*)
-  .settings(scalaSettings: _*)
+  .enablePlugins(Seq(play.sbt.PlayScala) ++ plugins: _*)
   .settings(playSettings ++ scoverageSettings : _*)
-  .settings(publishingSettings: _*)
-  .settings(SbtAutoBuildPlugin.forceLicenceHeader := true)
-  .settings(defaultSettings(): _*)
-  .settings(
-    libraryDependencies ++= appDependencies,
-    retrieveManaged := true,
-    evictionWarningOptions in update := EvictionWarningOptions.default.withWarnScalaVersionEviction(false)
-  )
   .settings(majorVersion := 1)
+  .settings(scalaSettings: _*)
+  .settings(publishingSettings: _*)
+  .settings(defaultSettings(): _*)
+  .settings(SbtAutoBuildPlugin.forceLicenceHeader := true)
   .configs(IntegrationTest)
-  .settings(inConfig(IntegrationTest)(Defaults.itSettings): _*)
-  .settings(integrationTestSettings())
   .settings(
-    resolvers += Resolver.bintrayRepo("hmrc", "releases"),
-    resolvers += Resolver.jcenterRepo
+    addTestReportOption(IntegrationTest, "int-test-reports"),
+    inConfig(IntegrationTest)(Defaults.itSettings),
+    scalaVersion := "2.12.11",
+    targetJvm := "jvm-1.8",
+    libraryDependencies ++= appDependencies,
+    parallelExecution in Test := false,
+    fork in Test := true,
+    retrieveManaged := true,
+    routesGenerator := InjectedRoutesGenerator,
+    Keys.fork in IntegrationTest :=  false,
+    unmanagedSourceDirectories in IntegrationTest :=  (baseDirectory in IntegrationTest)(base => Seq(base / "it")).value,
+    parallelExecution in IntegrationTest := false
+)
+
+  .settings(
+    resolvers := Seq(
+      Resolver.bintrayRepo("hmrc", "releases"),
+      Resolver.typesafeRepo("releases"),
+      Resolver.jcenterRepo
+    )
   )
+  .enablePlugins(SbtDistributablesPlugin, SbtAutoBuildPlugin, SbtGitVersioning)
+  .disablePlugins(JUnitXmlReportPlugin)

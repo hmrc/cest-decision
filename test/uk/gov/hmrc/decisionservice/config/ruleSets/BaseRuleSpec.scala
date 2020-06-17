@@ -16,7 +16,6 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.JsObject
 import uk.gov.hmrc.decisionservice.models.RuleSet
 import uk.gov.hmrc.decisionservice.util.TestFixture
