@@ -16,11 +16,11 @@
 
 package uk.gov.hmrc.decisionservice.models
 
+import org.scalatest.{Matchers, WordSpecLike}
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.models.enums._
-import uk.gov.hmrc.play.test.UnitSpec
 
-class BusinessOnOwnAccountSpec extends UnitSpec {
+class BusinessOnOwnAccountSpec extends WordSpecLike with Matchers {
 
   val businessOnOwnAccountModel = BusinessOnOwnAccount(
     exclusiveContract = Some(ExclusiveContract.ableToProvideServices),

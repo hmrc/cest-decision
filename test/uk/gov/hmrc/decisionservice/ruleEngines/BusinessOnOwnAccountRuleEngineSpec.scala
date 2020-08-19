@@ -16,12 +16,13 @@
 
 package uk.gov.hmrc.decisionservice.ruleEngines
 
+import org.scalatest.{Matchers, WordSpecLike}
+import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import uk.gov.hmrc.decisionservice.models.BusinessOnOwnAccount
 import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.ruleSets.BusinessOnOwnAccountRules
-import uk.gov.hmrc.play.test.UnitSpec
 
-class BusinessOnOwnAccountRuleEngineSpec extends UnitSpec {
+class BusinessOnOwnAccountRuleEngineSpec extends WordSpecLike with Matchers {
 
   object TestBusinessOnOwnAccountRuleEngine extends BusinessOnOwnAccountRuleEngine
 

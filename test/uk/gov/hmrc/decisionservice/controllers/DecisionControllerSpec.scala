@@ -19,18 +19,21 @@ package uk.gov.hmrc.decisionservice.controllers
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
 import com.kenshoo.play.metrics.PlayModule
+import org.scalatest.{Matchers, WordSpecLike}
 import play.api.http.Status.{BAD_REQUEST, OK}
 import play.api.libs.json.Json.toJson
 import play.api.libs.json.{JsValue, Json}
+import play.api.mvc.Result
+import play.api.test.Helpers.{await, contentAsJson, defaultAwaitTimeout, status}
 import play.api.test.{FakeRequest, Helpers}
 import uk.gov.hmrc.decisionservice.models._
 import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, ResultEnum}
 import uk.gov.hmrc.decisionservice.services.mocks.MockDecisionService
 import uk.gov.hmrc.decisionservice.util.TestFixture
-import uk.gov.hmrc.play.test.{UnitSpec, WithFakeApplication}
 
-class DecisionControllerSpec extends UnitSpec with WithFakeApplication with TestFixture with MockDecisionService {
-  override def bindModules = Seq(new PlayModule)
+import scala.concurrent.Future
+
+class DecisionControllerSpec extends TestFixture with MockDecisionService with WordSpecLike with Matchers {
   implicit val system = ActorSystem()
   implicit val materializer = ActorMaterializer()
 
@@ -57,10 +60,10 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
 
       val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(toJson(decisionRequest))
 
-      val response = await(testDecisionController.decide()(fakeRequest))
+      val response: Future[Result] = testDecisionController.decide()(fakeRequest)
 
       status(response) shouldBe OK
-      jsonBodyOf(response) shouldBe Json.obj(
+      contentAsJson(response) shouldBe Json.obj(
         "version" -> DecisionServiceVersion.v1_5_0,
         "correlationID" -> "",
         "score" -> Json.obj(),
@@ -73,10 +76,10 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
 
       val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(Json.parse("{}"))
 
-      val response = await(testDecisionController.decide()(fakeRequest))
+      val response: Future[Result] = testDecisionController.decide()(fakeRequest)
 
       status(response) shouldBe BAD_REQUEST
-      jsonBodyOf(response) shouldBe Json.parse(
+      contentAsJson(response) shouldBe Json.parse(
         """{"code":400,"message":"{\"obj.version\":[{\"msg\":[\"error.path.missing\"],\"args\":[]}],\"obj.interview\":[{\"msg\":[\"error.path.missing\"],\"args\":[]}],\"obj.correlationID\":[{\"msg\":[\"error.path.missing\"],\"args\":[]}]}","details":"{\"incorrectRequest\":List((/interview,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/version,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/correlationID,List(JsonValidationError(List(error.path.missing),WrappedArray()))))}"}"""
       )
     }
@@ -85,10 +88,10 @@ class DecisionControllerSpec extends UnitSpec with WithFakeApplication with Test
 
       val fakeRequest = FakeRequest(Helpers.POST, "/decide").withBody(toJson("{}"))
 
-      val response = await(testDecisionController.decide()(fakeRequest))
+      val response: Future[Result] = testDecisionController.decide()(fakeRequest)
 
       status(response) shouldBe BAD_REQUEST
-      jsonBodyOf(response) shouldBe Json.parse(
+      contentAsJson(response) shouldBe Json.parse(
         """{"code":400,"message":"{\"obj\":[{\"msg\":[\"error.expected.jsobject\"],\"args\":[]}]}","details":"{\"incorrectRequest\":List((,List(JsonValidationError(List(error.expected.jsobject),WrappedArray()))))}"}"""
       )
     }

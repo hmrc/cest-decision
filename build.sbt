@@ -44,7 +44,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(
     addTestReportOption(IntegrationTest, "int-test-reports"),
     inConfig(IntegrationTest)(Defaults.itSettings),
-    scalaVersion := "2.12.11",
+    scalaVersion := "2.12.12",
     targetJvm := "jvm-1.8",
     libraryDependencies ++= appDependencies,
     parallelExecution in Test := false,

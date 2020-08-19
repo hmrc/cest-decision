@@ -16,12 +16,12 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets
 
+import org.scalatest.{Matchers, WordSpecLike}
 import play.api.libs.json.JsObject
 import uk.gov.hmrc.decisionservice.models.RuleSet
 import uk.gov.hmrc.decisionservice.util.TestFixture
-import uk.gov.hmrc.play.test.UnitSpec
 
-trait BaseRuleSpec extends UnitSpec with TestFixture {
+trait BaseRuleSpec extends TestFixture with WordSpecLike with Matchers {
 
   def getRules[E <: Enumeration](weighting: E#Value)(implicit ruleSet: Seq[RuleSet]) =
     ruleSet.filter(_.result == weighting.toString).map(_.rules).toList

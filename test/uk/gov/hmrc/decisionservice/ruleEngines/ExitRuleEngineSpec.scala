@@ -16,13 +16,13 @@
 
 package uk.gov.hmrc.decisionservice.ruleEngines
 
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import org.scalatest.{Matchers, WordSpecLike}
+import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import uk.gov.hmrc.decisionservice.models.Exit
 import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, ExitEnum}
 import uk.gov.hmrc.decisionservice.ruleSets.EarlyExitRules
-import uk.gov.hmrc.play.test.UnitSpec
 
-class ExitRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
+class ExitRuleEngineSpec extends WordSpecLike with Matchers {
 
   object TestExitRuleEngine extends ExitRuleEngine
 
