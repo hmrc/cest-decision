@@ -16,13 +16,13 @@
 
 package uk.gov.hmrc.decisionservice.ruleEngines
 
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import org.scalatest.{Matchers, WordSpecLike}
+import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import uk.gov.hmrc.decisionservice.models.FinancialRisk
 import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.ruleSets.FinancialRiskRules
-import uk.gov.hmrc.play.test.UnitSpec
 
-class FinancialRiskRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
+class FinancialRiskRuleEngineSpec extends WordSpecLike with Matchers {
 
   object TestFinancialRiskRuleEngine extends FinancialRiskRuleEngine
 

@@ -16,13 +16,13 @@
 
 package uk.gov.hmrc.decisionservice.ruleEngines
 
-import org.scalatestplus.play.guice.GuiceOneAppPerSuite
+import org.scalatest.{Matchers, WordSpecLike}
+import play.api.test.Helpers.{await, defaultAwaitTimeout}
 import uk.gov.hmrc.decisionservice.models.PersonalService
 import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.ruleSets.PersonalServiceRules
-import uk.gov.hmrc.play.test.UnitSpec
 
-class PersonalServiceRuleEngineSpec extends UnitSpec with GuiceOneAppPerSuite {
+class PersonalServiceRuleEngineSpec extends WordSpecLike with Matchers {
 
   object TestControlDecisionServiceRuleEngine extends PersonalServiceRuleEngine
 

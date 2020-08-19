@@ -16,6 +16,7 @@
 
 package uk.gov.hmrc.decisionservice.config.ruleSets.v1_5_0
 
+import org.scalatest.{Matchers, WordSpecLike}
 import org.scalatestplus.play.guice.GuiceOneAppPerSuite
 import play.api.libs.json.Json
 import uk.gov.hmrc.decisionservice.config.ruleSets.BaseRuleSpec
@@ -23,7 +24,7 @@ import uk.gov.hmrc.decisionservice.models.PartAndParcel._
 import uk.gov.hmrc.decisionservice.models.enums.{IdentifyToStakeholders, WeightedAnswerEnum}
 import uk.gov.hmrc.decisionservice.ruleSets.PartAndParcelRules_v150
 
-class PartParcelRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
+class PartParcelRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite with WordSpecLike with Matchers {
 
   implicit val ruleSet = PartAndParcelRules_v150.ruleSet
 
