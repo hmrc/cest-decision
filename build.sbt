@@ -42,6 +42,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(SbtAutoBuildPlugin.forceLicenceHeader := true)
   .configs(IntegrationTest)
   .settings(
+    Compile / scalacOptions += "-P:silencer:pathFilters=target/.*",
     addTestReportOption(IntegrationTest, "int-test-reports"),
     inConfig(IntegrationTest)(Defaults.itSettings),
     scalaVersion := "2.12.12",

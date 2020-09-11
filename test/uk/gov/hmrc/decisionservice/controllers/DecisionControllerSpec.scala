@@ -18,13 +18,12 @@ package uk.gov.hmrc.decisionservice.controllers
 
 import akka.actor.ActorSystem
 import akka.stream.ActorMaterializer
-import com.kenshoo.play.metrics.PlayModule
 import org.scalatest.{Matchers, WordSpecLike}
 import play.api.http.Status.{BAD_REQUEST, OK}
 import play.api.libs.json.Json.toJson
 import play.api.libs.json.{JsValue, Json}
 import play.api.mvc.Result
-import play.api.test.Helpers.{await, contentAsJson, defaultAwaitTimeout, status}
+import play.api.test.Helpers.{contentAsJson, defaultAwaitTimeout, status}
 import play.api.test.{FakeRequest, Helpers}
 import uk.gov.hmrc.decisionservice.models._
 import uk.gov.hmrc.decisionservice.models.enums.{DecisionServiceVersion, ResultEnum}

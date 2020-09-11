@@ -1,49 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-
-    <conversionRule conversionWord="coloredLevel" converterClass="play.api.libs.logback.ColoredLevel" />
-
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${application.home:-.}/logs/decision-service.log</file>
+        <file>logs/cest-decision.log</file>
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>%date{ISO8601} correlation=[%X{correlation}] level=[%level] logger=[%logger] thread=[%thread] message=[%message] %replace(exception=[%xException]){'^exception=\[\]$',''}%n</pattern>
+            <pattern>%date{ISO8601} level=[%level] logger=[%logger] thread=[%thread] message=[%message] %replace(exception=[%xException]){'^exception=\[\]$',''}%n</pattern>
         </encoder>
     </appender>
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-        <encoder>
-            <pattern>%coloredLevel %logger{15} - %message%n%xException{5}</pattern>
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%date{ISO8601} level=[%level] logger=[%logger] thread=[%thread] rid=[%X{X-Request-ID}] user=[%X{Authorization}] message=[%message] %replace(exception=[%xException]){'^exception=\[\]$',''}%n</pattern>
         </encoder>
     </appender>
 
-    <!--appender name="ACCESS_LOG_FILE" class="ch.qos.logback.core.FileAppender">
+    <appender name="STDOUT_IGNORE_NETTY" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%date{ISO8601} level=[%level] logger=[%logger] thread=[%thread] rid=[not-available] user=[not-available] message=[%message] %replace(exception=[%xException]){'^exception=\[\]$',''}%n</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="ACCESS_LOG_FILE" class="ch.qos.logback.core.FileAppender">
         <file>logs/access.log</file>
         <encoder>
             <pattern>%message%n</pattern>
         </encoder>
-    </appender-->
+    </appender>
 
-    <!--appender name="INPUT_OUTPUT_LOG_FILE" class="ch.qos.logback.core.FileAppender">
-        <file>logs/inputoutput.log</file>
+    <appender name="CONNECTOR_LOG_FILE" class="ch.qos.logback.core.FileAppender">
+        <file>logs/connector.log</file>
         <encoder>
-            <pattern>%date - %message%n</pattern>
+            <pattern>%message%n</pattern>
         </encoder>
-    </appender-->
+    </appender>
 
-    <!--logger name="inputoutputlog" level="INFO" additivity="false">
-        <appender-ref ref="INPUT_OUTPUT_LOG_FILE" />
-    </logger-->
 
-    <!--logger name="accesslog" level="INFO" additivity="false">
+    <logger name="accesslog" level="INFO" additivity="false">
         <appender-ref ref="ACCESS_LOG_FILE" />
-    </logger-->
+    </logger>
 
-    <logger name="play" level="DEBUG" />
-    <logger name="application" level="DEBUG" />
+    <logger name="com.ning.http.client.providers.netty" additivity="false">
+        <appender-ref ref="STDOUT_IGNORE_NETTY" />
+    </logger>
 
-    <root level="ERROR">
-        <appender-ref ref="STDOUT" />
-        <appender-ref ref="FILE" />
+    <logger name="com.google.inject" level="WARN"/>
+
+    <logger name="uk.gov" level="WARN"/>
+
+    <logger name="application" level="INFO"/>
+
+    <logger name="connector" level="WARN">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <logger name="com.codahale.metrics.graphite.GraphiteReporter" level="OFF" />
+    <logger name="org.asynchttpclient.netty" level="WARN" />
+    <logger name="play.core.netty.utils.ServerCookieDecoder" level="WARN" />
+    <logger name="io.netty.util.internal" level="WARN" />
+    <logger name="akka.stream" level="WARN" />
+
+    <root level="INFO">
+        <appender-ref ref="FILE"/>
+        <appender-ref ref="STDOUT"/>
     </root>
-
 </configuration>
