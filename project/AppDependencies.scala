@@ -1,10 +1,9 @@
 import sbt._
+import play.core.PlayVersion
+import play.sbt.PlayImport._
 
 object AppDependencies {
-  import play.core.PlayVersion
-  import play.sbt.PlayImport._
-
-
+  
   private val pegdownVersion = "1.6.0"
   private val scalaTestPlayPlusVersion = "4.0.3"
 
@@ -12,7 +11,9 @@ object AppDependencies {
     "uk.gov.hmrc" %% "http-caching-client" % "9.1.0-play-27",
     "uk.gov.hmrc" %% "bootstrap-backend-play-27" % "2.24.0",
     "com.typesafe.play" %% "play-json-joda" % "2.7.4",
-    ws
+    ws,
+    compilerPlugin("com.github.ghik" % "silencer-plugin" % "1.7.1" cross CrossVersion.full),
+    "com.github.ghik" % "silencer-lib" % "1.7.1" % Provided cross CrossVersion.full
   )
 
   trait TestDependencies {
@@ -48,4 +49,3 @@ object AppDependencies {
 
   def apply() = compile ++ Test() ++ IntegrationTest()
 }
-
