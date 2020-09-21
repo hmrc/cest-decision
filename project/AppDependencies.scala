@@ -9,7 +9,7 @@ object AppDependencies {
 
   val compile = Seq(
     "uk.gov.hmrc" %% "http-caching-client" % "9.1.0-play-27",
-    "uk.gov.hmrc" %% "bootstrap-backend-play-27" % "2.24.0",
+    "uk.gov.hmrc" %% "bootstrap-backend-play-27" % "2.25.0",
     "com.typesafe.play" %% "play-json-joda" % "2.7.4",
     ws,
     compilerPlugin("com.github.ghik" % "silencer-plugin" % "1.7.1" cross CrossVersion.full),
@@ -42,7 +42,7 @@ object AppDependencies {
         "org.pegdown" % "pegdown" % pegdownVersion % scope,
         "com.typesafe.play" %% "play-test" % PlayVersion.current % scope,
         "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlayPlusVersion % scope,
-        "com.github.tomakehurst" % "wiremock-standalone" % "2.26.3" % scope
+        "com.github.tomakehurst" % "wiremock-standalone" % "2.27.2" % scope
       )
     }.test
   }

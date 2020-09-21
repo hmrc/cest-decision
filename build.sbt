@@ -5,7 +5,7 @@ import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
 import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 import uk.gov.hmrc.versioning.SbtGitVersioning
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
-import uk.gov.hmrc.{SbtArtifactory, SbtAutoBuildPlugin}
+import uk.gov.hmrc.SbtAutoBuildPlugin
 
 val appName = "cest-decision"
 
@@ -15,8 +15,7 @@ lazy val plugins : Seq[Plugins] = Seq(
   play.sbt.PlayScala,
   SbtAutoBuildPlugin,
   SbtGitVersioning,
-  SbtDistributablesPlugin,
-  SbtArtifactory)
+  SbtDistributablesPlugin)
 
 lazy val playSettings : Seq[Setting[_]] = Seq.empty
 
