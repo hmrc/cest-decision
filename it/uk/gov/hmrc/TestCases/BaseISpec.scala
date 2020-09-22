@@ -1,8 +1,8 @@
 package uk.gov.hmrc.TestCases
 
 import play.api.http.Status
+import play.api.libs.json.JsValue
 import play.api.libs.json.Json.obj
-import play.api.libs.json.{JsObject, JsString, JsValue, Json}
 import uk.gov.hmrc.decisionservice.models._
 import uk.gov.hmrc.decisionservice.models.enums._
 import uk.gov.hmrc.helpers.{CreateRequestHelper, IntegrationSpecBase}
