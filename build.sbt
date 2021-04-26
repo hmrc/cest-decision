@@ -57,11 +57,8 @@ lazy val microservice = Project(appName, file("."))
 )
 
   .settings(
-    resolvers := Seq(
-      Resolver.bintrayRepo("hmrc", "releases"),
-      Resolver.typesafeRepo("releases"),
-      Resolver.jcenterRepo
-    )
+      resolvers += Resolver.typesafeRepo("releases"),
+      resolvers += Resolver.jcenterRepo
   )
   .enablePlugins(SbtDistributablesPlugin, SbtAutoBuildPlugin, SbtGitVersioning)
   .disablePlugins(JUnitXmlReportPlugin)
