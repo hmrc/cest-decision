@@ -31,3 +31,4 @@ object WeightedAnswerEnum extends Enumeration with EnumFormats {
   implicit val format: Format[WeightedAnswerEnum.Value] = enumFormat(WeightedAnswerEnum)
 }
 
+

@@ -17,6 +17,7 @@
 package uk.gov.hmrc.decisionservice.models.enums
 
 import play.api.libs.json._
+import scala.language.implicitConversions
 
 trait EnumFormats {
   def enumRead[E <: Enumeration](enum: E): Reads[E#Value] = new Reads[E#Value] {

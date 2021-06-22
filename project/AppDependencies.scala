@@ -8,8 +8,8 @@ object AppDependencies {
   private val scalaTestPlayPlusVersion = "4.0.3"
 
   val compile = Seq(
-    "uk.gov.hmrc" %% "http-caching-client" % "9.1.0-play-27",
-    "uk.gov.hmrc" %% "bootstrap-backend-play-27" % "2.25.0",
+    "uk.gov.hmrc" %% "http-caching-client" % "9.5.0-play-27",
+    "uk.gov.hmrc" %% "bootstrap-backend-play-27" % "5.2.0",
     "com.typesafe.play" %% "play-json-joda" % "2.7.4",
     ws,
     compilerPlugin("com.github.ghik" % "silencer-plugin" % "1.7.1" cross CrossVersion.full),
@@ -26,7 +26,7 @@ object AppDependencies {
       override lazy val test = Seq(
         "org.pegdown" % "pegdown" % pegdownVersion % scope,
         "com.typesafe.play" %% "play-test" % PlayVersion.current % scope,
-        "org.mockito" % "mockito-core" % "3.3.3" % scope,
+        "org.mockito" % "mockito-core" % "3.11.0" % scope,
         "org.scalatestplus.play" %% "scalatestplus-play" % scalaTestPlayPlusVersion % scope,
         "org.scalamock" %% "scalamock-scalatest-support" % "3.6.0" % scope
       )

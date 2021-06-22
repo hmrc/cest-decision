@@ -19,3 +19,4 @@ dist
 *.iws
 **/output.json
 /docs/~*
+.bsp

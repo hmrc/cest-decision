@@ -23,6 +23,7 @@ import uk.gov.hmrc.decisionservice.models.enums.Section._
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum
 import uk.gov.hmrc.decisionservice.models.enums.WeightedAnswerEnum._
 import uk.gov.hmrc.decisionservice.ruleSets.MatrixOfMatricesRules_v24
+import scala.language.implicitConversions
 
 class MatrixOfMatricesRulesSpec extends BaseRuleSpec with GuiceOneAppPerSuite {
 

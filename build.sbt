@@ -1,11 +1,9 @@
 import sbt.Keys._
 import sbt._
 import uk.gov.hmrc.DefaultBuildSettings._
-import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin
-import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
-import uk.gov.hmrc.versioning.SbtGitVersioning
-import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 import uk.gov.hmrc.SbtAutoBuildPlugin
+import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
+import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 val appName = "cest-decision"
 
@@ -13,8 +11,6 @@ val appDependencies: Seq[ModuleID] = AppDependencies()
 
 lazy val plugins : Seq[Plugins] = Seq(
   play.sbt.PlayScala,
-  SbtAutoBuildPlugin,
-  SbtGitVersioning,
   SbtDistributablesPlugin)
 
 lazy val playSettings : Seq[Setting[_]] = Seq.empty
@@ -41,6 +37,7 @@ lazy val microservice = Project(appName, file("."))
   .settings(SbtAutoBuildPlugin.forceLicenceHeader := true)
   .configs(IntegrationTest)
   .settings(
+    scalacOptions ++= Seq("-feature"),
     Compile / scalacOptions += "-P:silencer:pathFilters=target/.*",
     addTestReportOption(IntegrationTest, "int-test-reports"),
     inConfig(IntegrationTest)(Defaults.itSettings),
@@ -60,5 +57,4 @@ lazy val microservice = Project(appName, file("."))
       resolvers += Resolver.typesafeRepo("releases"),
       resolvers += Resolver.jcenterRepo
   )
-  .enablePlugins(SbtDistributablesPlugin, SbtAutoBuildPlugin, SbtGitVersioning)
   .disablePlugins(JUnitXmlReportPlugin)
