@@ -2,7 +2,6 @@ import sbt.Keys._
 import sbt._
 import uk.gov.hmrc.DefaultBuildSettings._
 import uk.gov.hmrc.SbtAutoBuildPlugin
-import uk.gov.hmrc.sbtdistributables.SbtDistributablesPlugin._
 import uk.gov.hmrc.versioning.SbtGitVersioning.autoImport.majorVersion
 
 val appName = "cest-decision"
@@ -23,7 +22,7 @@ lazy val scoverageSettings = {
     ScoverageKeys.coverageMinimumStmtTotal := 80,
     ScoverageKeys.coverageFailOnMinimum := false,
     ScoverageKeys.coverageHighlighting := true,
-    parallelExecution in Test := false
+    Test / parallelExecution := false
   )
 }
 
@@ -32,7 +31,6 @@ lazy val microservice = Project(appName, file("."))
   .settings(playSettings ++ scoverageSettings : _*)
   .settings(majorVersion := 1)
   .settings(scalaSettings: _*)
-  .settings(publishingSettings: _*)
   .settings(defaultSettings(): _*)
   .settings(SbtAutoBuildPlugin.forceLicenceHeader := true)
   .configs(IntegrationTest)
@@ -44,13 +42,13 @@ lazy val microservice = Project(appName, file("."))
     scalaVersion := "2.12.12",
     targetJvm := "jvm-1.8",
     libraryDependencies ++= appDependencies,
-    parallelExecution in Test := false,
-    fork in Test := true,
+    Test / parallelExecution := false,
+    Test / fork := true,
     retrieveManaged := true,
     routesGenerator := InjectedRoutesGenerator,
-    Keys.fork in IntegrationTest :=  false,
-    unmanagedSourceDirectories in IntegrationTest :=  (baseDirectory in IntegrationTest)(base => Seq(base / "it")).value,
-    parallelExecution in IntegrationTest := false
+    IntegrationTest / Keys.fork :=  false,
+    IntegrationTest / unmanagedSourceDirectories := (IntegrationTest / baseDirectory)(base => Seq(base / "it")).value,
+    IntegrationTest / parallelExecution := false
 )
 
   .settings(
