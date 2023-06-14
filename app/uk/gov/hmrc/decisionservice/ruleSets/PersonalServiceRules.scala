@@ -32,7 +32,7 @@ object PersonalServiceRules_v24 extends PersonalServiceRules {
 }
 
 object PersonalServiceRules {
-  def apply(version: DecisionServiceVersion.Value): PersonalServiceRules = version match {
+  def apply(version: DecisionServiceVersion.Value): PersonalServiceRules = (version: @unchecked) match {
     case DecisionServiceVersion.`v1_5_0` => PersonalServiceRules_v150
     case DecisionServiceVersion.`v2_4` => PersonalServiceRules_v24
   }

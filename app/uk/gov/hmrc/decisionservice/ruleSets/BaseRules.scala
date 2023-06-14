@@ -31,7 +31,7 @@ trait BaseRules {
     lazy val csv = getClass.getResourceAsStream(s"/tables/$version/$section.csv")
     lazy val file = Source.fromInputStream(csv)
 
-    lazy val csvRules: List[String] = file.getLines.toList
+    lazy val csvRules: List[String] = file.getLines().toList
     lazy val headers: List[String] = csvRules.head.split(",").toList
 
     val resultSet = csvRules.tail.map { row =>

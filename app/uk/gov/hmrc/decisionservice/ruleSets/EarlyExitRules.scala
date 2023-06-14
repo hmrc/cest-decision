@@ -32,7 +32,7 @@ object EarlyExitRules_v24 extends EarlyExitRules {
 }
 
 object EarlyExitRules {
-  def apply(version: DecisionServiceVersion.Value): EarlyExitRules = version match {
+  def apply(version: DecisionServiceVersion.Value): EarlyExitRules = (version: @unchecked) match {
     case DecisionServiceVersion.`v1_5_0` => EarlyExitRules_v150
     case DecisionServiceVersion.`v2_4` => EarlyExitRules_v24
   }
