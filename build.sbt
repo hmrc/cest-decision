@@ -36,10 +36,11 @@ lazy val microservice = Project(appName, file("."))
   .configs(IntegrationTest)
   .settings(
     scalacOptions ++= Seq("-feature"),
-    Compile / scalacOptions += "-P:silencer:pathFilters=target/.*",
     addTestReportOption(IntegrationTest, "int-test-reports"),
     inConfig(IntegrationTest)(Defaults.itSettings),
-    scalaVersion := "2.12.12",
+    scalaVersion := "2.13.8",
+    scalacOptions += "-Wconf:src=routes/.*:s",
+    scalacOptions += "-Wconf:cat=unused-imports&src=html/.*:s",
     targetJvm := "jvm-1.8",
     libraryDependencies ++= appDependencies,
     Test / parallelExecution := false,
