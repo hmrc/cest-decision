@@ -78,7 +78,7 @@ class DecisionControllerSpec extends TestFixture with MockDecisionService with A
       status(response) shouldBe BAD_REQUEST
 
       contentAsJson(response) shouldBe Json.parse(
-        """{"code":400,"message":"{\"obj.interview\":[{\"msg\":[\"error.path.missing\"],\"args\":[]}],\"obj.version\":[{\"msg\":[\"error.path.missing\"],\"args\":[]}],\"obj.correlationID\":[{\"msg\":[\"error.path.missing\"],\"args\":[]}]}","details":"{\"incorrectRequest\":List((/interview,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/version,List(JsonValidationError(List(error.path.missing),WrappedArray()))), (/correlationID,List(JsonValidationError(List(error.path.missing),WrappedArray()))))}"}"""
+        """{"code":400,"message":"{\"obj.interview\":[{\"msg\":[\"error.path.missing\"],\"args\":[]}],\"obj.correlationID\":[{\"msg\":[\"error.path.missing\"],\"args\":[]}],\"obj.version\":[{\"msg\":[\"error.path.missing\"],\"args\":[]}]}","details":"{\"incorrectRequest\":List((/interview,List(JsonValidationError(List(error.path.missing),List()))), (/correlationID,List(JsonValidationError(List(error.path.missing),List()))), (/version,List(JsonValidationError(List(error.path.missing),List()))))}"}"""
       )
     }
 
@@ -90,7 +90,7 @@ class DecisionControllerSpec extends TestFixture with MockDecisionService with A
 
       status(response) shouldBe BAD_REQUEST
       contentAsJson(response) shouldBe Json.parse(
-        """{"code":400,"message":"{\"obj\":[{\"msg\":[\"error.expected.jsobject\"],\"args\":[]}]}","details":"{\"incorrectRequest\":List((,List(JsonValidationError(List(error.expected.jsobject),WrappedArray()))))}"}"""
+        """{"code":400,"message":"{\"obj\":[{\"msg\":[\"error.expected.jsobject\"],\"args\":[]}]}","details":"{\"incorrectRequest\":List((,List(JsonValidationError(List(error.expected.jsobject),List()))))}"}"""
       )
     }
   }
