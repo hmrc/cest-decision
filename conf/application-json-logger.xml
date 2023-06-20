@@ -9,7 +9,7 @@
     <logger name="application" level="INFO"/>
 
 
-    <root level="${logger.root:-INFO}">
+    <root level="INFO">
         <appender-ref ref="STDOUT"/>
     </root>
 
