@@ -1,16 +1,13 @@
 import sbt._
-import play.core.PlayVersion._
 import play.sbt.PlayImport._
 
 object AppDependencies {
   
   val compile = Seq(
-    "uk.gov.hmrc"       %% "http-caching-client"       % "9.6.0-play-28",
-    "uk.gov.hmrc"       %% "bootstrap-backend-play-28" % "5.25.0",
+    "uk.gov.hmrc"       %% "http-caching-client"       % "10.0.0-play-28",
+    "uk.gov.hmrc"       %% "bootstrap-backend-play-28" % "7.16.0",
     "com.typesafe.play" %% "play-json-joda"            % "2.9.4",
-    ws,
-    compilerPlugin("com.github.ghik" % "silencer-plugin" % "1.7.1" cross CrossVersion.full),
-    "com.github.ghik" % "silencer-lib" % "1.7.1" % Provided cross CrossVersion.full
+    ws
   )
 
   trait TestDependencies {
@@ -21,10 +18,10 @@ object AppDependencies {
   object Test {
     def apply() = new TestDependencies {
       override lazy val test = Seq(
-      "uk.gov.hmrc"            %% "bootstrap-test-play-28"      % "5.25.0"                 % scope,
-      "org.mockito"            %  "mockito-core"                % "4.11.0"                  % scope,
+      "uk.gov.hmrc"            %% "bootstrap-test-play-28"      % "7.16.0"                 % scope,
+      "org.mockito"            %  "mockito-core"                % "5.3.1"                  % scope,
       "org.mockito"            %% "mockito-scala-scalatest"     % "1.17.14"                % scope,
-      "org.scalamock"          %% "scalamock-scalatest-support" % "3.6.0"                  % scope
+      "org.scalamock"          %% "scalamock"                   % "5.2.0"                  % scope
       )
     }.test
   }
@@ -35,7 +32,7 @@ object AppDependencies {
       override lazy val scope: String = "it"
 
       override lazy val test = Seq(
-      "uk.gov.hmrc"            %% "bootstrap-test-play-28" % "5.25.0"                 % scope,
+      "uk.gov.hmrc"            %% "bootstrap-test-play-28" % "7.16.0"                 % scope,
       "com.github.tomakehurst" %  "wiremock-standalone"    % "2.27.2"                 % scope
       )
     }.test

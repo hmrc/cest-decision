@@ -32,7 +32,7 @@ object MatrixOfMatricesRules_v24 extends MatrixOfMatricesRules {
 }
 
 object MatrixOfMatricesRules {
-  def apply(version: DecisionServiceVersion.Value): MatrixOfMatricesRules = version match {
+  def apply(version: DecisionServiceVersion.Value): MatrixOfMatricesRules = (version: @unchecked) match {
     case DecisionServiceVersion.`v1_5_0` => MatrixOfMatricesRules_v150
     case DecisionServiceVersion.`v2_4` => MatrixOfMatricesRules_v24
   }

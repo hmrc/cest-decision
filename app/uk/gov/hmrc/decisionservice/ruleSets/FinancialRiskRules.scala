@@ -32,7 +32,7 @@ object FinancialRiskRules_v24 extends FinancialRiskRules {
 }
 
 object FinancialRiskRules {
-  def apply(version: DecisionServiceVersion.Value): FinancialRiskRules = version match {
+  def apply(version: DecisionServiceVersion.Value): FinancialRiskRules = (version: @unchecked) match {
     case DecisionServiceVersion.`v1_5_0` => FinancialRiskRules_v150
     case DecisionServiceVersion.`v2_4` => FinancialRiskRules_v24
   }

@@ -32,7 +32,7 @@ object PartAndParcelRules_v24 extends PartAndParcelRules {
 }
 
 object PartAndParcelRules {
-  def apply(version: DecisionServiceVersion.Value): PartAndParcelRules = version match {
+  def apply(version: DecisionServiceVersion.Value): PartAndParcelRules = (version: @unchecked) match {
     case DecisionServiceVersion.`v1_5_0` => PartAndParcelRules_v150
     case DecisionServiceVersion.`v2_4` => PartAndParcelRules_v24
   }

@@ -32,7 +32,7 @@ object ControlRules_v24 extends ControlRules {
 }
 
 object ControlRules {
-  def apply(version: DecisionServiceVersion.Value): ControlRules = version match {
+  def apply(version: DecisionServiceVersion.Value): ControlRules = (version: @unchecked) match {
     case DecisionServiceVersion.`v1_5_0` => ControlRules_v150
     case DecisionServiceVersion.`v2_4` => ControlRules_v24
   }
