@@ -1,0 +1,13 @@
+{
+  "version": "1.4.0-final",
+  "correlationID": "12345",
+  "score": {
+    "setup": "CONTINUE",
+    "exit": "CONTINUE",
+    "personalService": "HIGH",
+    "control": "LOW",
+    "financialRisk": "LOW",
+    "partAndParcel": "LOW"
+  },
+  "result": "Unknown"
+}

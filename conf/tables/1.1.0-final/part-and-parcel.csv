@@ -1,0 +1,15 @@
+workerReceivesBenefits,workerAsLineManager,contactWithEngagerCustomer,workerRepresentsEngagerBusiness,,,
+
+No,Yes,,,High,FALSE,
+
+Yes,,,,High,FALSE,
+
+No,No,Yes,workAsIndependent,Low,FALSE,
+
+No,No,Yes,workForEndClient,Medium,FALSE,
+
+No,No,No,,Low,FALSE,
+
+No,No,Yes,workAsIndependent,Low,FALSE,
+
+No,No,Yes,workAsBusiness,Medium,FALSE,

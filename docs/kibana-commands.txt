@@ -1,0 +1,70 @@
+// loading data:
+
+curl -XPOST 'localhost:9200/decision/_bulk?pretty' --data-binary @access.log
+
+// delete index
+
+curl -XDELETE http://localhost:9200/decision
+
+// copy log
+
+cp ~/hmrc/off-payroll-decision-service/logs/access.log .
+
+// display indices
+
+curl 'localhost:9200/_cat/indices?v'
+
+// display mapping
+
+curl 'localhost:9200/decision/_mapping'
+curl 'localhost:9200/decision/_mapping/_default_'
+
+// analyse field
+
+curl -XGET 'localhost:9200/decision/_analyze?pretty' -d'
+{
+  "field": "control",
+  "text": "HIGH"
+}'
+
+//
+// procedure to add or remove fields for elasticsearch/kibana
+//
+
+// prerequisites:
+
+* elasticsearch and kibana servers are running, e.g., by issuing the following commands:
+~/Downloads/elasticsearch-5.1.1/bin/elasticsearch
+~/Downloads/kibana-5.1.1-darwin-x86_64/bin/kibana
+(make sure that ~/Downloads/kibana-5.1.1-darwin-x86_64/config/kibana.yml
+contains the following line:
+elasticsearch.url: "http://localhost:9200"
+)
+
+
+* edit code which results in field changes in the log
+* produce a new log
+* delete index:
+  curl -XDELETE http://localhost:9200/decision
+* edit elasticsearch mapping command, as in kibana-mapping.txt
+* create new index:
+  curl -XPUT http://localhost:9200/decision -d ' // take the rest from kibana-mapping.txt
+* load data (assuming access.log is in the current folder):
+  curl -XPOST 'localhost:9200/decision/_bulk?pretty' --data-binary @access.log
+* go to kibana website at localhost:5601
+* choose tab 'management', then click 'index patters', pick relevant index (e.g. 'dec*') and click 'Refresh field list' button
+* now you can use updated field in 'discover' and 'visualize' tabs of kibana
+
+
+//
+// procedure to refresh data displayed by kibana
+//
+
+* issue a command:
+  curl -XPOST 'localhost:9200/decision/_bulk?pretty' --data-binary @access.log
+* refresh kibana view in browser
+
+Note - _id fields in index need to be unique, otherwise out of 2 or more records with
+the same _id, only one will be picked up
+
+

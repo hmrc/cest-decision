@@ -1,0 +1,34 @@
+{
+  "version": "1.1.1-final",
+  "correlationID": "12345",
+  "interview": {
+    "personalService": {
+      "workerSentActualSubstitute": "yesClientAgreed",
+      "workerPayActualSubstitute": "No",
+      "possibleSubstituteRejection": "Yes",
+      "possibleSubstituteWorkerPay": "Yes",
+      "wouldWorkerPayHelper": "Yes"
+    },
+    "control": {
+      "engagerMovingWorker": "canMoveWorkerWithPermission",
+      "workerDecidingHowWorkIsDone": "workerAgreeWithOthers",
+      "whenWorkHasToBeDone": "workerAgreeSchedule",
+      "workerDecideWhere": "workerChooses"
+    },
+    "financialRisk": {
+      "workerProvidedMaterials": "No",
+      "workerProvidedEquipment": "No",
+      "workerUsedVehicle": "No",
+      "workerHadOtherExpenses": "No",
+      "expensesAreNotRelevantForRole": "No",
+      "workerMainIncome": "incomeCalendarPeriods",
+      "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
+    },
+    "partAndParcel": {
+      "workerReceivesBenefits": "Yes",
+      "workerAsLineManager": "Yes",
+      "contactWithEngagerCustomer": "No",
+      "workerRepresentsEngagerBusiness": "workAsIndependent"
+    }
+  }
+}

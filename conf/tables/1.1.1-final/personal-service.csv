@@ -1,0 +1,14 @@
+workerSentActualSubstitute,workerPayActualSubstitute,possibleSubstituteRejection,possibleSubstituteWorkerPay,wouldWorkerPayHelper
+yesClientAgreed           ,YES                      ,                           ,                           ,                     ,OutOfIR35    ,TRUE
+noSubstitutionHappened    ,                         ,YES                        ,YES                        ,                     ,OutOfIR35    ,TRUE
+yesClientAgreed           ,NO                       ,                           ,                           ,YES                  ,Medium       ,FALSE
+yesClientAgreed           ,NO                       ,                           ,                           ,NO                   ,High         ,FALSE
+noSubstitutionHappened    ,                         ,YES                        ,NO                         ,YES                  ,OutOfIR35    ,TRUE
+noSubstitutionHappened    ,                         ,YES                        ,NO                         ,NO                   ,Medium       ,FALSE
+noSubstitutionHappened    ,                         ,NO                         ,                           ,YES                  ,Medium       ,FALSE
+noSubstitutionHappened    ,                         ,NO                         ,                           ,NO                   ,High         ,FALSE
+notAgreedWithClient       ,                         ,                           ,                           ,YES                  ,Medium       ,FALSE
+notAgreedWithClient       ,                         ,                           ,                           ,NO                   ,High         ,FALSE
+                          ,                         ,YES                        ,YES                        ,                     ,OutOfIR35    ,TRUE
+                          ,                         ,YES                        ,NO                         ,                     ,Medium       ,FALSE
+                          ,                         ,NO                         ,                           ,                     ,High         ,FALSE

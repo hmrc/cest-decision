@@ -1,0 +1,172 @@
+{
+  "publicId": "https://raw.githubusercontent.com/hmrc/off-payroll-decision/master/test/resources/schema/off-payroll-request-schema.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Decision Request Version 1.1.1-final",
+  "definitions": {
+    "binaryAnswer": {
+      "type": "string",
+      "enum": [
+        "Yes",
+        "No"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]{1,2}[.][0-9]{1,2}[.][0-9]{1,2}-?[a-zA-Z-_]*$"
+    },
+    "correlationID": {
+      "type": "string"
+    },
+    "interview": {
+      "type": "object",
+      "properties": {
+        "personalService": {
+          "type": "object",
+          "properties": {
+            "workerSentActualSubstitute": {
+              "type": "string",
+              "enum": [
+                "yesClientAgreed",
+                "notAgreedWithClient",
+                "noSubstitutionHappened"
+              ]
+            },
+            "workerPayActualSubstitute": {
+              "$ref": "#/definitions/binaryAnswer"
+            },
+            "possibleSubstituteRejection": {
+              "$ref": "#/definitions/binaryAnswer"
+            },
+            "possibleSubstituteWorkerPay": {
+              "$ref": "#/definitions/binaryAnswer"
+            },
+            "wouldWorkerPayHelper": {
+              "$ref": "#/definitions/binaryAnswer"
+            }
+          },
+          "minProperties": 0,
+          "additionalProperties": false
+        },
+        "control": {
+          "type": "object",
+          "properties": {
+            "engagerMovingWorker": {
+              "type": "string",
+              "enum": [
+                "canMoveWorkerWithPermission",
+                "canMoveWorkerWithoutPermission",
+                "cannotMoveWorkerWithoutNewAgreement"
+              ]
+            },
+            "workerDecidingHowWorkIsDone": {
+              "type": "string",
+              "enum": [
+                "workerDecidesWithoutInput",
+                "workerAgreeWithOthers",
+                "noWorkerInputAllowed",
+                "workerFollowStrictEmployeeProcedures"
+              ]
+            },
+            "whenWorkHasToBeDone": {
+              "type": "string",
+              "enum": [
+                "workerDecideSchedule",
+                "workerAgreeSchedule",
+                "scheduleDecidedForWorker",
+                "noScheduleRequiredOnlyDeadlines"
+              ]
+            },
+            "workerDecideWhere": {
+              "type": "string",
+              "enum": [
+                "workerChooses",
+                "workerCannotChoose",
+                "workerAgreeWithOthers",
+                "noLocationRequired"
+              ]
+            }
+          },
+          "minProperties": 0,
+          "additionalProperties": false
+        },
+        "financialRisk": {
+          "type": "object",
+          "properties": {
+            "workerProvidedMaterials": {
+              "$ref": "#/definitions/binaryAnswer"
+            },
+            "workerProvidedEquipment": {
+              "$ref": "#/definitions/binaryAnswer"
+            },
+            "workerUsedVehicle": {
+              "$ref": "#/definitions/binaryAnswer"
+            },
+            "workerHadOtherExpenses": {
+              "$ref": "#/definitions/binaryAnswer"
+            },
+            "expensesAreNotRelevantForRole": {
+              "$ref": "#/definitions/binaryAnswer"
+            },
+            "workerMainIncome": {
+              "type": "string",
+              "enum": [
+                "incomeCalendarPeriods",
+                "incomeFixed",
+                "incomePieceRate",
+                "incomeCommission",
+                "incomeProfitOrLosses"
+              ]
+            },
+            "paidForSubstandardWork": {
+              "type": "string",
+              "enum": [
+                "asPartOfUsualRateInWorkingHours",
+                "outsideOfUsualRateAndHours",
+                "outsideOfHoursNoCharge",
+                "noObligationToCorrect",
+                "cannotBeCorrected"
+              ]
+            }
+          },
+          "minProperties": 0,
+          "additionalProperties": false
+        },
+        "partAndParcel": {
+          "type": "object",
+          "properties": {
+            "workerReceivesBenefits": {
+              "$ref": "#/definitions/binaryAnswer"
+            },
+            "workerAsLineManager": {
+              "$ref": "#/definitions/binaryAnswer"
+            },
+            "contactWithEngagerCustomer": {
+              "$ref": "#/definitions/binaryAnswer"
+            },
+            "workerRepresentsEngagerBusiness": {
+              "type": "string",
+              "enum": [
+                "workForEndClient",
+                "workAsIndependent",
+                "workAsBusiness"
+              ]
+            }
+          },
+          "minProperties": 0,
+          "additionalProperties": false
+        }
+      },
+      "minProperties": 0,
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "version",
+    "correlationID",
+    "interview"
+  ],
+  "additionalProperties": false
+}

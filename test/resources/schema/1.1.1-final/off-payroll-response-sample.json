@@ -1,0 +1,11 @@
+{
+  "version": "1.1.1-final",
+  "correlationID": "12345",
+  "score": {
+    "personalService": "HIGH",
+    "control": "LOW",
+    "financialRisk": "LOW",
+    "partAndParcel": "LOW"
+  },
+  "result": "Unknown"
+}

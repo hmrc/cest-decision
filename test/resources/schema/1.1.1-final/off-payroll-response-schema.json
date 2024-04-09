@@ -1,0 +1,65 @@
+{
+  "publicId": "https://raw.githubusercontent.com/hmrc/off-payroll-decision/feature/offpay-233/test/resources/schema/off-payroll-response-schema.json",
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "description": "Decision Response Version 1.1.1-final",
+  "definitions": {
+    "weightedAnswer": {
+      "type": "string",
+      "enum": [
+        "HIGH",
+        "MEDIUM",
+        "LOW",
+        "NotValidUseCase",
+        "OUTOFIR35",
+        "INIR35"
+      ]
+    }
+  },
+  "type": "object",
+  "properties": {
+    "version": {
+      "type": "string",
+      "pattern": "^[0-9]{1,2}[.][0-9]{1,2}[.][0-9]{1,2}-?[a-zA-Z-_]*$"
+    },
+    "correlationID": {
+      "type": "string"
+    },
+    "result": {
+      "type": "string",
+      "enum": [
+        "Outside IR35",
+        "Self-Employed",
+        "Inside IR35",
+        "Employed",
+        "Unknown",
+        "Not Matched"
+      ]
+    },
+    "score": {
+      "type": "object",
+      "properties": {
+        "personalService": {
+          "$ref": "#/definitions/weightedAnswer"
+        },
+        "control": {
+          "$ref": "#/definitions/weightedAnswer"
+        },
+        "financialRisk": {
+          "$ref": "#/definitions/weightedAnswer"
+        },
+        "partAndParcel": {
+          "$ref": "#/definitions/weightedAnswer"
+        }
+      },
+      "minProperties": 0,
+      "additionalProperties": false
+    }
+  },
+  "required": [
+    "version",
+    "correlationID",
+    "score"
+  ],
+  "minProperties": 0,
+  "additionalProperties": false
+}
