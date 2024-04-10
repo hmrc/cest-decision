@@ -1,0 +1,4 @@
+# microservice specific routes
+
+POST       /decide                  uk.gov.hmrc.decisionservice.controllers.DecisionController.decide
+

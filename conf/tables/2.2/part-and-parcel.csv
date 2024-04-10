@@ -1,0 +1,7 @@
+workerReceivesBenefits,workerAsLineManager,contactWithEngagerCustomer,workerRepresentsEngagerBusiness,result
+false,true,,,HIGH
+true,,,,HIGH
+,,,workAsIndependent,LOW
+,,true,workForEndClient,MEDIUM
+,,false,,LOW
+,,true,workAsBusiness,MEDIUM

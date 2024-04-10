@@ -1,0 +1,49 @@
+{
+  "version": "2.1",
+  "correlationID": "12345",
+  "interview": {
+    "setup": {
+      "endUserRole": "personDoingWork",
+      "hasContractStarted": "No",
+      "provideServices": "soleTrader"
+    },
+    "exit": {
+      "officeHolder": "No"
+    },
+    "personalService": {
+      "workerSentActualSubstitute": "yesClientAgreed",
+      "workerPayActualSubstitute": "No",
+      "possibleSubstituteRejection": "wouldReject",
+      "possibleSubstituteWorkerPay": "Yes",
+      "wouldWorkerPayHelper": "Yes"
+    },
+    "control": {
+      "engagerMovingWorker": "canMoveWorkerWithPermission",
+      "workerDecidingHowWorkIsDone": "workerAgreeWithOthers",
+      "whenWorkHasToBeDone": "workerAgreeSchedule",
+      "workerDecideWhere": "workerChooses"
+    },
+    "financialRisk": {
+      "workerProvidedMaterials": "No",
+      "workerProvidedEquipment": "No",
+      "workerUsedVehicle": "No",
+      "workerHadOtherExpenses": "No",
+      "expensesAreNotRelevantForRole": "No",
+      "workerMainIncome": "incomeCalendarPeriods",
+      "paidForSubstandardWork": "asPartOfUsualRateInWorkingHours"
+    },
+    "partAndParcel": {
+      "workerReceivesBenefits": "Yes",
+      "workerAsLineManager": "Yes",
+      "contactWithEngagerCustomer": "No",
+      "workerRepresentsEngagerBusiness": "workAsIndependent"
+    },
+    "businessOnOwnAccount": {
+      "exclusiveContract": "unableToProvideServices",
+      "transferRights": "rightsTransferredToClient",
+      "multipleEngagements": "providedServicesToOtherEngagers",
+      "significantWorkingTime": "consumesSignificantAmount",
+      "seriesOfContracts": "contractIsPartOfASeries"
+    }
+  }
+}
